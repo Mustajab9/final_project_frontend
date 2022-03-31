@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { ComponentModule } from 'projects/core/src/app/component/components.module';
-
+import { ComponentModule } from '../../../core/src/app/component/components.module';
 import { AppComponent } from './app.component';
 import { AppAdminRouter } from './app.router';
 
