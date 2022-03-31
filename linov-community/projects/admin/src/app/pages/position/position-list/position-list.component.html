@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <form class="form-inline">
+                <div class="form-group mb-3">
+                    <button class="btn btn-primary" routerLink="/position/new" type="button">New Position</button>
+                    <!-- <app-button classBtn="btn-primary" (clickBtn)="create()" labelBtn="New Role"></app-button> -->
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Position Name</th>
+                        <th scope="col">Position Code</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Pegawai Negeri Sipil</td>
+                        <td>PO01</td>
+                        <td>
+                            <div class="text-center">
+                                <button type="button" routerLink="/position/1"
+                                    class="btn btn-warning mx-1">Edit</button>
+                                <!-- <app-button classBtn="bg-warning mx-1" (clickBtn)="update(role.id)" labelBtn="Update"></app-button> -->
+                                <a class="btn btn-xs btn-danger m-1" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal"><span class="glyphicon glyphicon-edit"></span>
+                                    Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<hr>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm to Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Just
+                    Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
