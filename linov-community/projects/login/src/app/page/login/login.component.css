@@ -1,0 +1,12 @@
+.container-login {
+    height: 100vh;
+}
+
+.button-color {
+    background-color: #21325E !important;
+    color: #F0F0F0 !important;
+}
+
+/* :host ::ng-deep .p-button-label{
+   flex: none;
+} */

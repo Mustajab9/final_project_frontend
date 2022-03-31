@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { ComponentModule } from 'projects/core/src/app/component/components.module';
 
 import { AppComponent } from './app.component';
-import { AppRouter } from './app.router';
+import { AppAdminRouter } from './app.router';
 
 @NgModule({
   declarations: [
@@ -11,11 +12,11 @@ import { AppRouter } from './app.router';
   ],
   imports: [
     BrowserModule,
-    AppRouter,
-    FormsModule,
-
+    ComponentModule,
+    AppAdminRouter,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppAdminModule { }

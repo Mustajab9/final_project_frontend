@@ -1,0 +1,73 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="d-flex flex-column align-items-center justify-content-center">
+                        <img src="../../../assets/image/profile.png" class="mb-3" style="height: 90px; width: 90px;">
+                        <h5>PROFILE NAME</h5>
+                        <p class="card-text opacity-50">Fullstack Engineer</p>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <form-button typeBtnPrimary="" idBtnPrimary="google"
+                            classBtnPrimary="p-button-rounded p-button-outlined me-2 mt-1" [requiredIconPrimary]="true"
+                            iconTypePrimary="pi-linkedin" typeBtnSecondary="" idBtnSecondary="facebook"
+                            classBtnSecondary="p-button-rounded p-button-outlined me-2" [requiredIconSecondary]="true"
+                            iconTypeSecondary="pi-facebook">
+                        </form-button>
+
+                        <app-button typeBtn="" idBtn="login" classBtn="p-button-rounded p-button-outlined mt-1"
+                            iconType="pi-twitter">
+                        </app-button>
+                    </div>
+
+                    <span><i class="fa-solid fa-user me-4 mt-4"></i>Personal Details</span>
+                    <hr>
+
+                    <div class="d-flex flex-column gap-2">
+                        <span><i class="fa-solid fa-envelope me-4"></i>name@mail.com</span>
+                        <span><i class="fa-solid fa-phone me-4"></i>0811-0000-9999</span>
+                        <span><i class="fa-solid fa-location-dot me-4"></i> Jakarta, Indonesia</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="card">
+                <div class="card-body">
+                    <p-tabView>
+                        <p-tabPanel header="THREAD">
+                            <div class="d-flex flex-row align-items-center">
+                                <img src="../../../assets/image/profile.png" class="mt-3 me-2" style="height: 35px; width: 35px;">
+                                <app-label nameLabel="Profile Name"></app-label>
+                            </div>
+                        </p-tabPanel>
+
+                        <p-tabPanel header="LIKES">
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                                architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+                                voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
+                                qui ratione
+                                voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
+                                modi.</p>
+                        </p-tabPanel>
+
+                        <p-tabPanel header="BOOKMARK">
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                                voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
+                                occaecati
+                                cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia
+                                animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
+                                distinctio.
+                                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo
+                                minus.</p>
+                        </p-tabPanel>
+                    </p-tabView>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
