@@ -6,7 +6,7 @@ import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/co
                             [requiredLabel]="requiredLabel">
                 </app-label>
                 <app-input  [typeInput]="typeInput" [idInput]="forLabel" [classInput]="classInput"
-                            [maxInput]="maxInput" [minInput]="minInput" [requiredInput]="requiredLabel"
+                            [maxInput]="maxInput" [minInput]="minInput" [requiredInput]="requiredLabel" [disabledInput]="disabledInput"
                             [placeholderInput]="placeholderInput" [ngModelInput]="ngModelInput" [valueInput]="valueInput"
                             (ngModelInputChange)="dataChange($event)" (inputChange)="changeInput($event)">
                 </app-input>`
@@ -44,6 +44,9 @@ export class FormInputComponent{
 
     @Input()
     placeholderInput?: string
+
+    @Input()
+    disabledInput: boolean = false
 
     @Input()
     valueInput?: string

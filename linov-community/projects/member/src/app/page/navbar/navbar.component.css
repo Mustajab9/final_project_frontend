@@ -1,5 +1,5 @@
 .font-color > a{
-    color: #2C3333;
+    color: #2C3333 !important;
 }
 
 :host ::ng-deep .p-panelmenu-header > a {

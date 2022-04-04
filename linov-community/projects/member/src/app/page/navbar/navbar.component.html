@@ -1,10 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
+<nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
     <div class="container-fluid">
-        <p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
-            <p-panelMenu [model]="items" [style]="{'width':'100%'}"></p-panelMenu>
-        </p-sidebar>
-        <button pButton pRipple type="button" icon="pi pi-bars" class="me-3 p-button-rounded p-button-text" (click)="visibleSidebar1 = true"></button>
-        
         <img src="../../../assets/image/linovhr.png" style="height: 40px;" routerLink="#" alt="logo">
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -15,25 +10,27 @@
         <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNavDropdown">
             <ul class="navbar-nav gap-3">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" aria-current="page" routerLink="/member/dashboard"><i class="fa-solid fa-house me-2"></i>Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
+                    <a class="nav-link" routerLink="/member/course"><i class="fa-solid fa-calendar me-2"></i>Course & Event</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" routerLink="/member/article-dashboard"><i class="fa-solid fa-newspaper me-2"></i>Article</a>
                 </li>
             </ul>
         </div>
 
-        <i class="fa-regular fa-bell me-4"></i>
+        <a routerLink="/member/cart-list" class="me-3" style="color: black;">
+            <p-avatar icon="pi pi-shopping-cart" pBadge value="1" severity="primary" styleClass="mr-0" size=""></p-avatar>
+        </a>
 
-        <div class="pe-3" id="navbarNavDarkDropdown">
+        <div class="" id="navbarNavDarkDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-regular fa-user"></i>
+                        <i class="fa-solid fa-user"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Action</a></li>

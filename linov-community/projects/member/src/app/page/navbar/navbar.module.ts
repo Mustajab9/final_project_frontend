@@ -10,6 +10,9 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { ComponentModule } from "projects/core/src/app/component/components.module";
+import { BadgeModule } from 'primeng/badge';
+import {AvatarModule} from 'primeng/avatar';
+import {AvatarGroupModule} from 'primeng/avatargroup';
 
 @NgModule({
     declarations: [
@@ -25,6 +28,9 @@ import { ComponentModule } from "projects/core/src/app/component/components.modu
         SidebarModule,
         MegaMenuModule,
         PanelMenuModule,
+        BadgeModule,
+        AvatarModule,
+        AvatarGroupModule,
         CascadeSelectModule
     ],
     exports: [

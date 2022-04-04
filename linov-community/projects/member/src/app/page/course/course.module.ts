@@ -1,16 +1,17 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { DashboardComponent } from "./dashboard.component";
-import { DashboardRouter } from "./dashboard.router";
+import { CourseComponent } from "./course.component";
+import { CourseRouter } from "./course.router";
 import { ComponentModule } from "projects/core/src/app/component/components.module";
 import { ButtonModule } from "primeng/button";
 import { TabViewModule } from 'primeng/tabview';
 import { ChartModule } from 'primeng/chart';
+import { ListboxModule } from 'primeng/listbox';
 
 @NgModule({
     declarations: [
-        DashboardComponent
+        CourseComponent
     ],
     imports: [
         ComponentModule,
@@ -19,7 +20,8 @@ import { ChartModule } from 'primeng/chart';
         ButtonModule,
         TabViewModule,
         ChartModule,
-        DashboardRouter
+        ListboxModule,
+        CourseRouter
     ]
 })
-export class DashboardModule { }
+export class CourseModule { }

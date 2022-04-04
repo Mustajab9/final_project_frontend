@@ -1,0 +1,42 @@
+<div class="container">
+    <app-label nameLabel="Check Out" classLabel="mt-5 fs-4"></app-label>
+    <div class="card mt-1">
+        <div class="card-header bg-transparent border-secondary">
+            <app-label forLabel="selectAll" classLabel="form-label ms-2 fs-5" nameLabel="Order Details" ></app-label>
+        </div>
+        <div class="card-body">
+            <div class="list-group">
+                <div class="row">
+                    <div class="d-flex flex-column col-6">
+                        <app-label 
+                            classLabel="form-check-label ms-3 fw-bold" forLabel="checkboxItem1" nameLabel="Event/Course Title">
+                        </app-label>
+                        <app-label 
+                            classLabel="form-check-label ms-3" forLabel="checkboxItem1" nameLabel="Date: Event/Course Date">
+                        </app-label>
+                    </div>
+
+                    <div class="d-flex flex-column col-5 text-end">
+                        <app-label forLabel="price" classLabel="fw-bold" nameLabel="20.000"></app-label>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="text-end">
+                    <app-label forLabel="" classLabel="fw-bold" nameLabel="Total: Event/Course Total Price"></app-label>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <app-button 
+                    classBtn="p-button-warning mt-4 me-3" labelBtn="Pay Now" routerLinkBtn="/cart-checkout"
+                    [requiredIcon]="true" iconType="pi-shopping-cart">
+                </app-button>
+                <app-button 
+                    classBtn="p-button-outlined p-button-secondary mt-4" labelBtn="Cancel" routerLinkBtn=""
+                    [requiredIcon]="true" iconType="pi-times">
+                </app-button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
     selector: 'app-a',
     template: ` <a (click)="clickA()" class="{{classA}}" [routerLink]="routerLinkA"
                     [id]="idA" [name]="idA">
-                    <i *ngIf="requiredIcon" class="fas {{iconType}}"></i>{{labelA}}
+                    <i *ngIf="requiredIcon" class="{{iconType}}"></i>{{labelA}}
                 </a>`
 })
 export class AComponent {
