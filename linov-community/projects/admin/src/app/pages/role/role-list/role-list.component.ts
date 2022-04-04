@@ -13,7 +13,7 @@ export class RoleListComponent implements OnInit {
 
   data: GetAllRoleDtoDataRes[] = []
 
-  maxPage : number = 10
+  maxPage: number = 10
   totalRecords: number = 0
   loading: boolean = true
 
@@ -26,29 +26,37 @@ export class RoleListComponent implements OnInit {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
-  getData(startPage : number = 0, maxPage : number = this.maxPage, query: string) : void {
+  getData(startPage: number = 0, maxPage: number = this.maxPage, query: string): void {
     this.loading = true;
 
     startPage = startPage != 0 ? (startPage / this.maxPage) + 1 : startPage
 
     this.roleService.getAll(query, startPage, maxPage).subscribe({
-      next : result => {
+      next: result => {
         this.data = result.data
         this.loading = false
         this.totalRecords = result.total
       },
-      error : _ => this.loading = false
+      error: _ => this.loading = false
     })
   }
 
-  clear(table: Table) : void {
-      table.clear();
+  clear(table: Table): void {
+    table.clear();
   }
 
-  filter(text : any) : void {
+  filter(text: any): void {
     this.data = this.data.filter(d => {
       return d.roleCode?.includes(text) || d.roleName?.toString().includes(text)
     })
+  }
+
+  update(id: number): void {
+
+  }
+
+  deleteById(id: number): void {
+
   }
 
 }

@@ -11,25 +11,25 @@
 
         <!-- Table Content -->
         <p-table #dt1 [value]="data" [lazy]="true" (onLazyLoad)="loadData($event)" responsiveLayout="scroll"
-                [paginator]="true" [rows]="maxPage" [totalRecords]="totalRecords" [loading]="loading"
-                [rowsPerPageOptions]="[10,25,50]" tyleClass="p-datatable-gridlines"
-                [globalFilterFields]="['code', 'name']" >
+            [paginator]="true" [rows]="maxPage" [totalRecords]="totalRecords" [loading]="loading"
+            [rowsPerPageOptions]="[10,25,50]" tyleClass="p-datatable-gridlines" [globalFilterFields]="['code', 'name']">
 
             <ng-template pTemplate="caption">
                 <div class="flex">
                     <span class="p-input-icon-left ml-auto">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                        <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                            placeholder="Search keyword" />
                     </span>
                 </div>
             </ng-template>
 
             <ng-template pTemplate="header">
-            <tr>
-                <th>Industry Code</th>
-                <th>Industry Name</th>
-                <th class="text-center">Action</th>
-            </tr>
+                <tr>
+                    <th>Industry Code</th>
+                    <th>Industry Name</th>
+                    <th class="text-center">Action</th>
+                </tr>
             </ng-template>
 
             <ng-template pTemplate="body" let-data>
@@ -38,10 +38,10 @@
                     <td>{{data.categoryName}}</td>
                     <td class="text-center">
                         <app-button idBtn="update" classBtn="p-button-warning me-2" iconType="pi-undo"
-                                    (clickBtnEvent)="update(teacher.id)">
+                            (clickBtnEvent)="update(data.id)">
                         </app-button>
-                        <button pButton pRipple class="p-button-danger" id="delete-btn" data-bs-toggle="modal" data-bs-target="#delete"
-                            (click)="deleteById(teacher.id)" icon="pi pi-trash">
+                        <button pButton pRipple class="p-button-danger" id="delete-btn" data-bs-toggle="modal"
+                            data-bs-target="#delete" (click)="deleteById(data.id)" icon="pi pi-trash">
                         </button>
                     </td>
                 </tr>
