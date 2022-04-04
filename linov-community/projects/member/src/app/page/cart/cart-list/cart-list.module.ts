@@ -5,6 +5,7 @@ import { ButtonModule } from "primeng/button";
 import { ComponentModule } from "projects/core/src/app/component/components.module";
 import { CartListComponent } from "./cart-list.component";
 import { CartListRouter } from "./cart-list.router";
+import { DragDropModule } from 'primeng/dragdrop';
 
 @NgModule({
     declarations: [
@@ -15,6 +16,7 @@ import { CartListRouter } from "./cart-list.router";
         CommonModule,
         FormsModule,
         ButtonModule,
+        DragDropModule,
         CartListRouter
     ]
 })

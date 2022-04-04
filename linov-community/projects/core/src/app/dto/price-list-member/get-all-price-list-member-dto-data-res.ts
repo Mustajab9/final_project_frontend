@@ -1,9 +1,7 @@
-import { BigInteger } from './big-integer' 
-
 export class GetAllPriceListMemberDtoDataRes { 
 	 id?: string 
 	 priceCode?: string 
-	 priceNominal?: BigInteger 
+	 priceNominal?: number 
 	 duration?: number 
 	 version?: number 
 	 isActive?: boolean 

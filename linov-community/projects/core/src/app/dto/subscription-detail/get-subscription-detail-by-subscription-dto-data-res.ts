@@ -1,10 +1,8 @@
-import { BigInteger } from './big-integer' 
-
 export class GetSubscriptionDetailBySubscriptionDtoDataRes { 
 	 id?: string 
 	 priceId?: string 
 	 priceCode?: string 
-	 priceNominal?: BigInteger 
+	 priceNominal?: number 
 	 duration?: number 
 	 subscriptionId?: string 
 	 SubscriptionCode?: string 

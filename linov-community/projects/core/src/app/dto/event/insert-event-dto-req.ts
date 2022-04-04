@@ -1,9 +1,7 @@
-import { BigInteger } from './big-integer' 
-
 export class InsertEventDtoReq { 
 	 eventTitle?: string 
 	 eventProvider?: string 
-	 eventPrice?: BigInteger 
+	 eventPrice?: number 
 	 eventTimeStart?: string 
 	 eventTimeEnd?: string 
 	 eventDateStart?: string 

@@ -1,9 +1,7 @@
-import { BigInteger } from './big-integer' 
-
 export class UpdatePriceListEventDtoReq { 
 	 id?: string 
 	 priceName?: string 
-	 priceNominal?: BigInteger 
+	 priceNominal?: number 
 	 version?: number 
 	 isActive?: boolean 
 } 

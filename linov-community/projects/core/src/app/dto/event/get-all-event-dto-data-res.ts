@@ -1,11 +1,9 @@
-import { BigInteger } from './big-integer' 
-
 export class GetAllEventDtoDataRes { 
 	 id?: string 
 	 eventCode?: string 
 	 eventTitle?: string 
 	 eventProvider?: string 
-	 eventPrice?: BigInteger 
+	 eventPrice?: number 
 	 eventTimeStart?: string 
 	 eventTimeEnd?: string 
 	 eventDateStart?: string 

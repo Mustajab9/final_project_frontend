@@ -8,6 +8,8 @@ import { ButtonModule } from 'primeng/button';
 import { ComponentModule } from "projects/core/src/app/component/components.module";
 import { ThreadSaveComponent } from "./thread-save.component";
 import { ThreadSaveRouter } from "./thread-save.router";
+import { FileUploadModule } from 'primeng/fileupload';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -21,6 +23,8 @@ import { ThreadSaveRouter } from "./thread-save.router";
         SidebarModule,
         MegaMenuModule,
         ButtonModule,
+        FileUploadModule,
+        HttpClientModule,
         ThreadSaveRouter
     ]
 })

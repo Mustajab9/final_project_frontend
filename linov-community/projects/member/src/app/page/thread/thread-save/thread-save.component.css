@@ -1,0 +1,5 @@
+:host ::ng-deep .p-fileupload-choose{
+    background-color : transparent;
+    color: #607D8B;
+    border: 1px solid;
+ }

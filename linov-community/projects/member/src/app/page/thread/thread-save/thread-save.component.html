@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container my-5">
     <div class="row">
         <div class="col-sm-9">
             <div class="my-4 row">
@@ -10,42 +10,55 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <img src="../../../assets/image/profile.png" class="me-2" style="height: 40px; width: 40px;">
-                        <app-label class="align-self-center" nameLabel="Profile Name"></app-label>
-                        <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="Category"></app-label>
-                    </div>
+                    <app-label 
+                        forLabel="" classLabel="fw-bold" nameLabel="Create Thread">
+                    </app-label>
 
-                    <div class="mt-4">
-                        <h3>Thread Title</h3>
-                        <p class="mt-4">Thread Content</p>
-                    </div>
+                    <form>
+                        <form-textarea
+                            classLabel="form-label mt-3" forLabel="title" nameLabel="Title"
+                            classInput="form-control" typeInput="text" placeholderTextarea="Enter your thread title here">
+                        </form-textarea>
 
-                    <div class="mt-4 text-end">
-                        <i class="fa-regular fa-bookmark me-4"></i>
-                        <i class="fa-regular fa-heart"></i>
-                    </div>
+                        <form-textarea
+                            classLabel="form-label mt-3" forLabel="title" nameLabel="Content"
+                            classInput="form-control" typeInput="text" placeholderTextarea="Enter your thread content here">
+                        </form-textarea>
+
+                        <div class="row mt-3">
+                            <form-select
+                                classLabel="form-label" forLabel="" nameLabel="Category" style="max-width: 50%;">
+                            </form-select>
+
+                            <form-select
+                                classLabel="form-label" forLabel="" nameLabel="Thread Type" style="max-width: 50%;">
+                            </form-select>
+                        </div>
+
+                        <div class="d-flex justify-content-end align-items-center text-end gap-3 mt-3">
+                            <p-fileUpload 
+                                mode="basic" name="demo[]" (onUpload)="onBasicUpload($event)" 
+                                chooseIcon="pi pi-image">
+                            </p-fileUpload>
+
+                            <p-fileUpload 
+                                mode="basic" name="demo[]" (onUpload)="onBasicUpload($event)" 
+                                chooseIcon="pi pi-file">
+                            </p-fileUpload>
+
+                            <app-button
+                                classBtn="" typeBtn="submit" idBtn="save" labelBtn="Save"
+                                [requiredIcon]="true" iconType="pi-save">
+                            </app-button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="my-4">
                 <i class="fa-solid fa-link me-3"></i>
-                <span class="fs-5 fw-bold" style="color: #323232;">Related Threads</span>
-            </div>
-
-            <div class="card">
-                <div class="card-body">
-                    <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="Category"></app-label>
-                    <div class="mt-4">
-                        <h6 class="fw-bold">Thread Title</h6>
-                    </div>
-
-                    <div class="mt-4">
-                        <i class="fa-regular fa-heart me-4"><span> 100</span></i>
-                        <i class="fa-regular fa-message"><span> 100</span></i>
-                    </div>
-                </div>
+                <span class="fs-5 fw-bold" style="color: #323232;">Features</span>
             </div>
         </div>
     </div>

@@ -1,12 +1,10 @@
-import { BigInteger } from './big-integer' 
-
 export class GetByPaymentEventDetailIdDtoDataRes { 
 	 id?: string 
 	 eventId?: string 
 	 eventCode?: string 
 	 eventTitle?: string 
 	 eventProvider?: string 
-	 eventPrice?: BigInteger 
+	 eventPrice?: number 
 	 eventTimeStart?: string 
 	 eventTimeEnd?: string 
 	 eventDateStart?: string 
