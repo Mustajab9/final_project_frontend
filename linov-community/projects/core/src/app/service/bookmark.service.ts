@@ -14,26 +14,26 @@ import { InsertBookmarkDtoRes } from '../dto/bookmark/insert-bookmark-dto-res'
 })
 
 export class BookmarkService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll() : Observable<GetAllBookmarkDtoRes> {
+    getAll(): Observable<GetAllBookmarkDtoRes> {
         return this.http.get<GetAllBookmarkDtoRes>(`http://localhost:8080/bookmarks`)
     }
 
-    getById(id: string) : Observable<GetByBookmarkIdDtoRes> {
+    getById(id: string): Observable<GetByBookmarkIdDtoRes> {
         return this.http.get<GetByBookmarkIdDtoRes>(`http://localhost:8080/bookmarks/${id}`)
     }
 
-    getByUser(id: string) : Observable<GetBookmarkByUserDtoRes> {
+    getByUser(id: string): Observable<GetBookmarkByUserDtoRes> {
         return this.http.get<GetBookmarkByUserDtoRes>(`http://localhost:8080/bookmarks/user/${id}`)
     }
 
-    insert(insertReq: InsertBookmarkDtoReq) : Observable<InsertBookmarkDtoRes> {
+    insert(insertReq: InsertBookmarkDtoReq): Observable<InsertBookmarkDtoRes> {
         return this.http.post<InsertBookmarkDtoRes>(`http://localhost:8080/bookmarks`, insertReq)
     }
 
-    delete(id: string) : Observable<DeleteByBookmarkIdDtoRes> {
+    delete(id: string): Observable<DeleteByBookmarkIdDtoRes> {
         return this.http.delete<DeleteByBookmarkIdDtoRes>(`http://localhost:8080/bookmarks/${id}`)
     }
 }
