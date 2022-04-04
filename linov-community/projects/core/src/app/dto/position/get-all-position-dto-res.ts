@@ -1,7 +1,8 @@
-import { GetAllPositionDtoDataRes } from './get-all-position-dto-data-res' 
+import { GetAllPositionDtoDataRes } from './get-all-position-dto-data-res'
 
-export class GetAllPositionDtoRes { 
-	 msg?: string 
-	 data?: GetAllPositionDtoDataRes[] 
-} 
+export class GetAllPositionDtoRes {
+	msg?: string
+	data!: GetAllPositionDtoDataRes[]
+	total!: number
+}
 

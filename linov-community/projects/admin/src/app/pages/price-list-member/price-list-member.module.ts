@@ -5,6 +5,8 @@ import { PriceListMemberListComponent } from "./price-list-member-list/price-lis
 import { PriceListMemberSaveComponent } from "./price-list-member-save/price-list-member-save.component";
 import { PriceListMemberUpdateComponent } from "./price-list-member-update/price-list-member-update.component";
 import { PriceListMemberRouter } from "./price-list-member.router";
+import { TableModule } from 'primeng/table'
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 
 @NgModule({
     declarations: [
@@ -15,7 +17,9 @@ import { PriceListMemberRouter } from "./price-list-member.router";
     imports: [
         PriceListMemberRouter,
         CommonModule,
-        FormsModule
+        FormsModule,
+        ComponentModule,
+        TableModule
     ]
 })
 export class PriceListMemberModule { }

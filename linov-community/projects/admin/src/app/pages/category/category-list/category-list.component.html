@@ -3,42 +3,56 @@
         <div class="panel-heading">
             <form class="form-inline">
                 <div class="form-group mb-3">
-                    <button class="btn btn-primary" routerLink="/admin/category/new" type="button">New Category</button>
-                    <!-- <app-button classBtn="btn-primary" (clickBtn)="create()" labelBtn="New Role"></app-button> -->
+                    <app-button idBtn="input" classBtn="p-button-success form-control" labelBtn=" Add Category"
+                                routerLinkBtn="/admin/category/new" iconType="pi-inbox">
+                    </app-button>
                 </div>
             </form>
         </div>
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Category Name</th>
-                        <th scope="col">Category Code</th>
-                        <th scope="col" class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>HR Administration</td>
-                        <td>CT01</td>
-                        <td>
-                            <div class="text-center">
-                                <button type="button" routerLink="/category/1" class="btn btn-warning m-1">Edit</button>
-                                <!-- <app-button classBtn="bg-warning mx-1" (clickBtn)="update(role.id)" labelBtn="Update"></app-button> -->
-                                <a class="btn btn-xs btn-danger m-1" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal"><span class="glyphicon glyphicon-edit"></span>
-                                    Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+
+        <!-- Table Content -->
+        <p-table #dt1 [value]="data" [lazy]="true" (onLazyLoad)="loadData($event)" responsiveLayout="scroll"
+                [paginator]="true" [rows]="maxPage" [totalRecords]="totalRecords" [loading]="loading"
+                [rowsPerPageOptions]="[10,25,50]" tyleClass="p-datatable-gridlines"
+                [globalFilterFields]="['code', 'name']" >
+
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                    </span>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="header">
+            <tr>
+                <th>Category Code</th>
+                <th>Category Name</th>
+                <th class="text-center">Action</th>
+            </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-data>
+                <tr>
+                    <td>{{data.categoryCode}}</td>
+                    <td>{{data.categoryName}}</td>
+                    <td class="text-center">
+                        <app-button idBtn="update" classBtn="p-button-warning me-2" iconType="pi-undo"
+                                    (clickBtnEvent)="update(teacher.id)">
+                        </app-button>
+                        <button pButton pRipple class="p-button-danger" id="delete-btn" data-bs-toggle="modal" data-bs-target="#delete"
+                            (click)="deleteById(teacher.id)" icon="pi pi-trash">
+                        </button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!-- End of Table Content -->
+
     </div>
 </div>
-<hr>
+
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">

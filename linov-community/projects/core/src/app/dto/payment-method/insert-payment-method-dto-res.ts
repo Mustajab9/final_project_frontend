@@ -2,6 +2,6 @@ import { InsertPaymentMethodDtoDataRes } from './insert-payment-method-dto-data-
 
 export class InsertPaymentMethodDtoRes { 
 	 msg?: string 
-	 data?: InsertPaymentMethodDtoDataRes 
+	 data!: InsertPaymentMethodDtoDataRes 
 } 
 

@@ -5,6 +5,8 @@ import { PaymentMethodListComponent } from "./payment-method-list/payment-method
 import { PaymentMethodSaveComponent } from "./payment-method-save/payment-method-save.component";
 import { PaymentMethodUpdateComponent } from "./payment-method-update/payment-method-update.component";
 import { PaymentMethodRouter } from "./payment-method.router";
+import { TableModule } from 'primeng/table'
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 
 @NgModule({
     declarations: [
@@ -15,7 +17,9 @@ import { PaymentMethodRouter } from "./payment-method.router";
     imports: [
         PaymentMethodRouter,
         CommonModule,
-        FormsModule
+        FormsModule,
+        ComponentModule,
+        TableModule
     ]
 })
 export class PaymentMethodModule { }

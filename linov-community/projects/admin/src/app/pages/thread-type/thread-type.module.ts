@@ -5,7 +5,8 @@ import { ThreadTypeListComponent } from "./thread-type-list/thread-type-list.com
 import { ThreadTypeSaveComponent } from "./thread-type-save/thread-type-save.component";
 import { ThreadTypeUpdateComponent } from "./thread-type-update/thread-type-update.component";
 import { ThreadTypeRouter } from "./thread-type.router";
-
+import { TableModule } from 'primeng/table'
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 @NgModule({
     declarations: [
         ThreadTypeListComponent,
@@ -15,7 +16,9 @@ import { ThreadTypeRouter } from "./thread-type.router";
     imports: [
         ThreadTypeRouter,
         CommonModule,
-        FormsModule
+        FormsModule,
+        ComponentModule,
+        TableModule
     ]
 })
 export class ThreadTypeModule { }

@@ -9,7 +9,7 @@ export class GetAllThreadDtoDataRes {
 	 attachemntExtension?: String[] 
 	 pollingName?: string 
 	 choiceName?: String[] 
-	 countVote?: Integer[] 
+	 countVote?: number[] 
 	 totalVote?: number 
 	 version?: number 
 	 isActive?: boolean 

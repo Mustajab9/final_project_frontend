@@ -1,7 +1,8 @@
-import { GetAllPriceListMemberDtoDataRes } from './get-all-price-list-member-dto-data-res' 
+import { GetAllPriceListMemberDtoDataRes } from './get-all-price-list-member-dto-data-res'
 
-export class GetAllPriceListMemberDtoRes { 
-	 msg?: string 
-	 data?: GetAllPriceListMemberDtoDataRes[] 
-} 
+export class GetAllPriceListMemberDtoRes {
+	msg?: string
+	data!: GetAllPriceListMemberDtoDataRes[]
+	total!: number
+}
 

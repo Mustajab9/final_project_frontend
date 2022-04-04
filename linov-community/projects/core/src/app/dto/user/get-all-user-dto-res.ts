@@ -1,7 +1,8 @@
-import { GetAllUserDtoDataRes } from './get-all-user-dto-data-res' 
+import { GetAllUserDtoDataRes } from './get-all-user-dto-data-res'
 
-export class GetAllUserDtoRes { 
-	 msg?: string 
-	 data?: GetAllUserDtoDataRes[] 
-} 
+export class GetAllUserDtoRes {
+	msg?: string
+	data!: GetAllUserDtoDataRes[]
+	total!: number
+}
 

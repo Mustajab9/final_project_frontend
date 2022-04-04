@@ -5,6 +5,8 @@ import { PriceListEventListComponent } from "./price-list-event-list/price-list-
 import { PriceListEventSaveComponent } from "./price-list-event-save/price-list-event-save.component";
 import { PriceListEventUpdateComponent } from "./price-list-event-update/price-list-event-update.component";
 import { PriceListEventRouter } from "./price-list-event.router";
+import { TableModule } from 'primeng/table'
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 
 @NgModule({
     declarations: [
@@ -15,7 +17,9 @@ import { PriceListEventRouter } from "./price-list-event.router";
     imports: [
         PriceListEventRouter,
         CommonModule,
-        FormsModule
+        FormsModule,
+        ComponentModule,
+        TableModule
     ]
 })
 export class PriceListEventModule { }

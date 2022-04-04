@@ -2,6 +2,6 @@ import { UpdatePaymentMethodDtoDataRes } from './update-payment-method-dto-data-
 
 export class UpdatePaymentMethodDtoRes { 
 	 msg?: string 
-	 data?: UpdatePaymentMethodDtoDataRes 
+	 data!: UpdatePaymentMethodDtoDataRes 
 } 
 

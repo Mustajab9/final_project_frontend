@@ -5,6 +5,8 @@ import { IndustryListComponent } from "./industry-list/industry-list.component";
 import { IndustrySaveComponent } from "./industry-save/industry-save.component";
 import { IndustryUpdateComponent } from "./industry-update/industry-update.component";
 import { IndustryRouter } from "./industry.router";
+import { TableModule } from 'primeng/table'
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 
 @NgModule({
     declarations: [
@@ -15,7 +17,9 @@ import { IndustryRouter } from "./industry.router";
     imports: [
         IndustryRouter,
         CommonModule,
-        FormsModule
+        FormsModule,
+        ComponentModule,
+        TableModule
     ]
 })
 export class IndustryModule { }

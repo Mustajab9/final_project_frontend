@@ -2,6 +2,7 @@ import { GetAllPaymentMethodDtoDataRes } from './get-all-payment-method-dto-data
 
 export class GetAllPaymentMethodDtoRes { 
 	 msg?: string 
-	 data?: GetAllPaymentMethodDtoDataRes[] 
+	 data!: GetAllPaymentMethodDtoDataRes[] 
+	 total!: number
 } 
 

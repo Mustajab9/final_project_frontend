@@ -5,6 +5,8 @@ import { ProvinceListComponent } from "./province-list/province-list.component";
 import { ProvinceSaveComponent } from "./province-save/province-save.component";
 import { ProvinceUpdateComponent } from "./province-update/province-update.component";
 import { ProvinceRouter } from "./province.router";
+import { TableModule } from 'primeng/table'
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 
 @NgModule({
     declarations: [
@@ -15,7 +17,9 @@ import { ProvinceRouter } from "./province.router";
     imports: [
         ProvinceRouter,
         CommonModule,
-        FormsModule
+        FormsModule,
+        ComponentModule,
+        TableModule
     ]
 })
 export class ProvinceModule { }

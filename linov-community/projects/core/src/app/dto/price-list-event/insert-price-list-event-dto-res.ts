@@ -2,6 +2,6 @@ import { InsertPriceListEventDtoDataRes } from './insert-price-list-event-dto-da
 
 export class InsertPriceListEventDtoRes { 
 	 msg?: string 
-	 data?: InsertPriceListEventDtoDataRes 
+	 data!: InsertPriceListEventDtoDataRes 
 } 
 

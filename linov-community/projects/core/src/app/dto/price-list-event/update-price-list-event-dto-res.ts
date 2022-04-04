@@ -2,6 +2,6 @@ import { UpdatePriceListEventDtoDataRes } from './update-price-list-event-dto-da
 
 export class UpdatePriceListEventDtoRes { 
 	 msg?: string 
-	 data?: UpdatePriceListEventDtoDataRes 
+	 data!: UpdatePriceListEventDtoDataRes 
 } 
 

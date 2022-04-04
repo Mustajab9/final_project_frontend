@@ -5,6 +5,8 @@ import { PositionListComponent } from "./position-list/position-list.component";
 import { PositionSaveComponent } from "./position-save/position-save.component";
 import { PositionUpdateComponent } from "./position-update/position-update.component";
 import { PositionRouter } from "./position.router";
+import { TableModule } from 'primeng/table'
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 
 @NgModule({
     declarations: [
@@ -15,7 +17,9 @@ import { PositionRouter } from "./position.router";
     imports: [
         PositionRouter,
         CommonModule,
-        FormsModule
+        FormsModule,
+        ComponentModule,
+        TableModule
     ]
 })
 export class PositionModule { }

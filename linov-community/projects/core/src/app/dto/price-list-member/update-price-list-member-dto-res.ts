@@ -2,6 +2,6 @@ import { UpdatePriceListMemberDtoDataRes } from './update-price-list-member-dto-
 
 export class UpdatePriceListMemberDtoRes { 
 	 msg?: string 
-	 data?: UpdatePriceListMemberDtoDataRes 
+	 data!: UpdatePriceListMemberDtoDataRes 
 } 
 

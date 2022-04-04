@@ -5,6 +5,8 @@ import { RegencyListComponent } from "./regency-list/regency-list.component";
 import { RegencySaveComponent } from "./regency-save/regency-save.component";
 import { RegencyUpdateComponent } from "./regency-update/regency-update.component";
 import { RegencyRouter } from "./regency.router";
+import { TableModule } from 'primeng/table'
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 
 @NgModule({
     declarations: [
@@ -15,7 +17,9 @@ import { RegencyRouter } from "./regency.router";
     imports: [
         RegencyRouter,
         CommonModule,
-        FormsModule
+        FormsModule,
+        ComponentModule,
+        TableModule
     ]
 })
 export class RegencyModule { }
