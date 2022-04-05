@@ -14,18 +14,25 @@ import { UpdateSubscriptionDtoRes } from '../dto/subscription/update-subscriptio
 })
 
 export class SubscriptionService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll(query: string, startPage: number, maxPage: number) : Observable<GetAllSubscriptionDtoRes> {
-        return this.http.get<GetAllSubscriptionDtoRes>(`http://localhost:8080/subscriptions?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllSubscriptionDtoRes> {
+        if (query) {
+            return this.http.get<GetAllSubscriptionDtoRes>(`http://localhost:8080/subscriptions?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+
+        } else {
+            return this.http.get<GetAllSubscriptionDtoRes>(`http://localhost:8080/subscriptions?startPage=${startPage}&maxPage=${maxPage}`)
+
+        }
+
     }
 
-    getById(id: string) : Observable<GetBySubscriptionIdDtoRes> {
+    getById(id: string): Observable<GetBySubscriptionIdDtoRes> {
         return this.http.get<GetBySubscriptionIdDtoRes>(`http://localhost:8080/subscriptions/${id}`)
     }
 
-    insert(insertReq: InsertSubscriptionDtoReq) : Observable<InsertSubscriptionDtoRes> {
+    insert(insertReq: InsertSubscriptionDtoReq): Observable<InsertSubscriptionDtoRes> {
         return this.http.post<InsertSubscriptionDtoRes>(`http://localhost:8080/subscriptions`, insertReq)
     }
 
@@ -33,7 +40,7 @@ export class SubscriptionService {
         return this.http.put<UpdateSubscriptionDtoRes>(`http://localhost:8080/subscriptions`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteBySubscriptionIdDtoRes> {
+    delete(id: string): Observable<DeleteBySubscriptionIdDtoRes> {
         return this.http.delete<DeleteBySubscriptionIdDtoRes>(`http://localhost:8080/subscriptions/${id}`)
     }
 }

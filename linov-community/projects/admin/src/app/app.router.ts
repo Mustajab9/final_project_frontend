@@ -6,6 +6,11 @@ import { NavfootModule } from "./pages/navfoot/navfoot.module";
 
 const routes: Routes = [
     {
+        path: 'admin/dashboard',
+        component: NavfootComponent,
+        loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
+    },
+    {
         path: 'admin/category',
         component: NavfootComponent,
         loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryModule)

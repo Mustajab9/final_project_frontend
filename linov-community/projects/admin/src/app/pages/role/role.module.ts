@@ -7,6 +7,7 @@ import { RoleSaveComponent } from './role-save/role-save.component';
 import { RoleUpdateComponent } from './role-update/role-update.component';
 import { TableModule } from 'primeng/table'
 import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { ButtonModule } from "primeng/button";
 @NgModule({
     declarations: [
         RoleListComponent,
@@ -18,7 +19,8 @@ import { ComponentModule } from "../../../../../core/src/app/component/component
         CommonModule,
         FormsModule,
         ComponentModule,
-        TableModule
+        TableModule,
+        ButtonModule
     ]
 })
 export class RoleModule { }

@@ -3,8 +3,9 @@
         <div class="panel-heading">
             <form class="form-inline">
                 <div class="form-group mb-3">
-                    <button class="btn btn-primary" routerLink="/admin/user/new" type="button">New Role</button>
-                    <!-- <app-button classBtn="btn-primary" (clickBtn)="create()" labelBtn="New Role"></app-button> -->
+                    <app-button idBtn="input" classBtn="p-button-success form-control" labelBtn=" Add User"
+                        routerLinkBtn="/admin/user/new" iconType="pi-plus">
+                    </app-button>
                 </div>
             </form>
         </div>
@@ -17,7 +18,7 @@
             <ng-template pTemplate="caption">
                 <div class="flex">
                     <span class="p-input-icon-left ml-auto">
-                        <i class="pi pi-search"></i>
+
                         <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
                             placeholder="Search keyword" />
                     </span>
@@ -34,8 +35,8 @@
 
             <ng-template pTemplate="body" let-data>
                 <tr>
-                    <td>{{data.categoryCode}}</td>
-                    <td>{{data.categoryName}}</td>
+                    <td>{{data.username}}</td>
+                    <td>{{data.roleName}}</td>
                     <td class="text-center">
                         <app-button idBtn="update" classBtn="p-button-warning me-2" iconType="pi-undo"
                             (clickBtnEvent)="update(data.id)">
@@ -48,36 +49,6 @@
             </ng-template>
         </p-table>
         <!-- End of Table Content -->
-
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Role Name</th>
-                        <th scope="col" class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>admin@gmail.com</td>
-                        <td>Admin</td>
-                        <td>
-                            <div class="text-center">
-                                <button type="button" routerLink="/admin/user/1"
-                                    class="btn btn-warning mx-1">Edit</button>
-                                <!-- <app-button classBtn="bg-warning mx-1" (clickBtn)="update(role.id)" labelBtn="Update"></app-button> -->
-                                <a class="btn btn-xs btn-danger m-1" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal"><span class="glyphicon glyphicon-edit"></span>
-                                    Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
 </div>
 <hr>

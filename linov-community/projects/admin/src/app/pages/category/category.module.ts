@@ -7,6 +7,7 @@ import { CategoryUpdateComponent } from "./category-update/category-update.compo
 import { CategoryRouter } from "./category.router"
 import { TableModule } from 'primeng/table'
 import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { ButtonModule } from "primeng/button"
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { ComponentModule } from "../../../../../core/src/app/component/component
         CategoryRouter,
         CommonModule,
         FormsModule,
+        ButtonModule,
         ComponentModule,
         TableModule
     ]

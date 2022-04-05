@@ -3,7 +3,10 @@
         <div class="panel-heading">
             <form class="form-inline">
                 <div class="form-group mb-3">
-                    <button class="btn btn-primary" routerLink="/admin/regency/new" type="button">New Regency</button>
+                    <!-- <button class="btn btn-primary" routerLink="/admin/regency/new" type="button">New Regency</button> -->
+                    <app-button idBtn="input" classBtn="p-button-success form-control" labelBtn=" Add Regency"
+                        routerLinkBtn="/admin/regency/new" iconType="pi-plus">
+                    </app-button>
                 </div>
             </form>
         </div>
@@ -16,9 +19,9 @@
             <ng-template pTemplate="caption">
                 <div class="flex">
                     <span class="p-input-icon-left ml-auto">
-                        <i class="pi pi-search"></i>
+
                         <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
-                            placeholder="Search keyword" />
+                            placeholder="     Search keyword" />
                     </span>
                 </div>
             </ng-template>
@@ -34,14 +37,15 @@
 
             <ng-template pTemplate="body" let-data>
                 <tr>
-                    <td>{{data.categoryCode}}</td>
-                    <td>{{data.categoryName}}</td>
+                    <td>{{data.regancyCode}}</td>
+                    <td>{{data.regancyName}}</td>
+                    <td>{{data.provinceName}}</td>
                     <td class="text-center">
                         <app-button idBtn="update" classBtn="p-button-warning me-2" iconType="pi-undo"
                             (clickBtnEvent)="update(data.id)">
                         </app-button>
-                        <button pButton pRipple class="p-button-danger" id="delete-btn" data-bs-toggle="modal"
-                            data-bs-target="#delete" (click)="deleteById(data.id)" icon="pi pi-trash">
+                        <button pButton pRipple class="p-button-danger" icon="pi pi-trash" id="delete-btn"
+                            data-bs-toggle="modal" data-bs-target="#delete" (click)="deleteById(data.id)">
                         </button>
                     </td>
                 </tr>

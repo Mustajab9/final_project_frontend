@@ -14,18 +14,22 @@ import { UpdateRegencyDtoRes } from '../dto/regency/update-regency-dto-res'
 })
 
 export class RegencyService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll(query: string, startPage: number, maxPage: number) : Observable<GetAllRegencyDtoRes> {
-        return this.http.get<GetAllRegencyDtoRes>(`http://localhost:8080/regencies?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllRegencyDtoRes> {
+        if (query) {
+            return this.http.get<GetAllRegencyDtoRes>(`http://localhost:8080/regencies?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+        } else {
+            return this.http.get<GetAllRegencyDtoRes>(`http://localhost:8080/regencies?startPage=${startPage}&maxPage=${maxPage}`)
+        }
     }
 
-    getById(id: string) : Observable<GetByRegencyIdDtoRes> {
+    getById(id: string): Observable<GetByRegencyIdDtoRes> {
         return this.http.get<GetByRegencyIdDtoRes>(`http://localhost:8080/regencies/${id}`)
     }
 
-    insert(insertReq: InsertRegencyDtoReq) : Observable<InsertRegencyDtoRes> {
+    insert(insertReq: InsertRegencyDtoReq): Observable<InsertRegencyDtoRes> {
         return this.http.post<InsertRegencyDtoRes>(`http://localhost:8080/regencies`, insertReq)
     }
 
@@ -33,7 +37,7 @@ export class RegencyService {
         return this.http.put<UpdateRegencyDtoRes>(`http://localhost:8080/regencies`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteByRegencyIdDtoRes> {
+    delete(id: string): Observable<DeleteByRegencyIdDtoRes> {
         return this.http.delete<DeleteByRegencyIdDtoRes>(`http://localhost:8080/regencies/${id}`)
     }
 }

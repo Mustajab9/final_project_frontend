@@ -4,7 +4,7 @@
             <form class="form-inline">
                 <div class="form-group mb-3">
                     <app-button idBtn="input" classBtn="p-button-success form-control" labelBtn=" Add Category"
-                        routerLinkBtn="/admin/category/new" iconType="pi-inbox">
+                        routerLinkBtn="/admin/category/new" iconType="pi-plus">
                     </app-button>
                 </div>
             </form>
@@ -18,7 +18,7 @@
             <ng-template pTemplate="caption">
                 <div class="flex">
                     <span class="p-input-icon-left ml-auto">
-                        <i class="pi pi-search"></i>
+
                         <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
                             placeholder="Search keyword" />
                     </span>

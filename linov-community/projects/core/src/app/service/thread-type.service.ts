@@ -14,18 +14,24 @@ import { UpdateThreadTypeDtoRes } from '../dto/thread-type/update-thread-type-dt
 })
 
 export class ThreadTypeService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll(query: string, startPage: number, maxPage: number) : Observable<GetAllThreadTypeDtoRes> {
-        return this.http.get<GetAllThreadTypeDtoRes>(`http://localhost:8080/thread-types?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllThreadTypeDtoRes> {
+        if (query) {
+            return this.http.get<GetAllThreadTypeDtoRes>(`http://localhost:8080/thread-types?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+
+        } else {
+            return this.http.get<GetAllThreadTypeDtoRes>(`http://localhost:8080/thread-types?startPage=${startPage}&maxPage=${maxPage}`)
+
+        }
     }
 
-    getById(id: string) : Observable<GetByThreadTypeIdDtoRes> {
+    getById(id: string): Observable<GetByThreadTypeIdDtoRes> {
         return this.http.get<GetByThreadTypeIdDtoRes>(`http://localhost:8080/thread-types/${id}`)
     }
 
-    insert(insertReq: InsertThreadTypeDtoReq) : Observable<InsertThreadTypeDtoRes> {
+    insert(insertReq: InsertThreadTypeDtoReq): Observable<InsertThreadTypeDtoRes> {
         return this.http.post<InsertThreadTypeDtoRes>(`http://localhost:8080/thread-types`, insertReq)
     }
 
@@ -33,7 +39,7 @@ export class ThreadTypeService {
         return this.http.put<UpdateThreadTypeDtoRes>(`http://localhost:8080/thread-types`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteByThreadTypeIdDtoRes> {
+    delete(id: string): Observable<DeleteByThreadTypeIdDtoRes> {
         return this.http.delete<DeleteByThreadTypeIdDtoRes>(`http://localhost:8080/thread-types/${id}`)
     }
 }

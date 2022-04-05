@@ -26,12 +26,12 @@ export class PriceListEventListComponent implements OnInit {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
-  getData(startPage: number = 0, maxPage: number = this.maxPage, query: string): void {
+  getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
     this.loading = true;
 
-    startPage = startPage != 0 ? (startPage / this.maxPage) + 1 : startPage
+    // startPage = startPage != 0 ? (startPage / this.maxPage) + 1 : startPage
 
-    this.priceListEventService.getAll(query, startPage, maxPage).subscribe({
+    this.priceListEventService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
         this.data = result.data
         this.loading = false

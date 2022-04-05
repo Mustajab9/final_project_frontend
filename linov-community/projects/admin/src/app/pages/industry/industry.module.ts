@@ -7,6 +7,7 @@ import { IndustryUpdateComponent } from "./industry-update/industry-update.compo
 import { IndustryRouter } from "./industry.router";
 import { TableModule } from 'primeng/table'
 import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { ButtonModule } from "primeng/button";
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { ComponentModule } from "../../../../../core/src/app/component/component
         CommonModule,
         FormsModule,
         ComponentModule,
-        TableModule
+        TableModule,
+        ButtonModule
     ]
 })
 export class IndustryModule { }

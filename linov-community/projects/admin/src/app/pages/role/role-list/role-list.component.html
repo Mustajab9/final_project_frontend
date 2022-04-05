@@ -3,8 +3,9 @@
         <div class="panel-heading">
             <form class="form-inline">
                 <div class="form-group mb-3">
-                    <button class="btn btn-primary" routerLink="/admin/role/new" type="button">New Role</button>
-                    <!-- <app-button classBtn="btn-primary" (clickBtn)="create()" labelBtn="New Role"></app-button> -->
+                    <app-button idBtn="input" classBtn="p-button-success form-control" labelBtn=" Add Role"
+                        routerLinkBtn="/admin/role/new" iconType="pi-plus">
+                    </app-button>
                 </div>
             </form>
         </div>
@@ -17,7 +18,7 @@
             <ng-template pTemplate="caption">
                 <div class="flex">
                     <span class="p-input-icon-left ml-auto">
-                        <i class="pi pi-search"></i>
+
                         <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
                             placeholder="Search keyword" />
                     </span>
@@ -34,8 +35,8 @@
 
             <ng-template pTemplate="body" let-data>
                 <tr>
-                    <td>{{data.categoryCode}}</td>
-                    <td>{{data.categoryName}}</td>
+                    <td>{{data.roleCode}}</td>
+                    <td>{{data.roleName}}</td>
                     <td class="text-center">
                         <app-button idBtn="update" classBtn="p-button-warning me-2" iconType="pi-undo"
                             (clickBtnEvent)="update(data.id)">

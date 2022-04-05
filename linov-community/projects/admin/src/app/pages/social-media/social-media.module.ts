@@ -7,6 +7,7 @@ import { SocialMediaUpdateComponent } from "./social-media-update/social-media-u
 import { SocialMediaRouter } from "./social-media.router";
 import { TableModule } from 'primeng/table'
 import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { ButtonModule } from "primeng/button";
 @NgModule({
     declarations: [
         SocialMediaListComponent,
@@ -18,7 +19,8 @@ import { ComponentModule } from "../../../../../core/src/app/component/component
         CommonModule,
         FormsModule,
         ComponentModule,
-        TableModule
+        TableModule,
+        ButtonModule
     ]
 })
 export class SocialMediaModule { }

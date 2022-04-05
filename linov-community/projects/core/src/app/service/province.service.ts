@@ -14,18 +14,24 @@ import { UpdateProvinceDtoRes } from '../dto/province/update-province-dto-res'
 })
 
 export class ProvinceService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll(query: string, startPage: number, maxPage: number) : Observable<GetAllProvinceDtoRes> {
-        return this.http.get<GetAllProvinceDtoRes>(`http://localhost:8080/provinces?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllProvinceDtoRes> {
+        if (query) {
+            return this.http.get<GetAllProvinceDtoRes>(`http://localhost:8080/provinces?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+
+        } else {
+            return this.http.get<GetAllProvinceDtoRes>(`http://localhost:8080/provinces?startPage=${startPage}&maxPage=${maxPage}`)
+
+        }
     }
 
-    getById(id: string) : Observable<GetByProvinceIdDtoRes> {
+    getById(id: string): Observable<GetByProvinceIdDtoRes> {
         return this.http.get<GetByProvinceIdDtoRes>(`http://localhost:8080/provinces/${id}`)
     }
 
-    insert(insertReq: InsertProvinceDtoReq) : Observable<InsertProvinceDtoRes> {
+    insert(insertReq: InsertProvinceDtoReq): Observable<InsertProvinceDtoRes> {
         return this.http.post<InsertProvinceDtoRes>(`http://localhost:8080/provinces`, insertReq)
     }
 
@@ -33,7 +39,7 @@ export class ProvinceService {
         return this.http.put<UpdateProvinceDtoRes>(`http://localhost:8080/provinces`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteByProvinceIdDtoRes> {
+    delete(id: string): Observable<DeleteByProvinceIdDtoRes> {
         return this.http.delete<DeleteByProvinceIdDtoRes>(`http://localhost:8080/provinces/${id}`)
     }
 }

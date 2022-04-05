@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 import { HttpHandlerElearning } from '../../../core/src/app/http/http-handler';
 import { AppComponent } from './app.component';
 import { AppAdminRouter } from './app.router';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,9 @@ import { AppAdminRouter } from './app.router';
   ],
   providers: [
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: HttpHandlerElearning,
-    multi: true
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpHandlerElearning,
+      multi: true
     },
     MessageService,
     DatePipe

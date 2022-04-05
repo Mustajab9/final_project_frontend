@@ -14,18 +14,22 @@ import { UpdateUserDtoRes } from '../dto/user/update-user-dto-res'
 })
 
 export class UserService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll(query: string, startPage: number, maxPage: number) : Observable<GetAllUserDtoRes> {
-        return this.http.get<GetAllUserDtoRes>(`http://localhost:8080/users?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllUserDtoRes> {
+        if (query) {
+            return this.http.get<GetAllUserDtoRes>(`http://localhost:8080/users?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+        } else {
+            return this.http.get<GetAllUserDtoRes>(`http://localhost:8080/users?startPage=${startPage}&maxPage=${maxPage}`)
+        }
     }
 
-    getById(id: string) : Observable<GetByUserIdDtoRes> {
+    getById(id: string): Observable<GetByUserIdDtoRes> {
         return this.http.get<GetByUserIdDtoRes>(`http://localhost:8080/users/${id}`)
     }
 
-    insert(insertReq: InsertUserDtoReq) : Observable<InsertUserDtoRes> {
+    insert(insertReq: InsertUserDtoReq): Observable<InsertUserDtoRes> {
         return this.http.post<InsertUserDtoRes>(`http://localhost:8080/users`, insertReq)
     }
 
@@ -33,7 +37,7 @@ export class UserService {
         return this.http.put<UpdateUserDtoRes>(`http://localhost:8080/users`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteByUserIdDtoRes> {
+    delete(id: string): Observable<DeleteByUserIdDtoRes> {
         return this.http.delete<DeleteByUserIdDtoRes>(`http://localhost:8080/users/${id}`)
     }
 }

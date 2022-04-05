@@ -7,6 +7,7 @@ import { UserUpdateComponent } from "./user-update/user-update.component";
 import { UserRouter } from "./user.router";
 import { TableModule } from 'primeng/table'
 import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { ButtonModule } from "primeng/button";
 @NgModule({
     declarations: [
         UserListComponent,
@@ -18,7 +19,8 @@ import { ComponentModule } from "../../../../../core/src/app/component/component
         CommonModule,
         FormsModule,
         ComponentModule,
-        TableModule
+        TableModule,
+        ButtonModule
     ]
 })
 export class UserModule { }

@@ -14,18 +14,24 @@ import { UpdateSocialMediaDtoRes } from '../dto/social-media/update-social-media
 })
 
 export class SocialMediaService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll(query: string, startPage: number, maxPage: number) : Observable<GetAllSocialMediaDtoRes> {
-        return this.http.get<GetAllSocialMediaDtoRes>(`http://localhost:8080/social-medias?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllSocialMediaDtoRes> {
+        if (query) {
+            return this.http.get<GetAllSocialMediaDtoRes>(`http://localhost:8080/social-medias?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+
+        } else {
+            return this.http.get<GetAllSocialMediaDtoRes>(`http://localhost:8080/social-medias?startPage=${startPage}&maxPage=${maxPage}`)
+
+        }
     }
 
-    getById(id: string) : Observable<GetBySocialMediaIdDtoRes> {
+    getById(id: string): Observable<GetBySocialMediaIdDtoRes> {
         return this.http.get<GetBySocialMediaIdDtoRes>(`http://localhost:8080/social-medias/${id}`)
     }
 
-    insert(insertReq: InsertSocialMediaDtoReq) : Observable<InsertSocialMediaDtoRes> {
+    insert(insertReq: InsertSocialMediaDtoReq): Observable<InsertSocialMediaDtoRes> {
         return this.http.post<InsertSocialMediaDtoRes>(`http://localhost:8080/social-medias`, insertReq)
     }
 
@@ -33,7 +39,7 @@ export class SocialMediaService {
         return this.http.put<UpdateSocialMediaDtoRes>(`http://localhost:8080/social-medias`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteBySocialMediaIdDtoRes> {
+    delete(id: string): Observable<DeleteBySocialMediaIdDtoRes> {
         return this.http.delete<DeleteBySocialMediaIdDtoRes>(`http://localhost:8080/social-medias/${id}`)
     }
 }

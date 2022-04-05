@@ -26,12 +26,12 @@ export class RegencyListComponent implements OnInit {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
-  getData(startPage: number = 0, maxPage: number = this.maxPage, query: string): void {
+  getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
     this.loading = true;
 
-    startPage = startPage != 0 ? (startPage / this.maxPage) + 1 : startPage
+    // startPage = startPage != 0 ? (startPage / this.maxPage) + 1 : startPage
 
-    this.regencyService.getAll(query, startPage, maxPage).subscribe({
+    this.regencyService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
         this.data = result.data
         this.loading = false
@@ -47,7 +47,7 @@ export class RegencyListComponent implements OnInit {
 
   filter(text: any): void {
     this.data = this.data.filter(d => {
-      return d.regancyCode?.includes(text) || d.regancyName?.toString().includes(text) || d.provinceCode?.toString().includes(text) || d.provinceName?.toString().includes(text)
+      return d.regancyCode?.includes(text) || d.regancyName?.toString().includes(text) || d.provinceName?.toString().includes(text)
     })
   }
 

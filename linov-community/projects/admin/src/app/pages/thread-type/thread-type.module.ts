@@ -7,6 +7,7 @@ import { ThreadTypeUpdateComponent } from "./thread-type-update/thread-type-upda
 import { ThreadTypeRouter } from "./thread-type.router";
 import { TableModule } from 'primeng/table'
 import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { ButtonModule } from "primeng/button";
 @NgModule({
     declarations: [
         ThreadTypeListComponent,
@@ -18,7 +19,8 @@ import { ComponentModule } from "../../../../../core/src/app/component/component
         CommonModule,
         FormsModule,
         ComponentModule,
-        TableModule
+        TableModule,
+        ButtonModule
     ]
 })
 export class ThreadTypeModule { }

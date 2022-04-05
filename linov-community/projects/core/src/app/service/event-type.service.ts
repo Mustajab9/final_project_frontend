@@ -14,18 +14,22 @@ import { UpdateEventTypeDtoRes } from '../dto/event-type/update-event-type-dto-r
 })
 
 export class EventTypeService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll(query: string, startPage: number, maxPage: number) : Observable<GetAllEventTypeDtoRes> {
-        return this.http.get<GetAllEventTypeDtoRes>(`http://localhost:8080/event-types?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllEventTypeDtoRes> {
+        if (query) {
+            return this.http.get<GetAllEventTypeDtoRes>(`http://localhost:8080/event-types?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+        } else {
+            return this.http.get<GetAllEventTypeDtoRes>(`http://localhost:8080/event-types?startPage=${startPage}&maxPage=${maxPage}`)
+        }
     }
 
-    getById(id: string) : Observable<GetByEventTypeIdDtoRes> {
+    getById(id: string): Observable<GetByEventTypeIdDtoRes> {
         return this.http.get<GetByEventTypeIdDtoRes>(`http://localhost:8080/event-types/${id}`)
     }
 
-    insert(insertReq: InsertEventTypeDtoReq) : Observable<InsertEventTypeDtoRes> {
+    insert(insertReq: InsertEventTypeDtoReq): Observable<InsertEventTypeDtoRes> {
         return this.http.post<InsertEventTypeDtoRes>(`http://localhost:8080/event-types`, insertReq)
     }
 
@@ -33,7 +37,7 @@ export class EventTypeService {
         return this.http.put<UpdateEventTypeDtoRes>(`http://localhost:8080/event-types`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteByEventTypeIdDtoRes> {
+    delete(id: string): Observable<DeleteByEventTypeIdDtoRes> {
         return this.http.delete<DeleteByEventTypeIdDtoRes>(`http://localhost:8080/event-types/${id}`)
     }
 }

@@ -14,18 +14,24 @@ import { UpdatePriceListEventDtoRes } from '../dto/price-list-event/update-price
 })
 
 export class PriceListEventService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll(query: string, startPage: number, maxPage: number) : Observable<GetAllPriceListEventDtoRes> {
-        return this.http.get<GetAllPriceListEventDtoRes>(`http://localhost:8080/price-list-events?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllPriceListEventDtoRes> {
+        if (query) {
+            return this.http.get<GetAllPriceListEventDtoRes>(`http://localhost:8080/price-list-events?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+
+        } else {
+            return this.http.get<GetAllPriceListEventDtoRes>(`http://localhost:8080/price-list-events?startPage=${startPage}&maxPage=${maxPage}`)
+
+        }
     }
 
-    getById(id: string) : Observable<GetByPriceListEventIdDtoRes> {
+    getById(id: string): Observable<GetByPriceListEventIdDtoRes> {
         return this.http.get<GetByPriceListEventIdDtoRes>(`http://localhost:8080/price-list-events/${id}`)
     }
 
-    insert(insertReq: InsertPriceListEventDtoReq) : Observable<InsertPriceListEventDtoRes> {
+    insert(insertReq: InsertPriceListEventDtoReq): Observable<InsertPriceListEventDtoRes> {
         return this.http.post<InsertPriceListEventDtoRes>(`http://localhost:8080/price-list-events`, insertReq)
     }
 
@@ -33,7 +39,7 @@ export class PriceListEventService {
         return this.http.put<UpdatePriceListEventDtoRes>(`http://localhost:8080/price-list-events`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteByPriceListEventIdDtoRes> {
+    delete(id: string): Observable<DeleteByPriceListEventIdDtoRes> {
         return this.http.delete<DeleteByPriceListEventIdDtoRes>(`http://localhost:8080/price-list-events/${id}`)
     }
 }

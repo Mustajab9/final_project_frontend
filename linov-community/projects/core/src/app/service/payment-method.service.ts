@@ -14,18 +14,24 @@ import { UpdatePaymentMethodDtoRes } from '../dto/payment-method/update-payment-
 })
 
 export class PaymentMethodService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll(query: string, startPage: number, maxPage: number) : Observable<GetAllPaymentMethodDtoRes> {
-        return this.http.get<GetAllPaymentMethodDtoRes>(`http://localhost:8080/payment-methods?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllPaymentMethodDtoRes> {
+        if (query) {
+            return this.http.get<GetAllPaymentMethodDtoRes>(`http://localhost:8080/payment-methods?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+
+        } else {
+            return this.http.get<GetAllPaymentMethodDtoRes>(`http://localhost:8080/payment-methods?startPage=${startPage}&maxPage=${maxPage}`)
+
+        }
     }
 
-    getById(id: string) : Observable<GetByPaymentMethodIdDtoRes> {
+    getById(id: string): Observable<GetByPaymentMethodIdDtoRes> {
         return this.http.get<GetByPaymentMethodIdDtoRes>(`http://localhost:8080/payment-methods/${id}`)
     }
 
-    insert(insertReq: InsertPaymentMethodDtoReq) : Observable<InsertPaymentMethodDtoRes> {
+    insert(insertReq: InsertPaymentMethodDtoReq): Observable<InsertPaymentMethodDtoRes> {
         return this.http.post<InsertPaymentMethodDtoRes>(`http://localhost:8080/payment-methods`, insertReq)
     }
 
@@ -33,7 +39,7 @@ export class PaymentMethodService {
         return this.http.put<UpdatePaymentMethodDtoRes>(`http://localhost:8080/payment-methods`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteByPaymentMethodIdDtoRes> {
+    delete(id: string): Observable<DeleteByPaymentMethodIdDtoRes> {
         return this.http.delete<DeleteByPaymentMethodIdDtoRes>(`http://localhost:8080/payment-methods/${id}`)
     }
 }

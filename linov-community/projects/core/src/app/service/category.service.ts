@@ -15,18 +15,21 @@ import { UpdateCategoryDtoRes } from '../dto/category/update-category-dto-res'
 })
 
 export class CategoryService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll(query: string, startPage: number, maxPage: number) : Observable<GetAllCategoryDtoRes> {
-        return this.http.get<GetAllCategoryDtoRes>(`http://localhost:8080/categories?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllCategoryDtoRes> {
+        if (query) {
+            return this.http.get<GetAllCategoryDtoRes>(`http://localhost:8080/categories?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+        } else {
+            return this.http.get<GetAllCategoryDtoRes>(`http://localhost:8080/categories?startPage=${startPage}&maxPage=${maxPage}`)
+        }
     }
-
-    getById(id: string) : Observable<GetByCategoryIdDtoRes> {
+    getById(id: string): Observable<GetByCategoryIdDtoRes> {
         return this.http.get<GetByCategoryIdDtoRes>(`http://localhost:8080/categories/${id}`)
     }
 
-    insert(insertReq: InsertCategoryDtoReq) : Observable<InsertCategoryDtoRes> {
+    insert(insertReq: InsertCategoryDtoReq): Observable<InsertCategoryDtoRes> {
         return this.http.post<InsertCategoryDtoRes>(`http://localhost:8080/categories`, insertReq)
     }
 
@@ -34,7 +37,7 @@ export class CategoryService {
         return this.http.put<UpdateCategoryDtoRes>(`http://localhost:8080/categories`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteByCategoryIdDtoRes> {
+    delete(id: string): Observable<DeleteByCategoryIdDtoRes> {
         return this.http.delete<DeleteByCategoryIdDtoRes>(`http://localhost:8080/categories/${id}`)
     }
 }

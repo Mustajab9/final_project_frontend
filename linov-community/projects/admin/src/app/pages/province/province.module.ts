@@ -7,6 +7,7 @@ import { ProvinceUpdateComponent } from "./province-update/province-update.compo
 import { ProvinceRouter } from "./province.router";
 import { TableModule } from 'primeng/table'
 import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { ButtonModule } from "primeng/button";
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { ComponentModule } from "../../../../../core/src/app/component/component
         CommonModule,
         FormsModule,
         ComponentModule,
-        TableModule
+        TableModule,
+        ButtonModule
     ]
 })
 export class ProvinceModule { }

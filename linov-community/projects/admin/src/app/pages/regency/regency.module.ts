@@ -7,6 +7,7 @@ import { RegencyUpdateComponent } from "./regency-update/regency-update.componen
 import { RegencyRouter } from "./regency.router";
 import { TableModule } from 'primeng/table'
 import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { ButtonModule } from "primeng/button";
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { ComponentModule } from "../../../../../core/src/app/component/component
         CommonModule,
         FormsModule,
         ComponentModule,
+        ButtonModule,
         TableModule
     ]
 })

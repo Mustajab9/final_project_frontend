@@ -14,18 +14,24 @@ import { UpdatePriceListMemberDtoRes } from '../dto/price-list-member/update-pri
 })
 
 export class PriceListMemberService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll(query: string, startPage: number, maxPage: number) : Observable<GetAllPriceListMemberDtoRes> {
-        return this.http.get<GetAllPriceListMemberDtoRes>(`http://localhost:8080/price-list-members?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllPriceListMemberDtoRes> {
+        if (query) {
+            return this.http.get<GetAllPriceListMemberDtoRes>(`http://localhost:8080/price-list-members?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+
+        } else {
+            return this.http.get<GetAllPriceListMemberDtoRes>(`http://localhost:8080/price-list-members?startPage=${startPage}&maxPage=${maxPage}`)
+
+        }
     }
 
-    getById(id: string) : Observable<GetByPriceListMemberIdDtoRes> {
+    getById(id: string): Observable<GetByPriceListMemberIdDtoRes> {
         return this.http.get<GetByPriceListMemberIdDtoRes>(`http://localhost:8080/price-list-members/${id}`)
     }
 
-    insert(insertReq: InsertPriceListMemberDtoReq) : Observable<InsertPriceListMemberDtoRes> {
+    insert(insertReq: InsertPriceListMemberDtoReq): Observable<InsertPriceListMemberDtoRes> {
         return this.http.post<InsertPriceListMemberDtoRes>(`http://localhost:8080/price-list-members`, insertReq)
     }
 
@@ -33,7 +39,7 @@ export class PriceListMemberService {
         return this.http.put<UpdatePriceListMemberDtoRes>(`http://localhost:8080/price-list-members`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteByPriceListMemberIdDtoRes> {
+    delete(id: string): Observable<DeleteByPriceListMemberIdDtoRes> {
         return this.http.delete<DeleteByPriceListMemberIdDtoRes>(`http://localhost:8080/price-list-members/${id}`)
     }
 }

@@ -14,26 +14,32 @@ import { UpdatePositionDtoRes } from '../dto/position/update-position-dto-res'
 })
 
 export class PositionService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll(query: string, startPage: number, maxPage: number) : Observable<GetAllPositionDtoRes> {
-        return this.http.get<GetAllPositionDtoRes>(`http://localhost:8080/users?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllPositionDtoRes> {
+        if (query) {
+            return this.http.get<GetAllPositionDtoRes>(`http://localhost:8080/positions?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+
+        } else {
+            return this.http.get<GetAllPositionDtoRes>(`http://localhost:8080/positions?startPage=${startPage}&maxPage=${maxPage}`)
+
+        }
     }
 
-    getById(id: string) : Observable<GetByPositionIdDtoRes> {
-        return this.http.get<GetByPositionIdDtoRes>(`http://localhost:8080/users/${id}`)
+    getById(id: string): Observable<GetByPositionIdDtoRes> {
+        return this.http.get<GetByPositionIdDtoRes>(`http://localhost:8080/positions/${id}`)
     }
 
-    insert(insertReq: InsertPositionDtoReq) : Observable<InsertPositionDtoRes> {
-        return this.http.post<InsertPositionDtoRes>(`http://localhost:8080/users`, insertReq)
+    insert(insertReq: InsertPositionDtoReq): Observable<InsertPositionDtoRes> {
+        return this.http.post<InsertPositionDtoRes>(`http://localhost:8080/positions`, insertReq)
     }
 
     update(updateReq: UpdatePositionDtoReq): Observable<UpdatePositionDtoRes> {
-        return this.http.put<UpdatePositionDtoRes>(`http://localhost:8080/users`, updateReq)
+        return this.http.put<UpdatePositionDtoRes>(`http://localhost:8080/positions`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteByPositionIdDtoRes> {
-        return this.http.delete<DeleteByPositionIdDtoRes>(`http://localhost:8080/users/${id}`)
+    delete(id: string): Observable<DeleteByPositionIdDtoRes> {
+        return this.http.delete<DeleteByPositionIdDtoRes>(`http://localhost:8080/positions/${id}`)
     }
 }
