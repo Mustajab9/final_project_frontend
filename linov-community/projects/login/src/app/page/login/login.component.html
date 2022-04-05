@@ -11,25 +11,27 @@
             </div>
 
             <div class="col-md-6">
-                <form class="p-4">
+                <form class="p-4" #formLogin="ngForm" (ngSubmit)="onLogin(formLogin.form.valid)">
                     <div class="d-flex align-items-center my-3">
                         <h4> <i class="fa-solid fa-arrow-right-to-bracket me-2"></i> Login Account</h4>
                     </div>
 
-                    <form-input 
+                    <form-input
                         forLabel="email" nameLabel="Email" classLabel="" [requiredLabel]="true"
-                        typeInput="email" classInput="mb-3" maxInput="100" minInput="1" placeholderInput="enter your email address">
+                        typeInput="email" classInput="mb-3" maxInput="100" minInput="1" placeholderInput="enter your email address"
+                        [(ngModelInput)]="login.username">
                     </form-input>
 
-                    <form-input 
+                    <form-input
                         forLabel="Password" nameLabel="Password" classLabel="" [requiredLabel]="true"
-                        typeInput="password" classInput="mb-2" maxInput="255" minInput="5" placeholderInput="enter your password">
+                        typeInput="password" classInput="mb-2" maxInput="255" minInput="5" placeholderInput="enter your password"
+                        [(ngModelInput)]="login.password">
                     </form-input>
 
                     <a class="text-end mt-2 d-block" routerLink="/login">Forgot Password</a>
 
-                    <app-button 
-                        class="w-100" typeBtn="submit" labelBtn="SIGN IN" idBtn="login" classBtn="mt-4 w-100">
+                    <app-button
+                        class="w-100" typeBtn="submit" labelBtn="SIGN IN" idBtn="login" classBtn="mt-4 w-100" [disbaledBtn]="formLogin.form.invalid">
                     </app-button>
 
                     <hr>
