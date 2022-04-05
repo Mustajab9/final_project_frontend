@@ -9,12 +9,6 @@ import { InsertEventDtoReq } from '../dto/event/insert-event-dto-req'
 import { InsertEventDtoRes } from '../dto/event/insert-event-dto-res'
 import { UpdateEventDtoReq } from '../dto/event/update-event-dto-req'
 import { UpdateEventDtoRes } from '../dto/event/update-event-dto-res'
-import { DeleteByThreadLikeIdDtoRes } from '../dto/thread-like/delete-by-thread-like-id-dto-res'
-import { GetAllThreadLikeDtoRes } from '../dto/thread-like/get-all-thread-like-dto-res'
-import { GetByThreadLikeIdDtoRes } from '../dto/thread-like/get-by-thread-like-id-dto-res'
-import { GetThreadLikeByThreadDtoRes } from '../dto/thread-like/get-thread-like-by-thread-dto-res'
-import { InsertThreadLikeDtoReq } from '../dto/thread-like/insert-thread-like-dto-req'
-import { InsertThreadLikeDtoRes } from '../dto/thread-like/insert-thread-like-dto-res'
 
 @Injectable({
     providedIn: 'root'
