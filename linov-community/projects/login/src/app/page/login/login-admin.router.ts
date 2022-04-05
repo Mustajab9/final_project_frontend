@@ -4,7 +4,7 @@ import { LoginComponent } from "./login.component";
 
 const routes : Routes = [
     {
-        path : 'login',
+        path : 'admin/login',
         component : LoginComponent
     }
 ]
@@ -17,4 +17,4 @@ const routes : Routes = [
         RouterModule
     ]
 })
-export class LoginRouter {}
+export class LoginAdminRouter {}

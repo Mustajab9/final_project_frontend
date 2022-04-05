@@ -10,7 +10,7 @@ import { ComponentModule } from '../../../core/src/app/component/components.modu
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     ComponentModule,

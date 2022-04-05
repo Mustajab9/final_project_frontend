@@ -5,6 +5,7 @@ import { LoginComponent } from "./login.component";
 import { LoginRouter } from "./login.router";
 import {PasswordModule} from 'primeng/password';
 import { ComponentModule } from "../../../../../core/src/app/component/components.module";
+import { LoginAdminRouter } from "./login-admin.router";
 
 @NgModule({
     declarations : [
@@ -15,7 +16,8 @@ import { ComponentModule } from "../../../../../core/src/app/component/component
         CommonModule,
         FormsModule,
         PasswordModule,
-        LoginRouter
+        LoginRouter,
+        LoginAdminRouter
     ]
 })
 export class LoginModule {}
