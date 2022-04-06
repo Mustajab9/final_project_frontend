@@ -6,8 +6,16 @@ import { RoleRouter } from "./role.router";
 import { RoleSaveComponent } from './role-save/role-save.component';
 import { RoleUpdateComponent } from './role-update/role-update.component';
 import { TableModule } from 'primeng/table'
-import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 import { ButtonModule } from "primeng/button";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ToolbarModule } from "primeng/toolbar";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { roleReducer } from "../../../../../core/src/app/state/role/role.reducer";
+import { RoleEffect } from "../../../../../core/src/app/state/role/role.effect";
+
 @NgModule({
     declarations: [
         RoleListComponent,
@@ -20,7 +28,16 @@ import { ButtonModule } from "primeng/button";
         FormsModule,
         ComponentModule,
         TableModule,
-        ButtonModule
+        ButtonModule,
+        ConfirmDialogModule,
+        TableModule,
+        ToolbarModule,
+        StoreModule.forFeature('roleStore', roleReducer),
+        EffectsModule.forFeature([RoleEffect])
+    ],
+    providers: [
+        ConfirmationService,
+        MessageService
     ]
 })
 export class RoleModule { }

@@ -1,74 +1,63 @@
-<div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <form class="form-inline">
-                <div class="form-group mb-3">
-                    <app-button idBtn="input" classBtn="p-button-success form-control" labelBtn=" Add Type"
-                        routerLinkBtn="/admin/event-type/new" iconType="pi-plus">
-                    </app-button>
-                </div>
-            </form>
-        </div>
+<!-- Main Content -->
+<div class="card">
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+        </ng-template>
 
-        <!-- Table Content -->
-        <p-table #dt1 [value]="data" [lazy]="true" (onLazyLoad)="loadData($event)" responsiveLayout="scroll"
+        <ng-template pTemplate="right">
+            <app-button classBtn="p-button-success me-2"  typeBtn="submit"
+                        labelBtn="Add" idBtn="add" iconType="pi-plus" routerLinkBtn="/admin/event-type/new">
+            </app-button>
+        </ng-template>
+    </p-toolbar>
+
+    <!-- Table Content -->
+    <p-table #dt [value]="data" [lazy]="true" (onLazyLoad)="loadData($event)" responsiveLayout="scroll"
             [paginator]="true" [rows]="maxPage" [totalRecords]="totalRecords" [loading]="loading"
-            [rowsPerPageOptions]="[10,25,50]" tyleClass="p-datatable-gridlines" [globalFilterFields]="['code', 'name']">
+            tyleClass="p-datatable-gridlines" [globalFilterFields]="['code', 'name']" [rowHover]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
-            <ng-template pTemplate="caption">
-                <div class="flex">
-                    <span class="p-input-icon-left ml-auto">
+        <ng-template pTemplate="caption">
+            <div class="d-flex align-items-center justify-content-between">
+                <h5 class="m-0">Category List</h5>
+                <span class="p-input-icon-left">
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
 
-                        <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
-                            placeholder="Search keyword" />
-                    </span>
-                </div>
-            </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Type Code</th>
+                <th>Type Name</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </ng-template>
 
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Type Code</th>
-                    <th>Type Name</th>
-                    <th class="text-center">Action</th>
-                </tr>
-            </ng-template>
+        <ng-template pTemplate="body" let-data>
+            <tr>
+                <td>{{data.typeCode}}</td>
+                <td>{{data.typeName}}</td>
+                <td class="text-center">
+                    <app-button idBtn="update" classBtn="p-button-warning me-2" iconType="pi-undo" (clickBtnEvent)="update(data.id)">
+                    </app-button>
+                    <button pButton pRipple class="p-button-danger" id="delete-btn" icon="pi pi-trash" (click)="deleteById(data.id)">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
 
-            <ng-template pTemplate="body" let-data>
-                <tr>
-                    <td>{{data.typeCode}}</td>
-                    <td>{{data.typeName}}</td>
-                    <td class="text-center">
-                        <app-button idBtn="update" classBtn="p-button-warning me-2" iconType="pi-undo"
-                            (clickBtnEvent)="update(data.id)">
-                        </app-button>
-                        <button pButton pRipple class="p-button-danger" id="delete-btn" data-bs-toggle="modal"
-                            data-bs-target="#delete" (click)="deleteById(data.id)" icon="pi pi-trash">
-                        </button>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-        <!-- End of Table Content -->
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{data ? data.length : 0 }} Categorys.
+            </div>
+        </ng-template>
 
-    </div>
+    </p-table>
+    <!-- End of Table Content -->
+
 </div>
-<hr>
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirm to Delete</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure to delete?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Just
-                    Delete</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- End Of Main Content -->
+
+<!-- ConfimDialog -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

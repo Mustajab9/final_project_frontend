@@ -32,4 +32,9 @@ const categorySelectorInsert = createSelector(
     (state: {insertProgress: boolean}) => state.insertProgress
 )
 
-export {categorySelectorInit, categorySelectorAll, categorySelectorById, categorySelectorUpdate, categorySelectorInsert }
+const categorySelectorDelete = createSelector(
+    createFeatureSelector(categoryStore),
+    (state: {deleteProgress: boolean}) => state.deleteProgress
+)
+
+export {categorySelectorInit, categorySelectorAll, categorySelectorById, categorySelectorUpdate, categorySelectorInsert, categorySelectorDelete }

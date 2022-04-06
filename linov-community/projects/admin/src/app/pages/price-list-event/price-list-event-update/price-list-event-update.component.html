@@ -8,26 +8,23 @@
                         <div class="text-center">
                             <h1 class="h3 mb-4 text-gray-800">Form Update Price Event</h1>
                         </div>
-                        <form class="row g-2">
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Price Event Name <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" id="price-list-event-name"
-                                    name="price-list-event-name" placeholder="Enter Price Event Name..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Nominal Price Event (Rp.) <span
-                                        class="text-danger">*</span></label>
-                                <input class="form-control" type="number" id="nominal-price-list-event"
-                                    name="nominal-price-list-event" placeholder="Enter Nominal Price Event..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6 text-end">
-                                <button class="btn btn-primary col-12 col-sm-6 me-3"
-                                    routerLink="/admin/price-list-event/list"><span class="glyphicon glyphicon-save"></span>
-                                    Simpan</button>
-                                <a class="btn btn-danger col-12 col-sm-6" routerLink="/admin/price-list-event/list"><span
-                                        class="glyphicon glyphicon-arrow-left"></span>
-                                    Kembali</a>
-                            </div>
+                        <form #formUpdate="ngForm" class="row" (ngSubmit)="onSubmit(formUpdate.form.valid)">
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="price-list-event-name" classLabel="h5" nameLabel="Price Event Name" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Price Event Name"
+                                        minInput="5" maxInput="100" [(ngModelInput)]="data.priceName">
+                            </form-input>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="price-nominal" classLabel="h5" nameLabel="Price Price Nominal" [requiredLabel]="true"
+                                        typeInput="number" placeholderInput="Enter Price Nominal" [(ngModelInput)]="data.priceNominal">
+                            </form-input>
+                            <form-button    divClass="d-flex"
+                                            classBtnPrimary="p-button-secondary me-3" labelBtnPrimary="Back"
+                                            idBtnPrimary="back" routerLinkBtnPrimary="/admin/price-list-event/list"
+                                            classBtnSecondary="p-button-success" labelBtnSecondary="Submit"
+                                            idBtnSecondary="input" typeBtnSecondary="submit"
+                                            [disbaledBtnSecondary]="formUpdate.form.invalid">
+                            </form-button>
                         </form>
                     </div>
                 </div>

@@ -1,13 +1,10 @@
-import { DatePipe } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { MessageService } from 'primeng/api';
-import { HttpHandlerElearning } from '../../../core/src/app/http/http-handler';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { AppAdminRouter } from './app.router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -16,17 +13,11 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
   imports: [
     BrowserModule,
     AppAdminRouter,
-    FormsModule
+    FormsModule,
+    StoreModule.forRoot([]),
+    EffectsModule.forRoot([])
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpHandlerElearning,
-      multi: true
-    },
-    MessageService,
-    DatePipe
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppAdminModule { }

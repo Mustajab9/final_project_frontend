@@ -9,7 +9,8 @@ const initialState = {
     payload: getAllUserDtoDataRes,
     init: false,
     updateProgress: false,
-    insertProgress: false
+    insertProgress: false,
+    deleteProgress: false
 }
 
 export const userReducer = createReducer(
@@ -33,7 +34,7 @@ export const userReducer = createReducer(
     }),
     on(deleteUserSuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
-        return { ...state, payload: newData, init: true }
+        return { ...state, payload: newData, deleteProgress: true }
     }),
     on(insertUserSuccessAction, (state, { payload }) => {
         const newData = [...state.payload]

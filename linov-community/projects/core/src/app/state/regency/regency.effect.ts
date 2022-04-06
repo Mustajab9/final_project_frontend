@@ -13,7 +13,7 @@ export class RegencyEffect {
         this.action$.pipe(
             ofType(loadRegencyAction),
             mergeMap(
-                ({ payload }) => this.regencyService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.regencyService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadRegencySuccessAction({ payload: result.data }))
                 )
             )

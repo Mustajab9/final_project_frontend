@@ -1,23 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { GetAllPriceListEventDtoDataRes } from 'projects/core/src/app/dto/price-list-event/get-all-price-list-event-dto-data-res';
-import { PriceListEventService } from 'projects/core/src/app/service/price-list-event.service';
+import { GetAllPriceListEventDtoDataRes } from '../../../../../../core/src/app/dto/price-list-event/get-all-price-list-event-dto-data-res';
+import { PriceListEventService } from '../../../../../../core/src/app/service/price-list-event.service';
+import { deletePriceListEventAction } from '../../../../../../core/src/app/state/price-list-event/price-list-event.action';
+import { Subscription } from 'rxjs';
+import { priceListEventSelectorDelete } from '../../../../../../core/src/app/state/price-list-event/price-list-event.selector';
 
 @Component({
   selector: 'app-price-list-event-list',
   templateUrl: './price-list-event-list.component.html',
   styleUrls: ['./price-list-event-list.component.css']
 })
-export class PriceListEventListComponent implements OnInit {
+export class PriceListEventListComponent implements OnInit, OnDestroy {
 
   data: GetAllPriceListEventDtoDataRes[] = []
 
+  getAllPriceListEventSubscription?: Subscription
+  priceListEventDeleteSubscription?: Subscription
   maxPage: number = 10
   totalRecords: number = 0
   loading: boolean = true
 
-  constructor(private priceListEventService: PriceListEventService) { }
+  constructor(private title: Title, private router: Router, private store: Store, private confirmationService: ConfirmationService,
+              private priceListEventService: PriceListEventService) {
+    this.title.setTitle('Price List Event')
+  }
 
   ngOnInit(): void {
   }
@@ -29,9 +40,7 @@ export class PriceListEventListComponent implements OnInit {
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
     this.loading = true;
 
-    // startPage = startPage != 0 ? (startPage / this.maxPage) + 1 : startPage
-
-    this.priceListEventService.getAll(startPage, maxPage, query).subscribe({
+    this.getAllPriceListEventSubscription = this.priceListEventService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
         this.data = result.data
         this.loading = false
@@ -52,11 +61,31 @@ export class PriceListEventListComponent implements OnInit {
   }
 
   update(id: number): void {
-
+    this.router.navigateByUrl(`/admin/price-list-event/${id}`)
   }
 
-  deleteById(id: number): void {
-
+  deleteProgress(): void {
+    this.priceListEventDeleteSubscription = this.store.select(priceListEventSelectorDelete).subscribe(result => {
+      if (result) {
+        this.getData(0, 10)
+      }
+    })
   }
 
+  deleteById(id: string){
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this data?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+          this.store.dispatch(deletePriceListEventAction({ payload: id }))
+          this.deleteProgress()
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.getAllPriceListEventSubscription?.unsubscribe
+    this.priceListEventDeleteSubscription?.unsubscribe
+  }
 }

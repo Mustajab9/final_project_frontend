@@ -8,28 +8,22 @@
                         <div class="text-center">
                             <h1 class="h3 mb-4 text-gray-800">Form Add Thread Type</h1>
                         </div>
-                        <form class="row g-2">
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Thread Type Name <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" id="thread-type-name" name="thread-type-name"
-                                    placeholder="Enter Thread Type Name..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Thread Type Code <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" id="thread-type-code" name="thread-type-code"
-                                    placeholder="Enter thread Type Code..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6 text-end">
-                                <button class="btn btn-primary col-12 col-sm-6 me-3"
-                                    routerLink="/admin/thread-type/list"><span class="glyphicon glyphicon-save"></span>
-                                    Simpan</button>
-                                <a class="btn btn-danger col-12 col-sm-6" routerLink="/admin/thread-type/list"><span
-                                        class="glyphicon glyphicon-arrow-left"></span>
-                                    Kembali</a>
-
-                            </div>
-                            <!-- <div class="form-group mb-3 col-12 col-sm-6">
-                            </div> -->
+                        <form #formInput="ngForm" class="row" (ngSubmit)="onSubmit(formInput.form.valid)">
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="thread-type-code" classLabel="h5" nameLabel="Thread Type Code" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Thread Type Code"
+                                        minInput="3" maxInput="5" [(ngModelInput)]="data.typeCode">
+                            </form-input>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="thread-type-name" classLabel="h5" nameLabel="Thread Type Name" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Thread Type Name"
+                                        minInput="5" maxInput="100" [(ngModelInput)]="data.typeName">
+                            </form-input>
+                            <form-button class="d-flex mt-3" classBtnPrimary="p-button-secondary me-3"
+                                labelBtnPrimary="Back" idBtnPrimary="back" routerLinkBtnPrimary="/admin/thread-type/list"
+                                classBtnSecondary="p-button-success" labelBtnSecondary="Submit" idBtnSecondary="input"
+                                typeBtnSecondary="submit" [disbaledBtnSecondary]="formInput.form.invalid">
+                            </form-button>
                         </form>
                     </div>
                 </div>

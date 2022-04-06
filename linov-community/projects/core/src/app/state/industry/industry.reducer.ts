@@ -9,7 +9,8 @@ const initialState = {
     payload: getAllIndustryDtoDataRes,
     init: false,
     updateProgress: false,
-    insertProgress: false
+    insertProgress: false,
+    deleteProgress: false
 }
 
 export const industryReducer = createReducer(
@@ -32,7 +33,7 @@ export const industryReducer = createReducer(
     }),
     on(deleteIndustrySuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
-        return { ...state, payload: newData, init: true }
+        return { ...state, payload: newData, deleteProgress: true }
     }),
     on(insertIndustrySuccessAction, (state, { payload }) => {
         const newData = [...state.payload]

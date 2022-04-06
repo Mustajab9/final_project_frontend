@@ -8,34 +8,26 @@
                         <div class="text-center">
                             <h1 class="h3 mb-4 text-gray-800">Form Add Price Event</h1>
                         </div>
-                        <form class="row g-2">
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Price Event Name <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" id="price-list-event-name"
-                                    name="price-list-event-name" placeholder="Enter Price Event Name..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Price Event Code <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" id="price-list-event-code"
-                                    name="price-list-event-code" placeholder="Enter Price Event Code..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Nominal Price Event (Rp.) <span
-                                        class="text-danger">*</span></label>
-                                <input class="form-control" type="number" id="nominal-price-list-event"
-                                    name="nominal-price-list-event" placeholder="Enter Nominal Price Event..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6">
-
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6 text-end">
-                                <button class="btn btn-primary col-12 col-sm-6 me-3"
-                                    routerLink="/admin/price-list-event/list"><span class="glyphicon glyphicon-save"></span>
-                                    Simpan</button>
-                                <a class="btn btn-danger col-12 col-sm-6" routerLink="/admin/price-list-event/list"><span
-                                        class="glyphicon glyphicon-arrow-left"></span>
-                                    Kembali</a>
-                            </div>
+                        <form #formInput="ngForm" class="row" (ngSubmit)="onSubmit(formInput.form.valid)">
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="price-list-event-code" classLabel="h5" nameLabel="Price Event Code" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Price Event Code"
+                                        minInput="3" maxInput="5" [(ngModelInput)]="data.priceCode">
+                            </form-input>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="price-list-event-name" classLabel="h5" nameLabel="Price Event Name" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Price Event Name"
+                                        minInput="5" maxInput="100" [(ngModelInput)]="data.priceName">
+                            </form-input>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="price-list-event-number" classLabel="h5" nameLabel="Nominal Price Event" [requiredLabel]="true"
+                                        typeInput="number" placeholderInput="Enter Price Event Name" [(ngModelInput)]="data.priceNominal">
+                            </form-input>
+                            <form-button class="d-flex mt-3" classBtnPrimary="p-button-secondary me-3"
+                                labelBtnPrimary="Back" idBtnPrimary="back" routerLinkBtnPrimary="/admin/price-list-event/list"
+                                classBtnSecondary="p-button-success" labelBtnSecondary="Submit" idBtnSecondary="input"
+                                typeBtnSecondary="submit" [disbaledBtnSecondary]="formInput.form.invalid">
+                            </form-button>
                         </form>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ export class EventTypeEffect {
         this.action$.pipe(
             ofType(loadEventTypeAction),
             mergeMap(
-                ({ payload }) => this.eventTypeService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.eventTypeService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadEventTypeSuccessAction({ payload: result.data }))
                 )
             )

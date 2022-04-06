@@ -6,8 +6,15 @@ import { EventTypeSaveComponent } from "./event-type-save/event-type-save.compon
 import { EventTypeUpdateComponent } from "./event-type-update/event-type-update.component";
 import { EventTypeRouter } from "./event-type.router";
 import { TableModule } from 'primeng/table'
-import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 import { ButtonModule } from "primeng/button";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ToolbarModule } from "primeng/toolbar";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { ConfirmationService } from "primeng/api";
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { eventTypeReducer } from "../../../../../core/src/app/state/event-type/event-type.reducer";
+import { EventTypeEffect } from "../../../../../core/src/app/state/event-type/event-type.effect";
 
 @NgModule({
     declarations: [
@@ -21,7 +28,15 @@ import { ButtonModule } from "primeng/button";
         FormsModule,
         ComponentModule,
         TableModule,
-        ButtonModule
+        ButtonModule,
+        ConfirmDialogModule,
+        TableModule,
+        ToolbarModule,
+        StoreModule.forFeature('eventTypeStore', eventTypeReducer),
+        EffectsModule.forFeature([EventTypeEffect])
+    ],
+    providers: [
+        ConfirmationService
     ]
 })
 export class EventTypeModule { }

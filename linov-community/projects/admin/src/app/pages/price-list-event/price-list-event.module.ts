@@ -6,8 +6,15 @@ import { PriceListEventSaveComponent } from "./price-list-event-save/price-list-
 import { PriceListEventUpdateComponent } from "./price-list-event-update/price-list-event-update.component";
 import { PriceListEventRouter } from "./price-list-event.router";
 import { TableModule } from 'primeng/table'
-import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 import { ButtonModule } from "primeng/button";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ToolbarModule } from "primeng/toolbar";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { priceListEventReducer } from "../../../../../core/src/app/state/price-list-event/price-list-event.reducer";
+import { PriceListEventEffect } from "../../../../../core/src/app/state/price-list-event/price-list-event.effect";
 
 @NgModule({
     declarations: [
@@ -21,7 +28,16 @@ import { ButtonModule } from "primeng/button";
         FormsModule,
         ComponentModule,
         TableModule,
-        ButtonModule
+        ButtonModule,
+        ConfirmDialogModule,
+        TableModule,
+        ToolbarModule,
+        StoreModule.forFeature('priceListEventStore', priceListEventReducer),
+        EffectsModule.forFeature([PriceListEventEffect])
+    ],
+    providers: [
+        ConfirmationService,
+        MessageService
     ]
 })
 export class PriceListEventModule { }

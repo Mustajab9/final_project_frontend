@@ -32,4 +32,9 @@ const industrySelectorInsert = createSelector(
     (state: {insertProgress: boolean}) => state.insertProgress
 )
 
-export { industrySelectorInit, industrySelectorAll, industrySelectorById, industrySelectorUpdate, industrySelectorInsert }
+const industrySelectorDelete = createSelector(
+    createFeatureSelector(industryStore),
+    (state: {deleteProgress: boolean}) => state.deleteProgress
+)
+
+export { industrySelectorInit, industrySelectorAll, industrySelectorById, industrySelectorUpdate, industrySelectorInsert, industrySelectorDelete }

@@ -9,7 +9,8 @@ const initialState = {
     payload: getAllSubscriptionDtoDataRes,
     init: false,
     updateProgress: false,
-    insertProgress: false
+    insertProgress: false,
+    deleteProgress: false
 }
 
 export const subscriptionReducer = createReducer(
@@ -31,7 +32,7 @@ export const subscriptionReducer = createReducer(
     }),
     on(deleteSubscriptionSuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
-        return { ...state, payload: newData, init: true }
+        return { ...state, payload: newData, deleteProgress: true }
     }),
     on(insertSubscriptionSuccessAction, (state, { payload }) => {
         const newData = [...state.payload]

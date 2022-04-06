@@ -1,23 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { GetAllPositionDtoDataRes } from 'projects/core/src/app/dto/position/get-all-position-dto-data-res';
-import { PositionService } from 'projects/core/src/app/service/position.service';
+import { GetAllPositionDtoDataRes } from '../../../../../../core/src/app/dto/position/get-all-position-dto-data-res';
+import { PositionService } from '../../../../../../core/src/app/service/position.service';
+import { deletePositionAction } from '../../../../../../core/src/app/state/position/position.action';
+import { Subscription } from 'rxjs';
+import { positionSelectorDelete } from '../../../../../../core/src/app/state/position/position.selector';
 
 @Component({
   selector: 'app-position-list',
   templateUrl: './position-list.component.html',
   styleUrls: ['./position-list.component.css']
 })
-export class PositionListComponent implements OnInit {
+export class PositionListComponent implements OnInit, OnDestroy {
 
   data: GetAllPositionDtoDataRes[] = []
 
+  getAllPositionSubscription?: Subscription
+  positionDeleteSubscription?: Subscription
   maxPage: number = 10
   totalRecords: number = 0
   loading: boolean = true
 
-  constructor(private positionService: PositionService) { }
+  constructor(private title: Title, private router: Router, private store: Store, private confirmationService: ConfirmationService,
+              private positionService: PositionService) {
+    this.title.setTitle('Position List')
+  }
 
   ngOnInit(): void {
   }
@@ -29,9 +40,7 @@ export class PositionListComponent implements OnInit {
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
     this.loading = true;
 
-    // startPage = startPage != 0 ? (startPage / this.maxPage) + 1 : startPage
-
-    this.positionService.getAll(startPage, maxPage, query).subscribe({
+    this.getAllPositionSubscription = this.positionService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
         this.data = result.data
         this.loading = false
@@ -52,11 +61,32 @@ export class PositionListComponent implements OnInit {
   }
 
   update(id: number): void {
-
+    this.router.navigateByUrl(`/admin/position/${id}`)
   }
 
-  deleteById(id: number): void {
+  deleteProgress(): void {
+    this.positionDeleteSubscription = this.store.select(positionSelectorDelete).subscribe(result => {
+      if (result) {
+        this.getData(0, 10)
+      }
+    })
+  }
 
+  deleteById(id: string){
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this data?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+          this.store.dispatch(deletePositionAction({ payload: id }))
+          this.deleteProgress()
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.getAllPositionSubscription?.unsubscribe
+    this.positionDeleteSubscription?.unsubscribe
   }
 
 }

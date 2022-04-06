@@ -13,7 +13,7 @@ export class IndustryEffect {
         this.action$.pipe(
             ofType(loadIndustryAction),
             mergeMap(
-                ({ payload }) => this.industryService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.industryService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadIndustrySuccessAction({ payload: result.data }))
                 )
             )

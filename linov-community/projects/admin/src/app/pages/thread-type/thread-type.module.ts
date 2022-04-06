@@ -6,8 +6,15 @@ import { ThreadTypeSaveComponent } from "./thread-type-save/thread-type-save.com
 import { ThreadTypeUpdateComponent } from "./thread-type-update/thread-type-update.component";
 import { ThreadTypeRouter } from "./thread-type.router";
 import { TableModule } from 'primeng/table'
-import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 import { ButtonModule } from "primeng/button";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ToolbarModule } from "primeng/toolbar";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { threadTypeReducer } from "../../../../../core/src/app/state/thread-type/thread-type.reducer";
+import { ThreadTypeEffect } from "../../../../../core/src/app/state/thread-type/thread-type.effect";
 @NgModule({
     declarations: [
         ThreadTypeListComponent,
@@ -20,7 +27,16 @@ import { ButtonModule } from "primeng/button";
         FormsModule,
         ComponentModule,
         TableModule,
-        ButtonModule
+        ButtonModule,
+        ConfirmDialogModule,
+        TableModule,
+        ToolbarModule,
+        StoreModule.forFeature('threadTypeStore', threadTypeReducer),
+        EffectsModule.forFeature([ThreadTypeEffect])
+    ],
+    providers: [
+        ConfirmationService,
+        MessageService
     ]
 })
 export class ThreadTypeModule { }

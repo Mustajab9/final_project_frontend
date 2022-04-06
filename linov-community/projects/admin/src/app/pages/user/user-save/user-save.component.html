@@ -8,39 +8,26 @@
                         <div class="text-center">
                             <h1 class="h3 mb-4 text-gray-800">Form Add User</h1>
                         </div>
-                        <form class="row g-2">
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Email <span class="text-danger">*</span></label>
-                                <input class="form-control" type="email" name="email"
-                                    placeholder="Enter email address..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Password <span class="text-danger">*</span></label>
-                                <input class="form-control" type="password" name="password"
-                                    placeholder="Enter password address..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Role <span class="text-danger">*</span></label>
-                                <!-- <input class="form-control" type="text" name="kode" /> -->
-                                <select class="form-control">
-                                    <option selected disabled value="">Select Role</option>
-                                    <option value="1">Admin</option>
-                                    <option value="2">Member</option>
-                                    <option value="3">Non Member</option>
-                                    <option value="4">User</option>
-                                </select>
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6 text-end">
-                                <button class="btn btn-primary col-12 col-sm-6 me-3" routerLink="/admin/role/list"><span
-                                        class="glyphicon glyphicon-save"></span>
-                                    Simpan</button>
-                                <a class="btn btn-danger col-12 col-sm-6" routerLink="/admin/role/list"><span
-                                        class="glyphicon glyphicon-arrow-left"></span>
-                                    Kembali</a>
-
-                            </div>
+                        <form #formInput="ngForm" class="row" (ngSubmit)="onSubmit(formInput.form.valid)">
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="email" classLabel="h5" nameLabel="Email" [requiredLabel]="true"
+                                        typeInput="email" placeholderInput="Enter Email Address" [(ngModelInput)]="data.username">
+                            </form-input>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="passowrd" classLabel="h5" nameLabel="Password" [requiredLabel]="true"
+                                        typeInput="passowrd" placeholderInput="Enter Password"
+                                        minInput="5" maxInput="225" [(ngModelInput)]="data.password">
+                            </form-input>
+                            <form-select    class="col-12 col-sm-6 mb-3"
+                                            forLabel="role" nameLabel="Role" classLabel="h5" [requiredLabel]="true"
+                                            [optionData]="roleData" optionValue="id" optionLabel="roleName"
+                                            [(ngModelSelect)]="data.roleId">
+                            </form-select>
+                            <form-button class="d-flex mt-3" classBtnPrimary="p-button-secondary me-3"
+                                labelBtnPrimary="Back" idBtnPrimary="back" routerLinkBtnPrimary="/admin/user/list"
+                                classBtnSecondary="p-button-success" labelBtnSecondary="Submit" idBtnSecondary="input"
+                                typeBtnSecondary="submit" [disbaledBtnSecondary]="formInput.form.invalid">
+                            </form-button>
                         </form>
                     </div>
                 </div>

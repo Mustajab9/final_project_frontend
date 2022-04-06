@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { map, mergeMap } from 'rxjs'
 
-import { deletePositionAction, deletePositionSuccessAction, insertPositionAction, insertPositionSuccessAction, loadPositionAction, loadPositionSuccessAction, updatePositionAction, updatePositionSuccessAction } from './province.action'
+import { deletePositionAction, deletePositionSuccessAction, insertPositionAction, insertPositionSuccessAction, loadPositionAction, loadPositionSuccessAction, updatePositionAction, updatePositionSuccessAction } from './position.action'
 import { PositionService } from '../../service/position.service'
 import { UpdatePositionDtoReq } from '../../dto/position/update-position-dto-req'
 import { GetByPositionIdDtoDataRes } from '../../dto/position/get-by-position-id-dto-data-res'
@@ -13,7 +13,7 @@ export class PositionEffect {
         this.action$.pipe(
             ofType(loadPositionAction),
             mergeMap(
-                ({ payload }) => this.positionService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.positionService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadPositionSuccessAction({ payload: result.data }))
                 )
             )

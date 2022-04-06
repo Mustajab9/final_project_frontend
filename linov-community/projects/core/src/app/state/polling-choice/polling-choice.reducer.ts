@@ -1,27 +1,27 @@
 import { createReducer, on } from '@ngrx/store'
 
-import { deleteProvinceSuccessAction, insertProvinceSuccessAction, loadProvinceSuccessAction, updateProvinceSuccessAction } from './province.action'
-import { GetAllProvinceDtoDataRes } from '../../dto/province/get-all-province-dto-data-res'
+import { deletePollingChoiceSuccessAction, insertPollingChoiceSuccessAction, loadPollingChoiceSuccessAction, updatePollingChoiceSuccessAction } from './polling-choice.action'
+import { GetAllPollingChoiceDtoDataRes } from '../../dto/polling-choice/get-all-polling-choice-dto-data-res'
 
-const getAllProvinceDtoDataRes: GetAllProvinceDtoDataRes[] = []
+const getAllPollingChoiceDtoDataRes: GetAllPollingChoiceDtoDataRes[] = []
 
 const initialState = {
-    payload: getAllProvinceDtoDataRes,
+    payload: getAllPollingChoiceDtoDataRes,
     init: false,
     updateProgress: false,
     insertProgress: false
 }
 
-export const provinceReducer = createReducer(
+export const pollingChoiceReducer = createReducer(
     initialState,
-    on(loadProvinceSuccessAction, (state, { payload }) => {
+    on(loadPollingChoiceSuccessAction, (state, { payload }) => {
         return { ...state, payload, init: true }
     }),
-    on(updateProvinceSuccessAction, (state, { payload }) => {
+    on(updatePollingChoiceSuccessAction, (state, { payload }) => {
         const newState = state.payload.map(comp => {
             let newData = { ...comp }
             if (comp.id == payload.id) {
-                newData.provinceName = payload.provinceName
+                newData.choiceName = payload.choiceName
                 newData.isActive = payload.isActive
                 newData.version = payload.version
             }
@@ -30,11 +30,11 @@ export const provinceReducer = createReducer(
 
         return { ...state, payload: newState, updateProgress: true }
     }),
-    on(deleteProvinceSuccessAction, (state, { payload }) => {
+    on(deletePollingChoiceSuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
         return { ...state, payload: newData, init: true }
     }),
-    on(insertProvinceSuccessAction, (state, { payload }) => {
+    on(insertPollingChoiceSuccessAction, (state, { payload }) => {
         const newData = [...state.payload]
         newData.push(payload)
 

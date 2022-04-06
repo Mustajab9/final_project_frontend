@@ -13,7 +13,7 @@ export class SubscriptionEffect {
         this.action$.pipe(
             ofType(loadSubscriptionAction),
             mergeMap(
-                ({ payload }) => this.subscriptionService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.subscriptionService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadSubscriptionSuccessAction({ payload: result.data }))
                 )
             )

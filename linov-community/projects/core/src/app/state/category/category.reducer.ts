@@ -9,7 +9,8 @@ const initialState = {
     payload: getAllCategoryDtoDataRes,
     init: false,
     updateProgress: false,
-    insertProgress: false
+    insertProgress: false,
+    deleteProgress: false
 }
 
 export const categoryReducer = createReducer(
@@ -32,7 +33,7 @@ export const categoryReducer = createReducer(
     }),
     on(deleteCategorySuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
-        return { ...state, payload: newData, init: true }
+        return { ...state, payload: newData, deleteProgress: true }
     }),
     on(insertCategorySuccessAction, (state, { payload }) => {
         const newData = [...state.payload]

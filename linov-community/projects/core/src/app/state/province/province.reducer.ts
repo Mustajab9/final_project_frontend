@@ -9,7 +9,8 @@ const initialState = {
     payload: getAllProvinceDtoDataRes,
     init: false,
     updateProgress: false,
-    insertProgress: false
+    insertProgress: false,
+    deleteProgress: false
 }
 
 export const provinceReducer = createReducer(
@@ -32,7 +33,7 @@ export const provinceReducer = createReducer(
     }),
     on(deleteProvinceSuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
-        return { ...state, payload: newData, init: true }
+        return { ...state, payload: newData, deleteProgress: true }
     }),
     on(insertProvinceSuccessAction, (state, { payload }) => {
         const newData = [...state.payload]

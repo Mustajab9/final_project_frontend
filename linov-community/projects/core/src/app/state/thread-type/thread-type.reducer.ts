@@ -9,7 +9,8 @@ const initialState = {
     payload: getAllThreadTypeDtoDataRes,
     init: false,
     updateProgress: false,
-    insertProgress: false
+    insertProgress: false,
+    deleteProgress: false
 }
 
 export const threadTypeReducer = createReducer(
@@ -32,7 +33,7 @@ export const threadTypeReducer = createReducer(
     }),
     on(deleteThreadTypeSuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
-        return { ...state, payload: newData, init: true }
+        return { ...state, payload: newData, deleteProgress: true }
     }),
     on(insertThreadTypeSuccessAction, (state, { payload }) => {
         const newData = [...state.payload]

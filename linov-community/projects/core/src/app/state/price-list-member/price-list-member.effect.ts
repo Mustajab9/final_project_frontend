@@ -13,7 +13,7 @@ export class PriceListMemberEffect {
         this.action$.pipe(
             ofType(loadPriceListMemberAction),
             mergeMap(
-                ({ payload }) => this.priceListMemberService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.priceListMemberService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadPriceListMemberSuccessAction({ payload: result.data }))
                 )
             )

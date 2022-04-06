@@ -8,27 +8,22 @@
                         <div class="text-center">
                             <h1 class="h3 mb-4 text-gray-800">Form Update Price Member</h1>
                         </div>
-                        <form class="row g-2">
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Price Nominal <span class="text-danger">*</span></label>
-                                <input class="form-control" type="number" id="price-nominal" name="price-nominal"
-                                    placeholder="Enter Price Nominal..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Duration (per day)<span class="text-danger">*</span></label>
-                                <input class="form-control" type="number" id="member-duration" name="member-duration"
-                                    placeholder="Enter Member Duration..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6 text-end">
-                                <button class="btn btn-primary col-12 col-sm-6 me-3"
-                                    routerLink="/admin/price-list-member/list"><span class="glyphicon glyphicon-save"></span>
-                                    Simpan</button>
-                                <a class="btn btn-danger col-12 col-sm-6" routerLink="/admin/price-list-member/list"><span
-                                        class="glyphicon glyphicon-arrow-left"></span>
-                                    Kembali</a>
-
-                            </div>
-
+                        <form #formUpdate="ngForm" class="row" (ngSubmit)="onSubmit(formUpdate.form.valid)">
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="price-nominal" classLabel="h5" nameLabel="Price Nominal" [requiredLabel]="true"
+                                        typeInput="number" placeholderInput="Enter Price Nominal" [(ngModelInput)]="data.priceNominal">
+                            </form-input>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="duration" classLabel="h5" nameLabel="Duration (per day)" [requiredLabel]="true"
+                                        typeInput="number" placeholderInput="Enter Duration (per day)" [(ngModelInput)]="data.duration">
+                            </form-input>
+                            <form-button    divClass="d-flex"
+                                            classBtnPrimary="p-button-secondary me-3" labelBtnPrimary="Back"
+                                            idBtnPrimary="back" routerLinkBtnPrimary="/admin/price-list-member/list"
+                                            classBtnSecondary="p-button-success" labelBtnSecondary="Submit"
+                                            idBtnSecondary="input" typeBtnSecondary="submit"
+                                            [disbaledBtnSecondary]="formUpdate.form.invalid">
+                            </form-button>
                         </form>
                     </div>
                 </div>

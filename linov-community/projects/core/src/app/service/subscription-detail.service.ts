@@ -12,7 +12,7 @@ import { InsertSubscriptionDetailDtoRes } from '../dto/subscription-detail/inser
     providedIn: 'root'
 })
 
-export class ThreadLikeService {
+export class SubscriptionDetailService {
     constructor(private http: HttpClient){
     }
 

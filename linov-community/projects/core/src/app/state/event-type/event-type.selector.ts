@@ -32,4 +32,9 @@ const eventTypeSelectorInsert = createSelector(
     (state: {insertProgress: boolean}) => state.insertProgress
 )
 
-export { eventTypeSelectorInit, eventTypeSelectorAll, eventTypeSelectorById, eventTypeSelectorUpdate, eventTypeSelectorInsert }
+const eventTypeSelectorDelete = createSelector(
+    createFeatureSelector(eventTypeStore),
+    (state: {deleteProgress: boolean}) => state.deleteProgress
+)
+
+export { eventTypeSelectorInit, eventTypeSelectorAll, eventTypeSelectorById, eventTypeSelectorUpdate, eventTypeSelectorInsert, eventTypeSelectorDelete }

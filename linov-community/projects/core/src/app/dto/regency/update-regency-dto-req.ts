@@ -1,6 +1,6 @@
 export class UpdateRegencyDtoReq { 
 	 id?: string 
-	 regencyName!: string 
+	 regencyName?: string 
 	 version?: number 
 	 isActive?: boolean 
 } 

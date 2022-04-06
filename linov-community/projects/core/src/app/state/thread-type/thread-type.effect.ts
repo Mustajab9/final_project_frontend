@@ -12,7 +12,7 @@ export class ThreadTypeEffect {
         this.action$.pipe(
             ofType(loadThreadTypeAction),
             mergeMap(
-                ({ payload }) => this.threadTypeService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.threadTypeService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadThreadTypeSuccessAction({ payload: result.data }))
                 )
             )

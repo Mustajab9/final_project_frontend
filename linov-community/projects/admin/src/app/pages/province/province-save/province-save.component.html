@@ -8,26 +8,22 @@
                         <div class="text-center">
                             <h1 class="h3 mb-4 text-gray-800">Form Add Province</h1>
                         </div>
-                        <form class="row g-2">
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Province Name <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" id="province-name" name="province-name"
-                                    placeholder="Enter Province Name..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Province Code <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" id="province-code" name="province-code"
-                                    placeholder="Enter Province Code..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6 text-end">
-                                <button class="btn btn-primary col-12 col-sm-6 me-3"
-                                    routerLink="/admin/province/list"><span class="glyphicon glyphicon-save"></span>
-                                    Simpan</button>
-                                <a class="btn btn-danger col-12 col-sm-6" routerLink="/admin/province/list"><span
-                                        class="glyphicon glyphicon-arrow-left"></span>
-                                    Kembali</a>
-
-                            </div>
+                        <form #formInput="ngForm" class="row" (ngSubmit)="onSubmit(formInput.form.valid)">
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="province-code" classLabel="h5" nameLabel="Province Code" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Province Code"
+                                        minInput="3" maxInput="5" [(ngModelInput)]="data.provinceCode">
+                            </form-input>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="province-name" classLabel="h5" nameLabel="Province Name" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Province Name"
+                                        minInput="5" maxInput="100" [(ngModelInput)]="data.provinceName">
+                            </form-input>
+                            <form-button class="d-flex mt-3" classBtnPrimary="p-button-secondary me-3"
+                                labelBtnPrimary="Back" idBtnPrimary="back" routerLinkBtnPrimary="/admin/province/list"
+                                classBtnSecondary="p-button-success" labelBtnSecondary="Submit" idBtnSecondary="input"
+                                typeBtnSecondary="submit" [disbaledBtnSecondary]="formInput.form.invalid">
+                            </form-button>
                         </form>
                     </div>
                 </div>

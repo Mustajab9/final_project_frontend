@@ -15,7 +15,7 @@ export class UserEffect {
         this.action$.pipe(
             ofType(loadUserAction),
             mergeMap(
-                ({ payload }) => this.userService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.userService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadUserSuccessAction({ payload: result.data }))
                 )
             )

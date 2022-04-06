@@ -9,7 +9,8 @@ const initialState = {
     payload: getAllPriceListEventDtoDataRes,
     init: false,
     updateProgress: false,
-    insertProgress: false
+    insertProgress: false,
+    deleteProgress: false
 }
 
 export const priceListEventReducer = createReducer(
@@ -33,7 +34,7 @@ export const priceListEventReducer = createReducer(
     }),
     on(deletePriceListEventSuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
-        return { ...state, payload: newData, init: true }
+        return { ...state, payload: newData, deleteProgress: true }
     }),
     on(insertPriceListEventSuccessAction, (state, { payload }) => {
         const newData = [...state.payload]

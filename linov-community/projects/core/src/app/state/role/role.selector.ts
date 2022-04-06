@@ -32,4 +32,9 @@ const roleSelectorInsert = createSelector(
     (state: {insertProgress: boolean}) => state.insertProgress
 )
 
-export { roleSelectorInit, roleSelectorAll, roleSelectorById, roleSelectorUpdate, roleSelectorInsert }
+const roleSelectorDelete = createSelector(
+    createFeatureSelector(roleStore),
+    (state: {deleteProgress: boolean}) => state.deleteProgress
+)
+
+export { roleSelectorInit, roleSelectorAll, roleSelectorById, roleSelectorUpdate, roleSelectorInsert, roleSelectorDelete }

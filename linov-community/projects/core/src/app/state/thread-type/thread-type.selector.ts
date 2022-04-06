@@ -32,4 +32,9 @@ const threadTypeSelectorInsert = createSelector(
     (state: {insertProgress: boolean}) => state.insertProgress
 )
 
-export { threadTypeSelectorInit,threadTypeSelectorAll, threadTypeSelectorById, threadTypeSelectorUpdate, threadTypeSelectorInsert }
+const threadTypeSelectorDelete = createSelector(
+    createFeatureSelector(threadTypeStore),
+    (state: {deleteProgress: boolean}) => state.deleteProgress
+)
+
+export { threadTypeSelectorInit,threadTypeSelectorAll, threadTypeSelectorById, threadTypeSelectorUpdate, threadTypeSelectorInsert, threadTypeSelectorDelete }

@@ -9,7 +9,8 @@ const initialState = {
     payload: getAllPaymentMethodDtoDataRes,
     init: false,
     updateProgress: false,
-    insertProgress: false
+    insertProgress: false,
+    deleteProgress: false
 }
 
 export const paymentMethodReducer = createReducer(
@@ -32,7 +33,7 @@ export const paymentMethodReducer = createReducer(
     }),
     on(deletePaymentMethodSuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
-        return { ...state, payload: newData, init: true }
+        return { ...state, payload: newData, deleteProgress: true }
     }),
     on(insertPaymentMethodSuccessAction, (state, { payload }) => {
         const newData = [...state.payload]

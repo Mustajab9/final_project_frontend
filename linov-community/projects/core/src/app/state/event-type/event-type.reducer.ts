@@ -9,7 +9,8 @@ const initialState = {
     payload: getAllEventTypeDtoDataRes,
     init: false,
     updateProgress: false,
-    insertProgress: false
+    insertProgress: false,
+    deleteProgress: false
 }
 
 export const eventTypeReducer = createReducer(
@@ -32,7 +33,7 @@ export const eventTypeReducer = createReducer(
     }),
     on(deleteEventTypeSuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
-        return { ...state, payload: newData, init: true }
+        return { ...state, payload: newData, deleteProgress: true }
     }),
     on(insertEventTypeSuccessAction, (state, { payload }) => {
         const newData = [...state.payload]

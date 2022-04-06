@@ -12,6 +12,7 @@ import { NavbarModule } from './page/navbar/navbar.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpHandlerElearning } from 'projects/core/src/app/http/http-handler';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MessageService } from 'primeng/api';
     NavbarModule,
     AppAdminModule,
     AppLoginModule,
-    AppRouter
+    AppRouter,
+    ToastModule,
   ],
   providers: [
     {

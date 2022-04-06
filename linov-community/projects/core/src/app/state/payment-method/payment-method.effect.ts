@@ -13,7 +13,7 @@ export class PaymentMethodEffect {
         this.action$.pipe(
             ofType(loadPaymentMethodAction),
             mergeMap(
-                ({ payload }) => this.paymentMethodService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.paymentMethodService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadPaymentMethodSuccessAction({ payload: result.data }))
                 )
             )

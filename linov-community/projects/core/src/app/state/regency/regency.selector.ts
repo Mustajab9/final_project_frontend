@@ -32,4 +32,9 @@ const regencySelectorInsert = createSelector(
     (state: {insertProgress: boolean}) => state.insertProgress
 )
 
-export { regencySelectorInit, regencySelectorAll, regencySelectorById, regencySelectorUpdate, regencySelectorInsert }
+const regencySelectorDelete = createSelector(
+    createFeatureSelector(regencyStore),
+    (state: {deleteProgress: boolean}) => state.deleteProgress
+)
+
+export { regencySelectorInit, regencySelectorAll, regencySelectorById, regencySelectorUpdate, regencySelectorInsert, regencySelectorDelete }

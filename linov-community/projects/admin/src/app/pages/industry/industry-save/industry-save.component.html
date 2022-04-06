@@ -8,28 +8,22 @@
                         <div class="text-center">
                             <h1 class="h3 mb-4 text-gray-800">Form Add Industry</h1>
                         </div>
-                        <form class="row g-2">
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Industry Name <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" id="industry-name" name="industry-name"
-                                    placeholder="Enter Industry Name..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6">
-                                <label class="form-label">Industry Code <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" id="industry-code" name="industry-code"
-                                    placeholder="Enter Industry Code..." />
-                            </div>
-                            <div class="form-group mb-3 col-12 col-sm-6 text-end">
-                                <button class="btn btn-primary col-12 col-sm-6 me-3" routerLink="/admin/industry/list"><span
-                                        class="glyphicon glyphicon-save"></span>
-                                    Simpan</button>
-                                <a class="btn btn-danger col-12 col-sm-6" routerLink="/admin/industry/list"><span
-                                        class="glyphicon glyphicon-arrow-left"></span>
-                                    Kembali</a>
-
-                            </div>
-                            <!-- <div class="form-group mb-3 col-12 col-sm-6">
-                            </div> -->
+                        <form #formInput="ngForm" class="row" (ngSubmit)="onSubmit(formInput.form.valid)">
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="industry-code" classLabel="h5" nameLabel="Industry Code" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Industry Code"
+                                        minInput="3" maxInput="5" [(ngModelInput)]="data.industryCode">
+                            </form-input>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="industry-name" classLabel="h5" nameLabel="Industry Name" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Industry Name"
+                                        minInput="5" maxInput="100" [(ngModelInput)]="data.industryName">
+                            </form-input>
+                            <form-button class="d-flex mt-3" classBtnPrimary="p-button-secondary me-3"
+                                labelBtnPrimary="Back" idBtnPrimary="back" routerLinkBtnPrimary="/admin/industry/list"
+                                classBtnSecondary="p-button-success" labelBtnSecondary="Submit" idBtnSecondary="input"
+                                typeBtnSecondary="submit" [disbaledBtnSecondary]="formInput.form.invalid">
+                            </form-button>
                         </form>
                     </div>
                 </div>

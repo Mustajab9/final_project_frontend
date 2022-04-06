@@ -13,7 +13,7 @@ export class RoleEffect {
         this.action$.pipe(
             ofType(loadRoleAction),
             mergeMap(
-                ({ payload }) => this.roleService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.roleService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadRoleSuccessAction({ payload: result.data }))
                 )
             )

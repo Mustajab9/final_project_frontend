@@ -9,7 +9,8 @@ const initialState = {
     payload: getAllSocialMediaDtoDataRes,
     init: false,
     updateProgress: false,
-    insertProgress: false
+    insertProgress: false,
+    deleteProgress: false
 }
 
 export const socialMediaReducer = createReducer(
@@ -32,7 +33,7 @@ export const socialMediaReducer = createReducer(
     }),
     on(deleteSocialMediaSuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
-        return { ...state, payload: newData, init: true }
+        return { ...state, payload: newData, deleteProgress: true }
     }),
     on(insertSocialMediaSuccessAction, (state, { payload }) => {
         const newData = [...state.payload]

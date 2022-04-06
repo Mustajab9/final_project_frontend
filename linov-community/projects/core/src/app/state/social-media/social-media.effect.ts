@@ -13,7 +13,7 @@ export class SocialMediaEffect {
         this.action$.pipe(
             ofType(loadSocialMediaAction),
             mergeMap(
-                ({ payload }) => this.socialMediaService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.socialMediaService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadSocialMediaSuccessAction({ payload: result.data }))
                 )
             )

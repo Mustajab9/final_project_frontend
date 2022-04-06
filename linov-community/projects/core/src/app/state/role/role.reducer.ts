@@ -9,7 +9,8 @@ const initialState = {
     payload: getAllRoleDtoDataRes,
     init: false,
     updateProgress: false,
-    insertProgress: false
+    insertProgress: false,
+    deleteProgress: false
 }
 
 export const roleReducer = createReducer(
@@ -32,7 +33,7 @@ export const roleReducer = createReducer(
     }),
     on(deleteRoleSuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
-        return { ...state, payload: newData, init: true }
+        return { ...state, payload: newData, deleteProgress: true }
     }),
     on(insertRoleSuccessAction, (state, { payload }) => {
         const newData = [...state.payload]

@@ -9,7 +9,8 @@ const initialState = {
     payload: getAllRegencyDtoDataRes,
     init: false,
     updateProgress: false,
-    insertProgress: false
+    insertProgress: false,
+    deleteProgress: false
 }
 
 export const regencyReducer = createReducer(
@@ -32,7 +33,7 @@ export const regencyReducer = createReducer(
     }),
     on(deleteRegencySuccessAction, (state, { payload }) => {
         const newData = state.payload.filter(comp => comp.id != payload)
-        return { ...state, payload: newData, init: true }
+        return { ...state, payload: newData, deleteProgress: true }
     }),
     on(insertRegencySuccessAction, (state, { payload }) => {
         const newData = [...state.payload]

@@ -32,4 +32,9 @@ const socialMediaSelectorInsert = createSelector(
     (state: {insertProgress: boolean}) => state.insertProgress
 )
 
-export { socialMediaSelectorInit, socialMediaSelectorAll, socialMediaSelectorById, socialMediaSelectorUpdate, socialMediaSelectorInsert }
+const socialMediaSelectorDelete = createSelector(
+    createFeatureSelector(socialMediaStore),
+    (state: {deleteProgress: boolean}) => state.deleteProgress
+)
+
+export { socialMediaSelectorInit, socialMediaSelectorAll, socialMediaSelectorById, socialMediaSelectorUpdate, socialMediaSelectorInsert, socialMediaSelectorDelete }

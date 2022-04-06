@@ -1,25 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { InsertCategoryDtoReq } from 'projects/core/src/app/dto/category/insert-category-dto-req';
-import { CategoryService } from 'projects/core/src/app/service/category.service';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { InsertCategoryDtoReq } from '../../../../../../core/src/app/dto/category/insert-category-dto-req';
+import { insertCategoryAction } from '../../../../../../core/src/app/state/category/category.action';
+import { categorySelectorInsert } from '../../../../../../core/src/app/state/category/category.selector';
 
 @Component({
   selector: 'app-category-save',
   templateUrl: './category-save.component.html',
   styleUrls: ['./category-save.component.css']
 })
-export class CategorySaveComponent {
+export class CategorySaveComponent implements OnInit, OnDestroy {
 
-  constructor(private router: Router, private categoryService: CategoryService) { }
+  data: InsertCategoryDtoReq = new InsertCategoryDtoReq()
+  categoryInsertSubscription?: Subscription
 
-  category: InsertCategoryDtoReq = new InsertCategoryDtoReq()
+  constructor(private title: Title, private router: Router, private store: Store) {
+    this.title.setTitle('Add Category')
+  }
 
-  submit(): void {
-    this.categoryService.insert(this.category).subscribe(result => {
+  ngOnInit(): void {
+  }
+
+  insertProgress(): void {
+    this.categoryInsertSubscription = this.store.select(categorySelectorInsert).subscribe(result => {
       if (result) {
         this.router.navigateByUrl('/admin/category/list')
       }
     })
   }
 
+  onSubmit(isValid: boolean) {
+    if (isValid) {
+      this.store.dispatch(insertCategoryAction({ payload: this.data }))
+      this.insertProgress()
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.categoryInsertSubscription?.unsubscribe()
+  }
 }

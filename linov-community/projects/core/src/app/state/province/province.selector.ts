@@ -32,4 +32,9 @@ const provinceSelectorInsert = createSelector(
     (state: {insertProgress: boolean}) => state.insertProgress
 )
 
-export { provinceSelectorInit, provinceSelectorAll, provinceSelectorById, provinceSelectorUpdate, provinceSelectorInsert }
+const provinceSelectorDelete = createSelector(
+    createFeatureSelector(provinceStore),
+    (state: {deleteProgress: boolean}) => state.deleteProgress
+)
+
+export { provinceSelectorInit, provinceSelectorAll, provinceSelectorById, provinceSelectorUpdate, provinceSelectorInsert, provinceSelectorDelete }

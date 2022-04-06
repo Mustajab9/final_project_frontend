@@ -32,4 +32,9 @@ const priceListEventSelectorInsert = createSelector(
     (state: {insertProgress: boolean}) => state.insertProgress
 )
 
-export { priceListEventSelectorInit, priceListEventSelectorAll, priceListEventSelectorById, priceListEventSelectorUpdate, priceListEventSelectorInsert }
+const priceListEventSelectorDelete = createSelector(
+    createFeatureSelector(priceListEventStore),
+    (state: {deleteProgress: boolean}) => state.deleteProgress
+)
+
+export { priceListEventSelectorInit, priceListEventSelectorAll, priceListEventSelectorById, priceListEventSelectorUpdate, priceListEventSelectorInsert, priceListEventSelectorDelete }

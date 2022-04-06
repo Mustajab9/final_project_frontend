@@ -6,8 +6,15 @@ import { PaymentMethodSaveComponent } from "./payment-method-save/payment-method
 import { PaymentMethodUpdateComponent } from "./payment-method-update/payment-method-update.component";
 import { PaymentMethodRouter } from "./payment-method.router";
 import { TableModule } from 'primeng/table'
-import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 import { ButtonModule } from "primeng/button";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ToolbarModule } from "primeng/toolbar";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { paymentMethodReducer } from "../../../../../core/src/app/state/payment-method/payment-method.reducer";
+import { PaymentMethodEffect } from "../../../../../core/src/app/state/payment-method/payment-method.effect";
 
 @NgModule({
     declarations: [
@@ -21,7 +28,15 @@ import { ButtonModule } from "primeng/button";
         FormsModule,
         ComponentModule,
         TableModule,
-        ButtonModule
+        ButtonModule,
+        ConfirmDialogModule,
+        TableModule,
+        ToolbarModule,
+        StoreModule.forFeature('paymentMethodStore', paymentMethodReducer),
+        EffectsModule.forFeature([PaymentMethodEffect])
+    ],
+    providers: [
+        ConfirmationService
     ]
 })
 export class PaymentMethodModule { }

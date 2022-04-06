@@ -8,6 +8,13 @@ import { CategoryRouter } from "./category.router"
 import { TableModule } from 'primeng/table'
 import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 import { ButtonModule } from "primeng/button"
+import { ToolbarModule } from 'primeng/toolbar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from "primeng/api"
+import { StoreModule } from "@ngrx/store"
+import { EffectsModule } from "@ngrx/effects"
+import { categoryReducer } from "../../../../../core/src/app/state/category/category.reducer"
+import { CategoryEffect } from "../../../../../core/src/app/state/category/category.effect"
 
 @NgModule({
     declarations: [
@@ -21,7 +28,14 @@ import { ButtonModule } from "primeng/button"
         FormsModule,
         ButtonModule,
         ComponentModule,
-        TableModule
+        ConfirmDialogModule,
+        TableModule,
+        ToolbarModule,
+        StoreModule.forFeature('categoryStore', categoryReducer),
+        EffectsModule.forFeature([CategoryEffect])
+    ],
+    providers: [
+        ConfirmationService
     ]
 })
 export class CategoryModule { }

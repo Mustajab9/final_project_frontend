@@ -14,7 +14,7 @@ import { UpdateProfilesDtoRes } from '../dto/profiles/update-profiles-dto-res'
     providedIn: 'root'
 })
 
-export class ThreadLikeService {
+export class ProfilesService {
     constructor(private http: HttpClient){
     }
 

@@ -32,4 +32,9 @@ const subscriptionSelectorInsert = createSelector(
     (state: {insertProgress: boolean}) => state.insertProgress
 )
 
-export { subscriptionSelectorInit, subscriptionSelectorAll, subscriptionSelectorById, subscriptionSelectorUpdate, subscriptionSelectorInsert }
+const subscriptionSelectorDelete = createSelector(
+    createFeatureSelector(subscriptionStore),
+    (state: {deleteProgress: boolean}) => state.deleteProgress
+)
+
+export { subscriptionSelectorInit, subscriptionSelectorAll, subscriptionSelectorById, subscriptionSelectorUpdate, subscriptionSelectorInsert, subscriptionSelectorDelete }

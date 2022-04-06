@@ -32,4 +32,9 @@ const paymentMethodSelectorInsert = createSelector(
     (state: {insertProgress: boolean}) => state.insertProgress
 )
 
-export { paymentMethodSelectorInit, paymentMethodSelectorAll, paymentMethodSelectorById, paymentMethodSelectorUpdate, paymentMethodSelectorInsert }
+const paymentMethodSelectorDelete = createSelector(
+    createFeatureSelector(paymentMethodStore),
+    (state: {deleteProgress: boolean}) => state.deleteProgress
+)
+
+export { paymentMethodSelectorInit, paymentMethodSelectorAll, paymentMethodSelectorById, paymentMethodSelectorUpdate, paymentMethodSelectorInsert, paymentMethodSelectorDelete }

@@ -32,4 +32,9 @@ const userSelectorInsert = createSelector(
     (state: {insertProgress: boolean}) => state.insertProgress
 )
 
-export { userSelectorInit, userSelectorAll, userSelectorById, userSelectorUpdate, userSelectorInsert }
+const userSelectorDelete = createSelector(
+    createFeatureSelector(userStore),
+    (state: {deleteProgress: boolean}) => state.deleteProgress
+)
+
+export { userSelectorInit, userSelectorAll, userSelectorById, userSelectorUpdate, userSelectorInsert, userSelectorDelete }

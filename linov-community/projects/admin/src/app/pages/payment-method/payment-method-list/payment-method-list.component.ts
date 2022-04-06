@@ -1,23 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { GetAllPaymentMethodDtoDataRes } from 'projects/core/src/app/dto/payment-method/get-all-payment-method-dto-data-res';
-import { PaymentMethodService } from 'projects/core/src/app/service/payment-method.service';
+import { GetAllPaymentMethodDtoDataRes } from '../../../../../../core/src/app/dto/payment-method/get-all-payment-method-dto-data-res';
+import { PaymentMethodService } from '../../../../../../core/src/app/service/payment-method.service';
+import { deletePaymentMethodAction } from '../../../../../../core/src/app/state/payment-method/payment-method.action';
+import { Subscription } from 'rxjs';
+import { paymentMethodSelectorDelete } from '../../../../../../core/src/app/state/payment-method/payment-method.selector';
 
 @Component({
   selector: 'app-payment-method-list',
   templateUrl: './payment-method-list.component.html',
   styleUrls: ['./payment-method-list.component.css']
 })
-export class PaymentMethodListComponent implements OnInit {
+export class PaymentMethodListComponent implements OnInit, OnDestroy {
 
   data: GetAllPaymentMethodDtoDataRes[] = []
 
+  getAllPaymentMethodSubscription?: Subscription
+  paymentMethodDeleteSubscription?: Subscription
   maxPage: number = 10
   totalRecords: number = 0
   loading: boolean = true
 
-  constructor(private paymentMethodService: PaymentMethodService) { }
+  constructor(private title: Title, private router: Router, private store: Store, private confirmationService: ConfirmationService,
+              private paymentMethodService: PaymentMethodService) {
+    this.title.setTitle('Payment Method List')
+  }
 
   ngOnInit(): void {
   }
@@ -29,9 +40,7 @@ export class PaymentMethodListComponent implements OnInit {
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
     this.loading = true;
 
-    // startPage = startPage != 0 ? (startPage / this.maxPage) + 1 : startPage
-
-    this.paymentMethodService.getAll(startPage, maxPage, query).subscribe({
+    this.getAllPaymentMethodSubscription = this.paymentMethodService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
         this.data = result.data
         this.loading = false
@@ -52,11 +61,32 @@ export class PaymentMethodListComponent implements OnInit {
   }
 
   update(id: number): void {
-
+    this.router.navigateByUrl(`/admin/payment-method/${id}`)
   }
 
-  deleteById(id: number): void {
+  deleteProgress(): void {
+    this.paymentMethodDeleteSubscription = this.store.select(paymentMethodSelectorDelete).subscribe(result => {
+      if (result) {
+        this.getData(0, 10)
+      }
+    })
+  }
 
+  deleteById(id: string){
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this data?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+          this.store.dispatch(deletePaymentMethodAction({ payload: id }))
+          this.deleteProgress()
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.getAllPaymentMethodSubscription?.unsubscribe
+    this.paymentMethodDeleteSubscription?.unsubscribe
   }
 
 }

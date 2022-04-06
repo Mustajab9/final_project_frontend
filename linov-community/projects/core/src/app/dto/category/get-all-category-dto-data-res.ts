@@ -1,5 +1,5 @@
 export class GetAllCategoryDtoDataRes {
-	id?: string
+	id!: string
 	categoryCode?: string
 	categoryName?: string
 	version?: number

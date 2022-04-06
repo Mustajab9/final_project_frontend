@@ -13,7 +13,7 @@ export class CategoryEffect {
         this.action$.pipe(
             ofType(loadCategoryAction),
             mergeMap(
-                ({ payload }) => this.categoryService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.categoryService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadCategorySuccessAction({ payload: result.data }))
                 )
             )

@@ -13,7 +13,7 @@ export class ProvinceEffect {
         this.action$.pipe(
             ofType(loadProvinceAction),
             mergeMap(
-                ({ payload }) => this.provinceService.getAll(payload.query, payload.startPage, payload.maxPage).pipe(
+                ({ payload }) => this.provinceService.getAll(payload.startPage, payload.maxPage, payload.query).pipe(
                     map(result => loadProvinceSuccessAction({ payload: result.data }))
                 )
             )
