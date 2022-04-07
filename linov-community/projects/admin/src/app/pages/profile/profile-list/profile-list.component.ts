@@ -40,7 +40,6 @@ export class ProfileListComponent implements OnInit, OnDestroy {
     this.getAllProfileSubscription = this.subscriptionService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
         this.data = result.data
-        console.log(result.data)
         this.loading = false
         this.totalRecords = result.total
       },
