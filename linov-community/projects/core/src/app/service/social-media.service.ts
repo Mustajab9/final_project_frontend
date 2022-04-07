@@ -17,13 +17,15 @@ export class SocialMediaService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllSocialMediaDtoRes> {
-        if (query) {
-            return this.http.get<GetAllSocialMediaDtoRes>(`http://localhost:8080/social-medias?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
-
-        } else {
-            return this.http.get<GetAllSocialMediaDtoRes>(`http://localhost:8080/social-medias?startPage=${startPage}&maxPage=${maxPage}`)
-
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllSocialMediaDtoRes> {
+        if(startPage || maxPage){
+            if (query) {
+                return this.http.get<GetAllSocialMediaDtoRes>(`http://localhost:8080/social-medias?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllSocialMediaDtoRes>(`http://localhost:8080/social-medias?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        }else{
+            return this.http.get<GetAllSocialMediaDtoRes>('http://localhost:8080/social-medias')
         }
     }
 

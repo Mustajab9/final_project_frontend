@@ -17,11 +17,15 @@ export class EventTypeService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllEventTypeDtoRes> {
-        if (query) {
-            return this.http.get<GetAllEventTypeDtoRes>(`http://localhost:8080/event-types?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
-        } else {
-            return this.http.get<GetAllEventTypeDtoRes>(`http://localhost:8080/event-types?startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllEventTypeDtoRes> {
+        if(startPage || maxPage){
+            if (query) {
+                return this.http.get<GetAllEventTypeDtoRes>(`http://localhost:8080/event-types?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllEventTypeDtoRes>(`http://localhost:8080/event-types?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        }else{
+            return this.http.get<GetAllEventTypeDtoRes>('http://localhost:8080/event-types')
         }
     }
 

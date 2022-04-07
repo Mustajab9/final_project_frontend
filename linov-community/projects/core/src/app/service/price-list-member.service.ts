@@ -17,13 +17,15 @@ export class PriceListMemberService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllPriceListMemberDtoRes> {
-        if (query) {
-            return this.http.get<GetAllPriceListMemberDtoRes>(`http://localhost:8080/price-list-members?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
-
-        } else {
-            return this.http.get<GetAllPriceListMemberDtoRes>(`http://localhost:8080/price-list-members?startPage=${startPage}&maxPage=${maxPage}`)
-
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllPriceListMemberDtoRes> {
+        if(startPage || maxPage){
+            if (query) {
+                return this.http.get<GetAllPriceListMemberDtoRes>(`http://localhost:8080/price-list-members?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllPriceListMemberDtoRes>(`http://localhost:8080/price-list-members?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        }else{
+            return this.http.get<GetAllPriceListMemberDtoRes>('http://localhost:8080/price-list-members')
         }
     }
 

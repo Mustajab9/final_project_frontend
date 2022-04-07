@@ -1,4 +1,4 @@
-<div class="container d-flex justify-content-center align-items-center py-3" style="height: 100%; width: 60%;">
+<div class="container d-flex justify-content-center align-items-center py-3" style="height: 100vh; width: 60%;">
     <div class="card shadow">
         <div class="row">
             <div class="col-md-6">
@@ -12,30 +12,43 @@
             </div>
 
             <div class="col-md-6">
-                <form class="p-4">
+                <form class="p-4" #formInput="ngForm" (ngSubmit)="onSumbit(formInput.form.valid)">
                     <div class="d-flex align-items-center my-3">
                         <h4> <i class="fa-solid fa-file-invoice me-3"></i> Account Details</h4>
                     </div>
 
                     <form-input forLabel="phone" nameLabel="Phone Number" classLabel="" [requiredLabel]="true"
-                        typeInput="tel" classInput="mb-3" maxInput="14" minInput="1" placeholderInput="+62 XXX">
+                        typeInput="tel" classInput="mb-3" maxInput="14" minInput="1" placeholderInput="+62 XXX"
+                        [(ngModelInput)]="data.profilePhone">
                     </form-input>
 
                     <form-input forLabel="company" nameLabel="Company" classLabel="" [requiredLabel]="true"
                         typeInput="text" classInput="mb-3" maxInput="100" minInput="1"
-                        placeholderInput="enter your company">
+                        placeholderInput="enter your company" [(ngModelInput)]="data.profileCompany">
                     </form-input>
 
-                    <form-select forLabel="industry" nameLabel="Industry" classLabel="" [requiredLabel]="true"
-                        classSelect="mb-3">
-                    </form-select>
+                    <app-label forLabel="industry" nameLabel="Industry" [requiredLabel]="true">
+                    </app-label>
+                    <div class="mb-3">
+                        <p-dropdown [options]="industries" [(ngModel)]="data.industryId" placeholder="Select a Industry"
+                                    optionLabel="industryName" optionValue="id" [filter]="true" filterBy="name"
+                                    [showClear]="true" name="industry" [style]="{'width':'100%'}">
+                        </p-dropdown>
+                    </div>
 
-                    <form-select forLabel="position" nameLabel="Position" classLabel="" [requiredLabel]="true"
-                        classSelect="mb-3">
-                    </form-select>
+                    <app-label forLabel="position" nameLabel="Position" [requiredLabel]="true">
+                    </app-label>
+                    <div class="mb-3">
+                        <p-dropdown [options]="positions" [(ngModel)]="data.positionId" placeholder="Select a Position"
+                                    optionLabel="positionName" optionValue="id" [filter]="true" filterBy="name"
+                                    [showClear]="true" name="position" [style]="{'width':'100%'}">
+                        </p-dropdown>
+                    </div>
 
-                    <app-button 
-                        class="w-100" typeBtn="submit" labelBtn="NEXT" idBtn="login" classBtn="mt-4 w-100">
+                    {{data | json}}
+                    <app-button
+                        class="w-100" typeBtn="submit" labelBtn="NEXT" idBtn="login" classBtn="mt-4 w-100"
+                        [disbaledBtn]="formInput.form.invalid">
                     </app-button>
                 </form>
             </div>

@@ -1,6 +1,6 @@
-export class InsertUserDtoReq { 
-	 username?: string 
-	 password?: string 
-	 roleId!: string 
-} 
+export class InsertUserDtoReq {
+	username?: string
+	password?: string
+	roleCode!: string
+}
 

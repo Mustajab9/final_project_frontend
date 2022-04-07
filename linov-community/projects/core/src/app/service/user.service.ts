@@ -17,11 +17,15 @@ export class UserService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllUserDtoRes> {
-        if (query) {
-            return this.http.get<GetAllUserDtoRes>(`http://localhost:8080/users?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
-        } else {
-            return this.http.get<GetAllUserDtoRes>(`http://localhost:8080/users?startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllUserDtoRes> {
+        if(startPage || maxPage){
+            if (query) {
+                return this.http.get<GetAllUserDtoRes>(`http://localhost:8080/users?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllUserDtoRes>(`http://localhost:8080/users?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        }else{
+            return this.http.get<GetAllUserDtoRes>('http://localhost:8080/users')
         }
     }
 

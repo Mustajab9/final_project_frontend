@@ -57,7 +57,7 @@ export class UserEffect {
                         const newPayload: GetByUserIdDtoDataRes = new GetByUserIdDtoDataRes()
                         newPayload.id = result.data.id
                         newPayload.username = payload.username
-                        const dataRole: Observable<GetByRoleIdDtoRes> = this.roleService.getById(payload.roleId)
+                        const dataRole: Observable<GetByRoleIdDtoRes> = this.roleService.getByCode(payload.roleCode)
                         dataRole.pipe(map(result => {
                             newPayload.roleName = result.data?.roleName
                         }))

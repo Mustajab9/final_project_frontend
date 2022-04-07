@@ -31,27 +31,28 @@
                     <a class="text-end mt-2 d-block" routerLink="/login">Forgot Password</a>
 
                     <app-button
-                        class="w-100" typeBtn="submit" labelBtn="SIGN IN" idBtn="login" classBtn="mt-4 w-100" [disbaledBtn]="formLogin.form.invalid">
+                        class="w-100" typeBtn="submit" labelBtn="SIGN IN" idBtn="login" classBtn="mt-4 w-100"
+                        [disbaledBtn]="formLogin.form.invalid">
                     </app-button>
 
                     <hr>
 
                     <div class="d-flex justify-content-center gap-1">
                         <app-label forLabel="noAccount" nameLabel="Don't have account?" classLabel=""></app-label>
-                        <a routerLink="">Sign Up</a>
+                        <a routerLink="/sign-up">Sign Up</a>
                     </div>
 
                     <app-label forLabel="otherSignIn" nameLabel="Or Sign In With" classLabel="mt-4 d-flex justify-content-center"></app-label>
 
                     <div class="d-flex justify-content-center">
-                        <form-button 
+                        <form-button
                             typeBtnPrimary="" idBtnPrimary="google" classBtnPrimary="p-button-rounded p-button-outlined me-2 mt-1"
                             [requiredIconPrimary]="true" iconTypePrimary="pi-google"
                             typeBtnSecondary="" idBtnSecondary="facebook" classBtnSecondary="p-button-rounded p-button-outlined me-2"
                             [requiredIconSecondary]="true" iconTypeSecondary="pi-facebook">
                         </form-button>
 
-                        <app-button 
+                        <app-button
                             typeBtn="" idBtn="login" classBtn="p-button-rounded p-button-outlined mt-1" iconType="pi-twitter">
                         </app-button>
                     </div>

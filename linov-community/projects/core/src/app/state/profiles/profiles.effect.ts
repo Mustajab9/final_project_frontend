@@ -55,8 +55,12 @@ export class ProfilesEffect {
                     map(result => {
                         const newPayload: GetByProfilesIdDtoDataRes = new GetByProfilesIdDtoDataRes()
                         newPayload.id = result.data.id
-                        newPayload.categoryCode = payload.categoryCode
-                        newPayload.categoryName = payload.categoryName
+                        newPayload.profileName = payload.profileName
+                        newPayload.profileCompany = payload.profileCompany
+                        newPayload.profilePhone = payload.profilePhone
+                        newPayload.userId = payload.userId
+                        newPayload.industryId = payload.industryId
+                        newPayload.positionId = payload.positionId
                         newPayload.version = 0
                         newPayload.isActive = true
                         return insertProfilesSuccessAction({ payload: newPayload })

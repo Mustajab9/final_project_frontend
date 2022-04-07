@@ -4,7 +4,7 @@ import { AccountDetailsComponent } from "./account-details.component";
 
 const routes : Routes = [
     {
-        path : '',
+        path : ':fullName/:id',
         component : AccountDetailsComponent
     }
 ]

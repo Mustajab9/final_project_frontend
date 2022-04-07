@@ -17,13 +17,15 @@ export class IndustryService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllIndustryDtoRes> {
-        if (query) {
-            return this.http.get<GetAllIndustryDtoRes>(`http://localhost:8080/industries?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
-
-        } else {
-            return this.http.get<GetAllIndustryDtoRes>(`http://localhost:8080/industries?startPage=${startPage}&maxPage=${maxPage}`)
-
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllIndustryDtoRes> {
+        if(startPage || maxPage){
+            if (query) {
+                return this.http.get<GetAllIndustryDtoRes>(`http://localhost:8080/industries?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllIndustryDtoRes>(`http://localhost:8080/industries?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        }else{
+            return this.http.get<GetAllIndustryDtoRes>('http://localhost:8080/industries')
         }
     }
 

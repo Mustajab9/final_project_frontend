@@ -17,13 +17,15 @@ export class ProvinceService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllProvinceDtoRes> {
-        if (query) {
-            return this.http.get<GetAllProvinceDtoRes>(`http://localhost:8080/provinces?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
-
-        } else {
-            return this.http.get<GetAllProvinceDtoRes>(`http://localhost:8080/provinces?startPage=${startPage}&maxPage=${maxPage}`)
-
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllProvinceDtoRes> {
+        if(startPage || maxPage){
+            if (query) {
+                return this.http.get<GetAllProvinceDtoRes>(`http://localhost:8080/provinces?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllProvinceDtoRes>(`http://localhost:8080/provinces?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        }else{
+            return this.http.get<GetAllProvinceDtoRes>('http://localhost:8080/provinces')
         }
     }
 

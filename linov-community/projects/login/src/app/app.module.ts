@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { AppLoginRouter } from './app.router';
 import { ComponentModule } from '../../../core/src/app/component/components.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { ComponentModule } from '../../../core/src/app/component/components.modu
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AppLoginRouter
+    AppLoginRouter,
+    StoreModule.forRoot([]),
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

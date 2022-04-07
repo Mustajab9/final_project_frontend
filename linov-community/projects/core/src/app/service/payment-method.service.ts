@@ -17,13 +17,15 @@ export class PaymentMethodService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllPaymentMethodDtoRes> {
-        if (query) {
-            return this.http.get<GetAllPaymentMethodDtoRes>(`http://localhost:8080/payment-methods?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
-
-        } else {
-            return this.http.get<GetAllPaymentMethodDtoRes>(`http://localhost:8080/payment-methods?startPage=${startPage}&maxPage=${maxPage}`)
-
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllPaymentMethodDtoRes> {
+        if(startPage || maxPage){
+            if (query) {
+                return this.http.get<GetAllPaymentMethodDtoRes>(`http://localhost:8080/payment-methods?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllPaymentMethodDtoRes>(`http://localhost:8080/payment-methods?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        }else{
+            return this.http.get<GetAllPaymentMethodDtoRes>('http://localhost:8080/payment-methods')
         }
     }
 

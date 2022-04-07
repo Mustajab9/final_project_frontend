@@ -1,7 +1,7 @@
-import { UpdateProfilesDtoDataRes } from './update-profiles-dto-data-res' 
+import { UpdateProfilesDtoDataRes } from './update-profiles-dto-data-res'
 
-export class UpdateProfilesDtoRes { 
-	 msg?: string 
-	 data?: UpdateProfilesDtoDataRes 
-} 
+export class UpdateProfilesDtoRes {
+	msg?: string
+	data!: UpdateProfilesDtoDataRes
+}
 

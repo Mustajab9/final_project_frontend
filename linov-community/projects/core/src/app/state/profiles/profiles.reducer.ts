@@ -25,7 +25,7 @@ export const profilesReducer = createReducer(
                 newData.profileCompany = payload.profileCompany
                 newData.industryId = payload.industryId
                 newData.positionId = payload.positionId
-                newData.provinceId = payload.provinceId
+                newData.regencyId = payload.regencyId
                 newData.isActive = payload.isActive
                 newData.version = payload.version
             }

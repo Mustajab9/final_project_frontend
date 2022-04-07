@@ -29,7 +29,12 @@ const userSelectorUpdate = createSelector(
 
 const userSelectorInsert = createSelector(
     createFeatureSelector(userStore),
-    (state: {insertProgress: boolean}) => state.insertProgress
+    (state: {insertProgress: boolean, payload: GetAllUserDtoDataRes[]}) => {
+        return {
+            insertProgres: state.insertProgress,
+            payload: state.payload[state.payload.length - 1]
+        }
+    }
 )
 
 const userSelectorDelete = createSelector(

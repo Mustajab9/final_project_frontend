@@ -17,13 +17,15 @@ export class PriceListEventService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllPriceListEventDtoRes> {
-        if (query) {
-            return this.http.get<GetAllPriceListEventDtoRes>(`http://localhost:8080/price-list-events?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
-
-        } else {
-            return this.http.get<GetAllPriceListEventDtoRes>(`http://localhost:8080/price-list-events?startPage=${startPage}&maxPage=${maxPage}`)
-
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllPriceListEventDtoRes> {
+        if(startPage || maxPage){
+            if (query) {
+                return this.http.get<GetAllPriceListEventDtoRes>(`http://localhost:8080/price-list-events?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllPriceListEventDtoRes>(`http://localhost:8080/price-list-events?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        }else{
+            return this.http.get<GetAllPriceListEventDtoRes>('http://localhost:8080/price-list-events')
         }
     }
 

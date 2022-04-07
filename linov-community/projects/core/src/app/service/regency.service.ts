@@ -17,11 +17,15 @@ export class RegencyService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllRegencyDtoRes> {
-        if (query) {
-            return this.http.get<GetAllRegencyDtoRes>(`http://localhost:8080/regencies?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
-        } else {
-            return this.http.get<GetAllRegencyDtoRes>(`http://localhost:8080/regencies?startPage=${startPage}&maxPage=${maxPage}`)
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllRegencyDtoRes> {
+        if(startPage || maxPage){
+            if (query) {
+                return this.http.get<GetAllRegencyDtoRes>(`http://localhost:8080/regencies?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllRegencyDtoRes>(`http://localhost:8080/regencies?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        }else{
+            return this.http.get<GetAllRegencyDtoRes>('http://localhost:8080/regencies')
         }
     }
 

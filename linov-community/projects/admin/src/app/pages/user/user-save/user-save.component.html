@@ -20,8 +20,8 @@
                             </form-input>
                             <form-select    class="col-12 col-sm-6 mb-3"
                                             forLabel="role" nameLabel="Role" classLabel="h5" [requiredLabel]="true"
-                                            [optionData]="roleData" optionValue="id" optionLabel="roleName"
-                                            [(ngModelSelect)]="data.roleId">
+                                            [optionData]="roleData" optionValue="roleCode" optionLabel="roleName"
+                                            [(ngModelSelect)]="data.roleCode">
                             </form-select>
                             <form-button class="d-flex mt-3" classBtnPrimary="p-button-secondary me-3"
                                 labelBtnPrimary="Back" idBtnPrimary="back" routerLinkBtnPrimary="/admin/user/list"

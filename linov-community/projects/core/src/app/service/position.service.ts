@@ -17,13 +17,15 @@ export class PositionService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllPositionDtoRes> {
-        if (query) {
-            return this.http.get<GetAllPositionDtoRes>(`http://localhost:8080/positions?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
-
-        } else {
-            return this.http.get<GetAllPositionDtoRes>(`http://localhost:8080/positions?startPage=${startPage}&maxPage=${maxPage}`)
-
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllPositionDtoRes> {
+        if(startPage || maxPage){
+            if (query) {
+                return this.http.get<GetAllPositionDtoRes>(`http://localhost:8080/positions?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllPositionDtoRes>(`http://localhost:8080/positions?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        }else{
+            return this.http.get<GetAllPositionDtoRes>('http://localhost:8080/positions')
         }
     }
 

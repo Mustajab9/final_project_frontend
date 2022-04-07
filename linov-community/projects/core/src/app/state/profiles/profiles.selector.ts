@@ -29,7 +29,7 @@ const profilesSelectorUpdate = createSelector(
 
 const profilesSelectorInsert = createSelector(
     createFeatureSelector(profilesStore),
-    (state: {insertProgress: boolean}) => state.insertProgress
+    (state: {insertProgress: boolean, id: string}) => state.insertProgress
 )
 
 export {profilesSelectorInit, profilesSelectorAll, profilesSelectorById, profilesSelectorUpdate, profilesSelectorInsert }

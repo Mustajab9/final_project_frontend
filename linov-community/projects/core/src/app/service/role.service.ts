@@ -18,13 +18,15 @@ export class RoleService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllRoleDtoRes> {
-        if (query) {
-            return this.http.get<GetAllRoleDtoRes>(`http://localhost:8080/roles?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
-
-        } else {
-            return this.http.get<GetAllRoleDtoRes>(`http://localhost:8080/roles?startPage=${startPage}&maxPage=${maxPage}`)
-
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllRoleDtoRes> {
+        if(startPage || maxPage){
+            if (query) {
+                return this.http.get<GetAllRoleDtoRes>(`http://localhost:8080/roles?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllRoleDtoRes>(`http://localhost:8080/roles?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        }else{
+            return this.http.get<GetAllRoleDtoRes>('http://localhost:8080/roles')
         }
     }
 

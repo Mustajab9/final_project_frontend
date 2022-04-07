@@ -17,13 +17,15 @@ export class ThreadTypeService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(startPage: number, maxPage: number, query?: string): Observable<GetAllThreadTypeDtoRes> {
-        if (query) {
-            return this.http.get<GetAllThreadTypeDtoRes>(`http://localhost:8080/thread-types?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
-
-        } else {
-            return this.http.get<GetAllThreadTypeDtoRes>(`http://localhost:8080/thread-types?startPage=${startPage}&maxPage=${maxPage}`)
-
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllThreadTypeDtoRes> {
+        if(startPage || maxPage){
+            if (query) {
+                return this.http.get<GetAllThreadTypeDtoRes>(`http://localhost:8080/thread-type?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllThreadTypeDtoRes>(`http://localhost:8080/thread-type?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        }else{
+            return this.http.get<GetAllThreadTypeDtoRes>('http://localhost:8080/thread-type')
         }
     }
 

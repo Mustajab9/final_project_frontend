@@ -1,11 +1,11 @@
-export class UpdateProfilesDtoReq { 
-	 id?: string 
-	 profileName?: string 
-	 profileCompany?: string 
-	 industryId?: string 
-	 positionId?: string 
-	 provinceId?: string 
-	 version?: number 
-	 isActive?: boolean 
-} 
+export class UpdateProfilesDtoReq {
+	id?: string
+	profileName?: string
+	profileCompany?: string
+	industryId?: string
+	positionId?: string
+	regencyId?: string
+	version?: number
+	isActive?: boolean
+}
 
