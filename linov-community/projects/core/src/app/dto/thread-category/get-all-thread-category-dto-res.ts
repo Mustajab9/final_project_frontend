@@ -2,6 +2,6 @@ import { GetAllThreadCategoryDtoDataRes } from './get-all-thread-category-dto-da
 
 export class GetAllThreadCategoryDtoRes { 
 	 msg?: string 
-	 data?: GetAllThreadCategoryDtoDataRes[] 
+	 data!: GetAllThreadCategoryDtoDataRes[] 
 } 
 

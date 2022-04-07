@@ -7,6 +7,8 @@ import { ComponentModule } from "projects/core/src/app/component/components.modu
 import { ButtonModule } from "primeng/button";
 import { TabViewModule } from 'primeng/tabview';
 import { ChartModule } from 'primeng/chart';
+import { CarouselModule } from 'primeng/carousel';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
     declarations: [
@@ -19,6 +21,8 @@ import { ChartModule } from 'primeng/chart';
         ButtonModule,
         TabViewModule,
         ChartModule,
+        CarouselModule,
+        ProgressBarModule,
         DashboardRouter
     ]
 })

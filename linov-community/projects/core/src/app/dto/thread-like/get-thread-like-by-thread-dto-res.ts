@@ -2,6 +2,6 @@ import { GetThreadLikeByThreadDtoDataRes } from './get-thread-like-by-thread-dto
 
 export class GetThreadLikeByThreadDtoRes { 
 	 msg?: string 
-	 data?: GetThreadLikeByThreadDtoDataRes[] 
+	 data!: GetThreadLikeByThreadDtoDataRes
 } 
 

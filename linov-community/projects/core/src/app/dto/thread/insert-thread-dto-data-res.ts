@@ -1,4 +1,4 @@
 export class InsertThreadDtoDataRes { 
-	 id?: string 
+	 id!: string 
 } 
 

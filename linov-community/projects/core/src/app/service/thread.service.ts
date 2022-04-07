@@ -42,11 +42,13 @@ export class ThreadService {
         return this.http.get<GetThreadByCategoryDtoRes>(`http://localhost:8080/threads/category/${id}`)
     }
 
-    insert(insertReq: InsertThreadDtoReq, file?: File) : Observable<InsertThreadDtoRes> {
+    insert(insertReq: InsertThreadDtoReq, files: any[]) : Observable<InsertThreadDtoRes> {
         const formData: FormData = new FormData()
         formData.append('content', JSON.stringify(insertReq))
-        if(file){
-            formData.append('file', file)
+        if(files){
+            for(let file of files){
+                formData.append('file', file)
+            }
         }
         return this.http.post<InsertThreadDtoRes>(`http://localhost:8080/threads`, formData)
     }

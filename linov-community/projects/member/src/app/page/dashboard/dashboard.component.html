@@ -10,64 +10,71 @@
             </div>
 
             <app-button 
-                classBtn="w-100 mb-4" iconType="pi-pencil" labelBtn="WRITE A THREAD" routerLinkBtn="/member/thread-save">
+                classBtn="w-100 mb-4" iconType="pi-pencil" labelBtn="WRITE A THREAD" routerLinkBtn="/member/thread/save">
             </app-button>
 
-            <div class="card text-color custom-card">
+            <div class="card text-color custom-card mb-3" *ngFor="let thread of threads">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6 d-flex align-items-center">
                             <img src="../../../assets/image/profile.png" class="me-2" style="height: 35px; width: 35px;">
                             <app-label class="align-self-center" nameLabel="Profile Name"></app-label>
                         </div>
+                        
                         <div class="col-6 text-end">
-                            <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="Category"></app-label>
+                            <app-label *ngFor="let category of thread.categoryName" classLabel="p-2 me-2 bg-light rounded-pill" nameLabel="{{category}}"></app-label>
                         </div>
                     </div>
 
                     <div class="mt-4">
-                        <h3>Thread Title</h3>
-                        <p class="mt-3">Thread Content <app-a labelA="Read More" routerLinkA="/member/thread-detail"></app-a></p>
-                    </div>
+                        <h3>{{thread.threadTitle}}</h3>
+                        <p class="mt-3">{{thread.threadContent}}<app-a labelA="Read More" routerLinkA="/member/thread-detail"></app-a></p>
 
-                    <div class="mt-4">
-                        <i class="fa-regular fa-heart me-4"></i>
-                        <i class="fa-regular fa-comment me-4"></i>
-                        <i class="fa-regular fa-bookmark me-4"></i>
-                    </div>
-                </div>
-            </div>
+                        <p-carousel *ngIf="thread.attachmentId.length>0" [value]="thread.attachmentId" [numVisible]="1" [numScroll]="1" [circular]="false" [responsiveOptions]="responsiveOptions">
+                            <ng-template let-attachment pTemplate="item">
+                                <div class="product-item">
+                                    <div class="product-item-content">
+                                        <div class="mb-3 text-center">
+                                            <img src="http://localhost:8080/attachments/{{attachment}}" height="400px" width="400px">
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-carousel>
 
-            <div class="card text-color custom-card mt-4">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6 d-flex align-items-center">
-                            <img src="../../../assets/image/profile.png" class="me-2" style="height: 35px; width: 35px;">
-                            <app-label class="align-self-center" nameLabel="Profile Name"></app-label>
-                        </div>
-                        <div class="col-6 text-end">
-                            <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="Category"></app-label>
-                        </div>
-                    </div>
-
-                    <div class="mt-4">
-                        <h3>Thread Title</h3>
-                        <p class="mt-3">Thread Content</p>
-                    </div>
-
-                    <div class="card text-color custom-card border-secondary">
-                        <div class="card-body d-flex flex-column gap-2">
-                            <app-button classBtn="w-100 p-button-outlined" labelBtn="Polling 1"></app-button>
-                            <app-button classBtn="w-100 p-button-outlined" labelBtn="Polling 2"></app-button>
-                            <app-button classBtn="w-100 p-button-outlined" labelBtn="Polling 3"></app-button>
-                            <app-label classLabel="opacity-75" nameLabel="Total Vote: 17"></app-label>
+                        <div *ngIf="thread.typeCode == 'TY01'" class="card text-color custom-card border-secondary">
+                            <div class="card-body d-flex flex-column gap-2">
+                                <div *ngFor="let choice of thread.choiceName">
+                                    <app-button *ngIf="isPollingClicked == false" (clickBtnEvent)="pollingClicked()" classBtn="w-100 p-button-outlined" labelBtn="{{choice}}"></app-button>
+                                </div>
+                                <div *ngIf="isPollingClicked == true" >
+                                    <div *ngFor="let countVote of thread.countVote" class="" style="height: 50px;">
+                                        <p-progressBar [value]="(countVote / thread.totalVote) * 100"></p-progressBar>
+                                        <div class="progress-bar" role="progressbar" [style]="'width:' + (countVote / thread.totalVote) * 100 + '%;'" attr.aria-valuenow="{{countVote}}" aria-valuemin="0" aria-valuemax="100">{{countVote}}</div>
+                                    </div>
+                                </div>
+                                
+                                <app-label classLabel="opacity-75" nameLabel="Total Vote: {{thread.totalVote}}"></app-label>
+                            </div>
                         </div>
                     </div>
 
                     <div class="mt-4">
-                        <i class="fa-regular fa-heart me-4"></i>
-                        <i class="fa-regular fa-comment me-4"></i>
-                        <i class="fa-regular fa-bookmark me-4"></i>
+                        <a (click)="likeClicked(thread.id)" class="btn me-2">
+                            <i *ngIf="this.isLikeClicked == false" class="fa-regular fa-heart"></i>
+                            <i *ngIf="this.isLikeClicked == true" class="fa-solid fa-heart"></i>
+                            {{thread.totalLike}}
+                        </a>
+
+                        <a class="btn me-2">
+                            <i class="fa-regular fa-comment"></i>
+                            {{thread.totalComment}}
+                        </a>
+
+                        <a (click)="bookmarkClicked(thread.id)" class="btn me-2">
+                            <i *ngIf="this.isBookmarkClicked == false" class="fa-regular fa-bookmark"></i>
+                            <i *ngIf="this.isBookmarkClicked == true" class="fa-solid fa-bookmark"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -79,35 +86,35 @@
                 <span class="fs-5 fw-bold" style="color: #323232;">Training & Event</span>
             </div>
 
-            <div class="card text-color custom-card">
+            <div class="card text-color custom-card" *ngFor="let event of events">
                 <div class="card-body row">
-                    <img src="../../../assets/image/learning.svg" style="width: 250px; height: 150px;">
+                    <img src="http://localhost:8080/attachments/{{event.attachmentId}}" style="width: 250px; height: 150px;">
 
                     <div class="mt-3 col-6">
-                        <app-label classLabel="" nameLabel="Provider"></app-label>
+                        <app-label classLabel="" nameLabel="{{event.eventProvider}}"></app-label>
                     </div>
                     <div class="mt-3 col-6 text-end">
-                        <app-label classLabel="" nameLabel="Event Type"></app-label>
+                        <app-label classLabel="" nameLabel="{{event.typeName}}"></app-label>
                     </div>
 
                     <a class="text-color" routerLink="">
-                        <h5 class="card-title fw-bold">Event/Course Title</h5>
+                        <h5 class="card-title fw-bold">{{event.eventTitle}}</h5>
                     </a>
 
                     <div class="d-flex flex-column">
                         <div>
                             <i class="fa-regular fa-calendar me-3"></i>
-                            <app-label classLabel="me-4" nameLabel="Apr 12 2022"></app-label>
+                            <app-label classLabel="me-4" nameLabel="{{event.eventDateStart}} - {{event.eventDateEnd}}"></app-label>
                         </div>
 
                         <div>
                             <i class="fa-regular fa-clock me-3"></i>
-                            <app-label classLabel="" nameLabel="09.00 - 10.00"></app-label>
+                            <app-label classLabel="" nameLabel="{{event.eventTimeStart}} - {{event.eventTimeEnd}}"></app-label>
                         </div>
 
                         <div>
                             <i class="fa-solid fa-coins me-3"></i>
-                            <app-label classLabel="" nameLabel="20.000"></app-label>
+                            <app-label classLabel="" nameLabel="{{event.eventPrice}}"></app-label>
                         </div>
                     </div>
                 </div>

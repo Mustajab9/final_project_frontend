@@ -13,34 +13,40 @@
                     <app-label 
                         forLabel="" classLabel="fw-bold" nameLabel="Create Thread">
                     </app-label>
-
-                    <form>
+                    
+                    <form #formThread="ngForm" (ngSubmit)="onSave()">
                         <form-textarea
                             classLabel="form-label mt-3" forLabel="title" nameLabel="Title"
-                            classInput="form-control" typeInput="text" placeholderTextarea="Enter your thread title here">
+                            classInput="form-control" typeInput="text" placeholderTextarea="Enter your thread title here"
+                            [(ngModelTextarea)]="thread.threadTitle" [requiredLabel]="true">
                         </form-textarea>
 
                         <form-textarea
-                            classLabel="form-label mt-3" forLabel="title" nameLabel="Content"
-                            classInput="form-control" typeInput="text" placeholderTextarea="Enter your thread content here">
+                            classLabel="form-label mt-3" forLabel="content" nameLabel="Content"
+                            classInput="form-control" typeInput="text" placeholderTextarea="Enter your thread content here"
+                            [(ngModelTextarea)]="thread.threadContent" [requiredLabel]="true">
                         </form-textarea>
 
                         <div class="row mt-3">
-                            <form-select
-                                classLabel="form-label" forLabel="" nameLabel="Category" style="max-width: 50%;">
-                            </form-select>
+                            <div class="d-flex flex-column col-6">
+                                <app-label forLabel="" classLabel="" nameLabel="Category"></app-label>
+                                <p-multiSelect name="category"
+                                    [options]="threadCategories" [(ngModel)]="selectedCategory"
+                                    defaultLabel="Select Category" optionLabel="categoryName"
+                                    selectedItemsLabel="{0} items selected" [required]="true">
+                                </p-multiSelect>
+                            </div>
 
-                            <form-select
-                                classLabel="form-label" forLabel="" nameLabel="Thread Type" style="max-width: 50%;">
-                            </form-select>
+                            <div class="d-flex flex-column col-6">
+                                <app-label forLabel="" classLabel="" nameLabel="Thread Type"></app-label>
+                                <p-dropdown name="type"
+                                    [options]="threadTypes" [(ngModel)]="selectedType" placeholder="Select Type" 
+                                    optionLabel="typeName" [required]="true" [showClear]="true">
+                                </p-dropdown>
+                            </div>
                         </div>
 
                         <div class="d-flex justify-content-end align-items-center text-end gap-3 mt-3">
-                            <p-fileUpload 
-                                mode="basic" name="demo[]" (onUpload)="onBasicUpload($event)" 
-                                chooseIcon="pi pi-image">
-                            </p-fileUpload>
-
                             <p-fileUpload 
                                 mode="basic" name="demo[]" (onUpload)="onBasicUpload($event)" 
                                 chooseIcon="pi pi-file">
@@ -48,7 +54,7 @@
 
                             <app-button
                                 classBtn="" typeBtn="submit" idBtn="save" labelBtn="Save"
-                                [requiredIcon]="true" iconType="pi-save">
+                                [requiredIcon]="true" iconType="pi-save" [disbaledBtn]="formThread.form.invalid || selectedCategory.length<1 || !selectedType.id" >
                             </app-button>
                         </div>
                     </form>

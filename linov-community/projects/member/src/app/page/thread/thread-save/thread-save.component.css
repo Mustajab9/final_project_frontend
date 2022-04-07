@@ -1,5 +1,13 @@
-:host ::ng-deep .p-fileupload-choose{
-    background-color : transparent;
+:host ::ng-deep .p-fileupload-choose {
+    background-color: transparent;
     color: #607D8B;
     border: 1px solid;
- }
+}
+
+:host ::ng-deep .p-multiselect {
+    width: 100%;
+}
+
+:host ::ng-deep .p-dropdown {
+    width: 100%;
+}

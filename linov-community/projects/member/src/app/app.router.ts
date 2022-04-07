@@ -11,17 +11,7 @@ const routes: Routes = [
     {
         path: 'member/thread',
         component: NavbarComponent,
-        loadChildren: () => import('./page/thread/thread-profile/thread.module').then(m => m.ThreadModule)
-    },
-    {
-        path: 'member/thread-detail',
-        component: NavbarComponent,
-        loadChildren: () => import('./page/thread/thread-detail/thread-detail.module').then(m => m.ThreadDetailModule)
-    },
-    {
-        path: 'member/thread-save',
-        component: NavbarComponent,
-        loadChildren: () => import('./page/thread/thread-save/thread-save.module').then(m => m.ThreadSaveModule)
+        loadChildren: () => import('./page/thread/thread.module').then(m => m.ThreadModule)
     },
     {
         path: 'member/course',
