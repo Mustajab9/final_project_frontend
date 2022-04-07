@@ -49,7 +49,7 @@ export class HttpHandlerElearning implements HttpInterceptor {
                         }
 
                         if(err.status == 401 && this.router.url != '/login'){
-                            this.router.navigateByUrl('')
+                            this.router.navigateByUrl('/login')
                         }
                     }
                 }

@@ -27,7 +27,7 @@ export class ProfilesService {
         return this.http.get<GetByProfilesIdDtoRes>(`http://localhost:8080/profiles/${id}`)
     }
 
-    getByUserId(id: string): Observable<GetProfileByUserDtoRes> {
+    getByUserId(id?: string): Observable<GetProfileByUserDtoRes> {
         return this.http.get<GetProfileByUserDtoRes>(`http://localhost:8080/profiles/user/${id}`)
     }
 
