@@ -22,6 +22,14 @@ const userSelectorById = (id: string) => createSelector(
     }
 )
 
+const userSelectorByEmail = (email: string) => createSelector(
+    createFeatureSelector(userStore),
+    (state: { payload: GetAllUserDtoDataRes[] }) => {
+        const newData = state.payload.filter(comp => comp.username == email)
+        return newData[0]
+    }
+)
+
 const userSelectorUpdate = createSelector(
     createFeatureSelector(userStore),
     (state: {updateProgress: boolean}) => state.updateProgress
@@ -42,4 +50,4 @@ const userSelectorDelete = createSelector(
     (state: {deleteProgress: boolean}) => state.deleteProgress
 )
 
-export { userSelectorInit, userSelectorAll, userSelectorById, userSelectorUpdate, userSelectorInsert, userSelectorDelete }
+export { userSelectorInit, userSelectorAll, userSelectorById, userSelectorByEmail, userSelectorUpdate, userSelectorInsert, userSelectorDelete }

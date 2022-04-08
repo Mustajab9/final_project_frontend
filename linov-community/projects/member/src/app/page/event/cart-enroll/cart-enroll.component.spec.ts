@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventComponent } from './event.component';
+import { CartEnrollComponent } from './cart-enroll.component';
 
-describe('EventComponent', () => {
-  let component: EventComponent;
-  let fixture: ComponentFixture<EventComponent>;
+describe('CartEnrollComponent', () => {
+  let component: CartEnrollComponent;
+  let fixture: ComponentFixture<CartEnrollComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EventComponent ]
+      declarations: [ CartEnrollComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EventComponent);
+    fixture = TestBed.createComponent(CartEnrollComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

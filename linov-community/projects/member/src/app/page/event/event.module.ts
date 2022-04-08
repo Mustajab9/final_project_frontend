@@ -1,19 +1,22 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { CourseComponent } from "./course.component";
-import { CourseRouter } from "./course.router";
+import { EventRouter } from "./event.router";
 import { ComponentModule } from "projects/core/src/app/component/components.module";
 import { ButtonModule } from "primeng/button";
 import { TabViewModule } from 'primeng/tabview';
 import { ChartModule } from 'primeng/chart';
 import { ListboxModule } from 'primeng/listbox';
 import { ToolbarModule } from "primeng/toolbar";
+import { EnrollEventComponent } from './enroll-event/enroll-event.component';
+import { CartEnrollComponent } from './cart-enroll/cart-enroll.component';
 
 @NgModule({
     declarations: [
-        CourseComponent
-    ],
+    
+    EnrollEventComponent,
+         CartEnrollComponent
+  ],
     imports: [
         ComponentModule,
         CommonModule,
@@ -22,8 +25,8 @@ import { ToolbarModule } from "primeng/toolbar";
         TabViewModule,
         ChartModule,
         ListboxModule,
-        CourseRouter,
+        EventRouter,
         ToolbarModule
     ]
 })
-export class CourseModule { }
+export class EventModule { }

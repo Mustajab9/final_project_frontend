@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 import { DeleteByUserIdDtoRes } from '../dto/user/delete-by-user-id-dto-res'
 import { GetAllUserDtoRes } from '../dto/user/get-all-user-dto-res'
 import { GetByUserIdDtoRes } from '../dto/user/get-by-user-id-dto-res'
+import { GetUserByEmailDtoDataRes } from '../dto/user/get-user-by-email-dto-data-res'
 import { InsertUserDtoReq } from '../dto/user/insert-user-dto-req'
 import { InsertUserDtoRes } from '../dto/user/insert-user-dto-res'
 import { UpdateUserDtoReq } from '../dto/user/update-user-dto-req'
@@ -33,12 +34,20 @@ export class UserService {
         return this.http.get<GetByUserIdDtoRes>(`http://localhost:8080/users/${id}`)
     }
 
+    getByEmail(email: string): Observable<GetUserByEmailDtoDataRes> {
+        return this.http.get<GetUserByEmailDtoDataRes>(`http://localhost:8080/users/user-${email}`)
+    }
+
     insert(insertReq: InsertUserDtoReq): Observable<InsertUserDtoRes> {
         return this.http.post<InsertUserDtoRes>(`http://localhost:8080/users`, insertReq)
     }
 
     update(updateReq: UpdateUserDtoReq): Observable<UpdateUserDtoRes> {
         return this.http.put<UpdateUserDtoRes>(`http://localhost:8080/users`, updateReq)
+    }
+
+    forgotPassword(updateReq: UpdateUserDtoReq): Observable<UpdateUserDtoRes> {
+        return this.http.put<UpdateUserDtoRes>(`http://localhost:8080/users/forgot-password`, updateReq)
     }
 
     delete(id: string): Observable<DeleteByUserIdDtoRes> {

@@ -1,5 +1,5 @@
 export class InsertUserDtoReq {
-	username?: string
+	username!: string
 	password?: string
 	roleCode!: string
 }

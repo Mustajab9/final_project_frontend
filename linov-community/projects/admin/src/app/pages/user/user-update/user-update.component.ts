@@ -28,7 +28,12 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
       const id = (result as any).id
       this.getByUserIdSubscription = this.store.select(userSelectorById(id)).subscribe(result => {
-        this.data = { ...result }
+        this.data.id = result.id
+        this.data.email = result.username
+        this.data.password = result.password
+        this.data.isActive = result.isActive
+        this.data.version = result.version
+        this.data.roleId = result.roleId
       })
     })
   }

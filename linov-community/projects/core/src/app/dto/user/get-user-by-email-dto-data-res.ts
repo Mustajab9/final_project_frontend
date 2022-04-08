@@ -1,4 +1,4 @@
-export class GetAllUserDtoDataRes {
+export class GetUserByEmailDtoDataRes {
 	id?: string
 	username!: string
 	password?: string
