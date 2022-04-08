@@ -1,4 +1,4 @@
-export class InsertUserDtoDataRes { 
-	 id?: string 
-} 
+export class InsertUserDtoDataRes {
+	id!: string
+}
 

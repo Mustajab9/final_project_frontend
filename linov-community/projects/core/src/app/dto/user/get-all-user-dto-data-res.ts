@@ -1,8 +1,8 @@
 export class GetAllUserDtoDataRes {
-	id?: string
+	id!: string
 	username!: string
 	password?: string
-	roleId?: string
+	roleId!: string
 	roleName?: string
 	version?: number
 	isActive?: boolean

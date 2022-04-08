@@ -28,6 +28,10 @@ export class NavfootComponent implements OnInit, OnDestroy {
     })
   }
 
+  changePassword(){
+
+  }
+
   onLogOut(){
     this.loginService.clearData()
     this.router.navigateByUrl('/admin/login')

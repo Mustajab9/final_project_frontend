@@ -1,8 +1,8 @@
 export class UpdateUserDtoReq {
-	id?: string
+	id!: string
 	email!: string
 	password?: string
-	roleId?: string
+	roleId!: string
 	version?: number
 	isActive?: boolean
 }
