@@ -1,7 +1,7 @@
-import { UpdateEventDtoDataRes } from './update-event-dto-data-res' 
+import { UpdateEventDtoDataRes } from './update-event-dto-data-res'
 
-export class UpdateEventDtoRes { 
-	 msg?: string 
-	 data?: UpdateEventDtoDataRes 
-} 
+export class UpdateEventDtoRes {
+	msg?: string
+	data!: UpdateEventDtoDataRes
+}
 

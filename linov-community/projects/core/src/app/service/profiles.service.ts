@@ -14,7 +14,6 @@ import { UpdateProfilesDtoRes } from '../dto/profiles/update-profiles-dto-res'
 @Injectable({
     providedIn: 'root'
 })
-
 export class ProfilesService {
     constructor(private http: HttpClient) {
     }
