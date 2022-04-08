@@ -1,0 +1,80 @@
+<!-- Main Content -->
+<div class="card">
+    <!-- <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+        </ng-template>
+
+        <ng-template pTemplate="right">
+            <app-button classBtn="p-button-success me-2" typeBtn="submit" labelBtn="Add" idBtn="add" iconType="pi-plus"
+                routerLinkBtn="/admin/category/new">
+            </app-button>
+        </ng-template>
+    </p-toolbar> -->
+
+    <p-table #dt [value]="data" [lazy]="true" (onLazyLoad)="loadData($event)" responsiveLayout="scroll"
+        [paginator]="true" [rows]="maxPage" [totalRecords]="totalRecords" [loading]="loading"
+        tyleClass="p-datatable-gridlines" [globalFilterFields]="['eventTitle']" [rowHover]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+
+        <ng-template pTemplate="caption">
+            <div class="d-flex align-items-center justify-content-between">
+                <h5 class="m-0">Event List</h5>
+                <span class="p-input-icon-left">
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>No</th>
+                <th>Event Title</th>
+                <th>Event Provider</th>
+                <th>Event Date</th>
+                <th>Event Time</th>
+                <th>Category Name</th>
+                <th>Type Event</th>
+                <th>Event Price</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-i, let-data>
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{data.eventTitle}}</td>
+                <td>{{data.eventProvider}}</td>
+                <td>{{data.eventDateStart}} until {{data.eventDateEnd}}</td>
+                <td>{{data.eventTimeStart}} - {{data.eventTimeEnd}}</td>
+                <td>{{data.categoryName}}</td>
+                <td>{{data.typeName}}</td>
+                <td>{{data.eventPrice}}</td>
+                <td class="text-center">
+                    <!-- <app-button idBtn="update" classBtn="p-button-warning me-2" iconType="pi-undo"
+                        (clickBtnEvent)="update(data.id)">
+                    </app-button> -->
+                    <!-- <button pButton pRipple class="p-button-success" id="delete-by-id" [label]="'Approving'"
+                        icon="pi pi-check-circle" (click)="deleteById(data.id)">
+                    </button> -->
+                    <button pButton pRipple class="p-button-success" id="delete-by-id" [label]="'Approving'"
+                        icon="pi pi-check-circle" (click)="onSubmit()">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{data ? data.length : 0 }} Categorys.
+            </div>
+        </ng-template>
+
+    </p-table>
+    <!-- End of Table Content -->
+
+</div>
+<!-- End Of Main Content -->
+
+<!-- ConfimDialog -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
