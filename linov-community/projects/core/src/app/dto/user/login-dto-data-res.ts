@@ -1,7 +1,7 @@
 export class LoginDtoDataRes { 
-	 token?: string 
-	 id?: string 
-	 roleCode?: string 
-	 username?: string 
+	 token!: string 
+	 id!: string 
+	 roleCode!: string 
+	 username!: string 
 } 
 

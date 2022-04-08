@@ -5,3 +5,8 @@
 .text-color {
     color: #323232;
 }
+
+.limitTextHeight {
+    height: 20px;
+    overflow: hidden;
+}

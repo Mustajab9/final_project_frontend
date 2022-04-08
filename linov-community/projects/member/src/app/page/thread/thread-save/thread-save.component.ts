@@ -27,6 +27,9 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
   threadCategoryAllSubscription? : Subscription
   threadTypeAllSubscription? : Subscription
 
+  choices: string[] = []
+  choice?: string
+
   constructor(private title : Title, private router : Router,
               private threadService : ThreadService,
               private categoryService : CategoryService,
@@ -56,14 +59,44 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
   onSave() {
     this.thread.categoryId = []
     for(let category of this.selectedCategory) {
-      this.thread.categoryId.push(category.id!);
+      this.thread.categoryId.push(category.id!)
     }
 
     this.thread.typeId = this.selectedType.id!
 
+    this.thread.choiceName = []
+    for(let choice of this.choices) {
+      this.thread.choiceName.push(choice)
+    }
+
     this.threadInsertSubscription = this.threadService.insert(this.thread, this.uploadedFiles).subscribe(result => {
       this.router.navigateByUrl('/member/dashboard')
     })
+  }
+
+  addChoice(): void {
+    if(this.choice) {
+      this.choices.push(this.choice)
+      this.choice = ''
+    }
+  }
+
+  deleteChoice(choice : string): void {
+    this.choices = this.choices.filter(data => data != choice)
+  }
+
+  validateSubmit(): boolean {
+    if(!this.thread.threadTitle) return false
+    if(!this.thread.threadContent) return false
+    if(this.selectedCategory.length<1) return false
+    if(!this.selectedType.id) return false
+
+    if(this.selectedType.typeCode == 'TY01') {
+      if(!this.thread.pollingName) return false
+      if(this.choices.length<1) return false
+    }
+
+    return true
   }
 
   ngOnDestroy(): void {

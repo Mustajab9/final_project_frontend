@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { DeleteByBookmarkIdDtoRes } from '../dto/bookmark/delete-by-bookmark-id-dto-res'
 import { GetAllBookmarkDtoRes } from '../dto/bookmark/get-all-bookmark-dto-res'
+import { GetBookmarkByUserAndThreadDtoRes } from '../dto/bookmark/get-bookmark-by-user-and-thread-dto-res'
 import { GetBookmarkByUserDtoRes } from '../dto/bookmark/get-bookmark-by-user-dto-res'
 import { GetByBookmarkIdDtoRes } from '../dto/bookmark/get-by-bookmark-id-dto-res'
 import { InsertBookmarkDtoReq } from '../dto/bookmark/insert-bookmark-dto-req'
@@ -27,6 +28,10 @@ export class BookmarkService {
 
     getByUser(id: string): Observable<GetBookmarkByUserDtoRes> {
         return this.http.get<GetBookmarkByUserDtoRes>(`http://localhost:8080/bookmarks/user/${id}`)
+    }
+
+    getByUserAndThread(threadId: string, userId?: string): Observable<GetBookmarkByUserAndThreadDtoRes> {
+        return this.http.get<GetBookmarkByUserAndThreadDtoRes>(`http://localhost:8080/bookmarks/user/${userId}/${threadId}`)
     }
 
     insert(insertReq: InsertBookmarkDtoReq): Observable<InsertBookmarkDtoRes> {

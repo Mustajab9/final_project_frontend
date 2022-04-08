@@ -14,6 +14,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClientModule } from '@angular/common/http';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
     declarations: [
@@ -31,6 +32,7 @@ import { DropdownModule } from 'primeng/dropdown';
         HttpClientModule,
         MultiSelectModule,
         DropdownModule,
+        TableModule,
         ThreadRouter
     ]
 })

@@ -46,15 +46,58 @@
                             </div>
                         </div>
 
+                        <div *ngIf="selectedType.typeCode == 'TY01'" class="row mt-3">
+                            <form-input
+                                forLabel="polling" nameLabel="Polling Name"
+                                placeholderInput="insert your polling name" minInput="1" maxInput="100"
+                                typeInput="text" [(ngModelInput)]="thread.pollingName">
+                            </form-input>
+
+                            <app-label forLabel="addChoice" classLabel="mt-3" nameLabel="Choice"></app-label>
+                            
+                            <div class="row d-flex flex-row">
+                                <app-input class="col-10"
+                                    classInput="" idInput="choice" minInput="1" maxInput="100"
+                                    placeholderInput="input your choice" typeInput="text"
+                                    [(ngModelInput)]="choice">
+                                </app-input>
+
+                                <app-button class="col-2 text-end" style="padding-right: 0px;"
+                                    classBtn="text-end" idBtn="addChoice" labelBtn="Add"
+                                    [requiredIcon]="true" iconType="pi-plus" (clickBtnEvent)="addChoice()">
+                                </app-button>
+                            </div>
+
+                            <p-table [value]="choices" responsiveLayout="scroll">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Choice Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-choice>
+                                    <tr>
+                                        <td>{{choice}}</td>
+                                        <td>
+                                            <app-button 
+                                                classBtn="p-button-danger" [requiredIcon]="true" iconType="pi-trash"
+                                                (clickBtnEvent)="deleteChoice(choice)">
+                                            </app-button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+
                         <div class="d-flex justify-content-end align-items-center text-end gap-3 mt-3">
                             <p-fileUpload 
-                                mode="basic" name="demo[]" (onUpload)="onBasicUpload($event)" 
+                                mode="basic" name="demo[]" (onUpload)="onBasicUpload($event)"
                                 chooseIcon="pi pi-file">
                             </p-fileUpload>
 
                             <app-button
                                 classBtn="" typeBtn="submit" idBtn="save" labelBtn="Save"
-                                [requiredIcon]="true" iconType="pi-save" [disbaledBtn]="formThread.form.invalid || selectedCategory.length<1 || !selectedType.id" >
+                                [requiredIcon]="true" iconType="pi-save" [disbaledBtn]="!validateSubmit()" >
                             </app-button>
                         </div>
                     </form>

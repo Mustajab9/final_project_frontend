@@ -28,7 +28,11 @@
 
                     <div class="mt-4">
                         <h3>{{thread.threadTitle}}</h3>
-                        <p class="mt-3">{{thread.threadContent}}<app-a labelA="Read More" routerLinkA="/member/thread-detail"></app-a></p>
+
+                        <div [ngClass]="{'limitTextHeight' : thread.isReadMore}">
+                            <p class="mt-3">{{thread.threadContent}}</p>
+                            <app-a labelA="Read More" routerLinkA="/member/thread-detail"></app-a>
+                        </div>
 
                         <p-carousel *ngIf="thread.attachmentId.length>0" [value]="thread.attachmentId" [numVisible]="1" [numScroll]="1" [circular]="false" [responsiveOptions]="responsiveOptions">
                             <ng-template let-attachment pTemplate="item">
@@ -41,12 +45,14 @@
                                 </div>
                             </ng-template>
                         </p-carousel>
-
+                        
                         <div *ngIf="thread.typeCode == 'TY01'" class="card text-color custom-card border-secondary">
                             <div class="card-body d-flex flex-column gap-2">
+                                <app-label nameLabel="{{thread.pollingName}}"></app-label>
                                 <div *ngFor="let choice of thread.choiceName">
-                                    <app-button *ngIf="isPollingClicked == false" (clickBtnEvent)="pollingClicked()" classBtn="w-100 p-button-outlined" labelBtn="{{choice}}"></app-button>
+                                    <app-button *ngIf="isPollingClicked == false" (clickBtnEvent)="onPolling()" classBtn="w-100 p-button-outlined" labelBtn="{{choice}}"></app-button>
                                 </div>
+
                                 <div *ngIf="isPollingClicked == true" >
                                     <div *ngFor="let countVote of thread.countVote" class="" style="height: 50px;">
                                         <p-progressBar [value]="(countVote / thread.totalVote) * 100"></p-progressBar>
@@ -60,9 +66,9 @@
                     </div>
 
                     <div class="mt-4">
-                        <a (click)="likeClicked(thread.id)" class="btn me-2">
-                            <i *ngIf="this.isLikeClicked == false" class="fa-regular fa-heart"></i>
-                            <i *ngIf="this.isLikeClicked == true" class="fa-solid fa-heart"></i>
+                        <a (click)="onLike(thread.id, thread.isLiked)" class="btn me-2">
+                            <i *ngIf="thread.isLiked == false" class="fa-regular fa-heart"></i>
+                            <i *ngIf="thread.isLiked == true" class="fa-solid fa-heart"></i>
                             {{thread.totalLike}}
                         </a>
 
@@ -71,9 +77,9 @@
                             {{thread.totalComment}}
                         </a>
 
-                        <a (click)="bookmarkClicked(thread.id)" class="btn me-2">
-                            <i *ngIf="this.isBookmarkClicked == false" class="fa-regular fa-bookmark"></i>
-                            <i *ngIf="this.isBookmarkClicked == true" class="fa-solid fa-bookmark"></i>
+                        <a (click)="onBookmark(thread.id, thread.isBookmarked)" class="btn me-2">
+                            <i *ngIf="thread.isBookmarked == false" class="fa-regular fa-bookmark"></i>
+                            <i *ngIf="thread.isBookmarked == true" class="fa-solid fa-bookmark"></i>
                         </a>
                     </div>
                 </div>
