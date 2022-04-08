@@ -120,9 +120,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  onPolling(): void {
-    this.isPollingClicked = !this.isPollingClicked
-    this.initData()
+  onPolling(id: string, isVoted: boolean): void {
+    this.insertChoiceVoteDtoReq.choiceId = id
+    if(isVoted == false) {
+      isVoted = !isVoted
+      this.choiceVoteInsertSubscription = this.choiceVoteService.insert(this.insertChoiceVoteDtoReq).subscribe(_ => {
+        this.initData()
+      })
+    }
     this.value = this.value + Math.floor(Math.random() * 10) + 1;
     if (this.value >= 100) {
       this.value = 100;

@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { TableModule } from 'primeng/table';
         MultiSelectModule,
         DropdownModule,
         TableModule,
+        CarouselModule,
         ThreadRouter
     ]
 })

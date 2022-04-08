@@ -31,7 +31,7 @@
 
                         <div [ngClass]="{'limitTextHeight' : thread.isReadMore}">
                             <p class="mt-3">{{thread.threadContent}}</p>
-                            <app-a labelA="Read More" routerLinkA="/member/thread-detail"></app-a>
+                            <app-a labelA="Read More" routerLinkA="/member/thread/detail/{{thread.id}}"></app-a>
                         </div>
 
                         <p-carousel *ngIf="thread.attachmentId.length>0" [value]="thread.attachmentId" [numVisible]="1" [numScroll]="1" [circular]="false" [responsiveOptions]="responsiveOptions">
@@ -49,14 +49,13 @@
                         <div *ngIf="thread.typeCode == 'TY01'" class="card text-color custom-card border-secondary">
                             <div class="card-body d-flex flex-column gap-2">
                                 <app-label nameLabel="{{thread.pollingName}}"></app-label>
-                                <div *ngFor="let choice of thread.choiceName">
-                                    <app-button *ngIf="isPollingClicked == false" (clickBtnEvent)="onPolling()" classBtn="w-100 p-button-outlined" labelBtn="{{choice}}"></app-button>
+                                <div *ngFor="let choice of thread.choices">
+                                    <app-button *ngIf="thread.isVoted == false" (clickBtnEvent)="onPolling(choice.choiceId, thread.isVoted)" classBtn="w-100 p-button-outlined" labelBtn="{{choice.choiceName}}"></app-button>
                                 </div>
 
-                                <div *ngIf="isPollingClicked == true" >
+                                <div *ngIf="thread.isVoted == true">
                                     <div *ngFor="let countVote of thread.countVote" class="" style="height: 50px;">
-                                        <p-progressBar [value]="(countVote / thread.totalVote) * 100"></p-progressBar>
-                                        <div class="progress-bar" role="progressbar" [style]="'width:' + (countVote / thread.totalVote) * 100 + '%;'" attr.aria-valuenow="{{countVote}}" aria-valuemin="0" aria-valuemax="100">{{countVote}}</div>
+                                        <p-progressBar [value]="(countVote / thread.totalVote) * 100" [showValue]="true"></p-progressBar>
                                     </div>
                                 </div>
                                 
@@ -72,7 +71,7 @@
                             {{thread.totalLike}}
                         </a>
 
-                        <a class="btn me-2">
+                        <a class="btn me-2" routerLink="/member/thread/detail/{{thread.id}}">
                             <i class="fa-regular fa-comment"></i>
                             {{thread.totalComment}}
                         </a>

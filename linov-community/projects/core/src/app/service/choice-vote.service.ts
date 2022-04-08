@@ -5,6 +5,7 @@ import { Observable } from 'rxjs'
 import { GetAllChoiceVoteDtoRes } from '../dto/choice-vote/get-all-choice-vote-dto-res'
 import { GetByChoiceVoteIdDtoRes } from '../dto/choice-vote/get-by-choice-vote-id-dto-res'
 import { GetByPollingChoiceIdDtoRes } from '../dto/choice-vote/get-by-polling-choice-id-dto-res'
+import { GetChoiceVoteByUserDtoRes } from '../dto/choice-vote/get-choice-vote-by-user-dto-res'
 import { InsertChoiceVoteDtoReq } from '../dto/choice-vote/insert-choice-vote-dto-req'
 import { InsertChoiceVoteDtoRes } from '../dto/choice-vote/insert-choice-vote-dto-res'
 
@@ -26,6 +27,10 @@ export class ChoiceVoteService {
 
     getByChoice(id: string): Observable<GetByPollingChoiceIdDtoRes> {
         return this.http.get<GetByPollingChoiceIdDtoRes>(`http://localhost:8080/choice-votes/choice/${id}`)
+    }
+
+    getByUser(id: string): Observable<GetChoiceVoteByUserDtoRes> {
+        return this.http.get<GetChoiceVoteByUserDtoRes>(`http://localhost:8080/choice-votes/user/${id}`)
     }
 
     insert(insertReq: InsertChoiceVoteDtoReq): Observable<InsertChoiceVoteDtoRes> {

@@ -10,7 +10,7 @@ const routes : Routes = [
         component : ThreadComponent
     },
     {
-        path : 'detail',
+        path : 'detail/:id',
         component : ThreadDetailComponent
     },
     {
