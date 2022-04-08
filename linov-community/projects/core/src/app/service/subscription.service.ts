@@ -18,13 +18,13 @@ export class SubscriptionService {
     }
 
     getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllSubscriptionDtoRes> {
-        if(startPage || maxPage){
+        if (startPage || maxPage) {
             if (query) {
                 return this.http.get<GetAllSubscriptionDtoRes>(`http://localhost:8080/subscriptions?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
             } else {
                 return this.http.get<GetAllSubscriptionDtoRes>(`http://localhost:8080/subscriptions?startPage=${startPage}&maxPage=${maxPage}`)
             }
-        }else{
+        } else {
             return this.http.get<GetAllSubscriptionDtoRes>('http://localhost:8080/subscriptions')
         }
     }

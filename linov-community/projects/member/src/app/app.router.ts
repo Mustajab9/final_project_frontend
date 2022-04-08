@@ -17,27 +17,32 @@ const routes: Routes = [
         path: 'member/course',
         component: NavbarComponent,
         loadChildren: () => import('./page/course/course.module').then(m => m.CourseModule)
-    }, 
+    },
     {
         path: 'member/cart-list',
         component: NavbarComponent,
         loadChildren: () => import('./page/cart/cart-list/cart-list.module').then(m => m.CartListModule)
-    }, 
+    },
     {
         path: 'member/cart-checkout',
         component: NavbarComponent,
         loadChildren: () => import('./page/cart/cart-checkout/cart-checkout.module').then(m => m.CartCheckoutModule)
-    }, 
+    },
     {
         path: 'member/profile-update',
         component: NavbarComponent,
         loadChildren: () => import('./page/profile/profile-update/profile-update.module').then(m => m.ProfileUpdateModule)
-    }, 
+    },
+    {
+        path: 'member/subscription',
+        component: NavbarComponent,
+        loadChildren: () => import('./page/subscription/subscription.module').then(m => m.SubscriptionModule)
+    },
     {
         path: 'member/article-dashboard',
         component: NavbarComponent,
         loadChildren: () => import('./page/article/article-dashboard/article-dashboard.module').then(m => m.ArticleDashboardModule)
-    }, 
+    },
     {
         path: '',
         redirectTo: 'member/dashboard',

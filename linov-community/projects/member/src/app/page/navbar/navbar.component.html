@@ -1,28 +1,32 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
     <div class="container-fluid">
         <img src="../../../assets/image/linovhr.png" style="height: 40px;" routerLink="#" alt="logo">
-        
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
+
         <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNavDropdown">
             <ul class="navbar-nav gap-3">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" routerLink="/member/dashboard"><i class="fa-solid fa-house me-2"></i>Home</a>
+                    <a class="nav-link" aria-current="page" routerLink="/member/dashboard"><i
+                            class="fa-solid fa-house me-2"></i>Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/member/course"><i class="fa-solid fa-calendar me-2"></i>Course & Event</a>
+                    <a class="nav-link" routerLink="/member/course"><i class="fa-solid fa-calendar me-2"></i>Course &
+                        Event</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/member/article-dashboard"><i class="fa-solid fa-newspaper me-2"></i>Article</a>
+                    <a class="nav-link" routerLink="/member/article-dashboard"><i
+                            class="fa-solid fa-newspaper me-2"></i>Article</a>
                 </li>
             </ul>
         </div>
 
         <a routerLink="/member/cart-list" class="me-3" style="color: black;">
-            <p-avatar icon="pi pi-shopping-cart" pBadge value="1" severity="primary" styleClass="mr-0" size=""></p-avatar>
+            <p-avatar icon="pi pi-shopping-cart" pBadge value="1" severity="primary" styleClass="mr-0" size="">
+            </p-avatar>
         </a>
 
         <div class="" id="navbarNavDarkDropdown">
@@ -32,7 +36,9 @@
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-light"
+                        aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li><a class="dropdown-item" routerLink="/member/profile-update">Edit Profile</a></li>
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>

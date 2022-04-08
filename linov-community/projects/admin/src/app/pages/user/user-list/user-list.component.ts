@@ -26,8 +26,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   loading: boolean = true
 
   constructor(private title: Title, private router: Router, private store: Store, private confirmationService: ConfirmationService,
-              private userService: UserService) {
-      this.title.setTitle('User List')
+    private userService: UserService) {
+    this.title.setTitle('User List')
   }
 
   ngOnInit(): void {
@@ -72,14 +72,14 @@ export class UserListComponent implements OnInit, OnDestroy {
     })
   }
 
-  deleteById(id: string){
+  deleteById(id: string) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete this data?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.store.dispatch(deleteUserAction({ payload: id }))
-          this.deleteProgress()
+        this.store.dispatch(deleteUserAction({ payload: id }))
+        this.deleteProgress()
       }
     });
   }

@@ -13,22 +13,22 @@ import { InsertSubscriptionDetailDtoRes } from '../dto/subscription-detail/inser
 })
 
 export class SubscriptionDetailService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll() : Observable<GetAllSubscriptionDetailDtoRes> {
+    getAll(): Observable<GetAllSubscriptionDetailDtoRes> {
         return this.http.get<GetAllSubscriptionDetailDtoRes>(`http://localhost:8080/subscription-details`)
     }
 
-    getById(id: string) : Observable<GetBySubscriptionDetailIdDtoRes> {
+    getById(id: string): Observable<GetBySubscriptionDetailIdDtoRes> {
         return this.http.get<GetBySubscriptionDetailIdDtoRes>(`http://localhost:8080/subscription-details/${id}`)
     }
 
-    getBySubscription(id: string) : Observable<GetSubscriptionDetailBySubscriptionDtoRes> {
+    getBySubscription(id: string): Observable<GetSubscriptionDetailBySubscriptionDtoRes> {
         return this.http.get<GetSubscriptionDetailBySubscriptionDtoRes>(`http://localhost:8080/subscription-details/subscription/${id}`)
     }
 
-    insert(insertReq: InsertSubscriptionDetailDtoReq) : Observable<InsertSubscriptionDetailDtoRes> {
+    insert(insertReq: InsertSubscriptionDetailDtoReq): Observable<InsertSubscriptionDetailDtoRes> {
         return this.http.post<InsertSubscriptionDetailDtoRes>(`http://localhost:8080/subscription-details`, insertReq)
     }
 }

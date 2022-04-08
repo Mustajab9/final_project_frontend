@@ -15,39 +15,47 @@ import { UpdateEventDtoRes } from '../dto/event/update-event-dto-res'
 })
 
 export class EventService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getAll() : Observable<GetAllEventDtoRes> {
-        return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events`)
+    getAll(startPage?: number, maxPage?: number, query?: string): Observable<GetAllEventDtoRes> {
+        if (startPage || maxPage) {
+            if (query) {
+                return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        } else {
+            return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events`)
+        }
     }
 
-    getById(id: string) : Observable<GetByEventIdDtoRes> {
+    getById(id: string): Observable<GetByEventIdDtoRes> {
         return this.http.get<GetByEventIdDtoRes>(`http://localhost:8080/events/${id}`)
     }
 
-    getByEnroll(id: string) : Observable<GetAllEventDtoRes> {
+    getByEnroll(id: string): Observable<GetAllEventDtoRes> {
         return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/enroll/${id}`)
     }
 
-    getByNotEnroll(id: string) : Observable<GetAllEventDtoRes> {
+    getByNotEnroll(id: string): Observable<GetAllEventDtoRes> {
         return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/not-enroll/${id}`)
     }
 
-    insert(insertReq: InsertEventDtoReq, file?: File) : Observable<InsertEventDtoRes> {
+    insert(insertReq: InsertEventDtoReq, file?: File): Observable<InsertEventDtoRes> {
         const formData: FormData = new FormData()
         formData.append('content', JSON.stringify(insertReq))
-        if(file){
+        if (file) {
             formData.append('file', file)
         }
         return this.http.post<InsertEventDtoRes>(`http://localhost:8080/events`, formData)
     }
 
-    update(updateReq: UpdateEventDtoReq) : Observable<UpdateEventDtoRes> {
+    update(updateReq: UpdateEventDtoReq): Observable<UpdateEventDtoRes> {
         return this.http.post<UpdateEventDtoRes>(`http://localhost:8080/events`, updateReq)
     }
 
-    delete(id: string) : Observable<DeleteByEventIdDtoRes> {
+    delete(id: string): Observable<DeleteByEventIdDtoRes> {
         return this.http.delete<DeleteByEventIdDtoRes>(`http://localhost:8080/events/${id}`)
     }
 }

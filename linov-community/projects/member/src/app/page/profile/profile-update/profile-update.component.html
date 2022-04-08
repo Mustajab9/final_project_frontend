@@ -31,120 +31,128 @@
                         <div class="row" style="height: 90%;">
                             <div class="col-12">
                                 <div class="card">
+                                    <div class="card-body text-end">
+                                        <app-button classBtn="p-button-warning text-center" labelBtn="Get Premium"
+                                            routerLink="/member/subscription/">
+                                        </app-button>
+                                    </div>
                                     <div class="card-body">
                                         <app-label classLabel="fw-bold" nameLabel="Edit Profile"></app-label>
                                         <div class="mt-3 d-flex flex-column align-items-center">
-                                            <img src="../../../assets/image/profile.png" class="rounded-circle" style="height: 100px; width: 100px;">
+                                            <img src="../../../assets/image/profile.png" class="rounded-circle"
+                                                style="height: 100px; width: 100px;">
                                             <app-label classLabel="mt-2" nameLabel="Profile Photo"></app-label>
                                         </div>
 
                                         <div>
                                             <form>
-                                                <form-input
-                                                    forLabel="name" classLabel="" nameLabel="Full Name" [requiredLabel]="false"
-                                                    classInput="form-control" minInput="1" maxInput="100"
-                                                    typeInput="text" placeholderInput="Full Name">
+                                                <form-input forLabel="name" classLabel="" nameLabel="Full Name"
+                                                    [requiredLabel]="false" classInput="form-control" minInput="1"
+                                                    maxInput="100" typeInput="text" placeholderInput="Full Name">
                                                 </form-input>
 
-                                                <form-input
-                                                    forLabel="email" classLabel="mt-2" nameLabel="Email" [requiredLabel]="false"
-                                                    classInput="form-control" minInput="1" maxInput="100"
-                                                    typeInput="email" placeholderInput="admin@email.com" [disabledInput]="true">
+                                                <form-input forLabel="email" classLabel="mt-2" nameLabel="Email"
+                                                    [requiredLabel]="false" classInput="form-control" minInput="1"
+                                                    maxInput="100" typeInput="email" placeholderInput="admin@email.com"
+                                                    [disabledInput]="true">
                                                 </form-input>
 
-                                                <form-input
-                                                    forLabel="number" classLabel="mt-2" nameLabel="Phone Number" [requiredLabel]="false"
-                                                    classInput="form-control" minInput="1" maxInput="14"
-                                                    typeInput="tel" placeholderInput="081345678900">
+                                                <form-input forLabel="number" classLabel="mt-2" nameLabel="Phone Number"
+                                                    [requiredLabel]="false" classInput="form-control" minInput="1"
+                                                    maxInput="14" typeInput="tel" placeholderInput="081345678900">
                                                 </form-input>
 
                                                 <div class="row">
-                                                    <form-select
-                                                        forLabel="country" classLabel="mt-2" nameLabel="Country"
+                                                    <form-select forLabel="country" classLabel="mt-2"
+                                                        nameLabel="Country" classSelect="form-select"
+                                                        style="max-width: 50%;">
+                                                    </form-select>
+
+                                                    <form-select forLabel="province" classLabel="mt-2"
+                                                        nameLabel="Province" classSelect="form-select"
+                                                        style="max-width: 50%;">
+                                                    </form-select>
+
+                                                    <form-select forLabel="city" classLabel="mt-2" nameLabel="City"
                                                         classSelect="form-select" style="max-width: 50%;">
                                                     </form-select>
 
-                                                    <form-select
-                                                        forLabel="province" classLabel="mt-2" nameLabel="Province"
-                                                        classSelect="form-select" style="max-width: 50%;">
-                                                    </form-select>
-
-                                                    <form-select
-                                                        forLabel="city" classLabel="mt-2" nameLabel="City"
-                                                        classSelect="form-select" style="max-width: 50%;">
-                                                    </form-select>
-
-                                                    <form-input
-                                                        forLabel="poscode" classLabel="mt-2" nameLabel="Postal Code" [requiredLabel]="false"
-                                                        classInput="form-control" minInput="1" maxInput="10" style="max-width: 50%;"
-                                                        typeInput="text" placeholderInput="17520">
+                                                    <form-input forLabel="poscode" classLabel="mt-2"
+                                                        nameLabel="Postal Code" [requiredLabel]="false"
+                                                        classInput="form-control" minInput="1" maxInput="10"
+                                                        style="max-width: 50%;" typeInput="text"
+                                                        placeholderInput="17520">
                                                     </form-input>
                                                 </div>
                                             </form>
                                         </div>
 
                                         <div class="mt-5">
-                                            <app-label forLabel="occupation" classLabel="fw-bold" nameLabel="Occupation"></app-label>
+                                            <app-label forLabel="occupation" classLabel="fw-bold"
+                                                nameLabel="Occupation"></app-label>
                                             <form>
                                                 <div class="row">
-                                                    <form-input
-                                                        forLabel="company" classLabel="mt-2" nameLabel="Company" [requiredLabel]="false"
+                                                    <form-input forLabel="company" classLabel="mt-2" nameLabel="Company"
+                                                        [requiredLabel]="false" classInput="form-control" minInput="1"
+                                                        maxInput="100" typeInput="text"
+                                                        placeholderInput="PT. Lawencon Internasional">
+                                                    </form-input>
+
+                                                    <form-select forLabel="industry" classLabel="mt-2"
+                                                        nameLabel="Industry" classSelect="form-select"
+                                                        style="max-width: 50%;">
+                                                    </form-select>
+
+                                                    <form-select forLabel="position" classLabel="mt-2"
+                                                        nameLabel="Position" classSelect="form-select"
+                                                        style="max-width: 50%;">
+                                                    </form-select>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="mt-5">
+                                            <app-label forLabel="socmed" classLabel="fw-bold" nameLabel="Social Media">
+                                            </app-label>
+                                            <form>
+                                                <div class="row">
+                                                    <form-input forLabel="instagram" classLabel="mt-2"
+                                                        nameLabel="Instagram" [requiredLabel]="false"
                                                         classInput="form-control" minInput="1" maxInput="100"
-                                                        typeInput="text" placeholderInput="PT. Lawencon Internasional">
+                                                        style="max-width: 50%;" typeInput="text"
+                                                        placeholderInput="@instagram">
                                                     </form-input>
-    
-                                                    <form-select
-                                                        forLabel="industry" classLabel="mt-2" nameLabel="Industry"
-                                                        classSelect="form-select" style="max-width: 50%;">
-                                                    </form-select>
-    
-                                                    <form-select
-                                                        forLabel="position" classLabel="mt-2" nameLabel="Position"
-                                                        classSelect="form-select" style="max-width: 50%;">
-                                                    </form-select>
-                                                </div>
-                                            </form>
-                                        </div>
 
-                                        <div class="mt-5">
-                                            <app-label forLabel="socmed" classLabel="fw-bold" nameLabel="Social Media"></app-label>
-                                            <form>
-                                                <div class="row">
-                                                    <form-input
-                                                        forLabel="instagram" classLabel="mt-2" nameLabel="Instagram" [requiredLabel]="false"
-                                                        classInput="form-control" minInput="1" maxInput="100" style="max-width: 50%;"
-                                                        typeInput="text" placeholderInput="@instagram">
+                                                    <form-input forLabel="linkedin" classLabel="mt-2"
+                                                        nameLabel="LinkedIn" [requiredLabel]="false"
+                                                        classInput="form-control" minInput="1" maxInput="100"
+                                                        style="max-width: 50%;" typeInput="text"
+                                                        placeholderInput="Lawencon Internasional" value="A">
                                                     </form-input>
-    
-                                                    <form-input
-                                                        forLabel="linkedin" classLabel="mt-2" nameLabel="LinkedIn" [requiredLabel]="false"
-                                                        classInput="form-control" minInput="1" maxInput="100" style="max-width: 50%;"
-                                                        typeInput="text" placeholderInput="Lawencon Internasional">
+
+                                                    <form-input forLabel="twitter" classLabel="mt-2" nameLabel="Twitter"
+                                                        [requiredLabel]="false" classInput="form-control" minInput="1"
+                                                        maxInput="100" style="max-width: 50%;" typeInput="text"
+                                                        placeholderInput="@lawencon">
                                                     </form-input>
-    
-                                                    <form-input
-                                                        forLabel="twitter" classLabel="mt-2" nameLabel="Twitter" [requiredLabel]="false"
-                                                        classInput="form-control" minInput="1" maxInput="100" style="max-width: 50%;"
-                                                        typeInput="text" placeholderInput="@lawencon">
-                                                    </form-input>
-    
-                                                    <form-input
-                                                        forLabel="facebook" classLabel="mt-2" nameLabel="Facebook" [requiredLabel]="false"
-                                                        classInput="form-control" minInput="1" maxInput="100" style="max-width: 50%;"
-                                                        typeInput="text" placeholderInput="Lawencon Internasional">
+
+                                                    <form-input forLabel="facebook" classLabel="mt-2"
+                                                        nameLabel="Facebook" [requiredLabel]="false"
+                                                        classInput="form-control" minInput="1" maxInput="100"
+                                                        style="max-width: 50%;" typeInput="text"
+                                                        placeholderInput="Lawencon Internasional">
                                                     </form-input>
                                                 </div>
                                             </form>
                                         </div>
 
                                         <div class="mt-5 gap-3 d-flex justify-content-center">
-                                            <app-button 
-                                                idBtn="save" labelBtn="Save" routerLink=""
-                                                [requiredIcon]="true" iconType="pi-save">
+                                            <app-button idBtn="save" labelBtn="Save" routerLink="" [requiredIcon]="true"
+                                                iconType="pi-save">
                                             </app-button>
-                                            <app-button 
-                                                classBtn="p-button-outlined p-button-secondary" idBtn="cancel" labelBtn="Cancel" routerLink=""
-                                                [requiredIcon]="true" iconType="pi-times">
+                                            <app-button classBtn="p-button-outlined p-button-secondary" idBtn="cancel"
+                                                labelBtn="Cancel" routerLink="" [requiredIcon]="true"
+                                                iconType="pi-times">
                                             </app-button>
                                         </div>
                                     </div>
