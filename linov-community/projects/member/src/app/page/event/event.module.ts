@@ -13,10 +13,9 @@ import { CartEnrollComponent } from './cart-enroll/cart-enroll.component';
 
 @NgModule({
     declarations: [
-    
-    EnrollEventComponent,
-         CartEnrollComponent
-  ],
+        EnrollEventComponent,
+        CartEnrollComponent
+    ],
     imports: [
         ComponentModule,
         CommonModule,

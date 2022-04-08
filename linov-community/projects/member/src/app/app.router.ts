@@ -29,6 +29,11 @@ const routes: Routes = [
         loadChildren: () => import('./page/cart/cart-checkout/cart-checkout.module').then(m => m.CartCheckoutModule)
     },
     {
+        path: 'member/event',
+        component: NavbarComponent,
+        loadChildren: () => import('./page/event/event.module').then(m => m.EventModule)
+    },
+    {
         path: 'member/profile-update',
         component: NavbarComponent,
         loadChildren: () => import('./page/profile/profile-update/profile-update.module').then(m => m.ProfileUpdateModule)
