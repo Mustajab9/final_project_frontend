@@ -42,6 +42,14 @@ export class EventService {
         return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/not-enroll/${id}`)
     }
 
+    getEnrollStatus(id: string, isApprove: boolean): Observable<GetAllEventDtoRes> {
+        return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/enroll-status/${id}/${isApprove}`)
+    }
+
+    getEventNotApprove(id: string, isApprove: boolean): Observable<GetAllEventDtoRes> {
+        return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/event-not-approve/${id}/${isApprove}`)
+    }
+
     insert(insertReq: InsertEventDtoReq, file?: File): Observable<InsertEventDtoRes> {
         const formData: FormData = new FormData()
         formData.append('content', JSON.stringify(insertReq))

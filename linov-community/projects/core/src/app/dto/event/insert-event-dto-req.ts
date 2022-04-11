@@ -1,14 +1,13 @@
 export class InsertEventDtoReq {
-	eventTitle?: string
-	eventProvider?: string
+	eventTitle!: string
+	eventProvider!: string
 	eventLocation!: string
-	eventPrice?: number
-	eventTimeStart?: string
-	eventTimeEnd?: string
-	eventDateStart?: string
-	eventDateEnd?: string
-	eventTypeId?: string
-	categoryId?: string
-	priceId?: string
+	eventPrice!: number
+	eventTimeStart!: string
+	eventTimeEnd!: string
+	eventDateStart!: string
+	eventDateEnd!: string
+	eventTypeId!: string
+	categoryId!: string
 }
 

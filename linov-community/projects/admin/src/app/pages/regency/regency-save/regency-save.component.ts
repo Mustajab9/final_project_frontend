@@ -6,6 +6,8 @@ import { InsertRegencyDtoReq } from '../../../../../../core/src/app/dto/regency/
 import { insertRegencyAction } from '../../../../../../core/src/app/state/regency/regency.action';
 import { regencySelectorInsert } from '../../../../../../core/src/app/state/regency/regency.selector';
 import { Subscription } from 'rxjs';
+import { GetAllProvinceDtoDataRes } from 'projects/core/src/app/dto/province/get-all-province-dto-data-res';
+import { ProvinceService } from 'projects/core/src/app/service/province.service';
 
 @Component({
   selector: 'app-regency-save',
@@ -15,13 +17,21 @@ import { Subscription } from 'rxjs';
 export class RegencySaveComponent implements OnInit, OnDestroy {
 
   data: InsertRegencyDtoReq = new InsertRegencyDtoReq()
-  regencyInsertSubscription?: Subscription
+  provinceData: GetAllProvinceDtoDataRes[] = []
 
-  constructor(private title: Title, private router: Router, private store: Store) {
+  regencyInsertSubscription?: Subscription
+  getAllProvinceSubscription?: Subscription
+
+  constructor(private title: Title, private router: Router, private store: Store, private provinceService: ProvinceService) {
     this.title.setTitle('Add Regency')
   }
 
   ngOnInit(): void {
+    this.getAllProvinceSubscription = this.provinceService.getAll().subscribe(result => {
+      if(result){
+        this.provinceData = result.data
+      }
+    })
   }
 
   insertProgress(): void {
@@ -41,5 +51,6 @@ export class RegencySaveComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.regencyInsertSubscription?.unsubscribe()
+    this.getAllProvinceSubscription?.unsubscribe()
   }
 }

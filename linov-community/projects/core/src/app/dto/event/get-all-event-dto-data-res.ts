@@ -18,6 +18,9 @@ export class GetAllEventDtoDataRes {
 	priceName!: string
 	attachmentId!: string
 	attachmentExtension!: string
+	paymentAttachment!: string
+	paymentId!: string
+	paymentName!: string
 	version!: number
 	isActive!: boolean
 }

@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h3 mb-4 text-gray-800">Form Add Event</h1>
+                        </div>
+                        <form #formInput="ngForm" class="row" (ngSubmit)="onSubmit(formInput.form.valid)">
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="event-title" classLabel="h5" nameLabel="Event Title" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Event Title"
+                                        minInput="3" maxInput="5" [(ngModelInput)]="data.eventTitle">
+                            </form-input>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="event-provider" classLabel="h5" nameLabel="Event Provider" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Event Provider"
+                                        minInput="5" maxInput="100" [(ngModelInput)]="data.eventProvider">
+                            </form-input>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="event-location" classLabel="h5" nameLabel="Event Location" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Event Location"
+                                        minInput="5" maxInput="100" [(ngModelInput)]="data.eventLocation">
+                            </form-input>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="event-provider" classLabel="h5" nameLabel="Event Price" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Event Price"
+                                        minInput="5" maxInput="100" [(ngModelInput)]="data.eventPrice">
+                            </form-input>
+                            <form-select    class="col-12 col-sm-6 mb-3"
+                                            forLabel="category" nameLabel="Category" classLabel="h5" [requiredLabel]="true"
+                                            [optionData]="categoryData" optionValue="id" optionLabel="categoryName"
+                                            [(ngModelSelect)]="data.categoryId">
+                            </form-select>
+                            <form-select    class="col-12 col-sm-6 mb-3"
+                                            forLabel="type" nameLabel="Type" classLabel="h5" [requiredLabel]="true"
+                                            [optionData]="typeData" optionValue="id" optionLabel="Type Data"
+                                            [(ngModelSelect)]="data.eventTypeId">
+                            </form-select>
+                            <form-button class="d-flex mt-3" classBtnPrimary="p-button-secondary me-3"
+                                labelBtnPrimary="Back" idBtnPrimary="back" routerLinkBtnPrimary="/member/course"
+                                classBtnSecondary="p-button-success" labelBtnSecondary="Submit" idBtnSecondary="input"
+                                typeBtnSecondary="submit" [disbaledBtnSecondary]="formInput.form.invalid">
+                            </form-button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

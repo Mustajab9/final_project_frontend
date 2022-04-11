@@ -54,8 +54,16 @@ export class EventEffect {
                     map(result => {
                         const newPayload: GetByEventIdDtoDataRes = new GetByEventIdDtoDataRes()
                         newPayload.id = result.data.id
-                        newPayload.categoryCode = payload.categoryCode
-                        newPayload.categoryName = payload.categoryName
+                        newPayload.eventTitle = payload.eventTitle
+                        newPayload.eventProvider = payload.eventProvider
+                        newPayload.eventLocation = payload.eventLocation
+                        newPayload.eventPrice = payload.eventPrice
+                        newPayload.eventTimeStart = payload.eventTimeStart
+                        newPayload.eventTimeEnd = payload.eventTimeEnd
+                        newPayload.eventDateStart = payload.eventDateStart
+                        newPayload.eventDateEnd = payload.eventDateEnd
+                        newPayload.typeId = payload.eventTypeId
+                        newPayload.categoryId = payload.categoryId
                         newPayload.version = 0
                         newPayload.isActive = true
                         return insertEventSuccessAction({ payload: newPayload })

@@ -19,6 +19,11 @@
                                         typeInput="text" placeholderInput="Enter Regency Name"
                                         minInput="5" maxInput="100" [(ngModelInput)]="data.regencyName">
                             </form-input>
+                            <form-select    class="col-12 col-sm-6 mb-3"
+                                            forLabel="province" nameLabel="Province" classLabel="h5" [requiredLabel]="true"
+                                            [optionData]="provinceData" optionValue="id" optionLabel="provinceName"
+                                            [(ngModelSelect)]="data.provinceId">
+                            </form-select>
                             <form-button class="d-flex mt-3" classBtnPrimary="p-button-secondary me-3"
                                 labelBtnPrimary="Back" idBtnPrimary="back" routerLinkBtnPrimary="/admin/regency/list"
                                 classBtnSecondary="p-button-success" labelBtnSecondary="Submit" idBtnSecondary="input"

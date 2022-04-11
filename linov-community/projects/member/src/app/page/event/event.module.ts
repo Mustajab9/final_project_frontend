@@ -10,11 +10,13 @@ import { ListboxModule } from 'primeng/listbox';
 import { ToolbarModule } from "primeng/toolbar";
 import { EnrollEventComponent } from './enroll-event/enroll-event.component';
 import { CartEnrollComponent } from './cart-enroll/cart-enroll.component';
+import { EventSaveComponent } from './event-save/event-save.component';
 
 @NgModule({
     declarations: [
         EnrollEventComponent,
-        CartEnrollComponent
+        CartEnrollComponent,
+        EventSaveComponent
     ],
     imports: [
         ComponentModule,

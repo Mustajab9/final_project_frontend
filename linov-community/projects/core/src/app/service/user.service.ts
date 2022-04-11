@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
+import { ChangePasswordDtoReq } from '../dto/user/change-password-dto-req'
 import { DeleteByUserIdDtoRes } from '../dto/user/delete-by-user-id-dto-res'
 import { GetAllUserDtoRes } from '../dto/user/get-all-user-dto-res'
 import { GetByUserIdDtoRes } from '../dto/user/get-by-user-id-dto-res'
@@ -30,7 +31,7 @@ export class UserService {
         }
     }
 
-    getById(id: string): Observable<GetByUserIdDtoRes> {
+    getById(id: string | undefined): Observable<GetByUserIdDtoRes> {
         return this.http.get<GetByUserIdDtoRes>(`http://localhost:8080/users/${id}`)
     }
 
@@ -48,6 +49,10 @@ export class UserService {
 
     forgotPassword(updateReq: UpdateUserDtoReq): Observable<UpdateUserDtoRes> {
         return this.http.put<UpdateUserDtoRes>(`http://localhost:8080/users/forgot-password`, updateReq)
+    }
+
+    changePassword(updateReq: ChangePasswordDtoReq): Observable<UpdateUserDtoRes> {
+        return this.http.put<UpdateUserDtoRes>(`http://localhost:8080/users/change-password`, updateReq)
     }
 
     delete(id: string): Observable<DeleteByUserIdDtoRes> {
