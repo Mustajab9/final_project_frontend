@@ -8,6 +8,9 @@ import { CartListRouter } from "./cart-list.router";
 import { DragDropModule } from "primeng/dragdrop"
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ToolbarModule } from "primeng/toolbar";
+import { ConfirmationService } from "primeng/api";
 
 @NgModule({
     declarations: [
@@ -21,7 +24,12 @@ import { TableModule } from 'primeng/table';
         CartListRouter,
         DragDropModule,
         PanelModule,
-        TableModule
+        TableModule,
+        ConfirmDialogModule,
+        ToolbarModule,
+    ],
+    providers: [
+        ConfirmationService
     ]
 })
 export class CartListModule { }

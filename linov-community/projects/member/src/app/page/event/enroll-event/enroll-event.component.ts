@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
 import { EventService } from 'projects/core/src/app/service/event.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
@@ -17,9 +18,9 @@ export class EnrollEventComponent implements OnInit {
 
   getAllEventSubscription?: Subscription
   userId!: string
+  displayResponsive: boolean = false
 
-
-  constructor(private title: Title, private router: Router, private eventService: EventService, private loginService: LoginService) {
+  constructor(private title: Title, private eventService: EventService, private loginService: LoginService) {
     this.title.setTitle('Course & Event List')
   }
 
@@ -32,12 +33,12 @@ export class EnrollEventComponent implements OnInit {
     })
   }
 
-  onEnroll(id: string) {
-    this.router.navigateByUrl('/member/event/cart-enroll/:id')
+  show(){
+    this.displayResponsive = true
   }
 
   ngOnDestroy(): void {
-    this.getAllEventSubscription?.unsubscribe
+    this.getAllEventSubscription?.unsubscribe()
   }
 
 }

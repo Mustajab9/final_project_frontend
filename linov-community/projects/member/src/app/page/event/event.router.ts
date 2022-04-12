@@ -1,16 +1,31 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { CartEnrollComponent } from "./cart-enroll/cart-enroll.component";
+import { EventListComponent } from "./event-list/event-list.component";
 import { EnrollEventComponent } from "./enroll-event/enroll-event.component";
+import { EnrollSaveComponent } from "./enroll-save/enroll-save.component";
+import { EventSaveComponent } from "./event-save/event-save.component";
+import { ParticipantComponent } from "./participant/participant.component";
 
 const routes: Routes = [
     {
-        path: 'enroll-event',
+        path: 'enroll',
         component: EnrollEventComponent
     },
     {
-        path: 'cart-enroll',
-        component: CartEnrollComponent
+        path: 'list',
+        component: EventListComponent
+    },
+    {
+        path: 'new',
+        component: EventSaveComponent
+    },
+    {
+        path: ':id',
+        component: EnrollSaveComponent
+    },
+    {
+        path: 'participant/:id',
+        component: ParticipantComponent
     }
 ]
 

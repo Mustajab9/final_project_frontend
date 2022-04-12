@@ -3,18 +3,6 @@
     <div class="d-flex justify-content-center">
         <img src="../../../assets/image/community1.jpg" class="img-fluid">
     </div>
-    <div>
-        <p-toolbar styleClass="my-4">
-            <ng-template pTemplate="left">
-            </ng-template>
-
-            <!-- <ng-template pTemplate="right">
-                <app-button classBtn="p-button-success" typeBtn="submit" labelBtn="Add" idBtn="add" iconType="pi-plus"
-                    routerLinkBtn="/admin/user/new">
-                </app-button>
-            </ng-template> -->
-        </p-toolbar>
-    </div>
     <div class="row px-5">
         <div class="my-3 col-3 pr-5">
             <div class="my-3">
@@ -106,7 +94,8 @@
                     <div>
                         <app-label classLabel="" nameLabel="Jadwal"></app-label>
                         <app-button iconType="pi-calendar" classBtn="p-button-outlined mt-2 mb-3 w-100"
-                            labelBtn="COURSE SCHEDULE"></app-button>
+                            labelBtn="COURSE / EVENT SCHEDULE" routerLinkBtn="/member/event/enroll">
+                        </app-button>
                     </div>
                 </div>
             </div>
@@ -161,14 +150,22 @@
                                 <app-label classLabel="p-2 bg-light rounded-pill text-end"
                                     nameLabel="{{event.categoryName}}">
                                 </app-label>
-
-                                <!-- <app-button
-                                    classBtn="mt-2 w-100" labelBtn="Enroll"
-                                    [requiredIcon]="false" (clickBtnEvent)="onEnroll(event.id)">
-                                </app-button> -->
-                                <app-button classBtn="mt-2 w-100" labelBtn="Enroll" [requiredIcon]="false">
-                                </app-button>
                             </div>
+                        </div>
+                        <div class="card-footer">
+                            <app-button *ngIf="event.enrollIsApprove == false" classBtn="mt-2 w-100" labelBtn="Waiting To Approve"
+                                        [disbaledBtn]="true">
+                            </app-button>
+                            <app-button *ngIf="event.enrollIsApprove == true" classBtn="mt-2 w-100 p-button-success" labelBtn="Approved, Show Your Invoice"
+                                        (clickBtnEvent)="show()" [requiredIcon]="true" icon="pi-external-link">
+                            </app-button>
+                            <p-dialog header="Invoice Enroll Event" [(visible)]="displayResponsive" [breakpoints]="{'420px': '30vw'}" [style]="{width: '30vw'}"
+                                    [draggable]="false" [resizable]="false">
+                                    <p>This Is Your Invoice Number : {{event.enrollInvoice}}</p>
+                                    <ng-template pTemplate="footer">
+                                        <p-button (click)="displayResponsive=false" label="Close" styleClass="p-button-text"></p-button>
+                                    </ng-template>
+                            </p-dialog>
                         </div>
                     </div>
                 </div>

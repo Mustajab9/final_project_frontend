@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="card mt-1">
+        <div class="card-header bg-transparent border-secondary my-2 ">
+            <h4 class="text-center">Enroll Event List</h4>
+            <app-label class="text-center" nameLabel="" classLabel="fs-4"></app-label>
+        </div>
+        <div class="card-body">
+            <form #formInput="ngForm" class="row" (ngSubmit)="onSubmit(formInput.form.valid)">
+                <form-input class="col-12 col-sm-6 mb-4"
+                            forLabel="event-title" classLabel="h5" nameLabel="Event Title"
+                            typeInput="text" placeholderInput="Enter Event Title" [disabledInput]="true"
+                            minInput="5" maxInput="100" [ngModelInput]="eventData.eventTitle">
+                </form-input>
+                <form-input class="col-12 col-sm-6 mb-4"
+                            forLabel="event-provider" classLabel="h5" nameLabel="Event Provider"
+                            typeInput="text" placeholderInput="Enter Event Provider" [disabledInput]="true"
+                            minInput="5" maxInput="100" [ngModelInput]="eventData.eventProvider">
+                </form-input>
+                <form-input class="col-12 col-sm-6 mb-4"
+                            forLabel="event-location" classLabel="h5" nameLabel="Event Location"
+                            typeInput="text" placeholderInput="Enter Event Location" [disabledInput]="true"
+                            minInput="5" maxInput="100" [ngModelInput]="eventData.eventLocation">
+                </form-input>
+                <form-input class="col-12 col-sm-6 mb-4"
+                            forLabel="event-provider" classLabel="h5" nameLabel="Event Price" [disabledInput]="true"
+                            typeInput="text" placeholderInput="Enter Event Price" [ngModelInput]="eventData.eventPrice">
+                </form-input>
+                <form-select    class="col-12 col-sm-6 mb-4"
+                                forLabel="type" nameLabel="Type" classLabel="h5" [requiredLabel]="true"
+                                [optionData]="paymentData" optionValue="id" optionLabel="paymentName"
+                                [(ngModelSelect)]="data.paymentId">
+                </form-select>
+                <form-input class="col-12 col-sm-6 mb-3"
+                            forLabel="file" nameLabel="Event File" classLabel="h5" [requiredLabel]="true"
+                            typeInput="file" (inputChange)="changeFile($event)">
+                </form-input>
+                <app-button classBtn="p-button-warning mt-4 me-3" labelBtn="Paid Event" typeBtn="submit"
+                    [requiredIcon]="true" iconType="pi-shopping-cart" [disbaledBtn]="formInput.form.invalid">
+                </app-button>
+                <app-button classBtn="p-button-outlined p-button-secondary mt-4" labelBtn="Cancel" routerLinkBtn="/member/course"
+                    [requiredIcon]="true" iconType="pi-times">
+                </app-button>
+            </form>
+        </div>
+    </div>
+</div>

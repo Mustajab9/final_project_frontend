@@ -7,22 +7,20 @@ import { Table } from 'primeng/table';
 import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
 import { UpdateEventDtoReq } from 'projects/core/src/app/dto/event/update-event-dto-req';
 import { EventService } from 'projects/core/src/app/service/event.service';
-import { deleteCategoryAction } from 'projects/core/src/app/state/category/category.action';
-import { categorySelectorDelete } from 'projects/core/src/app/state/category/category.selector';
-import { updateEventAction } from 'projects/core/src/app/state/event/event.action';
-import { eventSelectorUpdate } from 'projects/core/src/app/state/event/event.selector';
+import { LoginService } from 'projects/core/src/app/service/login.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css']
+  selector: 'app-event-list',
+  templateUrl: './event-list.component.html',
+  styleUrls: ['./event-list.component.css']
 })
-export class EventComponent implements OnInit, OnDestroy {
+export class EventListComponent implements OnInit, OnDestroy {
 
-  i: number = 0
   data: GetAllEventDtoDataRes[] = []
   update: UpdateEventDtoReq = new UpdateEventDtoReq()
+  userId?: string = this.loginService.getData()?.data.id
+
 
   updateEventSubscription?: Subscription
   getAllEventSubscription?: Subscription
@@ -31,8 +29,8 @@ export class EventComponent implements OnInit, OnDestroy {
   totalRecords: number = 0
   loading: boolean = true
 
-  constructor(private title: Title, private router: Router, private store: Store, private eventService: EventService,
-    private confirmationService: ConfirmationService) {
+  constructor(private title: Title, private router: Router, private store: Store,
+            private eventService: EventService, private loginService: LoginService) {
     this.title.setTitle('Event List')
   }
 
@@ -48,7 +46,7 @@ export class EventComponent implements OnInit, OnDestroy {
 
     this.getAllEventSubscription = this.eventService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
-        this.data = result.data.filter(comp => comp.isApprove == false)
+        this.data = result.data.filter(comp => comp.createdBy == this.userId)
         this.loading = false
         this.totalRecords = result.total
       },
@@ -66,17 +64,8 @@ export class EventComponent implements OnInit, OnDestroy {
     })
   }
 
-  updateProgress(): void {
-    this.updateEventSubscription = this.store.select(eventSelectorUpdate).subscribe(result => {
-      if (result) {
-        this.getData(0, 10)
-      }
-    })
-  }
-
-  onSubmit() {
-    this.store.dispatch(updateEventAction({ payload: this.update }))
-    this.updateProgress()
+  onSubmit(id: string) {
+    this.router.navigateByUrl(`/member/event/participant/${id}`)
   }
 
   ngOnDestroy(): void {

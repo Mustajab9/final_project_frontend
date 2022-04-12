@@ -4,42 +4,63 @@
             <!-- Nested Row within Card Body -->
             <div class="row">
                 <div class="col-lg">
-                    <div class="p-5">
+                    <div class="p-5 mt-5">
                         <div class="text-center">
-                            <h1 class="h3 mb-4 text-gray-800">Form Add Event</h1>
+                            <h1 class="h3 mb-5 text-gray-800">Form Add Event</h1>
                         </div>
                         <form #formInput="ngForm" class="row" (ngSubmit)="onSubmit(formInput.form.valid)">
-                            <form-input class="col-12 col-sm-6 mb-3"
+                            <form-input class="col-12 col-sm-6 mb-4"
                                         forLabel="event-title" classLabel="h5" nameLabel="Event Title" [requiredLabel]="true"
                                         typeInput="text" placeholderInput="Enter Event Title"
-                                        minInput="3" maxInput="5" [(ngModelInput)]="data.eventTitle">
+                                        minInput="5" maxInput="100" [(ngModelInput)]="data.eventTitle">
                             </form-input>
-                            <form-input class="col-12 col-sm-6 mb-3"
+                            <form-input class="col-12 col-sm-6 mb-4"
                                         forLabel="event-provider" classLabel="h5" nameLabel="Event Provider" [requiredLabel]="true"
                                         typeInput="text" placeholderInput="Enter Event Provider"
                                         minInput="5" maxInput="100" [(ngModelInput)]="data.eventProvider">
                             </form-input>
-                            <form-input class="col-12 col-sm-6 mb-3"
+                            <form-input class="col-12 col-sm-6 mb-4"
                                         forLabel="event-location" classLabel="h5" nameLabel="Event Location" [requiredLabel]="true"
                                         typeInput="text" placeholderInput="Enter Event Location"
                                         minInput="5" maxInput="100" [(ngModelInput)]="data.eventLocation">
                             </form-input>
-                            <form-input class="col-12 col-sm-6 mb-3"
+                            <form-input class="col-12 col-sm-6 mb-4"
                                         forLabel="event-provider" classLabel="h5" nameLabel="Event Price" [requiredLabel]="true"
-                                        typeInput="text" placeholderInput="Enter Event Price"
-                                        minInput="5" maxInput="100" [(ngModelInput)]="data.eventPrice">
+                                        typeInput="number" placeholderInput="Enter Event Price" [(ngModelInput)]="data.eventPrice">
                             </form-input>
-                            <form-select    class="col-12 col-sm-6 mb-3"
+                            <form-select    class="col-12 col-sm-6 mb-4"
                                             forLabel="category" nameLabel="Category" classLabel="h5" [requiredLabel]="true"
                                             [optionData]="categoryData" optionValue="id" optionLabel="categoryName"
                                             [(ngModelSelect)]="data.categoryId">
                             </form-select>
-                            <form-select    class="col-12 col-sm-6 mb-3"
+                            <form-select    class="col-12 col-sm-6 mb-4"
                                             forLabel="type" nameLabel="Type" classLabel="h5" [requiredLabel]="true"
-                                            [optionData]="typeData" optionValue="id" optionLabel="Type Data"
+                                            [optionData]="typeData" optionValue="id" optionLabel="typeName"
                                             [(ngModelSelect)]="data.eventTypeId">
                             </form-select>
-                            <form-button class="d-flex mt-3" classBtnPrimary="p-button-secondary me-3"
+                            <app-label class="col-12 col-sm-4 mb-4" forLabel="rangeDate" classLabel="h5" nameLabel="Date Start - Date End"></app-label>
+                            <app-label class="col-12 col-sm-4 mb-4" forLabel="timeStart" classLabel="h5" nameLabel="Time Start"></app-label>
+                            <app-label class="col-12 col-sm-4 mb-4" forLabel="timeEnd" classLabel="h5" nameLabel="Time End"></app-label>
+                            <div class="col-12 col-sm-4 mb-4">
+                                <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" dateFormat="yy-mm-dd"
+                                            [showIcon]="true" inputId="rangeDate" name="rangeDate" [showButtonBar]="true" (ngModelChange)="getDate()">
+                                </p-calendar>
+                            </div>
+                            <div class="col-12 col-sm-4 mb-4">
+                                <p-calendar [(ngModel)]="timeStart" [showIcon]="true" inputId="timeStart" name="timeStart"
+                                            [timeOnly]="true" hourFormat="24" (ngModelChange)="getTimeStart()">
+                                </p-calendar>
+                            </div>
+                            <div class="col-12 col-sm-4 mb-4">
+                                <p-calendar [(ngModel)]="timeEnd" [showIcon]="true" inputId="timeEnd" name="timeEnd"
+                                            [timeOnly]="true" hourFormat="24" (ngModelChange)="getTimeEnd()">
+                                </p-calendar>
+                            </div>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="file" nameLabel="Event File" classLabel="h5" [requiredLabel]="true"
+                                        typeInput="file" (inputChange)="changeFile($event)">
+                            </form-input>
+                            <form-button class="d-flex mt-5" classBtnPrimary="p-button-secondary me-3"
                                 labelBtnPrimary="Back" idBtnPrimary="back" routerLinkBtnPrimary="/member/course"
                                 classBtnSecondary="p-button-success" labelBtnSecondary="Submit" idBtnSecondary="input"
                                 typeBtnSecondary="submit" [disbaledBtnSecondary]="formInput.form.invalid">

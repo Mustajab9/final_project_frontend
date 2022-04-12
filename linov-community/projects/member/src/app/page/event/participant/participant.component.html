@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="card mt-1">
+        <div class="card-header bg-transparent border-secondary my-2 ">
+            <h4 class="text-center">Participant {{eventData.eventTitle}}</h4>
+            <app-label class="text-center" nameLabel="" classLabel="fs-4"></app-label>
+
+            <p-toolbar styleClass="my-4">
+                <ng-template pTemplate="left">
+                    <app-button classBtn="p-button-secondary"  typeBtn="submit"
+                                labelBtn="Back" idBtn="back" iconType="pi-arrow-left" routerLinkBtn="/member/event/list">
+                    </app-button>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <a pButton pRipple class="p-button-help" id="report" label="Report"
+                        icon="pi pi-print" href="http://localhost:8080/events/report/{{eventData.id}}">
+                    </a>
+                </ng-template>
+            </p-toolbar>
+        </div>
+        <div class="card-body">
+            <p-table [value]="data" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <th class="text-center">Paticipant Name</th>
+                    <th class="text-center">Paticipant Email</th>
+                    <th class="text-center">Paticipant Invoice</th>
+                    <th class="text-center">Paticipant Status</th>
+                    <th class="text-center">Payment Method</th>
+                    <th class="text-center">Payment Attachment</th>
+                    <th class="text-center">Action</th>
+                </ng-template>
+                <ng-template pTemplate="body" let-data>
+                    <tr>
+                        <td class="text-center">{{data.profileName}}</td>
+                        <td class="text-center">{{data.email}}</td>
+                        <td *ngIf="data.enrollInvoice" class="text-center">{{data.enrollInvoice}}</td>
+                        <td *ngIf="!data.enrollInvoice" class="text-center">-</td>
+                        <td *ngIf="data.isApprove == true" class="text-center">Approve</td>
+                        <td *ngIf="data.isApprove == false" class="text-center">Not Approve</td>
+                        <td *ngIf="data.paymentName" class="text-center">{{data.paymentName}}</td>
+                        <td *ngIf="!data.paymentName" class="text-center">-</td>
+                        <td *ngIf="data.attachmentId" class="text-center">
+                            <img src="http://localhost:8080/attachments/{{data.attachmentId}}" alt="Payment Image" height="80px" width="80px">
+                        </td>
+                        <td *ngIf="!data.attachmentId" class="text-center">-</td>
+                        <td *ngIf="data.isApprove == false" class="text-center">
+                            <button pButton pRipple class="p-button-success" id="approve" label="Approving"
+                                    icon="pi pi-check-circle" (click)="onApprove(data.id)">
+                            </button>
+                        </td>
+                        <td *ngIf="data.isApprove == true" class="text-center">-</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

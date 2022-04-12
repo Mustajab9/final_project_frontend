@@ -50,20 +50,20 @@ export class EventEffect {
         this.action$.pipe(
             ofType(insertEventAction),
             mergeMap(
-                ({ payload }) => this.eventService.insert(payload).pipe(
+                ({ payload }) => this.eventService.insert(payload.content, payload.file).pipe(
                     map(result => {
                         const newPayload: GetByEventIdDtoDataRes = new GetByEventIdDtoDataRes()
                         newPayload.id = result.data.id
-                        newPayload.eventTitle = payload.eventTitle
-                        newPayload.eventProvider = payload.eventProvider
-                        newPayload.eventLocation = payload.eventLocation
-                        newPayload.eventPrice = payload.eventPrice
-                        newPayload.eventTimeStart = payload.eventTimeStart
-                        newPayload.eventTimeEnd = payload.eventTimeEnd
-                        newPayload.eventDateStart = payload.eventDateStart
-                        newPayload.eventDateEnd = payload.eventDateEnd
-                        newPayload.typeId = payload.eventTypeId
-                        newPayload.categoryId = payload.categoryId
+                        newPayload.eventTitle = payload.content.eventTitle
+                        newPayload.eventProvider = payload.content.eventProvider
+                        newPayload.eventLocation = payload.content.eventLocation
+                        newPayload.eventPrice = payload.content.eventPrice
+                        newPayload.eventTimeStart = payload.content.eventTimeStart
+                        newPayload.eventTimeEnd = payload.content.eventTimeEnd
+                        newPayload.eventDateStart = payload.content.eventDateStart
+                        newPayload.eventDateEnd = payload.content.eventDateEnd
+                        newPayload.typeId = payload.content.eventTypeId
+                        newPayload.categoryId = payload.content.categoryId
                         newPayload.version = 0
                         newPayload.isActive = true
                         return insertEventSuccessAction({ payload: newPayload })

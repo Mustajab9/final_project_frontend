@@ -17,7 +17,6 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th>No</th>
                 <th>Event Title</th>
                 <th>Event Provider</th>
                 <th>Event Date</th>
@@ -29,9 +28,8 @@
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-i, let-data>
+        <ng-template pTemplate="body" let-data>
             <tr>
-                <td>{{i+1}}</td>
                 <td>{{data.eventTitle}}</td>
                 <td>{{data.eventProvider}}</td>
                 <td>{{data.eventDateStart}} until {{data.eventDateEnd}}</td>
@@ -40,9 +38,12 @@
                 <td>{{data.typeName}}</td>
                 <td>{{data.eventPrice}}</td>
                 <td class="text-center">
-                    <button pButton pRipple class="p-button-success" id="approve" label="Approving"
-                        icon="pi pi-check-circle" (click)="onSubmit()">
+                    <button pButton pRipple class="p-button-info me-3" id="participant" label="Participant"
+                        icon="pi pi-list" (click)="onSubmit(data.id)">
                     </button>
+                    <a pButton pRipple class="p-button-help" id="report" label="Report"
+                        icon="pi pi-print" href="http://localhost:8080/events/report/income_report/{{data.id}}">
+                    </a>
                 </td>
             </tr>
         </ng-template>

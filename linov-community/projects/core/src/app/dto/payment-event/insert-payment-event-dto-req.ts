@@ -1,7 +1,5 @@
-export class InsertPaymentEventDtoReq { 
-	 enrollCode?: string 
-	 eventId?: String[] 
-	 attachmentId?: string 
-	 paymentId?: string 
-} 
+export class InsertPaymentEventDtoReq {
+	eventId?: String[]
+	paymentId?: string
+}
 

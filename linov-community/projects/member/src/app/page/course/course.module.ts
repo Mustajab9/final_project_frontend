@@ -8,15 +8,11 @@ import { TabViewModule } from 'primeng/tabview';
 import { ChartModule } from 'primeng/chart';
 import { ListboxModule } from 'primeng/listbox';
 import { ToolbarModule } from "primeng/toolbar";
-import { CourseComponent } from "./course-list/course.component";
-import { CourseSaveComponent } from './course-save/course-save.component';
-import { CourseUpdateComponent } from './course-update/course-update.component';
+import { CourseComponent } from "./course.component";
 
 @NgModule({
     declarations: [
         CourseComponent,
-        CourseSaveComponent,
-        CourseUpdateComponent
     ],
     imports: [
         ComponentModule,

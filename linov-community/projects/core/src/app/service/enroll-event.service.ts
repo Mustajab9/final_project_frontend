@@ -37,8 +37,13 @@ export class EnrollEventService {
         return this.http.get<GetEnrollEventByUserDtoRes>(`http://localhost:8080/enroll-events/user/${id}`)
     }
 
-    insert(insertReq: InsertEnrollEventDtoReq) : Observable<InsertEnrollEventDtoRes> {
-        return this.http.post<InsertEnrollEventDtoRes>(`http://localhost:8080/enroll-events`, insertReq)
+    insert(insertReq: InsertEnrollEventDtoReq, file?: File) : Observable<InsertEnrollEventDtoRes> {
+        const formData: FormData = new FormData()
+        formData.append('content', JSON.stringify(insertReq))
+        if (file) {
+            formData.append('file', file)
+        }
+        return this.http.post<InsertEnrollEventDtoRes>(`http://localhost:8080/enroll-events`, formData)
     }
 
     update(updateReq: UpdateEnrollEventDtoReq) : Observable<UpdateEnrollEventDtoRes> {

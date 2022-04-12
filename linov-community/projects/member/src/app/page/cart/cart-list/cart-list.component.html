@@ -1,92 +1,33 @@
-<!-- <div class="p-grid">
-    <h1>List Of Available Books</h1>
-    <div class="p-col-12 p-md-6 p-col-nogutter drag-column">
-        <div *ngFor="let book of availableBooks" class="ui-helper-clearfix">
-            <div class="ui-g-12 ui-md-4" pDraggable="books" (onDragStart)="dragStart($event, book)"
-                (onDragEnd)="dragEnd($event)">
-                <p-panel [header]="book.name" [style]="{'text-align':'center'}">
-                    <img src="assets/images/{{book.serialNo}}.PNG">
-                </p-panel>
-            </div>
-        </div>
-    </div>
-    <h1>My Personal Favorites</h1>
-    <div class="p-col-12 p-md-6 drop-column" pDroppable="books" (onDrop)="drop($event)"
-        [ngClass]="{'ui-highlight-book':draggedBook}">
-        <p-table [value]="favoriteBooks">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Name</th>
-                    <th>Price(Dollars)</th>
-                    <th>Author</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-book>
-                <tr>
-                    <td>{{book.name}}</td>
-                    <td>{{book.price}}</td>
-                    <td>{{book.author}}</td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
-</div> -->
-
 <div class="container">
-    <app-label nameLabel="Order" classLabel="mt-5 fs-4"></app-label>
     <div class="card mt-1">
-        <div class="card-header bg-transparent border-secondary">
-            <div class="d-flex flex-row ms-3">
-                <input class="form-check-input" type="checkbox">
-                <app-label forLabel="selectAll" classLabel="form-label ms-2" nameLabel="Select All"></app-label>
-            </div>
+        <div class="card-header bg-transparent border-secondary my-2 ">
+            <h4 class="text-center">Cart Event/Course List</h4>
+            <app-label class="text-center" nameLabel="" classLabel="fs-4"></app-label>
         </div>
         <div class="card-body">
-            <div class="list-group">
-                <a class="list-group-item list-group-item-action border-0">
-                    <div class="row ms-4">
-                        <input class="form-check-input d-flex align-self-center" type="checkbox" name="checkboxItem"
-                            id="checkboxItem1">
-                        <div class="d-flex flex-column col-6">
-                            <app-label classLabel="form-check-label ms-3 fw-bold" forLabel="checkboxItem1"
-                                nameLabel="Event/Course Title">
-                            </app-label>
-                            <app-label classLabel="form-check-label ms-3" forLabel="checkboxItem1"
-                                nameLabel="Date: Event/Course Date">
-                            </app-label>
-                        </div>
-
-                        <div class="d-flex flex-column col-5 text-end">
-                            <app-label forLabel="price" classLabel="fw-bold" nameLabel="20.000"></app-label>
-                        </div>
-                    </div>
-                </a>
-
-                <a class="list-group-item list-group-item-action border-0">
-                    <div class="row ms-4">
-                        <input class="form-check-input d-flex align-self-center" type="checkbox" name="checkboxItem"
-                            id="checkboxItem1">
-                        <div class="d-flex flex-column col-6">
-                            <app-label classLabel="form-check-label ms-3 fw-bold" forLabel="checkboxItem1"
-                                nameLabel="Event/Course Title">
-                            </app-label>
-                            <app-label classLabel="form-check-label ms-3" forLabel="checkboxItem1"
-                                nameLabel="Date: Event/Course Date">
-                            </app-label>
-                        </div>
-
-                        <div class="d-flex flex-column col-5 text-end">
-                            <app-label forLabel="price" classLabel="fw-bold" nameLabel="20.000"></app-label>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
+            <p-table [value]="data" [(selection)]="selectedEvent" dataKey="id" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <th class="text-center"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                    <th class="text-center">Event Title</th>
+                    <th class="text-center">Event Date</th>
+                    <th class="text-center">Event Time</th>
+                    <th class="text-center">Event Price</th>
+                </ng-template>
+                <ng-template pTemplate="body" let-data>
+                    <tr>
+                        <td class="text-center"><p-tableCheckbox [value]="data"></p-tableCheckbox></td>
+                        <td class="text-center">{{data.eventTitle}}</td>
+                        <td class="text-center">{{data.eventDateStart}} until {{data.eventDateEnd}}</td>
+                        <td class="text-center">{{data.eventTimeStart}} - {{data.eventTimeEnd}}</td>
+                        <td class="text-center">{{data.eventPrice}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
             <div class="d-flex justify-content-center">
-                <app-button classBtn="p-button-warning mt-4 me-3" labelBtn="Check Out" routerLinkBtn="/cart-checkout"
+                <app-button classBtn="p-button-warning mt-4 me-3" labelBtn="Check Out" (clickBtnEvent)="onSubmit()"
                     [requiredIcon]="true" iconType="pi-shopping-cart">
                 </app-button>
-                <app-button classBtn="p-button-outlined p-button-secondary mt-4" labelBtn="Cancel" routerLinkBtn=""
+                <app-button classBtn="p-button-outlined p-button-secondary mt-4" labelBtn="Cancel" routerLinkBtn="/member/course"
                     [requiredIcon]="true" iconType="pi-times">
                 </app-button>
             </div>

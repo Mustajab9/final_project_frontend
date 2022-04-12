@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -7,6 +8,7 @@ import { GetAllEventTypeDtoDataRes } from 'projects/core/src/app/dto/event-type/
 import { InsertEventDtoReq } from 'projects/core/src/app/dto/event/insert-event-dto-req';
 import { CategoryService } from 'projects/core/src/app/service/category.service';
 import { EventTypeService } from 'projects/core/src/app/service/event-type.service';
+import { EventService } from 'projects/core/src/app/service/event.service';
 import { insertEventAction } from 'projects/core/src/app/state/event/event.action';
 import { eventSelectorInsert } from 'projects/core/src/app/state/event/event.selector';
 import { Subscription } from 'rxjs';
@@ -21,14 +23,18 @@ export class EventSaveComponent implements OnInit, OnDestroy {
   data: InsertEventDtoReq = new InsertEventDtoReq()
   categoryData: GetAllCategoryDtoDataRes[] = []
   typeData: GetAllEventTypeDtoDataRes[] = []
+  file?: File
+  rangeDates: Date[] = []
+  timeStart: Date = new Date()
+  timeEnd: Date = new Date()
 
   insertEventSubscription?: Subscription
   getAllCategorySubscription?: Subscription
   getAllTypeSubscripton?: Subscription
 
 
-  constructor(private title: Title, private router: Router, private store: Store,
-              private categoryService: CategoryService, private typeService: EventTypeService) {
+  constructor(private title: Title, private router: Router, private store: Store, private datePipe: DatePipe,
+              private categoryService: CategoryService, private typeService: EventTypeService, private eventService: EventService) {
     this.title.setTitle('Add Event')
   }
 
@@ -46,18 +52,34 @@ export class EventSaveComponent implements OnInit, OnDestroy {
     })
   }
 
-  insertProgress(): void {
-    this.insertEventSubscription = this.store.select(eventSelectorInsert).subscribe(result => {
-      if (result) {
-        this.router.navigateByUrl('/member/course')
-      }
-    })
+  getDate(){
+    let dateStart = this.datePipe.transform(this.rangeDates[0], 'y-MM-dd');
+    let dateEnd = this.datePipe.transform(this.rangeDates[1], 'y-MM-dd');
+    this.data.eventDateStart = dateStart
+    this.data.eventDateEnd = dateEnd
+  }
+
+  getTimeStart(){
+    let timeStart = this.datePipe.transform(this.timeStart, 'h:mm:ss');
+    this.data.eventTimeStart = timeStart
+  }
+
+  getTimeEnd(){
+    let timeEnd =this.datePipe.transform(this.timeEnd, 'h:mm:ss');
+    this.data.eventTimeEnd = timeEnd
+  }
+
+  changeFile(event: any): void {
+    this.file = event.target.files[0]
   }
 
   onSubmit(isValid: boolean) {
     if (isValid) {
-      this.store.dispatch(insertEventAction({ payload: this.data }))
-      this.insertProgress()
+      this.insertEventSubscription = this.eventService.insert(this.data, this.file).subscribe( result =>{
+        if(result){
+          this.router.navigateByUrl('/member/course')
+        }
+      })
     }
   }
 

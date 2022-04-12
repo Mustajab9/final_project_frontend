@@ -1,0 +1,5 @@
+:host ::ng-deep .p-toolbar {
+    background: #FFF;
+    border: none;
+    padding: 0;
+}

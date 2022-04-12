@@ -1,42 +1,48 @@
 <div class="container">
-    <app-label nameLabel="Check Out" classLabel="mt-5 fs-4"></app-label>
     <div class="card mt-1">
-        <div class="card-header bg-transparent border-secondary">
-            <app-label forLabel="selectAll" classLabel="form-label ms-2 fs-5" nameLabel="Order Details" ></app-label>
+        <div class="card-header bg-transparent border-secondary my-2 ">
+            <h4 class="text-center">Cart Event/Course List</h4>
+            <app-label class="text-center" nameLabel="" classLabel="fs-4"></app-label>
         </div>
         <div class="card-body">
-            <div class="list-group">
-                <div class="row">
-                    <div class="d-flex flex-column col-6">
-                        <app-label 
-                            classLabel="form-check-label ms-3 fw-bold" forLabel="checkboxItem1" nameLabel="Event/Course Title">
-                        </app-label>
-                        <app-label 
-                            classLabel="form-check-label ms-3" forLabel="checkboxItem1" nameLabel="Date: Event/Course Date">
-                        </app-label>
-                    </div>
-
-                    <div class="d-flex flex-column col-5 text-end">
-                        <app-label forLabel="price" classLabel="fw-bold" nameLabel="20.000"></app-label>
-                    </div>
-                </div>
-                <hr>
-
-                <div class="text-end">
-                    <app-label forLabel="" classLabel="fw-bold" nameLabel="Total: Event/Course Total Price"></app-label>
-                </div>
+            <div class="table-responsive mt-3">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Event Title</th>
+                        <th class="text-center">Event Date</th>
+                        <th class="text-center">Event Time</th>
+                        <th class="text-center">Event Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let data of data let no = index">
+                        <td class="text-center">{{data.eventTitle}}</td>
+                        <td class="text-center">{{data.eventDateStart}} until {{data.eventDateEnd}}</td>
+                        <td class="text-center">{{data.eventTimeStart}} - {{data.eventTimeEnd}}</td>
+                        <td class="text-center">{{data.eventPrice}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <div class="d-flex justify-content-center">
-                <app-button 
-                    classBtn="p-button-warning mt-4 me-3" labelBtn="Pay Now" routerLinkBtn="/cart-checkout"
-                    [requiredIcon]="true" iconType="pi-shopping-cart">
+            <form #formInput="ngForm" class="row" (ngSubmit)="onSubmit(formInput.form.valid)">
+                <form-select    class="col-12 col-sm-6 mb-4"
+                                forLabel="type" nameLabel="Type" classLabel="h5" [requiredLabel]="true"
+                                [optionData]="paymentData" optionValue="id" optionLabel="paymentName"
+                                [(ngModelSelect)]="insertReq.paymentId">
+                </form-select>
+                <form-input class="col-12 col-sm-6 mb-3"
+                            forLabel="file" nameLabel="Event File" classLabel="h5" [requiredLabel]="true"
+                            typeInput="file" (inputChange)="changeFile($event)">
+                </form-input>
+                <app-button classBtn="p-button-warning mt-4 me-3" labelBtn="Check Out" typeBtn="submit"
+                    [requiredIcon]="true" iconType="pi-shopping-cart" [disbaledBtn]="formInput.form.invalid">
                 </app-button>
-                <app-button 
-                    classBtn="p-button-outlined p-button-secondary mt-4" labelBtn="Cancel" routerLinkBtn=""
+                <app-button classBtn="p-button-outlined p-button-secondary mt-4" labelBtn="Cancel" routerLinkBtn="/member/cart-list"
                     [requiredIcon]="true" iconType="pi-times">
                 </app-button>
-            </div>
+            </form>
         </div>
     </div>
 </div>

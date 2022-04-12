@@ -3,10 +3,10 @@ export class InsertEventDtoReq {
 	eventProvider!: string
 	eventLocation!: string
 	eventPrice!: number
-	eventTimeStart!: string
-	eventTimeEnd!: string
-	eventDateStart!: string
-	eventDateEnd!: string
+	eventTimeStart!: string | null
+	eventTimeEnd!: string | null
+	eventDateStart!: string | null
+	eventDateEnd!: string | null
 	eventTypeId!: string
 	categoryId!: string
 }

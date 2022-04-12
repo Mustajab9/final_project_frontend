@@ -5,6 +5,7 @@ import { Observable } from 'rxjs'
 import { DeleteByEventIdDtoRes } from '../dto/event/delete-by-event-id-dto-res'
 import { GetAllEventDtoRes } from '../dto/event/get-all-event-dto-res'
 import { GetByEventIdDtoRes } from '../dto/event/get-by-event-id-dto-res'
+import { GetCountNotPaidDtoDataRes } from '../dto/event/get-count-not-paid-dto-data-res'
 import { InsertEventDtoReq } from '../dto/event/insert-event-dto-req'
 import { InsertEventDtoRes } from '../dto/event/insert-event-dto-res'
 import { UpdateEventDtoReq } from '../dto/event/update-event-dto-req'
@@ -38,8 +39,8 @@ export class EventService {
         return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/enroll/${id}`)
     }
 
-    getByNotEnroll(id: string): Observable<GetAllEventDtoRes> {
-        return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/not-enroll/${id}`)
+    getByNotEnroll(): Observable<GetAllEventDtoRes> {
+        return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/not-enroll`)
     }
 
     getEnrollStatus(id: string, isApprove: boolean): Observable<GetAllEventDtoRes> {
@@ -48,6 +49,14 @@ export class EventService {
 
     getEventNotApprove(id: string, isApprove: boolean): Observable<GetAllEventDtoRes> {
         return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/event-not-approve/${id}/${isApprove}`)
+    }
+
+    getEventNotPaid(id?: string): Observable<GetAllEventDtoRes> {
+        return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/event-not-paid/${id}`)
+    }
+
+    getCountNotPaid(): Observable<GetCountNotPaidDtoDataRes> {
+        return this.http.get<GetCountNotPaidDtoDataRes>(`http://localhost:8080/events/count-not-paid`)
     }
 
     insert(insertReq: InsertEventDtoReq, file?: File): Observable<InsertEventDtoRes> {

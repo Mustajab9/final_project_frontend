@@ -36,7 +36,7 @@ const deleteEventSuccessAction = createAction(
 
 const insertEventAction = createAction(
     '[Event Page] insert event',
-    props<{ payload: InsertEventDtoReq }>()
+    props<{ payload: {content: InsertEventDtoReq, file?: File } }>()
 )
 
 const insertEventSuccessAction = createAction(
