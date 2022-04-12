@@ -5,6 +5,7 @@ import { Observable } from 'rxjs'
 import { DeleteByProfileSosmedIdDtoRes } from '../dto/profile-sosmed/delete-by-profile-sosmed-id-dto-res'
 import { GetAllProfileSosmedDtoRes } from '../dto/profile-sosmed/get-all-profile-sosmed-dto-res'
 import { GetByProfileSosmedIdDtoRes } from '../dto/profile-sosmed/get-by-profile-sosmed-id-dto-res'
+import { GetProfileSosmedByUserDtoRes } from '../dto/profile-sosmed/get-profile-sosmed-by-user-dto-res'
 import { InsertProfileSosmedDtoReq } from '../dto/profile-sosmed/insert-profile-sosmed-dto-req'
 import { InsertProfileSosmedDtoRes } from '../dto/profile-sosmed/insert-profile-sosmed-dto-res'
 import { UpdateProfileSosmedDtoReq } from '../dto/profile-sosmed/update-profile-sosmed-dto-req'
@@ -24,6 +25,10 @@ export class ProfileSosmedService {
 
     getById(id: string) : Observable<GetByProfileSosmedIdDtoRes> {
         return this.http.get<GetByProfileSosmedIdDtoRes>(`http://localhost:8080/profile-sosmeds/${id}`)
+    }
+
+    getByUser(): Observable<GetProfileSosmedByUserDtoRes> {
+        return this.http.get<GetProfileSosmedByUserDtoRes>(`http://localhost:8080/profile-sosmeds/user`)
     }
 
     insert(insertReq: InsertProfileSosmedDtoReq) : Observable<InsertProfileSosmedDtoRes> {

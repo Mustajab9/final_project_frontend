@@ -1,119 +1,314 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-sm-3">
-            <div class="card ">
+            <div class="card text-color">
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center justify-content-center">
-                        <img src="../../../assets/image/profile.png" class="mb-3" style="height: 90px; width: 90px;">
-                        <h5>PROFILE NAME</h5>
-                        <p class="card-text opacity-50">Fullstack Engineer</p>
+                        <div>
+                            <img *ngIf="!profile.profileImageId" src="assets/image/undraw_profile_pic.svg" class="mb-3"
+                                style="height: 90px; width: 90px;">
+                            <img *ngIf="profile.profileImageId"
+                                src="http://localhost:8080/attachments/{{profile.profileImageId}}" class="mb-3"
+                                style="height: 90px; width: 90px;">
+                        </div>
+                        <h5>{{profile.profileName}}</h5>
+                        <p class="card-text opacity-50">{{profile.positionName}}</p>
                     </div>
 
                     <div class="d-flex justify-content-center mt-3">
-                        <form-button typeBtnPrimary="" idBtnPrimary="google"
-                            classBtnPrimary="p-button-rounded p-button-outlined me-2 mt-1" [requiredIconPrimary]="true"
-                            iconTypePrimary="pi-linkedin" typeBtnSecondary="" idBtnSecondary="facebook"
-                            classBtnSecondary="p-button-rounded p-button-outlined me-2" [requiredIconSecondary]="true"
-                            iconTypeSecondary="pi-facebook">
-                        </form-button>
+                        <a class="btn btn-outline-info rounded-circle me-2 mt-1" id="linkedin"
+                            href="https://www.linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i>
+                        </a>
 
-                        <app-button typeBtn="" idBtn="login" classBtn="p-button-rounded p-button-outlined mt-1"
-                            iconType="pi-twitter">
-                        </app-button>
+                        <a class="btn btn-outline-info rounded-circle me-2 mt-1" id="linkedin"
+                            href="https://www.linkedin.com" target="_blank"><i class="fa-brands fa-facebook-square"></i>
+                        </a>
+
+                        <a class="btn btn-outline-info rounded-circle mt-1" id="linkedin"
+                            href="https://www.linkedin.com" target="_blank"><i class="fa-brands fa-twitter-square"></i>
+                        </a>
                     </div>
 
                     <span><i class="fa-solid fa-user me-4 mt-4"></i>Personal Details</span>
                     <hr>
 
                     <div class="d-flex flex-column gap-2">
-                        <span><i class="fa-solid fa-envelope me-4"></i>name@mail.com</span>
-                        <span><i class="fa-solid fa-phone me-4"></i>0811-0000-9999</span>
-                        <span><i class="fa-solid fa-location-dot me-4"></i> Jakarta, Indonesia</span>
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-envelope me-4"></i>
+                            <span>{{profile.email}}</span>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-building me-4"></i>
+                            <span>{{profile.profileCompany}}</span>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-location-dot me-4"></i>
+                            <span>{{profile.provinceName}}</span>
+                        </div>
                     </div>
                     <hr>
 
-                    <app-button
-                        classBtn="p-button-text w-100" labelBtn="Edit Profile" routerLinkBtn="/member/profile-update"
-                        [requiredIcon]="true" iconType="pi-pencil">
+                    <app-button classBtn="p-button-outlined w-100" labelBtn="Edit Profile"
+                        routerLinkBtn="/member/profile-update" [requiredIcon]="true" iconType="pi-pencil">
                     </app-button>
 
                 </div>
             </div>
         </div>
+
         <div class="col-sm-9">
-            <div class="card">
-                <div class="card-body">
-                    <p-tabView>
-                        <p-tabPanel header="THREAD">
-                            <div class="row mt-3">
+            <p-tabView>
+                <p-tabPanel header="THREAD">
+                    <div class="card text-color mb-4" *ngFor="let threadByUser of threadByUsers">
+                        <div class="card-body">
+                            <div class="row">
                                 <div class="col-6 d-flex align-items-center">
-                                    <img src="../../../assets/image/profile.png" class="me-2" style="height: 35px; width: 35px;">
+                                    <img src="assets/image/undraw_profile_pic.svg" class="me-2"
+                                        style="height: 35px; width: 35px;">
                                     <app-label class="align-self-center" nameLabel="Profile Name"></app-label>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="Category"></app-label>
+                                    <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="Category">
+                                    </app-label>
                                 </div>
                             </div>
-        
-                            <div class="mt-3">
-                                <h3>Thread Title</h3>
-                                <p class="mt-3">Thread Content</p>
-                            </div>
-        
-                            <div class="mt-4">
-                                <span class="me-4"><i class="fa-regular fa-heart me-2"></i>200</span>
-                                <span class="me-4"><i class="fa-regular fa-comment me-2"></i>20</span>
-                                <i class="fa-regular fa-bookmark me-4"></i>
-                            </div>
-                        </p-tabPanel>
 
-                        <p-tabPanel header="LIKES">
-                            <div class="row mt-3">
-                                <div class="col-6 d-flex align-items-center">
-                                    <img src="../../../assets/image/profile.png" class="me-2" style="height: 35px; width: 35px;">
-                                    <app-label class="align-self-center" nameLabel="Profile Name"></app-label>
-                                </div>
-                                <div class="col-6 text-end">
-                                    <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="Category"></app-label>
-                                </div>
-                            </div>
-        
                             <div class="mt-3">
-                                <h3>Thread Title</h3>
-                                <p class="mt-3">Thread Content</p>
-                            </div>
-        
-                            <div class="mt-4">
-                                <span class="me-4"><i class="fa-solid fa-heart me-2"></i>200</span>
-                                <span class="me-4"><i class="fa-regular fa-comment me-2"></i>20</span>
-                            </div>
-                        </p-tabPanel>
+                                <h3>{{threadByUser.threadTitle}}</h3>
+                                <div [ngClass]="{'limitTextHeight' : threadByUser.isReadMore}">
+                                    <p class="mt-3">{{threadByUser.threadContent}}</p>
+                                    <app-a labelA="Read More" routerLinkA="/member/thread/detail/{{threadByUser.id}}">
+                                    </app-a>
+                                </div>
 
-                        <p-tabPanel header="BOOKMARK">
-                            <div class="row mt-3">
+                                <p-carousel *ngIf="threadByUser.attachmentId && threadByUser.attachmentId.length>0"
+                                    [value]="threadByUser.attachmentId" [numVisible]="1" [numScroll]="1"
+                                    [circular]="false" [responsiveOptions]="responsiveOptions">
+                                    <ng-template let-attachment pTemplate="item">
+                                        <div class="product-item">
+                                            <div class="product-item-content">
+                                                <div class="mb-3 text-center">
+                                                    <img src="http://localhost:8080/attachments/{{attachment}}"
+                                                        height="400px" width="400px">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </p-carousel>
+
+                                <div *ngIf="threadByUser.typeCode == 'TY01'" class="card text-color border-secondary">
+                                    <div class="card-body d-flex flex-column gap-2">
+                                        <app-label nameLabel="{{threadByUser.pollingName}}"></app-label>
+                                        <div *ngFor="let choice of threadByUser.choices">
+                                            <app-button *ngIf="!threadByUser.isVoted"
+                                                (clickBtnEvent)="onPolling(choice.choiceId, threadByUser.isVoted)"
+                                                classBtn="w-100 p-button-outlined" labelBtn="{{choice.choiceName}}">
+                                            </app-button>
+                                        </div>
+
+                                        <div *ngIf="threadByUser.isVoted">
+                                            <div *ngFor="let countVote of threadByUser.countVote" class=""
+                                                style="height: 50px;">
+                                                <p-progressBar [value]="(countVote / threadByUser.totalVote) * 100"
+                                                    [showValue]="true"></p-progressBar>
+                                            </div>
+                                        </div>
+
+                                        <app-label classLabel="opacity-75"
+                                            nameLabel="Total Vote: {{threadByUser.totalVote}}"></app-label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-5">
+                                <a (click)="onLike(threadByUser.id, threadByUser.isLiked)" class="btn me-2">
+                                    <i *ngIf="!threadByUser.isLiked" class="fa-regular fa-heart"></i>
+                                    <i *ngIf="threadByUser.isLiked" class="fa-solid fa-heart"></i>
+                                    {{threadByUser.totalLike}}
+                                </a>
+
+                                <a class="btn me-2" routerLink="/member/thread/detail/{{threadByUser.id}}">
+                                    <i class="fa-regular fa-comment"></i>
+                                    {{threadByUser.totalComment}}
+                                </a>
+
+                                <a (click)="onBookmark(threadByUser.id, threadByUser.isBookmarked)" class="btn me-2">
+                                    <i *ngIf="!threadByUser.isBookmarked" class="fa-regular fa-bookmark"></i>
+                                    <i *ngIf="threadByUser.isBookmarked" class="fa-solid fa-bookmark"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+                <p-tabPanel header="LIKES">
+                    <div class="card text-color mb-4" *ngFor="let threadByLike of threadByUserLikes">
+                        <div class="card-body">
+                            <div class="row">
                                 <div class="col-6 d-flex align-items-center">
-                                    <img src="../../../assets/image/profile.png" class="me-2" style="height: 35px; width: 35px;">
+                                    <img src="assets/image/undraw_profile_pic.svg" class="me-2"
+                                        style="height: 35px; width: 35px;">
                                     <app-label class="align-self-center" nameLabel="Profile Name"></app-label>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="Category"></app-label>
+                                    <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="{{threadByLike.categoryName}}">
+                                    </app-label>
                                 </div>
                             </div>
-        
+
                             <div class="mt-3">
-                                <h3>Thread Title</h3>
-                                <p class="mt-3">Thread Content</p>
+                                <h3>{{threadByLike.threadTitle}}</h3>
+                                <div [ngClass]="{'limitTextHeight' : threadByLike.isReadMore}">
+                                    <app-a labelA="Read More" routerLinkA="/member/thread/detail/{{threadByLike.id}}">
+                                        <p class="mt-3">{{threadByLike.threadContent}}</p>
+                                    </app-a>
+                                </div>
+                                
+                                <p-carousel *ngIf="threadByLike.attachmentId && threadByLike.attachmentId.length>0"
+                                    [value]="threadByLike.attachmentId" [numVisible]="1" [numScroll]="1"
+                                    [circular]="false" [responsiveOptions]="responsiveOptions">
+                                    <ng-template let-attachment pTemplate="item">
+                                        <div class="product-item">
+                                            <div class="product-item-content">
+                                                <div class="mb-3 text-center">
+                                                    <img src="http://localhost:8080/attachments/{{attachment}}"
+                                                        height="400px" width="400px">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </p-carousel>
+
+                                <div *ngIf="threadByLike.typeCode == 'TY01'" class="card text-color border-secondary">
+                                    <div class="card-body d-flex flex-column gap-2">
+                                        <app-label nameLabel="{{threadByLike.pollingName}}"></app-label>
+                                        <div *ngFor="let choice of threadByLike.choices">
+                                            <app-button *ngIf="!threadByLike.isVoted"
+                                                (clickBtnEvent)="onPolling(choice.choiceId, threadByLike.isVoted)"
+                                                classBtn="w-100 p-button-outlined" labelBtn="{{choice.choiceName}}">
+                                            </app-button>
+                                        </div>
+
+                                        <div *ngIf="threadByLike.isVoted">
+                                            <div *ngFor="let countVote of threadByLike.countVote" class=""
+                                                style="height: 50px;">
+                                                <p-progressBar [value]="(countVote / threadByLike.totalVote) * 100"
+                                                    [showValue]="true"></p-progressBar>
+                                            </div>
+                                        </div>
+
+                                        <app-label classLabel="opacity-75"
+                                            nameLabel="Total Vote: {{threadByLike.totalVote}}"></app-label>
+                                    </div>
+                                </div>
                             </div>
-        
-                            <div class="mt-4">
-                                <span class="me-4"><i class="fa-regular fa-heart me-2"></i>200</span>
-                                <span class="me-4"><i class="fa-regular fa-comment me-2"></i>20</span>
-                                <i class="fa-solid fa-bookmark me-4"></i>
+
+                            <div class="mt-5">
+                                 <a (click)="onLike(threadByLike.id, threadByLike.isLiked)" class="btn me-2">
+                                    <i *ngIf="!threadByLike.isLiked" class="fa-regular fa-heart"></i>
+                                    <i *ngIf="threadByLike.isLiked" class="fa-solid fa-heart"></i>
+                                    {{threadByLike.totalLike}}
+                                </a>
+
+                                <a class="btn me-2" routerLink="/member/thread/detail/{{threadByLike.id}}">
+                                    <i class="fa-regular fa-comment"></i>
+                                    {{threadByLike.totalComment}}
+                                </a>
+
+                                <a (click)="onBookmark(threadByLike.id, threadByLike.isBookmarked)" class="btn me-2">
+                                    <i *ngIf="!threadByLike.isBookmarked" class="fa-regular fa-bookmark"></i>
+                                    <i *ngIf="threadByLike.isBookmarked" class="fa-solid fa-bookmark"></i>
+                                </a>
                             </div>
-                        </p-tabPanel>
-                    </p-tabView>
-                </div>
-            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+                <p-tabPanel header="BOOKMARK">
+                    <div class="card text-color mb-4" *ngFor="let threadByBookmark of threadByBookmarks">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 d-flex align-items-center">
+                                    <img src="assets/image/undraw_profile_pic.svg" class="me-2"
+                                        style="height: 35px; width: 35px;">
+                                    <app-label class="align-self-center" nameLabel="Profile Name"></app-label>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="{{threadByBookmark.categoryName}}">
+                                    </app-label>
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <h3>{{threadByBookmark.threadTitle}}</h3>
+                                <div [ngClass]="{'limitTextHeight' : threadByBookmark.isReadMore}">
+                                    <app-a labelA="Read More" routerLinkA="/member/thread/detail/{{threadByBookmark.id}}">
+                                        <p class="mt-3">{{threadByBookmark.threadContent}}</p>
+                                    </app-a>
+                                </div>
+                                
+                                <p-carousel *ngIf="threadByBookmark.attachmentId && threadByBookmark.attachmentId.length>0"
+                                    [value]="threadByBookmark.attachmentId" [numVisible]="1" [numScroll]="1"
+                                    [circular]="false" [responsiveOptions]="responsiveOptions">
+                                    <ng-template let-attachment pTemplate="item">
+                                        <div class="product-item">
+                                            <div class="product-item-content">
+                                                <div class="mb-3 text-center">
+                                                    <img src="http://localhost:8080/attachments/{{attachment}}"
+                                                        height="400px" width="400px">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </p-carousel>
+
+                                <div *ngIf="threadByBookmark.typeCode == 'TY01'" class="card text-color border-secondary">
+                                    <div class="card-body d-flex flex-column gap-2">
+                                        <app-label nameLabel="{{threadByBookmark.pollingName}}"></app-label>
+                                        <div *ngFor="let choice of threadByBookmark.choices">
+                                            <app-button *ngIf="!threadByBookmark.isVoted"
+                                                (clickBtnEvent)="onPolling(choice.choiceId, threadByBookmark.isVoted)"
+                                                classBtn="w-100 p-button-outlined" labelBtn="{{choice.choiceName}}">
+                                            </app-button>
+                                        </div>
+
+                                        <div *ngIf="threadByBookmark.isVoted">
+                                            <div *ngFor="let countVote of threadByBookmark.countVote" class=""
+                                                style="height: 50px;">
+                                                <p-progressBar [value]="(countVote / threadByBookmark.totalVote) * 100"
+                                                    [showValue]="true"></p-progressBar>
+                                            </div>
+                                        </div>
+
+                                        <app-label classLabel="opacity-75"
+                                            nameLabel="Total Vote: {{threadByBookmark.totalVote}}"></app-label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-5">
+                                 <a (click)="onLike(threadByBookmark.id, threadByBookmark.isLiked)" class="btn me-2">
+                                    <i *ngIf="!threadByBookmark.isLiked" class="fa-regular fa-heart"></i>
+                                    <i *ngIf="threadByBookmark.isLiked" class="fa-solid fa-heart"></i>
+                                    {{threadByBookmark.totalLike}}
+                                </a>
+
+                                <a class="btn me-2" routerLink="/member/thread/detail/{{threadByBookmark.id}}">
+                                    <i class="fa-regular fa-comment"></i>
+                                    {{threadByBookmark.totalComment}}
+                                </a>
+
+                                <a (click)="onBookmark(threadByBookmark.id, threadByBookmark.isBookmarked)" class="btn me-2">
+                                    <i *ngIf="!threadByBookmark.isBookmarked" class="fa-regular fa-bookmark"></i>
+                                    <i *ngIf="threadByBookmark.isBookmarked" class="fa-solid fa-bookmark"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
         </div>
     </div>
 </div>

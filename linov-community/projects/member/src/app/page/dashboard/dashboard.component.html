@@ -10,76 +10,79 @@
             </div>
 
             <app-button 
-                classBtn="w-100 mb-4" iconType="pi-pencil" labelBtn="WRITE A THREAD" routerLinkBtn="/member/thread/save">
+                classBtn="w-100 mb-4" iconType="pi-pencil" labelBtn="WRITE A THREAD" routerLinkBtn="/member/thread/save/thread">
             </app-button>
 
-            <div class="card text-color custom-card mb-3" *ngFor="let thread of threads">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6 d-flex align-items-center">
-                            <img src="../../../assets/image/profile.png" class="me-2" style="height: 35px; width: 35px;">
-                            <app-label class="align-self-center" nameLabel="Profile Name"></app-label>
-                        </div>
-                        
-                        <div class="col-6 text-end">
-                            <app-label *ngFor="let category of thread.categoryName" classLabel="p-2 me-2 bg-light rounded-pill" nameLabel="{{category}}"></app-label>
-                        </div>
-                    </div>
-
-                    <div class="mt-4">
-                        <h3>{{thread.threadTitle}}</h3>
-
-                        <div [ngClass]="{'limitTextHeight' : thread.isReadMore}">
-                            <p class="mt-3">{{thread.threadContent}}</p>
-                            <app-a labelA="Read More" routerLinkA="/member/thread/detail/{{thread.id}}"></app-a>
-                        </div>
-
-                        <p-carousel *ngIf="thread.attachmentId.length>0" [value]="thread.attachmentId" [numVisible]="1" [numScroll]="1" [circular]="false" [responsiveOptions]="responsiveOptions">
-                            <ng-template let-attachment pTemplate="item">
-                                <div class="product-item">
-                                    <div class="product-item-content">
-                                        <div class="mb-3 text-center">
-                                            <img src="http://localhost:8080/attachments/{{attachment}}" height="400px" width="400px">
-                                        </div>
-                                    </div>
-                                </div>
-                            </ng-template>
-                        </p-carousel>
-                        
-                        <div *ngIf="thread.typeCode == 'TY01'" class="card text-color custom-card border-secondary">
-                            <div class="card-body d-flex flex-column gap-2">
-                                <app-label nameLabel="{{thread.pollingName}}"></app-label>
-                                <div *ngFor="let choice of thread.choices">
-                                    <app-button *ngIf="thread.isVoted == false" (clickBtnEvent)="onPolling(choice.choiceId, thread.isVoted)" classBtn="w-100 p-button-outlined" labelBtn="{{choice.choiceName}}"></app-button>
-                                </div>
-
-                                <div *ngIf="thread.isVoted == true">
-                                    <div *ngFor="let countVote of thread.countVote" class="" style="height: 50px;">
-                                        <p-progressBar [value]="(countVote / thread.totalVote) * 100" [showValue]="true"></p-progressBar>
-                                    </div>
-                                </div>
-                                
-                                <app-label classLabel="opacity-75" nameLabel="Total Vote: {{thread.totalVote}}"></app-label>
+            <div
+                infinite-scroll (scrolled)="onScroll()">
+                <div class="card text-color border-secondary mb-4" *ngFor="let thread of threads">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 d-flex align-items-center">
+                                <img src="../../../assets/image/profile.png" class="me-2" style="height: 35px; width: 35px;">
+                                <app-label class="align-self-center" nameLabel="Profile Name"></app-label>
+                            </div>
+                            
+                            <div class="col-6 text-end">
+                                <app-label *ngFor="let category of thread.categoryName" classLabel="p-2 me-2 bg-light rounded-pill" nameLabel="{{category}}"></app-label>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="mt-4">
-                        <a (click)="onLike(thread.id, thread.isLiked)" class="btn me-2">
-                            <i *ngIf="thread.isLiked == false" class="fa-regular fa-heart"></i>
-                            <i *ngIf="thread.isLiked == true" class="fa-solid fa-heart"></i>
-                            {{thread.totalLike}}
-                        </a>
-
-                        <a class="btn me-2" routerLink="/member/thread/detail/{{thread.id}}">
-                            <i class="fa-regular fa-comment"></i>
-                            {{thread.totalComment}}
-                        </a>
-
-                        <a (click)="onBookmark(thread.id, thread.isBookmarked)" class="btn me-2">
-                            <i *ngIf="thread.isBookmarked == false" class="fa-regular fa-bookmark"></i>
-                            <i *ngIf="thread.isBookmarked == true" class="fa-solid fa-bookmark"></i>
-                        </a>
+    
+                        <div class="mt-4">
+                            <h3>{{thread.threadTitle}}</h3>
+    
+                            <div [ngClass]="{'limitTextHeight' : thread.isReadMore}">
+                                <p class="mt-3">{{thread.threadContent}}</p>
+                                <app-a labelA="Read More" routerLinkA="/member/thread/detail/{{thread.id}}"></app-a>
+                            </div>
+    
+                            <p-carousel *ngIf="thread.attachmentId && thread.attachmentId.length>0" [value]="thread.attachmentId" [numVisible]="1" [numScroll]="1" [circular]="false" [responsiveOptions]="responsiveOptions">
+                                <ng-template let-attachment pTemplate="item">
+                                    <div class="product-item">
+                                        <div class="product-item-content">
+                                            <div class="mb-3 text-center">
+                                                <img src="http://localhost:8080/attachments/{{attachment}}" height="400px" width="400px">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </p-carousel>
+                            
+                            <div *ngIf="thread.typeCode == 'TY01'" class="card text-color border-secondary">
+                                <div class="card-body d-flex flex-column gap-2">
+                                    <app-label nameLabel="{{thread.pollingName}}"></app-label>
+                                    <div *ngFor="let choice of thread.choices">
+                                        <app-button *ngIf="thread.isVoted == false" (clickBtnEvent)="onPolling(choice.choiceId, thread.isVoted)" classBtn="w-100 p-button-outlined" labelBtn="{{choice.choiceName}}"></app-button>
+                                    </div>
+    
+                                    <div *ngIf="thread.isVoted == true">
+                                        <div *ngFor="let countVote of thread.countVote" class="" style="height: 50px;">
+                                            <p-progressBar [value]="(countVote / thread.totalVote) * 100" [showValue]="true"></p-progressBar>
+                                        </div>
+                                    </div>
+                                    
+                                    <app-label classLabel="opacity-75" nameLabel="Total Vote: {{thread.totalVote}}"></app-label>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="mt-5">
+                            <a (click)="onLike(thread.id, thread.isLiked)" class="btn me-2">
+                                <i *ngIf="thread.isLiked == false" class="fa-regular fa-heart"></i>
+                                <i *ngIf="thread.isLiked == true" class="fa-solid fa-heart"></i>
+                                {{thread.totalLike}}
+                            </a>
+    
+                            <a class="btn me-2" routerLink="/member/thread/detail/{{thread.id}}">
+                                <i class="fa-regular fa-comment"></i>
+                                {{thread.totalComment}}
+                            </a>
+    
+                            <a (click)="onBookmark(thread.id, thread.isBookmarked)" class="btn me-2">
+                                <i *ngIf="thread.isBookmarked == false" class="fa-regular fa-bookmark"></i>
+                                <i *ngIf="thread.isBookmarked == true" class="fa-solid fa-bookmark"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

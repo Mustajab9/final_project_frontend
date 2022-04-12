@@ -10,13 +10,6 @@ import { InsertThreadDtoReq } from '../dto/thread/insert-thread-dto-req'
 import { InsertThreadDtoRes } from '../dto/thread/insert-thread-dto-res'
 import { UpdateThreadDtoReq } from '../dto/thread/update-thread-dto-req'
 import { UpdateThreadDtoRes } from '../dto/thread/update-thread-dto-res'
-import { DeleteByUserIdDtoRes } from '../dto/user/delete-by-user-id-dto-res'
-import { GetAllUserDtoRes } from '../dto/user/get-all-user-dto-res'
-import { GetByUserIdDtoRes } from '../dto/user/get-by-user-id-dto-res'
-import { InsertUserDtoReq } from '../dto/user/insert-user-dto-req'
-import { InsertUserDtoRes } from '../dto/user/insert-user-dto-res'
-import { UpdateUserDtoReq } from '../dto/user/update-user-dto-req'
-import { UpdateUserDtoRes } from '../dto/user/update-user-dto-res'
 
 @Injectable({
     providedIn: 'root'
@@ -26,16 +19,20 @@ export class ThreadService {
     constructor(private http: HttpClient){
     }
 
-    getAll() : Observable<GetAllThreadDtoRes> {
-        return this.http.get<GetAllThreadDtoRes>('http://localhost:8080/threads')
+    getAll(startPage?: number, maxPage?: number) : Observable<GetAllThreadDtoRes> {
+        if(startPage || maxPage) {
+            return this.http.get<GetAllThreadDtoRes>(`http://localhost:8080/threads?startPage=${startPage}&maxPage=${maxPage}`)
+        }else {
+            return this.http.get<GetAllThreadDtoRes>(`http://localhost:8080/threads`)
+        }
     }
 
     getById(id: string) : Observable<GetByThreadIdDtoRes> {
         return this.http.get<GetByThreadIdDtoRes>(`http://localhost:8080/threads/${id}`)
     }
 
-    getByUser(id: string) : Observable<GetThreadByUserDtoRes> {
-        return this.http.get<GetThreadByUserDtoRes>(`http://localhost:8080/threads/user/${id}`)
+    getByUser() : Observable<GetThreadByUserDtoRes> {
+        return this.http.get<GetThreadByUserDtoRes>(`http://localhost:8080/threads/user`)
     }
 
     getByCategory(id: number[]) : Observable<GetThreadByCategoryDtoRes> {
@@ -45,6 +42,7 @@ export class ThreadService {
     insert(insertReq: InsertThreadDtoReq, files: any[]) : Observable<InsertThreadDtoRes> {
         const formData: FormData = new FormData()
         formData.append('content', JSON.stringify(insertReq))
+        console.log(files)
         if(files){
             for(let file of files){
                 formData.append('file', file)

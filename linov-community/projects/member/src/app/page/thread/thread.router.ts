@@ -14,7 +14,7 @@ const routes : Routes = [
         component : ThreadDetailComponent
     },
     {
-        path : 'save',
+        path : 'save/:type',
         component : ThreadSaveComponent
     }
 ]

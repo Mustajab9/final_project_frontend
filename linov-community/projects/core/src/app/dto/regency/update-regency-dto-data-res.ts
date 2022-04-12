@@ -1,4 +1,4 @@
 export class UpdateRegencyDtoDataRes { 
-	 version?: number 
+	 version!: number 
 } 
 

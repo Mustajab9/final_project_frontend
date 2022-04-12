@@ -1,0 +1,163 @@
+<div class="container-fluid">
+    <div class="d-flex justify-content-center">
+        <img src="../../../assets/image/community1.jpg" class="img-fluid">
+    </div>
+    <div>
+    <p-toolbar styleClass="my-4">
+        <ng-template pTemplate="left">
+        </ng-template>
+
+        <ng-template pTemplate="right">
+            <app-button classBtn="p-button-success"  typeBtn="submit"
+                        labelBtn="Create Event/Course" idBtn="add" iconType="pi-plus" routerLinkBtn="/member/course/save">
+            </app-button>
+        </ng-template>
+    </p-toolbar>
+    </div>
+    <div class="row px-5">
+        <div class="my-3 col-3 pr-5">
+            <div class="my-3">
+                <i class="fa-solid fa-filter me-4"></i>
+                <span class="fs-5 fw-bold" style="color: #323232;">Filters</span>
+            </div>
+
+            <div class="card text-color">
+                <div class="card-body" style="padding: 0px 15px;">
+                    <div class="mt-3">
+                        <app-label classLabel="" forLabel="" nameLabel="Page"></app-label>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action border-0">All</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0">Training</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0">Event</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0">Trainer</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0">Provider</a>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="">
+                        <app-label classLabel="mb-0" forLabel="" nameLabel="Category"></app-label>
+                        <div class="mt-2">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item list-group-item-action border-0">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <app-label
+                                        classLabel="form-check-label ms-3" forLabel="flexRadioDefault1" nameLabel="HR Administration">
+                                    </app-label>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action border-0">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                    <app-label
+                                        classLabel="form-check-label ms-3" forLabel="flexRadioDefault2" nameLabel="Planning & Recruitment">
+                                    </app-label>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action border-0">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                    <app-label
+                                        classLabel="form-check-label ms-3" forLabel="flexRadioDefault3" nameLabel="Performance & Development">
+                                    </app-label>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action border-0">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
+                                    <app-label
+                                        classLabel="form-check-label ms-3" forLabel="flexRadioDefault4" nameLabel="Tax & Legal">
+                                    </app-label>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action border-0">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5">
+                                    <app-label
+                                        classLabel="form-check-label ms-3" forLabel="flexRadioDefault5" nameLabel="Career & Succession">
+                                    </app-label>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action border-0">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault6">
+                                    <app-label
+                                        classLabel="form-check-label ms-3" forLabel="flexRadioDefault6" nameLabel="Organization Development">
+                                    </app-label>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action border-0">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault7">
+                                    <app-label
+                                        classLabel="form-check-label ms-3" forLabel="flexRadioDefault7" nameLabel="Comben">
+                                    </app-label>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action border-0">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault8">
+                                    <app-label
+                                        classLabel="form-check-label ms-3" forLabel="flexRadioDefault8" nameLabel="HR Digital">
+                                    </app-label>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div>
+                        <app-label classLabel="" nameLabel="Jadwal"></app-label>
+                        <app-button iconType="pi-calendar" classBtn="p-button-outlined mt-2 mb-3 w-100" labelBtn="COURSE SCHEDULE"></app-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-3 col-9">
+            <div class="my-3">
+                <i class="fa-solid fa-calendar me-4"></i>
+                <span class="fs-5 fw-bold" style="color: #323232;">Course & Event</span>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div *ngFor="let event of data" class="col">
+                    <div class="card h-100">
+                        <img src="http://localhost:8080/attachments/{{event.attachmentId}}" height="300px" class="card-img-top" alt="...">
+                        <div class="card-body row">
+                            <div class="mt-3 col-6">
+                                <app-label classLabel="" nameLabel="{{event.eventProvider}}"></app-label>
+                            </div>
+                            <div class="mt-3 col-6 text-end">
+                                <app-label classLabel="" nameLabel="{{event.typeName}}"></app-label>
+                            </div>
+
+                            <app-label
+                                forLabel="" classLabel="fs-5 fw-bold" nameLabel="{{event.eventTitle}}" style="color: #323232;">
+                            </app-label>
+
+                            <div class="d-flex flex-column">
+                                <div>
+                                    <i class="fa-regular fa-calendar me-3"></i>
+                                    <app-label classLabel="me-4" nameLabel="{{event.eventDateStart}} - {{event.eventDateEnd}}"></app-label>
+                                </div>
+
+                                <div>
+                                    <i class="fa-regular fa-clock me-3"></i>
+                                    <app-label classLabel="" nameLabel="{{event.eventTimeStart}} - {{event.eventTimeEnd}}"></app-label>
+                                </div>
+
+                                <div>
+                                    <span> <i class="fa-solid fa-location-pin me-3"></i></span>
+                                    <app-label classLabel="" nameLabel="{{event.eventLocation}}"></app-label>
+                                </div>
+
+                                <div>
+                                    <i class="fa-solid fa-coins me-3"></i>
+                                    <app-label classLabel="" nameLabel="{{event.eventPrice}}"></app-label>
+                                </div>
+
+                                <app-label
+                                    classLabel="p-2 bg-light rounded-pill text-end" nameLabel="{{event.categoryName}}">
+                                </app-label>
+
+                                <app-button
+                                    classBtn="mt-2 w-100" labelBtn="Enroll"
+                                    [requiredIcon]="false" (clickBtnEvent)="onEnroll(event.id)">
+                                </app-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

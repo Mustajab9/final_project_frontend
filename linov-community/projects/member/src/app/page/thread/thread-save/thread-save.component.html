@@ -90,9 +90,10 @@
                         </div>
 
                         <div class="d-flex justify-content-end align-items-center text-end gap-3 mt-3">
+                            <app-label *ngFor="let file of uploadedFiles" forLabel="upload" nameLabel="{{file.name}}, "></app-label>
                             <p-fileUpload 
-                                mode="basic" name="demo[]" (onUpload)="onBasicUpload($event)"
-                                chooseIcon="pi pi-file">
+                                mode="basic" (onSelect)="onBasicUpload($event)" [previewWidth]="10"
+                                chooseIcon="pi pi-file" [multiple]="true" [files]="uploadedFiles" accept="image/*">
                             </p-fileUpload>
 
                             <app-button

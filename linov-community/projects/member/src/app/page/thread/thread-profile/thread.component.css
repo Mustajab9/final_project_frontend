@@ -5,3 +5,15 @@
 :host ::ng-deep .p-tabview-panels{
    padding: 0;
 }
+
+:host ::ng-deep .p-tabview-nav-container{
+   border: 1px solid #e3e6f0;
+}
+
+:host ::ng-deep .p-tabview-nav-link{
+   border-width: 0 0 3px 0;
+}
+
+.text-color {
+   color: #323232;
+}

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { DeleteByRegencyIdDtoRes } from '../dto/regency/delete-by-regency-id-dto-res'
 import { GetAllRegencyDtoRes } from '../dto/regency/get-all-regency-dto-res'
+import { GetByProvinceCodeDtoRes } from '../dto/regency/get-by-province-code-dto-res'
 import { GetByRegencyIdDtoRes } from '../dto/regency/get-by-regency-id-dto-res'
 import { InsertRegencyDtoReq } from '../dto/regency/insert-regency-dto-req'
 import { InsertRegencyDtoRes } from '../dto/regency/insert-regency-dto-res'
@@ -31,6 +32,10 @@ export class RegencyService {
 
     getById(id: string): Observable<GetByRegencyIdDtoRes> {
         return this.http.get<GetByRegencyIdDtoRes>(`http://localhost:8080/regencies/${id}`)
+    }
+
+    getByProvince(id: string): Observable<GetByProvinceCodeDtoRes> {
+        return this.http.get<GetByProvinceCodeDtoRes>(`http://localhost:8080/regencies/province/${id}`)
     }
 
     insert(insertReq: InsertRegencyDtoReq): Observable<InsertRegencyDtoRes> {

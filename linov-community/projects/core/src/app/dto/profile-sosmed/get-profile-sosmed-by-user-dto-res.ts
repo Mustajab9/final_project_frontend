@@ -2,6 +2,6 @@ import { GetProfileSosmedByUserDtoDataRes } from './get-profile-sosmed-by-user-d
 
 export class GetProfileSosmedByUserDtoRes { 
 	 msg?: string 
-	 data?: GetProfileSosmedByUserDtoDataRes[] 
+	 data!: GetProfileSosmedByUserDtoDataRes[] 
 } 
 

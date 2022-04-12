@@ -1,4 +1,4 @@
 export class InsertRegencyDtoDataRes { 
-	 id?: string 
+	 id!: string 
 } 
 

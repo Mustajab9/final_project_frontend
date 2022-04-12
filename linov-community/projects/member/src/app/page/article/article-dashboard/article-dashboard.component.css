@@ -1,0 +1,12 @@
+.category-background {
+    background-color: rgba(241, 208, 10, 0.2) !important;
+}
+
+.limitTextHeight {
+    height: 70px;
+    overflow: hidden;
+}
+
+.link {
+    cursor: pointer;
+}

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GetAllCategoryDtoDataRes } from 'projects/core/src/app/dto/category/get-all-category-dto-data-res';
 import { GetAllThreadTypeDtoDataRes } from 'projects/core/src/app/dto/thread-type/get-all-thread-type-dto-data-res';
 import { InsertThreadDtoReq } from 'projects/core/src/app/dto/thread/insert-thread-dto-req';
@@ -29,31 +29,37 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
 
   choices: string[] = []
   choice?: string
+  writeType!: string
 
   constructor(private title : Title, private router : Router,
               private threadService : ThreadService,
               private categoryService : CategoryService,
-              private threadTypeService : ThreadTypeService) { 
+              private threadTypeService : ThreadTypeService,
+              private activatedRoute: ActivatedRoute) { 
 
     this.title.setTitle('Create Thread')
   }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(result => {
+      this.writeType = (result as any).type
+    })
+
     this.initData()
   }
 
   initData(): void {
-    this.threadCategoryAllSubscription = this.categoryService.getAll(0,10).subscribe(result => {
+    this.threadCategoryAllSubscription = this.categoryService.getAll().subscribe(result => {
       this.threadCategories = result.data
     })
 
-    this.threadTypeAllSubscription = this.threadTypeService.getAll(0,10).subscribe(result => {
+    this.threadTypeAllSubscription = this.threadTypeService.getAll().subscribe(result => {
       this.threadTypes = result.data
     })
   }
 
   onBasicUpload(event : any) {
-    this.uploadedFiles = event.files
+    this.uploadedFiles = event.currentFiles
   }
 
   onSave() {
@@ -70,7 +76,11 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
     }
 
     this.threadInsertSubscription = this.threadService.insert(this.thread, this.uploadedFiles).subscribe(result => {
-      this.router.navigateByUrl('/member/dashboard')
+      if(this.writeType == 'article') {
+        this.router.navigateByUrl('/member/article/dashboard')
+      }else if(this.writeType == 'thread') {
+        this.router.navigateByUrl('/member/dashboard')
+      }
     })
   }
 

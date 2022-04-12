@@ -1,0 +1,13 @@
+.custom-card {
+    background-color: #F0F0F0 !important;
+}
+
+.text-color {
+    color: #323232;
+}
+
+:host ::ng-deep .p-toolbar {
+    background: #FFF;
+    border: none;
+    padding: 0;
+}

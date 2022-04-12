@@ -33,6 +33,7 @@ export class SocialMediaService {
         return this.http.get<GetBySocialMediaIdDtoRes>(`http://localhost:8080/social-medias/${id}`)
     }
 
+
     insert(insertReq: InsertSocialMediaDtoReq): Observable<InsertSocialMediaDtoRes> {
         return this.http.post<InsertSocialMediaDtoRes>(`http://localhost:8080/social-medias`, insertReq)
     }

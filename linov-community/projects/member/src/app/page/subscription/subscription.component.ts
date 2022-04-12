@@ -32,7 +32,7 @@ export class SubscriptionComponent implements OnInit {
 
   submit(priceId: string): void {
     this.userId = this.loginService.getData()?.data?.id
-    this.profileService.getByUserId(this.userId).subscribe(result => {
+    this.profileService.getByUserId().subscribe(result => {
       this.profileId = result.data?.id
     })
     this.subInsert.profileId = this.profileId

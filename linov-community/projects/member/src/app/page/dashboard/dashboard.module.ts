@@ -9,6 +9,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { ChartModule } from 'primeng/chart';
 import { CarouselModule } from 'primeng/carousel';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
         ChartModule,
         CarouselModule,
         ProgressBarModule,
+        InfiniteScrollModule,
         DashboardRouter
     ]
 })

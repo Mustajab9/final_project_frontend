@@ -5,6 +5,8 @@ import { Observable } from 'rxjs'
 import { DeleteByThreadLikeIdDtoRes } from '../dto/thread-like/delete-by-thread-like-id-dto-res'
 import { GetAllThreadLikeDtoRes } from '../dto/thread-like/get-all-thread-like-dto-res'
 import { GetByThreadLikeIdDtoRes } from '../dto/thread-like/get-by-thread-like-id-dto-res'
+import { GetByUserIdDtoDataRes } from '../dto/thread-like/get-by-user-id-dto-data-res'
+import { GetByUserIdDtoRes } from '../dto/thread-like/get-by-user-id-dto-res'
 import { GetThreadLikeByThreadDtoRes } from '../dto/thread-like/get-thread-like-by-thread-dto-res'
 import { InsertThreadLikeDtoReq } from '../dto/thread-like/insert-thread-like-dto-req'
 import { InsertThreadLikeDtoRes } from '../dto/thread-like/insert-thread-like-dto-res'
@@ -31,6 +33,10 @@ export class ThreadLikeService {
 
     getByThreadAndUser(threadId: string, userId?: string) : Observable<GetThreadLikeByThreadDtoRes> {
         return this.http.get<GetThreadLikeByThreadDtoRes>(`http://localhost:8080/thread-likes/thread/${userId}/${threadId}`)
+    }
+
+    getByUser() : Observable<GetByUserIdDtoRes> {
+        return this.http.get<GetByUserIdDtoRes>(`http://localhost:8080/thread-likes/user`)
     }
 
     insert(insertReq: InsertThreadLikeDtoReq) : Observable<InsertThreadLikeDtoRes> {

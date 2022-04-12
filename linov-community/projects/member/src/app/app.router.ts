@@ -44,9 +44,9 @@ const routes: Routes = [
         loadChildren: () => import('./page/subscription/subscription.module').then(m => m.SubscriptionModule)
     },
     {
-        path: 'member/article-dashboard',
+        path: 'member/article',
         component: NavbarComponent,
-        loadChildren: () => import('./page/article/article-dashboard/article-dashboard.module').then(m => m.ArticleDashboardModule)
+        loadChildren: () => import('./page/article/article.module').then(m => m.ArticleModule)
     },
     {
         path: '',

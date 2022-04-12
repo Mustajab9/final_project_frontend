@@ -36,9 +36,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   bookmarkDeleteSubscription?: Subscription
   choiceVoteInsertSubscription?: Subscription
 
-  value: number = 0;
-  responsiveOptions: any;
-  isPollingClicked: boolean = false;
+  value: number = 0
+  responsiveOptions: any
+  isPollingClicked: boolean = false
+
+  initialPage: number = 0
+  maxPage: number = 10
 
   constructor(private title: Title, private router: Router,
     private threadService: ThreadService, private threadLikeService: ThreadLikeService,
@@ -70,9 +73,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   initData(): void {
-    this.threadAllSubscription = this.threadService.getAll().subscribe(result => {
-      this.threads = result.data
-      console.log(result.data)
+    this.threadAllSubscription = this.threadService.getAll(this.initialPage, this.maxPage).subscribe(result => {
+      this.threads = result.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')
     })
 
     this.eventAllSubscription = this.eventService.getAll().subscribe(result => {
@@ -132,6 +134,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (this.value >= 100) {
       this.value = 100;
     }
+  }
+
+  onScroll(): void {
+    this.initialPage = this.initialPage+10
+    this.threadAllSubscription = this.threadService.getAll(this.initialPage, this.maxPage).subscribe(result => {
+      this.threads = [...this.threads, ...result.data]
+    })
   }
 
   ngOnDestroy(): void {

@@ -2,6 +2,10 @@
     background-color: #F0F0F0 !important;
 }
 
+.custom-border {
+    border-color: #F0F0F0 !important;
+}
+
 .text-color {
     color: #323232;
 }

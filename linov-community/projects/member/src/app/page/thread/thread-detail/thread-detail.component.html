@@ -29,7 +29,7 @@
                         <p class="mt-4">{{threadById.threadContent}}</p>
                     </div>
 
-                    <p-carousel *ngIf="threadById.attachmentId.length>0" [value]="threadById.attachmentId" [numVisible]="1" [numScroll]="1" [circular]="false" [responsiveOptions]="responsiveOptions">
+                    <p-carousel *ngIf="threadById.attachmentId && threadById.attachmentId.length>0" [value]="threadById.attachmentId" [numVisible]="1" [numScroll]="1" [circular]="false" [responsiveOptions]="responsiveOptions">
                         <ng-template let-attachment pTemplate="item">
                             <div class="product-item">
                                 <div class="product-item-content">
@@ -41,7 +41,6 @@
                         </ng-template>
                     </p-carousel>
 
-                    {{threadById | json}}
                     <div *ngIf="threadById.typeCode == 'TY01'" class="card text-color custom-card border-secondary">
                         <div class="card-body d-flex flex-column gap-2">
                             <app-label nameLabel="{{threadById.pollingName}}"></app-label>

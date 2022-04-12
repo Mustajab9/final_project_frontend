@@ -26,8 +26,8 @@ export class BookmarkService {
         return this.http.get<GetByBookmarkIdDtoRes>(`http://localhost:8080/bookmarks/${id}`)
     }
 
-    getByUser(id: string): Observable<GetBookmarkByUserDtoRes> {
-        return this.http.get<GetBookmarkByUserDtoRes>(`http://localhost:8080/bookmarks/user/${id}`)
+    getByUser(): Observable<GetBookmarkByUserDtoRes> {
+        return this.http.get<GetBookmarkByUserDtoRes>(`http://localhost:8080/bookmarks/user`)
     }
 
     getByUserAndThread(threadId: string, userId?: string): Observable<GetBookmarkByUserAndThreadDtoRes> {

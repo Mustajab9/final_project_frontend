@@ -1,3 +1,7 @@
-:host ::ng-deep .p-tabview-nav{
+:host ::ng-deep .p-tabview-nav {
     display: contents;
- }
+}
+
+.nav-link.active {
+    border-right: 3px solid #21325E;
+}
