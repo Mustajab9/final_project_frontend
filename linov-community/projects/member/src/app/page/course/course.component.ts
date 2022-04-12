@@ -32,7 +32,7 @@ export class CourseComponent implements OnInit, OnDestroy {
   }
 
   onEnroll(id: string){
-    this.router.navigateByUrl('/member/event/enroll/:id')
+    this.router.navigateByUrl('/member/event/cart-enroll/:id')
   }
 
   ngOnDestroy(): void {

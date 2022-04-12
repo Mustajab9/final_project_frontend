@@ -32,12 +32,17 @@ const userSelectorByEmail = (email: string) => createSelector(
 
 const userSelectorUpdate = createSelector(
     createFeatureSelector(userStore),
-    (state: {updateProgress: boolean}) => state.updateProgress
+    (state: { updateProgress: boolean, payload: GetAllUserDtoDataRes[] }) => {
+        return {
+            insertProgres: state.updateProgress,
+            payload: state.payload[state.payload.length - 1]
+        }
+    }
 )
 
 const userSelectorInsert = createSelector(
     createFeatureSelector(userStore),
-    (state: {insertProgress: boolean, payload: GetAllUserDtoDataRes[]}) => {
+    (state: { insertProgress: boolean, payload: GetAllUserDtoDataRes[] }) => {
         return {
             insertProgres: state.insertProgress,
             payload: state.payload[state.payload.length - 1]
@@ -47,7 +52,7 @@ const userSelectorInsert = createSelector(
 
 const userSelectorDelete = createSelector(
     createFeatureSelector(userStore),
-    (state: {deleteProgress: boolean}) => state.deleteProgress
+    (state: { deleteProgress: boolean }) => state.deleteProgress
 )
 
 export { userSelectorInit, userSelectorAll, userSelectorById, userSelectorByEmail, userSelectorUpdate, userSelectorInsert, userSelectorDelete }

@@ -1,0 +1,64 @@
+<p>verification-code works!</p>
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh; width: 60%;">
+    <div class="card shadow">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card text-white h-100" style="background-color: #21325E;">
+                    <img src="../../../assets/image/login.jpg" class="card-img d-none d-sm-block h-100 opacity-25"
+                        alt="Login Image">
+                    <div class="card-img-overlay d-flex justify-content-center align-items-center text-center">
+                        <h5 class="card-title opacity-100">Selamat Datang di LinovHR Community</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <form class="p-4" #formVerification="ngForm" (ngSubmit)="onVerification(formVerification.form.valid)">
+                    <div class="d-flex align-items-center my-3">
+                        <h4> <i class="fa-solid fa-arrow-up-from-bracket me-2"></i> Verification Code</h4>
+                    </div>
+
+                    <form-input class="font-color" forLabel="name" nameLabel="Verification Code" classLabel="font-color"
+                        [requiredLabel]="true" typeInput="text" classInput="mb-3" maxInput="100" minInput="1"
+                        placeholderInput="enter your verification code" [(ngModelInput)]="dataById.verificationCode">
+                    </form-input>
+
+                    <!-- <form-input class="font-color" forLabel="email" nameLabel="Email" classLabel=""
+                        [requiredLabel]="true" typeInput="email" classInput="mb-3" maxInput="100" minInput="1"
+                        placeholderInput="enter your email address" [(ngModelInput)]="data.username">
+                    </form-input>
+
+                    <form-input class="font-color" forLabel="Password" nameLabel="Password" classLabel=""
+                        [requiredLabel]="true" typeInput="password" classInput="mb-2" maxInput="255" minInput="5"
+                        placeholderInput="enter your password" [(ngModelInput)]="data.password">
+                    </form-input> -->
+
+                    <!-- <div class="mt-3 d-flex justify-content-center gap-1">
+                        <app-label forLabel="noAccount" nameLabel="Already have an account?" classLabel=""></app-label>
+                        <a routerLink="">Sign In</a>
+                    </div> -->
+
+                    <app-button class="w-100" typeBtn="submit" labelBtn="CONFIRM" idBtn="register" classBtn="mt-2 w-100"
+                        [disbaledBtn]="formVerification.form.invalid">
+                    </app-button>
+
+                    <app-label forLabel="otherSignIn" nameLabel="Or Sign Up Using"
+                        classLabel="mt-5 d-flex justify-content-center"></app-label>
+
+                    <div class="d-flex justify-content-center">
+                        <form-button typeBtnPrimary="" idBtnPrimary="google"
+                            classBtnPrimary="p-button-rounded p-button-outlined me-2 mt-1" [requiredIconPrimary]="true"
+                            iconTypePrimary="pi-google" typeBtnSecondary="" idBtnSecondary="facebook"
+                            classBtnSecondary="p-button-rounded p-button-outlined me-2" [requiredIconSecondary]="true"
+                            iconTypeSecondary="pi-facebook">
+                        </form-button>
+
+                        <app-button typeBtn="" idBtn="login" classBtn="p-button-rounded p-button-outlined mt-1"
+                            iconType="pi-twitter">
+                        </app-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

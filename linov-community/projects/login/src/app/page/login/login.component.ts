@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { UserService } from 'projects/core/src/app/service/user.service';
 import { Subscription } from 'rxjs';
 import { LoginDtoReq } from '../../../../../core/src/app/dto/user/login-dto-req';
 import { LoginService } from '../../../../../core/src/app/service/login.service';
@@ -14,8 +15,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login: LoginDtoReq = new LoginDtoReq()
   private loginSubscription?: Subscription
-
-  constructor(private title: Title, private router: Router, private loginService: LoginService) {
+  private checkUserSubscription?: Subscription
+  constructor(private title: Title, private router: Router, private loginService: LoginService, private userService: UserService) {
     this.title.setTitle('Login')
   }
 
@@ -26,11 +27,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (isValid) {
       this.loginSubscription = this.loginService.login(this.login).subscribe(result => {
         this.loginService.saveData(result)
-        if(result.data?.roleCode == 'R01') {
-          this.router.navigateByUrl('admin/dashboard')
-        }else if (result.data?.roleCode == 'R02' || result.data?.roleCode == 'R03'){
-          this.router.navigateByUrl('member/dashboard')
-        }
+        this.checkUserSubscription = this.userService.getByEmail(this.login.username!).subscribe(resultCheck => {
+          if (resultCheck.isActive != true) {
+            this.router.navigateByUrl('/login')
+          } else {
+            if (result.data?.roleCode == 'R01') {
+              this.router.navigateByUrl('admin/dashboard')
+            } else if (result.data?.roleCode == 'R02' || result.data?.roleCode == 'R03') {
+              this.router.navigateByUrl('member/dashboard')
+            }
+          }
+
+        })
+
       })
     }
   }

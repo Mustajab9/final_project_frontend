@@ -29,7 +29,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   getAllPositioSubscription?: Subscription
 
   constructor(private title: Title, private router: Router, private store: Store, private activatedRoute: ActivatedRoute,
-              private industryService: IndustryService, private positionService: PositionService) {
+    private industryService: IndustryService, private positionService: PositionService) {
     this.title.setTitle("Sign Up")
   }
 
@@ -43,13 +43,13 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     })
 
     this.getAllIndustrySubscription = this.industryService.getAll().subscribe(result => {
-      if(result){
+      if (result) {
         this.industries = result.data
       }
     })
 
     this.getAllPositioSubscription = this.positionService.getAll().subscribe(result => {
-      if(result){
+      if (result) {
         this.positions = result.data
       }
     })
@@ -58,7 +58,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   insertProgress(): void {
     this.insertProfileSubscription = this.store.select(profilesSelectorInsert).subscribe(result => {
       if (result) {
-        this.router.navigateByUrl('/login')
+        this.router.navigateByUrl(`/verification-code/${this.data.userId}`)
       }
     })
   }

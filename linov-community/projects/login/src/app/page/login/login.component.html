@@ -16,22 +16,19 @@
                         <h4> <i class="fa-solid fa-arrow-right-to-bracket me-2"></i> Login Account</h4>
                     </div>
 
-                    <form-input
-                        forLabel="email" nameLabel="Email" classLabel="" [requiredLabel]="true"
-                        typeInput="email" classInput="mb-3" maxInput="100" minInput="1" placeholderInput="enter your email address"
-                        [(ngModelInput)]="login.username">
+                    <form-input forLabel="email" nameLabel="Email" classLabel="" [requiredLabel]="true"
+                        typeInput="email" classInput="mb-3" maxInput="100" minInput="1"
+                        placeholderInput="enter your email address" [(ngModelInput)]="login.username">
                     </form-input>
 
-                    <form-input
-                        forLabel="Password" nameLabel="Password" classLabel="" [requiredLabel]="true"
-                        typeInput="password" classInput="mb-2" maxInput="255" minInput="5" placeholderInput="enter your password"
-                        [(ngModelInput)]="login.password">
+                    <form-input forLabel="Password" nameLabel="Password" classLabel="" [requiredLabel]="true"
+                        typeInput="password" classInput="mb-2" maxInput="255" minInput="5"
+                        placeholderInput="enter your password" [(ngModelInput)]="login.password">
                     </form-input>
 
                     <a class="text-end mt-2 d-block" routerLink="/forgot-password">Forgot Password</a>
 
-                    <app-button
-                        class="w-100" typeBtn="submit" labelBtn="SIGN IN" idBtn="login" classBtn="mt-4 w-100"
+                    <app-button class="w-100" typeBtn="submit" labelBtn="SIGN IN" idBtn="login" classBtn="mt-4 w-100"
                         [disbaledBtn]="formLogin.form.invalid">
                     </app-button>
 
@@ -42,18 +39,19 @@
                         <a routerLink="/sign-up">Sign Up</a>
                     </div>
 
-                    <app-label forLabel="otherSignIn" nameLabel="Or Sign In With" classLabel="mt-4 d-flex justify-content-center"></app-label>
+                    <app-label forLabel="otherSignIn" nameLabel="Or Sign In With"
+                        classLabel="mt-4 d-flex justify-content-center"></app-label>
 
                     <div class="d-flex justify-content-center">
-                        <form-button
-                            typeBtnPrimary="" idBtnPrimary="google" classBtnPrimary="p-button-rounded p-button-outlined me-2 mt-1"
-                            [requiredIconPrimary]="true" iconTypePrimary="pi-google"
-                            typeBtnSecondary="" idBtnSecondary="facebook" classBtnSecondary="p-button-rounded p-button-outlined me-2"
-                            [requiredIconSecondary]="true" iconTypeSecondary="pi-facebook">
+                        <form-button typeBtnPrimary="" idBtnPrimary="google"
+                            classBtnPrimary="p-button-rounded p-button-outlined me-2 mt-1" [requiredIconPrimary]="true"
+                            iconTypePrimary="pi-google" typeBtnSecondary="" idBtnSecondary="facebook"
+                            classBtnSecondary="p-button-rounded p-button-outlined me-2" [requiredIconSecondary]="true"
+                            iconTypeSecondary="pi-facebook">
                         </form-button>
 
-                        <app-button
-                            typeBtn="" idBtn="login" classBtn="p-button-rounded p-button-outlined mt-1" iconType="pi-twitter">
+                        <app-button typeBtn="" idBtn="twitter" classBtn="p-button-rounded p-button-outlined mt-1"
+                            iconType="pi-twitter">
                         </app-button>
                     </div>
                 </form>
