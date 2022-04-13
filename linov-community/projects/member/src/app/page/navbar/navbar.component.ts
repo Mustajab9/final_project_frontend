@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem, MegaMenuItem } from 'primeng/api';
 import { EventService } from 'projects/core/src/app/service/event.service';
+import { LoginService } from 'projects/core/src/app/service/login.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -18,7 +20,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   getCountEventNotPaidSubscription?: Subscription
   countNotPaid!: number
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private loginService: LoginService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.items = [
@@ -43,6 +46,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.getCountEventNotPaidSubscription = this.eventService.getCountNotPaid().subscribe(result => {
       this.countNotPaid = result.countNotPaid
     })
+  }
+
+  onClick(): void {
+    this.loginService.clearData()
+    this.router.navigateByUrl('/login')
   }
 
   ngOnDestroy(): void {

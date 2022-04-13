@@ -5,6 +5,7 @@ import { GetAllIndustryDtoDataRes } from 'projects/core/src/app/dto/industry/get
 import { GetAllPositionDtoDataRes } from 'projects/core/src/app/dto/position/get-all-position-dto-data-res';
 import { GetProfileSosmedByUserDtoDataRes } from 'projects/core/src/app/dto/profile-sosmed/get-profile-sosmed-by-user-dto-data-res';
 import { InsertProfileSosmedDtoReq } from 'projects/core/src/app/dto/profile-sosmed/insert-profile-sosmed-dto-req';
+import { UpdateProfileSosmedDtoReq } from 'projects/core/src/app/dto/profile-sosmed/update-profile-sosmed-dto-req';
 import { GetProfileByUserDtoDataRes } from 'projects/core/src/app/dto/profiles/get-profile-by-user-dto-data-res';
 import { UpdateProfilesDtoReq } from 'projects/core/src/app/dto/profiles/update-profiles-dto-req';
 import { GetAllProvinceDtoDataRes } from 'projects/core/src/app/dto/province/get-all-province-dto-data-res';
@@ -35,6 +36,7 @@ export class ProfileUpdateComponent implements OnInit {
   positions: GetAllPositionDtoDataRes[] = []
   socialMedias: GetAllSocialMediaDtoDataRes[] = []
   insertProfileSocmed: InsertProfileSosmedDtoReq = new InsertProfileSosmedDtoReq()
+  updateProfileSocmed: UpdateProfileSosmedDtoReq = new UpdateProfileSosmedDtoReq()
   updateProfile: UpdateProfilesDtoReq = new UpdateProfilesDtoReq()
   profileSubscription?: Subscription
   profileSosmedSubscription?: Subscription
@@ -101,10 +103,29 @@ export class ProfileUpdateComponent implements OnInit {
 
   onSave(): void {
     const profileId: string | undefined = this.loginService.getData()?.data.id
-    // this.insertProfileSocmed.profileId = profileId
-    // this.insertProfileSocmedSubscription = this.profileSosmedService.insert(this.insertProfileSocmed).subscribe(_ => {
-    //   this.router.navigateByUrl('/member/thread')
-    // })
+    console.log(profileId)
+    for(let sosmed of this.profileSosmed) {
+      if(sosmed.id) {
+        this.updateProfileSocmed.id = sosmed.id
+        this.updateProfileSocmed.accountName = sosmed.accountName
+        this.updateProfileSocmed.version = sosmed.version
+        this.updateProfileSocmed.isActive = sosmed.isActive
+        this.profileSosmedService.update(this.updateProfileSocmed).subscribe()
+      }else {
+        let id: string
+        this.profileService.getByUserId().subscribe(result => {
+          id = result.data.id
+          
+          this.insertProfileSocmed.profileId = id
+          this.insertProfileSocmed.accountName = sosmed.accountName
+          this.insertProfileSocmed.socialMediaId = sosmed.socialMediaid
+          this.profileSosmedService.insert(this.insertProfileSocmed).subscribe(_ => {
+            this.router.navigateByUrl('/member/dashboard')
+          })
+        })
+        
+      }
+    }
 
     this.updateProfileSubscription = this.profileService.update(this.updateProfile).subscribe(result => {
       // this.router.navigateByUrl('/member/thread')

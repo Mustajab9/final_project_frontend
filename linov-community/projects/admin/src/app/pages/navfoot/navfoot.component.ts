@@ -21,7 +21,7 @@ export class NavfootComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const data: LoginDtoDataRes | undefined = this.loginService.getData()?.data
-    this.getProfileByUserSubscription = this.profilesService.getByUserId(data?.id).subscribe(result =>{
+    this.getProfileByUserSubscription = this.profilesService.getByUserId().subscribe(result =>{
       if(result){
         this.userProfile = result.data
       }

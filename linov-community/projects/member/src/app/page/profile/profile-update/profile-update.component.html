@@ -135,14 +135,13 @@
                                             <app-label forLabel="socmed" classLabel="fw-bold" nameLabel="Social Media"></app-label>
                                             <form>
                                                 <div class="row">
+                                                    {{profileSosmed | json}}
                                                     <div class="col-6" *ngFor="let socmed of profileSosmed">
-                                                        <div *ngFor="">
-                                                            <form-input
-                                                                forLabel="{{socmed.socialMediaName}}" classLabel="mt-2" nameLabel="{{socmed.socialMediaName}}" [requiredLabel]="false"
-                                                                classInput="form-control" minInput="1" maxInput="100" typeInput="text"
-                                                                placeholderInput="" [(ngModelInput)]="socmed.accountName">
-                                                            </form-input>
-                                                        </div>
+                                                        <form-input
+                                                            forLabel="{{socmed.socialMediaName}}" classLabel="mt-2" nameLabel="{{socmed.socialMediaName}}" [requiredLabel]="false"
+                                                            classInput="form-control" minInput="1" maxInput="100" typeInput="text"
+                                                            placeholderInput="" [(ngModelInput)]="socmed.accountName">
+                                                        </form-input>
                                                     </div>
                                                 </div>
                                             </form>
