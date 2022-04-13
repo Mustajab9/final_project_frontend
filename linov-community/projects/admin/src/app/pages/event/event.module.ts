@@ -11,12 +11,15 @@ import { ToolbarModule } from "primeng/toolbar";
 import { ComponentModule } from "projects/core/src/app/component/components.module";
 import { EventTypeEffect } from "projects/core/src/app/state/event-type/event-type.effect";
 import { eventReducer } from "projects/core/src/app/state/event/event.reducer";
-import { EventComponent } from "./event.component";
+import { EventComponent } from "./event/event.component";
 import { EventRouter } from "./event.router";
+import { ParticipantComponent } from "./participant/participant.component";
+import { DialogModule } from "primeng/dialog";
 
 @NgModule({
     declarations: [
-        EventComponent
+        EventComponent,
+        ParticipantComponent
     ],
     imports: [
         EventRouter,
@@ -27,6 +30,7 @@ import { EventRouter } from "./event.router";
         ButtonModule,
         ConfirmDialogModule,
         ToolbarModule,
+        DialogModule,
         StoreModule.forFeature('eventStore', eventReducer),
         EffectsModule.forFeature([EventTypeEffect])
     ],

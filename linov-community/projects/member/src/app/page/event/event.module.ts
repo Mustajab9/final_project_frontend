@@ -44,8 +44,8 @@ import { EventEffect } from "projects/core/src/app/state/event/event.effect";
         ListboxModule,
         EventRouter,
         ToolbarModule,
-        DialogModule,
         TableModule,
+        DialogModule,
         ConfirmDialogModule,
         StoreModule.forFeature('eventStore', eventReducer),
         EffectsModule.forFeature([EventEffect])

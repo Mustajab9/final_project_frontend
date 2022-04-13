@@ -47,8 +47,8 @@ export class EventService {
         return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/enroll-status/${id}/${isApprove}`)
     }
 
-    getEventNotApprove(id: string, isApprove: boolean): Observable<GetAllEventDtoRes> {
-        return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/event-not-approve/${id}/${isApprove}`)
+    getEventStatus(id: string): Observable<GetByEventIdDtoRes> {
+        return this.http.get<GetByEventIdDtoRes>(`http://localhost:8080/events/event-not-approve/${id}`)
     }
 
     getEventNotPaid(id?: string): Observable<GetAllEventDtoRes> {

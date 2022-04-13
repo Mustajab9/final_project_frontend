@@ -17,39 +17,46 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th>No</th>
                 <th>Event Title</th>
                 <th>Event Provider</th>
                 <th>Event Date</th>
                 <th>Event Time</th>
-                <th>Category Name</th>
                 <th>Type Event</th>
                 <th>Event Price</th>
+                <th class="text-center">Payment Attachment</th>
                 <th class="text-center">Action</th>
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-i, let-data>
+        <ng-template pTemplate="body" let-data>
             <tr>
-                <td>{{i+1}}</td>
                 <td>{{data.eventTitle}}</td>
                 <td>{{data.eventProvider}}</td>
                 <td>{{data.eventDateStart}} until {{data.eventDateEnd}}</td>
                 <td>{{data.eventTimeStart}} - {{data.eventTimeEnd}}</td>
-                <td>{{data.categoryName}}</td>
                 <td>{{data.typeName}}</td>
                 <td>{{data.eventPrice}}</td>
+                <td *ngIf="data.paymentAttachment">
+                    <img src="http://localhost:8080/attachments/{{data.paymentAttachment}}" alt="Payment Image" height="60px" width="60px">
+                </td>
+                <td *ngIf="!data.paymentAttachment" class="text-center">-</td>
                 <td class="text-center">
-                    <button pButton pRipple class="p-button-success" id="approve" label="Approving"
-                        icon="pi pi-check-circle" (click)="onSubmit()">
+                    <button *ngIf="data.isApprove == false" pButton pRipple class="p-button-success me-3" id="approve" label="Approving"
+                            icon="pi pi-check-circle" (click)="onApprove(data.id)">
                     </button>
+                    <button pButton pRipple class="p-button-info me-3" id="participant" label="Participant"
+                        icon="pi pi-list" (click)="onSubmit(data.id)">
+                    </button>
+                    <a pButton pRipple class="p-button-help" id="report" label="Report"
+                        icon="pi pi-print" href="http://localhost:8080/events/report/income_report/{{data.id}}">
+                    </a>
                 </td>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="summary">
             <div class="flex align-items-center justify-content-between">
-                In total there are {{data ? data.length : 0 }} Categorys.
+                In total there are {{data ? data.length : 0 }} Events.
             </div>
         </ng-template>
 

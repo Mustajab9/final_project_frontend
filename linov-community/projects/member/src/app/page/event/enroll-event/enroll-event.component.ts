@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
 import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
 import { EventService } from 'projects/core/src/app/service/event.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';

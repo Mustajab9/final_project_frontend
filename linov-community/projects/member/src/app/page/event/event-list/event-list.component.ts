@@ -60,7 +60,7 @@ export class EventListComponent implements OnInit, OnDestroy {
 
   filter(text: any): void {
     this.data = this.data.filter(d => {
-      return d.eventTitle?.includes(text) || d.categoryName?.toString().includes(text)
+      return d.eventTitle?.includes(text) || d.categoryName?.toString().includes(text) || d.typeName?.toString().includes(text) || d.eventProvider?.toString().includes(text)
     })
   }
 
