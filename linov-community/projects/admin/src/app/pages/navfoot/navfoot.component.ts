@@ -21,18 +21,18 @@ export class NavfootComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const data: LoginDtoDataRes | undefined = this.loginService.getData()?.data
-    this.getProfileByUserSubscription = this.profilesService.getByUserId().subscribe(result =>{
-      if(result){
+    this.getProfileByUserSubscription = this.profilesService.getByUserId().subscribe(result => {
+      if (result) {
         this.userProfile = result.data
       }
     })
   }
 
-  changePassword(){
-
+  changePassword() {
+    this.router.navigateByUrl('/admin/change-password')
   }
 
-  onLogOut(){
+  onLogOut() {
     this.loginService.clearData()
     this.router.navigateByUrl('/admin/login')
   }

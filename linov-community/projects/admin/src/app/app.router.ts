@@ -84,6 +84,11 @@ const routes: Routes = [
         path: 'admin/event',
         component: NavfootComponent,
         loadChildren: () => import('./pages/event/event.module').then(m => m.EventModule)
+    },
+    {
+        path: 'admin/change-password',
+        component: NavfootComponent,
+        loadChildren: () => import('./pages/change-password/change-password.module').then(m => m.ChangePasswordModule)
     }
 ]
 

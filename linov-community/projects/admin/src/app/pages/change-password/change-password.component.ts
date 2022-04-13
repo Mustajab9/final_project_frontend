@@ -3,7 +3,6 @@ import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { UserService } from '../../../../../core/src/app/service/user.service'
-import { RoleService } from '../../../../../core/src/app/service/role.service'
 import { LoginService } from '../../../../../core/src/app/service/login.service'
 import { LoginDtoRes } from '../../../../../core/src/app/dto/user/login-dto-res'
 import { ChangePasswordDtoReq } from '../../../../../core/src/app/dto/user/change-password-dto-req'
@@ -30,6 +29,10 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.initData()
+  }
+
+  initData(): void {
     const id: string | undefined = this.dataLogin?.data.id
     this.getUserByEmailSubscription = this.userService.getById(id).subscribe(result => {
       if (result) {
@@ -62,11 +65,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       const roleCode: string | undefined = this.dataLogin?.data.roleCode
       this.changePasswordSubscription = this.userService.changePassword(this.data).subscribe(result => {
         if (result) {
-          if (roleCode == 'R01') {
-            this.router.navigateByUrl(`admin/dashboard`)
-          } else {
-            this.router.navigateByUrl(`member/dashboard`)
-          }
+          this.initData();
         }
       })
     }
