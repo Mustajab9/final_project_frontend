@@ -42,7 +42,6 @@ export class ThreadService {
     insert(insertReq: InsertThreadDtoReq, files: any[]) : Observable<InsertThreadDtoRes> {
         const formData: FormData = new FormData()
         formData.append('content', JSON.stringify(insertReq))
-        console.log(files)
         if(files){
             for(let file of files){
                 formData.append('file', file)

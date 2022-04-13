@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   countries: any[] = [];
   selectedCity1: any;
   visibleSidebar1: any;
+  isLogin: boolean = this.loginService.isLogin()
 
   getCountEventNotPaidSubscription?: Subscription
   countNotPaid!: number
@@ -43,9 +44,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     ]
 
-    this.getCountEventNotPaidSubscription = this.eventService.getCountNotPaid().subscribe(result => {
-      this.countNotPaid = result.countNotPaid
-    })
+    if(this.isLogin){
+      this.getCountEventNotPaidSubscription = this.eventService.getCountNotPaid().subscribe(result => {
+        this.countNotPaid = result.countNotPaid
+      })
+    }
   }
 
   changePassword() {
@@ -54,7 +57,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   onClick(): void {
     this.loginService.clearData()
-    this.router.navigateByUrl('/login')
+    this.router.navigateByUrl('/login/member')
   }
 
   ngOnDestroy(): void {

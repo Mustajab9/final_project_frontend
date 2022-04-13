@@ -36,7 +36,7 @@ export class NavfootComponent implements OnInit, OnDestroy {
 
   onLogOut(): void {
     this.loginService.clearData()
-    this.router.navigateByUrl('/admin/login')
+    this.router.navigateByUrl('/login/admin')
   }
 
   ngOnDestroy(): void {

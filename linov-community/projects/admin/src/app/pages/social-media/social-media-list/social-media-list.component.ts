@@ -88,8 +88,8 @@ export class SocialMediaListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllSocialMediaSubscription?.unsubscribe
-    this.socialMediaDeleteSubscription?.unsubscribe
+    this.getAllSocialMediaSubscription?.unsubscribe()
+    this.socialMediaDeleteSubscription?.unsubscribe()
   }
 
 }

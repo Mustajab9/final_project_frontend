@@ -128,7 +128,6 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
 
   onSave(): void {
     const profileId: string | undefined = this.loginService.getData()?.data.id
-    console.log(profileId)
     for (let sosmed of this.profileSosmed) {
       if (sosmed.id) {
         this.updateProfileSocmed.id = sosmed.id

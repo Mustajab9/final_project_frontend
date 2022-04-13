@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 import { InsertBookmarkDtoReq } from 'projects/core/src/app/dto/bookmark/insert-bookmark-dto-req';
 import { InsertChoiceVoteDtoReq } from 'projects/core/src/app/dto/choice-vote/insert-choice-vote-dto-req';
 import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
@@ -43,12 +44,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   initialPage: number = 0
   maxPage: number = 10
 
+  isLogin: boolean = this.loginService.isLogin()
   blockedPanel: boolean = false;
 
   constructor(private title: Title, private router: Router,
     private threadService: ThreadService, private threadLikeService: ThreadLikeService,
     private bookmarkService: BookmarkService, private eventService: EventService,
-    private choiceVoteService: ChoiceVoteService, private loginService: LoginService) {
+    private choiceVoteService: ChoiceVoteService, private loginService: LoginService,
+    private confirmationService: ConfirmationService) {
 
     this.title.setTitle('Dashboard')
     this.responsiveOptions = [
@@ -85,56 +88,104 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onLike(id: string, isLike: boolean): void {
-    this.insertThreadLikeDtoReq.threadId = id
-    if (isLike == false) {
-      isLike = !isLike
-      this.threadLikeInsertSubscription = this.threadLikeService.insert(this.insertThreadLikeDtoReq).subscribe(_ => {
-        this.initData()
-      })
-    } else if (isLike == true) {
-      const userId: string | undefined = this.loginService.getData()?.data.id
-      isLike = !isLike
-      this.getThreadLikeByThreadAndUserSubscription = this.threadLikeService.getByThreadAndUser(id, userId).subscribe(result => {
-        if (result) {
-          this.threadLikeDeleteSubscription = this.threadLikeService.delete(result.data.id).subscribe(_ => {
-            this.initData()
-          })
+    if(this.isLogin){
+      this.insertThreadLikeDtoReq.threadId = id
+      if (isLike == false) {
+        isLike = !isLike
+        this.threadLikeInsertSubscription = this.threadLikeService.insert(this.insertThreadLikeDtoReq).subscribe(_ => {
+          this.initData()
+        })
+      } else if (isLike == true) {
+        const userId: string | undefined = this.loginService.getData()?.data.id
+        isLike = !isLike
+        this.getThreadLikeByThreadAndUserSubscription = this.threadLikeService.getByThreadAndUser(id, userId).subscribe(result => {
+          if (result) {
+            this.threadLikeDeleteSubscription = this.threadLikeService.delete(result.data.id).subscribe(_ => {
+              this.initData()
+            })
+          }
+        })
+      }
+    }else{
+      this.confirmationService.confirm({
+        message: 'You Must Be Login First',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.router.navigateByUrl('/login/member')
         }
-      })
+      });
     }
   }
 
   onBookmark(id: string, isBookmarked: boolean): void {
-    this.insertBookmarkDtoReq.threadId = id
-    if (isBookmarked == false) {
-      isBookmarked = !isBookmarked
-      this.bookmarkInsertSubscription = this.bookmarkService.insert(this.insertBookmarkDtoReq).subscribe(_ => {
-        this.initData()
-      })
-    } else if (isBookmarked == true) {
-      const userId: string | undefined = this.loginService.getData()?.data.id
-      isBookmarked = !isBookmarked
-      this.getBookmarkByThreadAndUserSubscription = this.bookmarkService.getByUserAndThread(id, userId).subscribe(result => {
-        if (result) {
-          this.bookmarkDeleteSubscription = this.bookmarkService.delete(result.data.id).subscribe(_ => {
-            this.initData()
-          })
+    if(this.isLogin){
+      this.insertBookmarkDtoReq.threadId = id
+      if (isBookmarked == false) {
+        isBookmarked = !isBookmarked
+        this.bookmarkInsertSubscription = this.bookmarkService.insert(this.insertBookmarkDtoReq).subscribe(_ => {
+          this.initData()
+        })
+      } else if (isBookmarked == true) {
+        const userId: string | undefined = this.loginService.getData()?.data.id
+        isBookmarked = !isBookmarked
+        this.getBookmarkByThreadAndUserSubscription = this.bookmarkService.getByUserAndThread(id, userId).subscribe(result => {
+          if (result) {
+            this.bookmarkDeleteSubscription = this.bookmarkService.delete(result.data.id).subscribe(_ => {
+              this.initData()
+            })
+          }
+        })
+      }
+    }else{
+      this.confirmationService.confirm({
+        message: 'You Must Be Login First',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.router.navigateByUrl('/login/member')
         }
-      })
+      });
+    }
+  }
+
+  onComment(id: string){
+    if(this.isLogin){
+      this.router.navigateByUrl(`memeber/thread/detail/${id}`)
+    }else{
+      this.confirmationService.confirm({
+        message: 'You Must Be Login First',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.router.navigateByUrl('/login/member')
+        }
+      });
     }
   }
 
   onPolling(id: string, isVoted: boolean): void {
-    this.insertChoiceVoteDtoReq.choiceId = id
-    if(isVoted == false) {
-      isVoted = !isVoted
-      this.choiceVoteInsertSubscription = this.choiceVoteService.insert(this.insertChoiceVoteDtoReq).subscribe(_ => {
-        this.initData()
-      })
-    }
-    this.value = this.value + Math.floor(Math.random() * 10) + 1;
-    if (this.value >= 100) {
-      this.value = 100;
+    if(this.isLogin){
+      this.insertChoiceVoteDtoReq.choiceId = id
+      if(isVoted == false) {
+        isVoted = !isVoted
+        this.choiceVoteInsertSubscription = this.choiceVoteService.insert(this.insertChoiceVoteDtoReq).subscribe(_ => {
+          this.initData()
+        })
+      }
+      this.value = this.value + Math.floor(Math.random() * 10) + 1;
+      if (this.value >= 100) {
+        this.value = 100;
+      }
+    }else{
+      this.confirmationService.confirm({
+        message: 'You Must Be Login First',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.router.navigateByUrl('/login/member')
+        }
+      });
     }
   }
 

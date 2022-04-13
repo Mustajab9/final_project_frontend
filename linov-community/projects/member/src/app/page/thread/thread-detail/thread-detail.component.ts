@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 import { InsertBookmarkDtoReq } from 'projects/core/src/app/dto/bookmark/insert-bookmark-dto-req';
 import { InsertChoiceVoteDtoReq } from 'projects/core/src/app/dto/choice-vote/insert-choice-vote-dto-req';
 import { InsertThreadCommentDtoReq } from 'projects/core/src/app/dto/thread-comment/insert-thread-comment-dto-req';
@@ -40,11 +41,13 @@ export class ThreadDetailComponent implements OnInit {
 
   value: number = 0;
   responsiveOptions: any;
+  isLogin: boolean = this.loginService.isLogin()
 
   constructor(private title : Title, private router: Router,
     private threadService: ThreadService, private threadLikeService: ThreadLikeService,
     private bookmarkService: BookmarkService, private choiceVoteService: ChoiceVoteService,
-    private loginService: LoginService, private activatedRoute: ActivatedRoute) { 
+    private loginService: LoginService, private activatedRoute: ActivatedRoute,
+    private confirmationService: ConfirmationService) {
 
     this.title.setTitle('Thread Detail')
   }
@@ -62,56 +65,89 @@ export class ThreadDetailComponent implements OnInit {
   }
 
   onLike(id: string, isLike: boolean): void {
-    this.insertThreadLikeDtoReq.threadId = id
-    if (isLike == false) {
-      isLike = !isLike
-      this.threadLikeInsertSubscription = this.threadLikeService.insert(this.insertThreadLikeDtoReq).subscribe(_ => {
-        this.initData(this.threadById.id)
-      })
-    } else if (isLike == true) {
-      const userId: string | undefined = this.loginService.getData()?.data.id
-      isLike = !isLike
-      this.getThreadLikeByThreadAndUserSubscription = this.threadLikeService.getByThreadAndUser(id, userId).subscribe(result => {
-        if (result) {
-          this.threadLikeDeleteSubscription = this.threadLikeService.delete(result.data.id).subscribe(_ => {
-            this.initData(this.threadById.id)
-          })
+    if(this.isLogin){
+      this.insertThreadLikeDtoReq.threadId = id
+      if (isLike == false) {
+        isLike = !isLike
+        this.threadLikeInsertSubscription = this.threadLikeService.insert(this.insertThreadLikeDtoReq).subscribe(_ => {
+          this.initData(this.threadById.id)
+        })
+      } else if (isLike == true) {
+        const userId: string | undefined = this.loginService.getData()?.data.id
+        isLike = !isLike
+        this.getThreadLikeByThreadAndUserSubscription = this.threadLikeService.getByThreadAndUser(id, userId).subscribe(result => {
+          if (result) {
+            this.threadLikeDeleteSubscription = this.threadLikeService.delete(result.data.id).subscribe(_ => {
+              this.initData(this.threadById.id)
+            })
+          }
+        })
+      }
+    }else{
+      this.confirmationService.confirm({
+        message: 'You Must Be Login First',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.router.navigateByUrl('/login/member')
         }
-      })
+      });
     }
   }
 
   onBookmark(id: string, isBookmarked: boolean): void {
-    this.insertBookmarkDtoReq.threadId = id
-    if (isBookmarked == false) {
-      isBookmarked = !isBookmarked
-      this.bookmarkInsertSubscription = this.bookmarkService.insert(this.insertBookmarkDtoReq).subscribe(_ => {
-        this.initData(this.threadById.id)
-      })
-    } else if (isBookmarked == true) {
-      const userId: string | undefined = this.loginService.getData()?.data.id
-      isBookmarked = !isBookmarked
-      this.getBookmarkByThreadAndUserSubscription = this.bookmarkService.getByUserAndThread(id, userId).subscribe(result => {
-        if (result) {
-          this.bookmarkDeleteSubscription = this.bookmarkService.delete(result.data.id).subscribe(_ => {
-            this.initData(this.threadById.id)
-          })
+    if(this.isLogin){
+      this.insertBookmarkDtoReq.threadId = id
+      if (isBookmarked == false) {
+        isBookmarked = !isBookmarked
+        this.bookmarkInsertSubscription = this.bookmarkService.insert(this.insertBookmarkDtoReq).subscribe(_ => {
+          this.initData(this.threadById.id)
+        })
+      } else if (isBookmarked == true) {
+        const userId: string | undefined = this.loginService.getData()?.data.id
+        isBookmarked = !isBookmarked
+        this.getBookmarkByThreadAndUserSubscription = this.bookmarkService.getByUserAndThread(id, userId).subscribe(result => {
+          if (result) {
+            this.bookmarkDeleteSubscription = this.bookmarkService.delete(result.data.id).subscribe(_ => {
+              this.initData(this.threadById.id)
+            })
+          }
+        })
+      }
+    }else{
+      this.confirmationService.confirm({
+        message: 'You Must Be Login First',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.router.navigateByUrl('/login/member')
         }
-      })
+      });
     }
   }
 
   onPolling(id: string, isVoted: boolean): void {
-    this.insertChoiceVoteDtoReq.choiceId = id
-    if(isVoted == false) {
-      isVoted = !isVoted
-      this.choiceVoteInsertSubscription = this.choiceVoteService.insert(this.insertChoiceVoteDtoReq).subscribe(_ => {
-        this.initData(this.threadById.id)
-      })
-    }
-    this.value = this.value + Math.floor(Math.random() * 10) + 1;
-    if (this.value >= 100) {
-      this.value = 100;
+    if(this.isLogin){
+      this.insertChoiceVoteDtoReq.choiceId = id
+      if(isVoted == false) {
+        isVoted = !isVoted
+        this.choiceVoteInsertSubscription = this.choiceVoteService.insert(this.insertChoiceVoteDtoReq).subscribe(_ => {
+          this.initData(this.threadById.id)
+        })
+      }
+      this.value = this.value + Math.floor(Math.random() * 10) + 1;
+      if (this.value >= 100) {
+        this.value = 100;
+      }
+    }else{
+      this.confirmationService.confirm({
+        message: 'You Must Be Login First',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.router.navigateByUrl('/login/member')
+        }
+      });
     }
   }
 

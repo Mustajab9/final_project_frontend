@@ -41,24 +41,13 @@ export class VerificationCodeComponent implements OnInit {
     })
   }
 
-  // updateProgress(): void {
-  //   this.registerSubscription = this.store.select(userSelectorUpdate).subscribe(result => {
-  //     if (result) {
-  //       this.router.navigateByUrl('/login')
-  //     }
-  //   })
-  // }
-
   onVerification(isValid: boolean) {
-    console.log(this.verifCode, this.dataById.verificationCode, isValid)
     if (isValid) {
       if (this.verifCode == this.dataById.verificationCode) {
         this.data.isActive = true
-        // this.store.dispatch(updateUserAction({ payload: this.data }))
-        // this.updateProgress()
         this.userUpdateSubscription = this.userService.update(this.data).subscribe(result => {
           if (result) {
-            this.router.navigateByUrl('/login')
+            this.router.navigateByUrl('/login/member')
           }
         })
       }
@@ -67,9 +56,9 @@ export class VerificationCodeComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.activatedRouteSubscription?.unsubscribe
-    this.userGetByIdSubscription?.unsubscribe
-    this.userUpdateSubscription?.unsubscribe
+    this.activatedRouteSubscription?.unsubscribe()
+    this.userGetByIdSubscription?.unsubscribe()
+    this.userUpdateSubscription?.unsubscribe()
   }
 
 }

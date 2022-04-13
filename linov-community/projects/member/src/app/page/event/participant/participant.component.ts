@@ -53,7 +53,6 @@ export class ParticipantComponent implements OnInit, OnDestroy {
       })
 
       this.getByEventIdSubscription = this.eventService.getById(id).subscribe(result => {
-        console.log(result)
         if (result) {
           this.eventData = result.data
         }

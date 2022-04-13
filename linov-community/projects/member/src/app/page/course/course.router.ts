@@ -4,7 +4,7 @@ import { CourseComponent } from "./course.component";
 
 const routes : Routes = [
     {
-        path : '',
+        path : 'course',
         component : CourseComponent
     },
 ]

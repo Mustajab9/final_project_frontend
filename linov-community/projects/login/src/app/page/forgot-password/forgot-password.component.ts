@@ -50,14 +50,14 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     if (isValid) {
       this.forgotPasswordSubscription = this.userService.forgotPassword(this.data).subscribe(result => {
         if(result){
-          this.router.navigateByUrl(`/login`)
+          this.router.navigateByUrl(`/login/member`)
         }
       })
     }
   }
 
   ngOnDestroy(): void {
-    this.getUserByEmailSubscription?.unsubscribe
-    this.forgotPasswordSubscription?.unsubscribe
+    this.getUserByEmailSubscription?.unsubscribe()
+    this.forgotPasswordSubscription?.unsubscribe()
   }
 }

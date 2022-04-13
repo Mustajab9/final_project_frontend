@@ -4,7 +4,7 @@ import { CartListComponent } from "./cart-list.component";
 
 const routes : Routes = [
     {
-        path : '',
+        path : 'cart-list',
         component : CartListComponent
     }
 ]

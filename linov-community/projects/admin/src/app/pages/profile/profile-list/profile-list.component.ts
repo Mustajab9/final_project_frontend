@@ -26,7 +26,7 @@ export class ProfileListComponent implements OnInit, OnDestroy {
   loading: boolean = true
 
   constructor(private title: Title, private router: Router, private store: Store, private confirmationService: ConfirmationService,
-              private subscriptionService: SubscriptionService) {
+    private subscriptionService: SubscriptionService) {
     this.title.setTitle('Profile Subscription')
   }
 
@@ -61,7 +61,7 @@ export class ProfileListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllProfileSubscription?.unsubscribe
+    this.getAllProfileSubscription?.unsubscribe()
   }
 
 }

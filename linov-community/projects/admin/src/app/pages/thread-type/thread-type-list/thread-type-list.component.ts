@@ -88,7 +88,7 @@ export class ThreadTypeListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllThreadTypeSubscription?.unsubscribe
-    this.threadTypeDeleteSubscription?.unsubscribe
+    this.getAllThreadTypeSubscription?.unsubscribe()
+    this.threadTypeDeleteSubscription?.unsubscribe()
   }
 }

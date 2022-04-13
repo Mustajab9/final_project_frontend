@@ -4,7 +4,7 @@ import { CartCheckoutComponent } from "./cart-checkout.component";
 
 const routes : Routes = [
     {
-        path : '',
+        path : 'cart-checkout',
         component : CartCheckoutComponent
     }
 ]

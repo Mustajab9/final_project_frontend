@@ -6,7 +6,7 @@ import { ThreadSaveComponent } from "./thread-save/thread-save.component";
 
 const routes : Routes = [
     {
-        path : '',
+        path : 'thread',
         component : ThreadComponent
     },
     {

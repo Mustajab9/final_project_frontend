@@ -4,7 +4,7 @@ import { ProfileUpdateComponent } from "./profile-update.component";
 
 const routes : Routes = [
     {
-        path : '',
+        path : 'profile-update',
         component : ProfileUpdateComponent
     }
 ]

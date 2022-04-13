@@ -88,8 +88,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllUserSubscription?.unsubscribe
-    this.userDeleteSubscription?.unsubscribe
+    this.getAllUserSubscription?.unsubscribe()
+    this.userDeleteSubscription?.unsubscribe()
   }
 
 }

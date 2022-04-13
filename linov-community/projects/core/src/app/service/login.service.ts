@@ -13,6 +13,10 @@ export class LoginService {
 
     constructor(private http: HttpClient) { }
 
+    isLogin(): boolean {
+        return this.getData() != null
+    }
+
     login(login: LoginDtoReq): Observable<LoginDtoRes> {
         return this.http.post<LoginDtoRes>('http://localhost:8080/login', login)
     }

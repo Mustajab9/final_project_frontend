@@ -4,7 +4,7 @@ import { ChangePasswordComponent } from "./change-password.component";
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'change-password',
         component: ChangePasswordComponent
     }
 ]

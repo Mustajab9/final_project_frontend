@@ -12,6 +12,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { PanelModule } from 'primeng/panel';
 import { BlockUIModule } from 'primeng/blockui';
+import { ConfirmationService } from "primeng/api";
 
 @NgModule({
     declarations: [
@@ -29,7 +30,10 @@ import { BlockUIModule } from 'primeng/blockui';
         InfiniteScrollModule,
         PanelModule,
         BlockUIModule,
-        DashboardRouter
+        DashboardRouter,
+    ],
+    providers: [
+        ConfirmationService
     ]
 })
 export class DashboardModule { }

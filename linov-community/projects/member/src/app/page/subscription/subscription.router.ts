@@ -4,7 +4,7 @@ import { SubscriptionComponent } from "./subscription.component";
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'subscription',
         component: SubscriptionComponent
     }
 ]

@@ -88,8 +88,8 @@ export class ProvinceListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllProvinceSubscription?.unsubscribe
-    this.provinceDeleteSubscription?.unsubscribe
+    this.getAllProvinceSubscription?.unsubscribe()
+    this.provinceDeleteSubscription?.unsubscribe()
   }
 
 }

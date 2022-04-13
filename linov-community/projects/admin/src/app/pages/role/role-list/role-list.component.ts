@@ -88,8 +88,8 @@ export class RoleListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllRoleSubscription?.unsubscribe
-    this.roleDeleteSubscription?.unsubscribe
+    this.getAllRoleSubscription?.unsubscribe()
+    this.roleDeleteSubscription?.unsubscribe()
   }
 
 }

@@ -18,6 +18,7 @@ import { TableModule } from 'primeng/table';
 import { CarouselModule } from 'primeng/carousel';
 import { BlockUIModule } from 'primeng/blockui';
 import { TooltipModule } from 'primeng/tooltip';
+import { ConfirmationService } from "primeng/api";
 
 @NgModule({
     declarations: [
@@ -40,6 +41,9 @@ import { TooltipModule } from 'primeng/tooltip';
         BlockUIModule,
         TooltipModule,
         ThreadRouter
+    ],
+    providers: [
+        ConfirmationService
     ]
 })
 export class ThreadModule { }

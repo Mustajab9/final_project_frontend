@@ -29,7 +29,7 @@ export class RegencyListComponent implements OnInit, OnDestroy {
   loading: boolean = true
 
   constructor(private title: Title, private router: Router, private store: Store, private confirmationService: ConfirmationService,
-              private regencyService: RegencyService) { 
+    private regencyService: RegencyService) {
     this.title.setTitle('Regency List')
   }
 
@@ -75,21 +75,21 @@ export class RegencyListComponent implements OnInit, OnDestroy {
     })
   }
 
-  deleteById(id: string){
+  deleteById(id: string) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete this data?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.store.dispatch(deleteRegencyAction({ payload: id }))
-          this.deleteProgress()
+        this.store.dispatch(deleteRegencyAction({ payload: id }))
+        this.deleteProgress()
       }
     })
   }
 
   ngOnDestroy(): void {
-    this.getAllRegencySubscription?.unsubscribe
-    this.regencyDeleteSubscription?.unsubscribe
+    this.getAllRegencySubscription?.unsubscribe()
+    this.regencyDeleteSubscription?.unsubscribe()
   }
 
 }

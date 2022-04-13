@@ -58,7 +58,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   insertProgress(): void {
     this.insertProfileSubscription = this.store.select(profilesSelectorInsert).subscribe(result => {
       if (result) {
-        this.router.navigateByUrl(`/verification-code/${this.data.userId}`)
+        this.router.navigateByUrl(`member/verification-code/${this.data.userId}`)
       }
     })
   }
@@ -71,7 +71,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.activatedRouteSubscription?.unsubscribe
-    this.insertProfileSubscription?.unsubscribe
+    this.activatedRouteSubscription?.unsubscribe()
+    this.insertProfileSubscription?.unsubscribe()
   }
 }

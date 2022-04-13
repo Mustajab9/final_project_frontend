@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   insertProgress(): void {
     this.registerSubscription = this.store.select(userSelectorInsert).subscribe(result => {
       if (result) {
-        this.router.navigateByUrl(`/account-details/${this.fullName}/${result.payload.id}`)
+        this.router.navigateByUrl(`member/account-details/${this.fullName}/${result.payload.id}`)
       }
     })
   }
@@ -42,6 +42,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.registerSubscription?.unsubscribe
+    this.registerSubscription?.unsubscribe()
   }
 }

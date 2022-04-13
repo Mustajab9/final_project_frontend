@@ -4,7 +4,7 @@ import { VerificationCodeComponent } from "./verification-code.component";
 
 const routes: Routes = [
     {
-        path: ':id',
+        path: 'verification-code/:id',
         component: VerificationCodeComponent
     }
 ]
