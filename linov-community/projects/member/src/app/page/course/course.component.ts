@@ -25,15 +25,19 @@ export class CourseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getAllEventSubscription = this.eventService.getByNotEnroll().subscribe(result => {
+    this.getAllEventSubscription = this.eventService.getAll().subscribe(result => {
       if(result){
-        this.data = result.data.filter(comp => comp.createdBy != this.userId)
+        this.data = result.data
       }
     })
   }
 
   onEnroll(id: string){
     this.router.navigateByUrl(`/member/event/${id}`)
+  }
+
+  onSubmit(id: string) {
+    this.router.navigateByUrl(`/member/event/participant/event-all/${id}`)
   }
 
   ngOnDestroy(): void {

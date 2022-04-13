@@ -1,4 +1,4 @@
-export class InsertSocialMediaDtoDataRes { 
-	 id?: string 
-} 
+export class InsertSocialMediaDtoDataRes {
+	id?: string
+}
 

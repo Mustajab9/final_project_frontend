@@ -1,4 +1,4 @@
-export class DeleteByPollingIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByPollingIdDtoRes {
+	msg?: string
+}
 

@@ -1,4 +1,4 @@
-export class DeleteByIndustryIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByIndustryIdDtoRes {
+	msg?: string
+}
 

@@ -1,5 +1,5 @@
-export class InsertSocialMediaDtoReq { 
-	 socialMediaName?: string 
-	 socialMediaCode?: string 
-} 
+export class InsertSocialMediaDtoReq {
+	socialMediaName?: string
+	socialMediaCode?: string
+}
 

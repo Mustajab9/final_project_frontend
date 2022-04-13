@@ -1,10 +1,11 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { ChangePasswordComponent } from "./change-password.component";
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+
+import { ChangePasswordComponent } from "./change-password.component"
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'change-password',
         component: ChangePasswordComponent
     }
 ]

@@ -1,12 +1,12 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { NavfootComponent } from "./pages/navfoot/navfoot.component";
-import { NavfootModule } from "./pages/navfoot/navfoot.module";
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+
+import { NavfootComponent } from "./pages/navfoot/navfoot.component"
+import { NavfootModule } from "./pages/navfoot/navfoot.module"
 
 const routes: Routes = [
     {
-        path: 'admin/dashboard',
+        path: 'admin',
         component: NavfootComponent,
         loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
     },
@@ -86,7 +86,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/event/event.module').then(m => m.EventModule)
     },
     {
-        path: 'admin/change-password',
+        path: 'admin',
         component: NavfootComponent,
         loadChildren: () => import('./pages/change-password/change-password.module').then(m => m.ChangePasswordModule)
     }

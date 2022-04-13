@@ -1,4 +1,4 @@
-export class InsertRegencyDtoDataRes { 
-	 id!: string 
-} 
+export class InsertRegencyDtoDataRes {
+	id!: string
+}
 

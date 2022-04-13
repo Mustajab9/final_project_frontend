@@ -1,7 +1,7 @@
-import { GetAllThreadCategoryDtoDataRes } from './get-all-thread-category-dto-data-res' 
+import { GetAllThreadCategoryDtoDataRes } from './get-all-thread-category-dto-data-res'
 
-export class GetAllThreadCategoryDtoRes { 
-	 msg?: string 
-	 data!: GetAllThreadCategoryDtoDataRes[] 
-} 
+export class GetAllThreadCategoryDtoRes {
+	msg?: string
+	data!: GetAllThreadCategoryDtoDataRes[]
+}
 

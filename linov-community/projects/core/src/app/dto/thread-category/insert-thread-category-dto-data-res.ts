@@ -1,4 +1,4 @@
-export class InsertThreadCategoryDtoDataRes { 
-	 id?: string 
-} 
+export class InsertThreadCategoryDtoDataRes {
+	id?: string
+}
 

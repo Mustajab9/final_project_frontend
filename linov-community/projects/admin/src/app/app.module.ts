@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { AppAdminRouter } from './app.router';
-import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { NgModule } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { BrowserModule } from '@angular/platform-browser'
+
+import { AppComponent } from './app.component'
+import { AppAdminRouter } from './app.router'
 
 @NgModule({
   declarations: [

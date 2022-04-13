@@ -1,4 +1,4 @@
-export class DeleteByPositionIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByPositionIdDtoRes {
+	msg?: string
+}
 

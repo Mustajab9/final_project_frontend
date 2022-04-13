@@ -1,8 +1,9 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { RegencyListComponent } from "./regency-list/regency-list.component";
-import { RegencySaveComponent } from "./regency-save/regency-save.component";
-import { RegencyUpdateComponent } from "./regency-update/regency-update.component";
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+
+import { RegencyListComponent } from "./regency-list/regency-list.component"
+import { RegencySaveComponent } from "./regency-save/regency-save.component"
+import { RegencyUpdateComponent } from "./regency-update/regency-update.component"
 
 const routes: Routes = [
     {

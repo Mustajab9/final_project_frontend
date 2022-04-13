@@ -1,14 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { GetAllThreadTypeDtoDataRes } from '../../../../../../core/src/app/dto/thread-type/get-all-thread-type-dto-data-res';
-import { ThreadTypeService } from '../../../../../../core/src/app/service/thread-type.service';
-import { deleteThreadTypeAction } from '../../../../../../core/src/app/state/thread-type/thread-type.action';
-import { Subscription } from 'rxjs';
-import { threadTypeSelectorDelete } from '../../../../../../core/src/app/state/thread-type/thread-type.selector';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
+import { Table } from 'primeng/table'
+
+import { GetAllThreadTypeDtoDataRes } from '../../../../../../core/src/app/dto/thread-type/get-all-thread-type-dto-data-res'
+import { ThreadTypeService } from '../../../../../../core/src/app/service/thread-type.service'
+import { deleteThreadTypeAction } from '../../../../../../core/src/app/state/thread-type/thread-type.action'
+import { threadTypeSelectorDelete } from '../../../../../../core/src/app/state/thread-type/thread-type.selector'
 
 @Component({
   selector: 'app-thread-type-list',
@@ -38,7 +41,7 @@ export class ThreadTypeListComponent implements OnInit, OnDestroy {
   }
 
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
-    this.loading = true;
+    this.loading = true
 
     this.getAllThreadTypeSubscription = this.threadTypeService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
@@ -51,7 +54,7 @@ export class ThreadTypeListComponent implements OnInit, OnDestroy {
   }
 
   clear(table: Table): void {
-    table.clear();
+    table.clear()
   }
 
   filter(text: any): void {
@@ -81,7 +84,7 @@ export class ThreadTypeListComponent implements OnInit, OnDestroy {
           this.store.dispatch(deleteThreadTypeAction({ payload: id }))
           this.deleteProgress()
       }
-    });
+    })
   }
 
   ngOnDestroy(): void {

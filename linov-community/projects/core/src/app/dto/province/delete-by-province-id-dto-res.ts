@@ -1,4 +1,4 @@
-export class DeleteByProvinceIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByProvinceIdDtoRes {
+	msg?: string
+}
 

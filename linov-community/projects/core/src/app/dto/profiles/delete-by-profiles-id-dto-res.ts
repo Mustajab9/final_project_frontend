@@ -1,4 +1,4 @@
-export class DeleteByProfilesIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByProfilesIdDtoRes {
+	msg?: string
+}
 

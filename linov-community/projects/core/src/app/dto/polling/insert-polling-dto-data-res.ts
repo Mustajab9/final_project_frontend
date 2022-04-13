@@ -1,4 +1,4 @@
-export class InsertPollingDtoDataRes { 
-	 id?: string 
-} 
+export class InsertPollingDtoDataRes {
+	id?: string
+}
 

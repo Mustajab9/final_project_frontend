@@ -1,4 +1,4 @@
-export class DeleteByRegencyIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByRegencyIdDtoRes {
+	msg?: string
+}
 

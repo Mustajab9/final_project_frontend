@@ -1,4 +1,4 @@
-export class InsertEnrollEventDtoDataRes { 
-	 id?: string 
-} 
+export class InsertEnrollEventDtoDataRes {
+	id?: string
+}
 

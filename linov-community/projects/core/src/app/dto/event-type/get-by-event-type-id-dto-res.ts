@@ -1,7 +1,7 @@
-import { GetByEventTypeIdDtoDataRes } from './get-by-event-type-id-dto-data-res' 
+import { GetByEventTypeIdDtoDataRes } from './get-by-event-type-id-dto-data-res'
 
-export class GetByEventTypeIdDtoRes { 
-	 msg?: string 
-	 data?: GetByEventTypeIdDtoDataRes 
-} 
+export class GetByEventTypeIdDtoRes {
+	msg?: string
+	data?: GetByEventTypeIdDtoDataRes
+}
 

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
-import { Router } from '@angular/router'
 import { Subscription } from 'rxjs'
+
 import { UserService } from '../../../../../core/src/app/service/user.service'
 import { LoginService } from '../../../../../core/src/app/service/login.service'
 import { LoginDtoRes } from '../../../../../core/src/app/dto/user/login-dto-res'
@@ -24,7 +24,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   getUserByEmailSubscription?: Subscription
   changePasswordSubscription?: Subscription
 
-  constructor(private title: Title, private router: Router, private userService: UserService, private loginService: LoginService) {
+  constructor(private title: Title, private userService: UserService, private loginService: LoginService) {
     this.title.setTitle("Change Password")
   }
 
@@ -45,7 +45,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     })
   }
 
-  changePassword() {
+  changePassword(): void {
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout)
     }
@@ -60,7 +60,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     }, 1000)
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.changePasswordSubscription = this.userService.changePassword(this.data).subscribe(result => {
         if (result) {
@@ -71,7 +71,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getUserByEmailSubscription?.unsubscribe
-    this.changePasswordSubscription?.unsubscribe
+    this.getUserByEmailSubscription?.unsubscribe()
+    this.changePasswordSubscription?.unsubscribe()
   }
 }

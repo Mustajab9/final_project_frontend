@@ -1,5 +1,5 @@
-export class InsertThreadCategoryDtoReq { 
-	 threadId?: string 
-	 categoryId?: string 
-} 
+export class InsertThreadCategoryDtoReq {
+	threadId?: string
+	categoryId?: string
+}
 

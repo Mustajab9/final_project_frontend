@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { PriceListEventListComponent } from './price-list-event-list.component';
+import { PriceListEventListComponent } from './price-list-event-list.component'
 
 describe('PriceListEventListComponent', () => {
-  let component: PriceListEventListComponent;
-  let fixture: ComponentFixture<PriceListEventListComponent>;
+  let component: PriceListEventListComponent
+  let fixture: ComponentFixture<PriceListEventListComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ PriceListEventListComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PriceListEventListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(PriceListEventListComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

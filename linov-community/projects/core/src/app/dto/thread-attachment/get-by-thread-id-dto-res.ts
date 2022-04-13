@@ -1,7 +1,7 @@
-import { GetByThreadIdDtoDataRes } from './get-by-thread-id-dto-data-res' 
+import { GetByThreadIdDtoDataRes } from './get-by-thread-id-dto-data-res'
 
-export class GetByThreadIdDtoRes { 
-	 msg?: string 
-	 data?: GetByThreadIdDtoDataRes[] 
-} 
+export class GetByThreadIdDtoRes {
+	msg?: string
+	data?: GetByThreadIdDtoDataRes[]
+}
 

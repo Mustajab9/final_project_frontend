@@ -1,8 +1,9 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { ProvinceListComponent } from "./province-list/province-list.component";
-import { ProvinceSaveComponent } from "./province-save/province-save.component";
-import { ProvinceUpdateComponent } from "./province-update/province-update.component";
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+
+import { ProvinceListComponent } from "./province-list/province-list.component"
+import { ProvinceSaveComponent } from "./province-save/province-save.component"
+import { ProvinceUpdateComponent } from "./province-update/province-update.component"
 
 const routes: Routes = [
     {

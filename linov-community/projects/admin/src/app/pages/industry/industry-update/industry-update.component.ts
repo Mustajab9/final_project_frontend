@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdateIndustryDtoReq } from '../../../../../../core/src/app/dto/industry/update-industry-dto-req';
-import { updateIndustryAction } from '../../../../../../core/src/app/state/industry/industry.action';
-import { industrySelectorById, industrySelectorUpdate } from '../../../../../../core/src/app/state/industry/industry.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { UpdateIndustryDtoReq } from '../../../../../../core/src/app/dto/industry/update-industry-dto-req'
+import { updateIndustryAction } from '../../../../../../core/src/app/state/industry/industry.action'
+import { industrySelectorById, industrySelectorUpdate } from '../../../../../../core/src/app/state/industry/industry.selector'
 
 @Component({
   selector: 'app-industry-update',
@@ -35,13 +37,13 @@ export class IndustryUpdateComponent implements OnInit, OnDestroy {
 
   updateProgress(): void {
     this.updateIndustrySubscription = this.store.select(industrySelectorUpdate).subscribe(result => {
-      if(result){
+      if (result) {
         this.router.navigateByUrl('/admin/industry/list')
       }
     })
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.store.dispatch(updateIndustryAction({ payload: this.data }))
       this.updateProgress()

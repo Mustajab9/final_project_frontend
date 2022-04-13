@@ -1,4 +1,4 @@
-export class DeleteByBookmarkIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByBookmarkIdDtoRes {
+	msg?: string
+}
 

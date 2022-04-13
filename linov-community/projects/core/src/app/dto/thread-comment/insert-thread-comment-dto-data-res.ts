@@ -1,4 +1,3 @@
-export class InsertThreadCommentDtoDataRes { 
-	 id?: string 
+export class InsertThreadCommentDtoDataRes {
+	id?: string
 } 
-

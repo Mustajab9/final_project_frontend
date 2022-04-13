@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+
 import { InsertCategoryDtoReq } from '../../../../../../core/src/app/dto/category/insert-category-dto-req';
 import { insertCategoryAction } from '../../../../../../core/src/app/state/category/category.action';
 import { categorySelectorInsert } from '../../../../../../core/src/app/state/category/category.selector';
@@ -32,7 +34,7 @@ export class CategorySaveComponent implements OnInit, OnDestroy {
     })
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.store.dispatch(insertCategoryAction({ payload: this.data }))
       this.insertProgress()

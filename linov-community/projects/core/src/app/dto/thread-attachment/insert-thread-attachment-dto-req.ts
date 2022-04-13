@@ -1,5 +1,5 @@
-export class InsertThreadAttachmentDtoReq { 
-	 threadId?: string 
-	 attachmentId?: string 
-} 
+export class InsertThreadAttachmentDtoReq {
+	threadId?: string
+	attachmentId?: string
+}
 

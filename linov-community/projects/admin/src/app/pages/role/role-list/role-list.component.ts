@@ -1,14 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { GetAllRoleDtoDataRes } from '../../../../../../core/src/app/dto/role/get-all-role-dto-data-res';
-import { RoleService } from '../../../../../../core/src/app/service/role.service';
-import { deleteRoleAction } from '../../../../../../core/src/app/state/role/role.action';
-import { Subscription } from 'rxjs';
-import { roleSelectorDelete } from '../../../../../../core/src/app/state/role/role.selector';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
+import { Table } from 'primeng/table'
+
+import { GetAllRoleDtoDataRes } from '../../../../../../core/src/app/dto/role/get-all-role-dto-data-res'
+import { RoleService } from '../../../../../../core/src/app/service/role.service'
+import { deleteRoleAction } from '../../../../../../core/src/app/state/role/role.action'
+import { roleSelectorDelete } from '../../../../../../core/src/app/state/role/role.selector'
 
 @Component({
   selector: 'app-role-list',
@@ -38,7 +41,7 @@ export class RoleListComponent implements OnInit, OnDestroy {
   }
 
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
-    this.loading = true;
+    this.loading = true
 
     this.getAllRoleSubscription = this.roleService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
@@ -51,7 +54,7 @@ export class RoleListComponent implements OnInit, OnDestroy {
   }
 
   clear(table: Table): void {
-    table.clear();
+    table.clear()
   }
 
   filter(text: any): void {
@@ -81,7 +84,7 @@ export class RoleListComponent implements OnInit, OnDestroy {
           this.store.dispatch(deleteRoleAction({ payload: id }))
           this.deleteProgress()
       }
-    });
+    })
   }
 
   ngOnDestroy(): void {

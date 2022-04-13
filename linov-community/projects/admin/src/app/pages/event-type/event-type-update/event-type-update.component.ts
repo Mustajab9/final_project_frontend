@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdateEventTypeDtoReq } from 'projects/core/src/app/dto/event-type/update-event-type-dto-req';
-import { updateEventTypeAction } from 'projects/core/src/app/state/event-type/event-type.action';
-import { eventTypeSelectorById, eventTypeSelectorUpdate } from 'projects/core/src/app/state/event-type/event-type.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { UpdateEventTypeDtoReq } from '../../../../../../core/src/app/dto/event-type/update-event-type-dto-req'
+import { updateEventTypeAction } from '../../../../../../core/src/app/state/event-type/event-type.action'
+import { eventTypeSelectorById, eventTypeSelectorUpdate } from '../../../../../../core/src/app/state/event-type/event-type.selector'
 
 @Component({
   selector: 'app-event-type-update',
@@ -35,13 +37,13 @@ export class EventTypeUpdateComponent implements OnInit, OnDestroy {
 
   updateProgress(): void {
     this.updateEventTypeSubscription = this.store.select(eventTypeSelectorUpdate).subscribe(result => {
-      if(result){
+      if (result) {
         this.router.navigateByUrl('/admin/event-type/list')
       }
     })
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.store.dispatch(updateEventTypeAction({ payload: this.data }))
       this.updateProgress()

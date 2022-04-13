@@ -1,4 +1,4 @@
-export class DeleteByCategoryIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByCategoryIdDtoRes {
+	msg?: string
+}
 

@@ -1,5 +1,5 @@
-export class GetThreadLikeByThreadDtoDataRes { 
-	 id!: string
-	 countLike!: number
-} 
+export class GetThreadLikeByThreadDtoDataRes {
+	id!: string
+	countLike!: number
+}
 

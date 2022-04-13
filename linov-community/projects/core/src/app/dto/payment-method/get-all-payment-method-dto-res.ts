@@ -1,8 +1,8 @@
-import { GetAllPaymentMethodDtoDataRes } from './get-all-payment-method-dto-data-res' 
+import { GetAllPaymentMethodDtoDataRes } from './get-all-payment-method-dto-data-res'
 
-export class GetAllPaymentMethodDtoRes { 
-	 msg?: string 
-	 data!: GetAllPaymentMethodDtoDataRes[] 
-	 total!: number
-} 
+export class GetAllPaymentMethodDtoRes {
+	msg?: string
+	data!: GetAllPaymentMethodDtoDataRes[]
+	total!: number
+}
 

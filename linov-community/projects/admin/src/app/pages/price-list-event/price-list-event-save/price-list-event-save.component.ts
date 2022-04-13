@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { InsertPriceListEventDtoReq } from '../../../../../../core/src/app/dto/price-list-event/insert-price-list-event-dto-req';
-import { insertPriceListEventAction } from '../../../../../../core/src/app/state/price-list-event/price-list-event.action';
-import { priceListEventSelectorInsert } from '../../../../../../core/src/app/state/price-list-event/price-list-event.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { InsertPriceListEventDtoReq } from '../../../../../../core/src/app/dto/price-list-event/insert-price-list-event-dto-req'
+import { insertPriceListEventAction } from '../../../../../../core/src/app/state/price-list-event/price-list-event.action'
+import { priceListEventSelectorInsert } from '../../../../../../core/src/app/state/price-list-event/price-list-event.selector'
 
 @Component({
   selector: 'app-price-list-event-save',
@@ -32,7 +34,7 @@ export class PriceListEventSaveComponent implements OnInit, OnDestroy {
     })
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.store.dispatch(insertPriceListEventAction({ payload: this.data }))
       this.insertProgress()

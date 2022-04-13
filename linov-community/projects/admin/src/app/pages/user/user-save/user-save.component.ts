@@ -1,13 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { InsertUserDtoReq } from '../../../../../../core/src/app/dto/user/insert-user-dto-req';
-import { insertUserAction } from '../../../../../../core/src/app/state/user/user.action';
-import { userSelectorInsert } from '../../../../../../core/src/app/state/user/user.selector';
-import { Subscription } from 'rxjs';
-import { GetAllRoleDtoDataRes } from 'projects/core/src/app/dto/role/get-all-role-dto-data-res';
-import { RoleService } from 'projects/core/src/app/service/role.service';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { InsertUserDtoReq } from '../../../../../../core/src/app/dto/user/insert-user-dto-req'
+import { insertUserAction } from '../../../../../../core/src/app/state/user/user.action'
+import { userSelectorInsert } from '../../../../../../core/src/app/state/user/user.selector'
+import { GetAllRoleDtoDataRes } from '../../../../../../core/src/app/dto/role/get-all-role-dto-data-res'
+import { RoleService } from '../../../../../../core/src/app/service/role.service'
 
 @Component({
   selector: 'app-user-save',

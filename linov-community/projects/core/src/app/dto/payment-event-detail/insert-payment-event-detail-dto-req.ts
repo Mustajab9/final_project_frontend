@@ -1,5 +1,5 @@
-export class InsertPaymentEventDetailDtoReq { 
-	 paymentEventId?: string 
-	 eventId?: string 
-} 
+export class InsertPaymentEventDetailDtoReq {
+	paymentEventId?: string
+	eventId?: string
+}
 

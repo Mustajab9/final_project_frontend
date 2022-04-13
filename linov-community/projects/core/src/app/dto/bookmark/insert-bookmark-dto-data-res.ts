@@ -1,4 +1,4 @@
-export class InsertBookmarkDtoDataRes { 
-	 id?: string 
-} 
+export class InsertBookmarkDtoDataRes {
+	id?: string
+}
 

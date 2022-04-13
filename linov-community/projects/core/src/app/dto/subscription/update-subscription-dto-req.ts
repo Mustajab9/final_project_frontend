@@ -1,7 +1,7 @@
-export class UpdateSubscriptionDtoReq { 
-	 id?: string 
-	 priceId?: string 
-	 version?: number 
-	 isActive?: boolean 
-} 
+export class UpdateSubscriptionDtoReq {
+	id?: string
+	priceId?: string
+	version?: number
+	isActive?: boolean
+}
 

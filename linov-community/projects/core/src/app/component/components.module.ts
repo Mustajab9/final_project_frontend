@@ -13,7 +13,7 @@ import { FormInputComponent } from './molecules/form-input'
 import { FormSelectComponent } from './molecules/form-select'
 import { FormTextareaComponent } from './molecules/form-textarea'
 import { LiAComponent } from './molecules/li-a'
-import {ButtonModule} from 'primeng/button';
+import { ButtonModule } from 'primeng/button'
 
 @NgModule({
     declarations: [

@@ -1,4 +1,4 @@
-export class DeleteByPriceListMemberIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByPriceListMemberIdDtoRes {
+	msg?: string
+}
 

@@ -1,7 +1,7 @@
-import { GetAllProfileSosmedDtoDataRes } from './get-all-profile-sosmed-dto-data-res' 
+import { GetAllProfileSosmedDtoDataRes } from './get-all-profile-sosmed-dto-data-res'
 
-export class GetAllProfileSosmedDtoRes { 
-	 msg?: string 
-	 data?: GetAllProfileSosmedDtoDataRes[] 
-} 
+export class GetAllProfileSosmedDtoRes {
+	msg?: string
+	data?: GetAllProfileSosmedDtoDataRes[]
+}
 

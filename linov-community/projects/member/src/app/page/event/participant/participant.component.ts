@@ -24,6 +24,7 @@ export class ParticipantComponent implements OnInit, OnDestroy {
   data$: Observable<GetAllEnrollEventDtoDataRes[]> = this.store.select(enrollEventSelectorAll)
   updateReq: UpdateEnrollEventDtoReq = new UpdateEnrollEventDtoReq()
   eventData: GetByEventIdDtoDataRes = new GetByEventIdDtoDataRes()
+  writeType!: string
 
   getAllEventParticipantSubscription?: Subscription
   activatedRouteSubscription?: Subscription
@@ -31,8 +32,8 @@ export class ParticipantComponent implements OnInit, OnDestroy {
   updateEnrollEventSubscription?: Subscription
   getByEnrollEventIdSubscription?: Subscription
 
-  constructor(private title: Title, private activatedRoute: ActivatedRoute, private store: Store,
-              private eventService: EventService, private enrollService: EnrollEventService){
+  constructor(private title: Title, private activatedRoute: ActivatedRoute, private store: Store, private router: Router,
+    private eventService: EventService, private enrollService: EnrollEventService) {
     this.title.setTitle("Participant Event")
   }
 
@@ -42,17 +43,18 @@ export class ParticipantComponent implements OnInit, OnDestroy {
 
   initData(): void {
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
+      this.writeType = (result as any).type
       const id = (result as any).id
 
       this.getAllEventParticipantSubscription = this.enrollService.getAll().subscribe(result => {
-        if(result){
+        if (result) {
           this.data = result.data.filter(comp => comp.eventId == id)
         }
       })
 
       this.getByEventIdSubscription = this.eventService.getById(id).subscribe(result => {
         console.log(result)
-        if(result){
+        if (result) {
           this.eventData = result.data
         }
       })
@@ -61,19 +63,27 @@ export class ParticipantComponent implements OnInit, OnDestroy {
 
   onApprove(id: string): void {
     this.getByEnrollEventIdSubscription = this.enrollService.getById(id).subscribe(result => {
-      if(result){
+      if (result) {
         this.updateReq.isApprove = true
         this.updateReq.id = result.data?.id
         this.updateReq.version = result.data?.version
         this.updateReq.isActive = result.data?.isActive
 
         this.updateEnrollEventSubscription = this.enrollService.update(this.updateReq).subscribe(result => {
-          if(result){
+          if (result) {
             this.initData()
           }
         })
       }
     })
+  }
+
+  onBack(): void{
+    if(this.writeType == 'event-list'){
+      this.router.navigateByUrl("/member/event/list")
+    }else if(this.writeType == 'event-all'){
+      this.router.navigateByUrl("member/course")
+    }
   }
 
   ngOnDestroy(): void {

@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdatePriceListEventDtoReq } from '../../../../../../core/src/app/dto/price-list-event/update-price-list-event-dto-req';
-import { updatePriceListEventAction } from '../../../../../../core/src/app/state/price-list-event/price-list-event.action';
-import { priceListEventSelectorById, priceListEventSelectorUpdate } from '../../../../../../core/src/app/state/price-list-event/price-list-event.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { UpdatePriceListEventDtoReq } from '../../../../../../core/src/app/dto/price-list-event/update-price-list-event-dto-req'
+import { updatePriceListEventAction } from '../../../../../../core/src/app/state/price-list-event/price-list-event.action'
+import { priceListEventSelectorById, priceListEventSelectorUpdate } from '../../../../../../core/src/app/state/price-list-event/price-list-event.selector'
 
 @Component({
   selector: 'app-price-list-event-update',
@@ -35,13 +37,13 @@ export class PriceListEventUpdateComponent implements OnInit, OnDestroy {
 
   updateProgress(): void {
     this.updatePriceListEventSubscription = this.store.select(priceListEventSelectorUpdate).subscribe(result => {
-      if(result){
+      if (result) {
         this.router.navigateByUrl('/admin/price-list-event/list')
       }
     })
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.store.dispatch(updatePriceListEventAction({ payload: this.data }))
       this.updateProgress()

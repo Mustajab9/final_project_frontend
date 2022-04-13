@@ -1,7 +1,8 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { EventComponent } from "./event/event.component";
-import { ParticipantComponent } from "./participant/participant.component";
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+
+import { EventComponent } from "./event/event.component"
+import { ParticipantComponent } from "./participant/participant.component"
 
 const routes: Routes = [
     {

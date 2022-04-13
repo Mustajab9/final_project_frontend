@@ -1,4 +1,4 @@
-export class UpdateIndustryDtoDataRes { 
-	 version?: number 
-} 
+export class UpdateIndustryDtoDataRes {
+	version?: number
+}
 

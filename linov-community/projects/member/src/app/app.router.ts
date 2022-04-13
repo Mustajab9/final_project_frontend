@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccessGuard } from 'projects/core/src/app/guard/access.guard';
 import { NavbarComponent } from './page/navbar/navbar.component';
 
 const routes: Routes = [
     {
         path: 'member/dashboard',
         component: NavbarComponent,
-        loadChildren: () => import('./page/dashboard/dashboard.module').then(m => m.DashboardModule)
+        loadChildren: () => import('./page/dashboard/dashboard.module').then(m => m.DashboardModule),
+        canActivate: [AccessGuard]
     },
     {
         path: 'member/thread',

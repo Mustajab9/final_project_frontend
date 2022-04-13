@@ -1,4 +1,4 @@
-export class UpdatePaymentEventDtoDataRes { 
-	 version?: number 
-} 
+export class UpdatePaymentEventDtoDataRes {
+	version?: number
+}
 

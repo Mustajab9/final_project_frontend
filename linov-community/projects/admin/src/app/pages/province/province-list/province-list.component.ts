@@ -1,14 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { GetAllProvinceDtoDataRes } from '../../../../../../core/src/app/dto/province/get-all-province-dto-data-res';
-import { ProvinceService } from '../../../../../../core/src/app/service/province.service';
-import { deleteProvinceAction } from '../../../../../../core/src/app/state/province/province.action';
-import { Subscription } from 'rxjs';
-import { provinceSelectorDelete } from '../../../../../../core/src/app/state/province/province.selector';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
+import { Table } from 'primeng/table'
+
+import { GetAllProvinceDtoDataRes } from '../../../../../../core/src/app/dto/province/get-all-province-dto-data-res'
+import { ProvinceService } from '../../../../../../core/src/app/service/province.service'
+import { deleteProvinceAction } from '../../../../../../core/src/app/state/province/province.action'
+import { provinceSelectorDelete } from '../../../../../../core/src/app/state/province/province.selector'
 
 @Component({
   selector: 'app-province-list',
@@ -38,7 +41,7 @@ export class ProvinceListComponent implements OnInit, OnDestroy {
   }
 
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
-    this.loading = true;
+    this.loading = true
 
     this.getAllProvinceSubscription = this.provinceService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
@@ -51,7 +54,7 @@ export class ProvinceListComponent implements OnInit, OnDestroy {
   }
 
   clear(table: Table): void {
-    table.clear();
+    table.clear()
   }
 
   filter(text: any): void {
@@ -81,7 +84,7 @@ export class ProvinceListComponent implements OnInit, OnDestroy {
           this.store.dispatch(deleteProvinceAction({ payload: id }))
           this.deleteProgress()
       }
-    });
+    })
   }
 
   ngOnDestroy(): void {

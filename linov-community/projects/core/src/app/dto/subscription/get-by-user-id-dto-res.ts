@@ -1,7 +1,7 @@
-import { GetByUserIdDtoRes } from './get-by-user-id-dto-res' 
+import { GetByUserIdDtoDataRes } from './get-by-user-id-dto-data-res'
 
-export class GetByUserIdDtoRes { 
-	 msg?: string 
-	 data?: GetByUserIdDtoRes 
-} 
+export class GetByUserIdDtoRes {
+	msg?: string
+	data?: GetByUserIdDtoDataRes
+}
 

@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdateSocialMediaDtoReq } from '../../../../../../core/src/app/dto/social-media/update-social-media-dto-req';
-import { updateSocialMediaAction } from '../../../../../../core/src/app/state/social-media/social-media.action';
-import { socialMediaSelectorById, socialMediaSelectorUpdate } from '../../../../../../core/src/app/state/social-media/social-media.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { UpdateSocialMediaDtoReq } from '../../../../../../core/src/app/dto/social-media/update-social-media-dto-req'
+import { updateSocialMediaAction } from '../../../../../../core/src/app/state/social-media/social-media.action'
+import { socialMediaSelectorById, socialMediaSelectorUpdate } from '../../../../../../core/src/app/state/social-media/social-media.selector'
 
 @Component({
   selector: 'app-social-media-update',

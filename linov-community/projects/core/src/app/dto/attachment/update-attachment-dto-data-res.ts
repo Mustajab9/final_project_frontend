@@ -1,4 +1,4 @@
-export class UpdateAttachmentDtoDataRes { 
-	 version?: number 
-} 
+export class UpdateAttachmentDtoDataRes {
+	version!: number
+}
 

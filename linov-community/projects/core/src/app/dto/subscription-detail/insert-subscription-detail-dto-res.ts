@@ -1,7 +1,7 @@
-import { InsertSubscriptionDetailDtoDataRes } from './insert-subscription-detail-dto-data-res' 
+import { InsertSubscriptionDetailDtoDataRes } from './insert-subscription-detail-dto-data-res'
 
-export class InsertSubscriptionDetailDtoRes { 
-	 msg?: string 
-	 data?: InsertSubscriptionDetailDtoDataRes 
-} 
+export class InsertSubscriptionDetailDtoRes {
+	msg?: string
+	data?: InsertSubscriptionDetailDtoDataRes
+}
 

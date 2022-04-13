@@ -1,8 +1,9 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { EventTypeListComponent } from "./event-type-list/event-type-list.component";
-import { EventTypeSaveComponent } from "./event-type-save/event-type-save.component";
-import { EventTypeUpdateComponent } from "./event-type-update/event-type-update.component";
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+
+import { EventTypeListComponent } from "./event-type-list/event-type-list.component"
+import { EventTypeSaveComponent } from "./event-type-save/event-type-save.component"
+import { EventTypeUpdateComponent } from "./event-type-update/event-type-update.component"
 
 const routes: Routes = [
     {

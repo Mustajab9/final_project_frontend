@@ -1,7 +1,7 @@
-import { UpdateRoleDtoDataRes } from './update-role-dto-data-res' 
+import { UpdateRoleDtoDataRes } from './update-role-dto-data-res'
 
-export class UpdateRoleDtoRes { 
-	 msg?: string 
-	 data!: UpdateRoleDtoDataRes 
-} 
+export class UpdateRoleDtoRes {
+	msg?: string
+	data!: UpdateRoleDtoDataRes
+}
 

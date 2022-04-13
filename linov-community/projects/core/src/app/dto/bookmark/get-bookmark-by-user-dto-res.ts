@@ -1,7 +1,7 @@
-import { GetBookmarkByUserDtoDataRes } from './get-bookmark-by-user-dto-data-res' 
+import { GetBookmarkByUserDtoDataRes } from './get-bookmark-by-user-dto-data-res'
 
-export class GetBookmarkByUserDtoRes { 
-	 msg?: string 
-	 data!: GetBookmarkByUserDtoDataRes[] 
-} 
+export class GetBookmarkByUserDtoRes {
+	msg?: string
+	data!: GetBookmarkByUserDtoDataRes[]
+}
 

@@ -1,7 +1,7 @@
-import { InsertProfileSosmedDtoDataRes } from './insert-profile-sosmed-dto-data-res' 
+import { InsertProfileSosmedDtoDataRes } from './insert-profile-sosmed-dto-data-res'
 
-export class InsertProfileSosmedDtoRes { 
-	 msg?: string 
-	 data?: InsertProfileSosmedDtoDataRes 
-} 
+export class InsertProfileSosmedDtoRes {
+	msg?: string
+	data?: InsertProfileSosmedDtoDataRes
+}
 

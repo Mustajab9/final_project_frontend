@@ -1,4 +1,4 @@
-export class DeleteByThreadLikeIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByThreadLikeIdDtoRes {
+	msg?: string
+}
 

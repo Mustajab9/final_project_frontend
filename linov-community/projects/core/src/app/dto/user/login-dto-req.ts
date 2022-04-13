@@ -1,5 +1,5 @@
-export class LoginDtoReq { 
-	 username?: string 
-	 password?: string 
-} 
+export class LoginDtoReq {
+	username?: string
+	password?: string
+}
 

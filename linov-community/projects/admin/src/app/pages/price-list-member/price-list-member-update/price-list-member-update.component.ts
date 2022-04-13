@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdatePriceListMemberDtoReq } from '../../../../../../core/src/app/dto/price-list-member/update-price-list-member-dto-req';
-import { updatePriceListMemberAction } from '../../../../../../core/src/app/state/price-list-member/price-list-member.action';
-import { priceListMemberSelectorById, priceListMemberSelectorUpdate } from '../../../../../../core/src/app/state/price-list-member/price-list-member.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { UpdatePriceListMemberDtoReq } from '../../../../../../core/src/app/dto/price-list-member/update-price-list-member-dto-req'
+import { updatePriceListMemberAction } from '../../../../../../core/src/app/state/price-list-member/price-list-member.action'
+import { priceListMemberSelectorById, priceListMemberSelectorUpdate } from '../../../../../../core/src/app/state/price-list-member/price-list-member.selector'
 
 @Component({
   selector: 'app-price-list-member-update',

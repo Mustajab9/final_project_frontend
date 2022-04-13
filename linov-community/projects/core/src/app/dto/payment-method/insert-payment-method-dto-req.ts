@@ -1,5 +1,5 @@
-export class InsertPaymentMethodDtoReq { 
-	 paymentName?: string 
-	 paymentCode?: string 
-} 
+export class InsertPaymentMethodDtoReq {
+	paymentName?: string
+	paymentCode?: string
+}
 

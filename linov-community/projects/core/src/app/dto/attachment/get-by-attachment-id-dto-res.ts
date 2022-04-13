@@ -1,7 +1,7 @@
-import { GetByAttachmentIdDtoDataRes } from './get-by-attachment-id-dto-data-res' 
+import { GetByAttachmentIdDtoDataRes } from './get-by-attachment-id-dto-data-res'
 
-export class GetByAttachmentIdDtoRes { 
-	 msg?: string 
-	 data?: GetByAttachmentIdDtoDataRes 
-} 
+export class GetByAttachmentIdDtoRes {
+	msg?: string
+	data!: GetByAttachmentIdDtoDataRes
+}
 

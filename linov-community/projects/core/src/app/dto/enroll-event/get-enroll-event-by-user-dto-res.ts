@@ -1,7 +1,7 @@
-import { GetEnrollEventByUserDtoDataRes } from './get-enroll-event-by-user-dto-data-res' 
+import { GetEnrollEventByUserDtoDataRes } from './get-enroll-event-by-user-dto-data-res'
 
-export class GetEnrollEventByUserDtoRes { 
-	 msg?: string 
-	 data?: GetEnrollEventByUserDtoDataRes[] 
-} 
+export class GetEnrollEventByUserDtoRes {
+	msg?: string
+	data?: GetEnrollEventByUserDtoDataRes[]
+}
 

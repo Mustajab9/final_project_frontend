@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { InsertSocialMediaDtoReq } from '../../../../../../core/src/app/dto/social-media/insert-social-media-dto-req';
-import { insertSocialMediaAction } from '../../../../../../core/src/app/state/social-media/social-media.action';
-import { socialMediaSelectorInsert } from '../../../../../../core/src/app/state/social-media/social-media.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { InsertSocialMediaDtoReq } from '../../../../../../core/src/app/dto/social-media/insert-social-media-dto-req'
+import { insertSocialMediaAction } from '../../../../../../core/src/app/state/social-media/social-media.action'
+import { socialMediaSelectorInsert } from '../../../../../../core/src/app/state/social-media/social-media.selector'
 
 @Component({
   selector: 'app-social-media-save',

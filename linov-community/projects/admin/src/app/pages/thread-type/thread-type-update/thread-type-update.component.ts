@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdateThreadTypeDtoReq } from '../../../../../../core/src/app/dto/thread-type/update-thread-type-dto-req';
-import { updateThreadTypeAction } from '../../../../../../core/src/app/state/thread-type/thread-type.action';
-import { threadTypeSelectorById, threadTypeSelectorUpdate } from '../../../../../../core/src/app/state/thread-type/thread-type.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { UpdateThreadTypeDtoReq } from '../../../../../../core/src/app/dto/thread-type/update-thread-type-dto-req'
+import { updateThreadTypeAction } from '../../../../../../core/src/app/state/thread-type/thread-type.action'
+import { threadTypeSelectorById, threadTypeSelectorUpdate } from '../../../../../../core/src/app/state/thread-type/thread-type.selector'
 
 @Component({
   selector: 'app-thread-type-update',

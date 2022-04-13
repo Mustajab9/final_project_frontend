@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { GetProfileByUserDtoDataRes } from 'projects/core/src/app/dto/profiles/get-profile-by-user-dto-data-res';
-import { LoginDtoDataRes } from 'projects/core/src/app/dto/user/login-dto-data-res';
-import { LoginService } from 'projects/core/src/app/service/login.service';
-import { ProfilesService } from 'projects/core/src/app/service/profiles.service';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+
+import { GetProfileByUserDtoDataRes } from '../../../../../core/src/app/dto/profiles/get-profile-by-user-dto-data-res'
+import { LoginDtoDataRes } from '../../../../../core/src/app/dto/user/login-dto-data-res'
+import { LoginService } from '../../../../../core/src/app/service/login.service'
+import { ProfilesService } from '../../../../../core/src/app/service/profiles.service'
 
 @Component({
   selector: 'app-navfoot',
@@ -28,17 +30,17 @@ export class NavfootComponent implements OnInit, OnDestroy {
     })
   }
 
-  changePassword() {
+  changePassword(): void {
     this.router.navigateByUrl('/admin/change-password')
   }
 
-  onLogOut() {
+  onLogOut(): void {
     this.loginService.clearData()
     this.router.navigateByUrl('/admin/login')
   }
 
   ngOnDestroy(): void {
-    this.getProfileByUserSubscription?.unsubscribe
+    this.getProfileByUserSubscription?.unsubscribe()
   }
 
 }

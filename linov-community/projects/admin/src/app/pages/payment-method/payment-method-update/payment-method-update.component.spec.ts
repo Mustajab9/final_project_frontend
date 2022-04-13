@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { PaymentMethodUpdateComponent } from './payment-method-update.component';
+import { PaymentMethodUpdateComponent } from './payment-method-update.component'
 
 describe('PaymentMethodUpdateComponent', () => {
-  let component: PaymentMethodUpdateComponent;
-  let fixture: ComponentFixture<PaymentMethodUpdateComponent>;
+  let component: PaymentMethodUpdateComponent
+  let fixture: ComponentFixture<PaymentMethodUpdateComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ PaymentMethodUpdateComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PaymentMethodUpdateComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(PaymentMethodUpdateComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

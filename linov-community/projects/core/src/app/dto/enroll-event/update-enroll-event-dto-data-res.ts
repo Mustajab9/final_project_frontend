@@ -1,4 +1,4 @@
-export class UpdateEnrollEventDtoDataRes { 
-	 version?: number 
-} 
+export class UpdateEnrollEventDtoDataRes {
+	version?: number
+}
 

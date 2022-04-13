@@ -1,4 +1,4 @@
-export class UpdatePaymentMethodDtoDataRes { 
-	 version?: number 
-} 
+export class UpdatePaymentMethodDtoDataRes {
+	version?: number
+}
 

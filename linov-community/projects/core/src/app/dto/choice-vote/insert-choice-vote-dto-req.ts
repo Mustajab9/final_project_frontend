@@ -1,5 +1,5 @@
-export class InsertChoiceVoteDtoReq { 
-	 voteCode?: string 
-	 choiceId?: string 
-} 
+export class InsertChoiceVoteDtoReq {
+	voteCode?: string
+	choiceId?: string
+}
 

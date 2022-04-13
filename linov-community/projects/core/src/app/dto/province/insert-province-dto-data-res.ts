@@ -1,4 +1,4 @@
-export class InsertProvinceDtoDataRes { 
-	 id?: string 
-} 
+export class InsertProvinceDtoDataRes {
+	id?: string
+}
 

@@ -1,4 +1,4 @@
-export class InsertSubscriptionDetailDtoDataRes { 
-	 id?: string 
-} 
+export class InsertSubscriptionDetailDtoDataRes {
+	id?: string
+}
 

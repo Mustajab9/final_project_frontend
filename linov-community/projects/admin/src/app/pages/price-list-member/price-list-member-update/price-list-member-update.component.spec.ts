@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { PriceListMemberUpdateComponent } from './price-list-member-update.component';
+import { PriceListMemberUpdateComponent } from './price-list-member-update.component'
 
 describe('PriceListMemberUpdateComponent', () => {
-  let component: PriceListMemberUpdateComponent;
-  let fixture: ComponentFixture<PriceListMemberUpdateComponent>;
+  let component: PriceListMemberUpdateComponent
+  let fixture: ComponentFixture<PriceListMemberUpdateComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ PriceListMemberUpdateComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PriceListMemberUpdateComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(PriceListMemberUpdateComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

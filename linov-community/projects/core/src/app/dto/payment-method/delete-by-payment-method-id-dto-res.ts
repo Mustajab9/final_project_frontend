@@ -1,4 +1,4 @@
-export class DeleteByPaymentMethodIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByPaymentMethodIdDtoRes {
+	msg?: string
+}
 

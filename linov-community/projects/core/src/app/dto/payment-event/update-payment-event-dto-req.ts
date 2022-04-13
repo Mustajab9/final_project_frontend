@@ -1,7 +1,7 @@
-export class UpdatePaymentEventDtoReq { 
-	 id?: string 
-	 isApprove?: boolean 
-	 version?: number 
-	 isActive?: boolean 
-} 
+export class UpdatePaymentEventDtoReq {
+	id?: string
+	isApprove?: boolean
+	version?: number
+	isActive?: boolean
+}
 

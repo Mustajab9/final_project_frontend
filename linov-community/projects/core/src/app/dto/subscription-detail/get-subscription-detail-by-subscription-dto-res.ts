@@ -1,7 +1,7 @@
-import { GetSubscriptionDetailBySubscriptionDtoDataRes } from './get-subscription-detail-by-subscription-dto-data-res' 
+import { GetSubscriptionDetailBySubscriptionDtoDataRes } from './get-subscription-detail-by-subscription-dto-data-res'
 
-export class GetSubscriptionDetailBySubscriptionDtoRes { 
-	 msg?: string 
-	 data?: GetSubscriptionDetailBySubscriptionDtoDataRes[] 
-} 
+export class GetSubscriptionDetailBySubscriptionDtoRes {
+	msg?: string
+	data?: GetSubscriptionDetailBySubscriptionDtoDataRes[]
+}
 

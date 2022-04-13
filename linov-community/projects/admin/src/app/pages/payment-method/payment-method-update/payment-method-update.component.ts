@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdatePaymentMethodDtoReq } from '../../../../../../core/src/app/dto/payment-method/update-payment-method-dto-req';
-import { updatePaymentMethodAction } from '../../../../../../core/src/app/state/payment-method/payment-method.action';
-import { paymentMethodSelectorById, paymentMethodSelectorUpdate } from '../../../../../../core/src/app/state/payment-method/payment-method.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { UpdatePaymentMethodDtoReq } from '../../../../../../core/src/app/dto/payment-method/update-payment-method-dto-req'
+import { updatePaymentMethodAction } from '../../../../../../core/src/app/state/payment-method/payment-method.action'
+import { paymentMethodSelectorById, paymentMethodSelectorUpdate } from '../../../../../../core/src/app/state/payment-method/payment-method.selector'
 
 @Component({
   selector: 'app-payment-method-update',
@@ -35,13 +37,13 @@ export class PaymentMethodUpdateComponent implements OnInit, OnDestroy {
 
   updateProgress(): void {
     this.updatePaymentMethodSubscription = this.store.select(paymentMethodSelectorUpdate).subscribe(result => {
-      if(result){
+      if (result) {
         this.router.navigateByUrl('/admin/payment-method/list')
       }
     })
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.store.dispatch(updatePaymentMethodAction({ payload: this.data }))
       this.updateProgress()

@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ProvinceUpdateComponent } from './province-update.component';
+import { ProvinceUpdateComponent } from './province-update.component'
 
 describe('ProvinceUpdateComponent', () => {
-  let component: ProvinceUpdateComponent;
-  let fixture: ComponentFixture<ProvinceUpdateComponent>;
+  let component: ProvinceUpdateComponent
+  let fixture: ComponentFixture<ProvinceUpdateComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ProvinceUpdateComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProvinceUpdateComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ProvinceUpdateComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

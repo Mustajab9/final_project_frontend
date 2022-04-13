@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdateRegencyDtoReq } from '../../../../../../core/src/app/dto/regency/update-regency-dto-req';
-import { updateRegencyAction } from '../../../../../../core/src/app/state/regency/regency.action';
-import { regencySelectorById, regencySelectorUpdate } from '../../../../../../core/src/app/state/regency/regency.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { UpdateRegencyDtoReq } from '../../../../../../core/src/app/dto/regency/update-regency-dto-req'
+import { updateRegencyAction } from '../../../../../../core/src/app/state/regency/regency.action'
+import { regencySelectorById, regencySelectorUpdate } from '../../../../../../core/src/app/state/regency/regency.selector'
 
 @Component({
   selector: 'app-regency-update',

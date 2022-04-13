@@ -1,7 +1,7 @@
-import { UpdatePaymentMethodDtoDataRes } from './update-payment-method-dto-data-res' 
+import { UpdatePaymentMethodDtoDataRes } from './update-payment-method-dto-data-res'
 
-export class UpdatePaymentMethodDtoRes { 
-	 msg?: string 
-	 data!: UpdatePaymentMethodDtoDataRes 
-} 
+export class UpdatePaymentMethodDtoRes {
+	msg?: string
+	data!: UpdatePaymentMethodDtoDataRes
+}
 

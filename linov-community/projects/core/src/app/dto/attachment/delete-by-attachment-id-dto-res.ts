@@ -1,4 +1,4 @@
-export class DeleteByAttachmentIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByAttachmentIdDtoRes {
+	msg?: string
+}
 

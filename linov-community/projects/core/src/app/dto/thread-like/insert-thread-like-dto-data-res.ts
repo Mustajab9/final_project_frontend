@@ -1,4 +1,3 @@
-export class InsertThreadLikeDtoDataRes { 
-	 id?: string 
-} 
-
+export class InsertThreadLikeDtoDataRes {
+	id?: string
+}

@@ -1,7 +1,7 @@
-import { UpdateAttachmentDtoDataRes } from './update-attachment-dto-data-res' 
+import { UpdateAttachmentDtoDataRes } from './update-attachment-dto-data-res'
 
-export class UpdateAttachmentDtoRes { 
-	 msg?: string 
-	 data?: UpdateAttachmentDtoDataRes 
-} 
+export class UpdateAttachmentDtoRes {
+	msg?: string
+	data!: UpdateAttachmentDtoDataRes
+}
 

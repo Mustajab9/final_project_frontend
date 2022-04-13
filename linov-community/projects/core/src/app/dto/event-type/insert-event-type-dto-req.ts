@@ -1,5 +1,5 @@
-export class InsertEventTypeDtoReq { 
-	 typeName?: string 
-	 typeCode?: string 
-} 
+export class InsertEventTypeDtoReq {
+	typeName?: string
+	typeCode?: string
+}
 

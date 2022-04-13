@@ -1,5 +1,5 @@
-export class InsertSubscriptionDetailDtoReq { 
-	 subscriptionId?: string 
-	 priceId?: string 
-} 
+export class InsertSubscriptionDetailDtoReq {
+	subscriptionId?: string
+	priceId?: string
+}
 

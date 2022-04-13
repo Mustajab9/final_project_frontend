@@ -1,4 +1,4 @@
-export class UpdateThreadTypeDtoDataRes { 
-	 version?: number 
-} 
+export class UpdateThreadTypeDtoDataRes {
+	version?: number
+}
 

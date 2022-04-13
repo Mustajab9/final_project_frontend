@@ -1,4 +1,4 @@
-export class InsertRoleDtoDataRes { 
-	 id?: string 
-} 
+export class InsertRoleDtoDataRes {
+	id?: string
+}
 

@@ -1,7 +1,7 @@
-import { UpdateEnrollEventDtoDataRes } from './update-enroll-event-dto-data-res' 
+import { UpdateEnrollEventDtoDataRes } from './update-enroll-event-dto-data-res'
 
-export class UpdateEnrollEventDtoRes { 
-	 msg?: string 
-	 data?: UpdateEnrollEventDtoDataRes 
-} 
+export class UpdateEnrollEventDtoRes {
+	msg?: string
+	data?: UpdateEnrollEventDtoDataRes
+}
 

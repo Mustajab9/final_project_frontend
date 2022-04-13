@@ -1,7 +1,7 @@
-import { InsertBookmarkDtoDataRes } from './insert-bookmark-dto-data-res' 
+import { InsertBookmarkDtoDataRes } from './insert-bookmark-dto-data-res'
 
-export class InsertBookmarkDtoRes { 
-	 msg?: string 
-	 data?: InsertBookmarkDtoDataRes 
-} 
+export class InsertBookmarkDtoRes {
+	msg?: string
+	data!: InsertBookmarkDtoDataRes
+}
 

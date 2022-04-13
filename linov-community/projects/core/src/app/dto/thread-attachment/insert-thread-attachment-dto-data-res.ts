@@ -1,4 +1,4 @@
-export class InsertThreadAttachmentDtoDataRes { 
-	 id?: string 
-} 
+export class InsertThreadAttachmentDtoDataRes {
+	id?: string
+}
 

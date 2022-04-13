@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdateRoleDtoReq } from '../../../../../../core/src/app/dto/role/update-role-dto-req';
-import { updateRoleAction } from '../../../../../../core/src/app/state/role/role.action';
-import { roleSelectorById, roleSelectorUpdate } from '../../../../../../core/src/app/state/role/role.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { UpdateRoleDtoReq } from '../../../../../../core/src/app/dto/role/update-role-dto-req'
+import { updateRoleAction } from '../../../../../../core/src/app/state/role/role.action'
+import { roleSelectorById, roleSelectorUpdate } from '../../../../../../core/src/app/state/role/role.selector'
 
 @Component({
   selector: 'app-role-update',

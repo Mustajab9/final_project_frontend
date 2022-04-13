@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ProvinceSaveComponent } from './province-save.component';
+import { ProvinceSaveComponent } from './province-save.component'
 
 describe('ProvinceSaveComponent', () => {
-  let component: ProvinceSaveComponent;
-  let fixture: ComponentFixture<ProvinceSaveComponent>;
+  let component: ProvinceSaveComponent
+  let fixture: ComponentFixture<ProvinceSaveComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ProvinceSaveComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProvinceSaveComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ProvinceSaveComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

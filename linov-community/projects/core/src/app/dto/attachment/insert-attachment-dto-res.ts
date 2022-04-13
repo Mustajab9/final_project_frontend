@@ -1,7 +1,7 @@
-import { InsertAttachmentDtoDataRes } from './insert-attachment-dto-data-res' 
+import { InsertAttachmentDtoDataRes } from './insert-attachment-dto-data-res'
 
-export class InsertAttachmentDtoRes { 
-	 msg?: string 
-	 data?: InsertAttachmentDtoDataRes 
-} 
+export class InsertAttachmentDtoRes {
+	msg?: string
+	data!: InsertAttachmentDtoDataRes
+}
 

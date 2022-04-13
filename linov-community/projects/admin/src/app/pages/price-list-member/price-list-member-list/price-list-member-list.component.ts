@@ -1,14 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { GetAllPriceListMemberDtoDataRes } from '../../../../../../core/src/app/dto/price-list-member/get-all-price-list-member-dto-data-res';
-import { PriceListMemberService } from '../../../../../../core/src/app/service/price-list-member.service';
-import { deletePriceListMemberAction } from '../../../../../../core/src/app/state/price-list-member/price-list-member.action';
-import { Subscription } from 'rxjs';
-import { priceListMemberSelectorDelete } from '../../../../../../core/src/app/state/price-list-member/price-list-member.selector';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
+import { Table } from 'primeng/table'
+
+import { GetAllPriceListMemberDtoDataRes } from '../../../../../../core/src/app/dto/price-list-member/get-all-price-list-member-dto-data-res'
+import { PriceListMemberService } from '../../../../../../core/src/app/service/price-list-member.service'
+import { deletePriceListMemberAction } from '../../../../../../core/src/app/state/price-list-member/price-list-member.action'
+import { priceListMemberSelectorDelete } from '../../../../../../core/src/app/state/price-list-member/price-list-member.selector'
 
 @Component({
   selector: 'app-price-list-member-list',
@@ -26,19 +29,19 @@ export class PriceListMemberListComponent implements OnInit, OnDestroy {
   loading: boolean = true
 
   constructor(private title: Title, private router: Router, private store: Store, private confirmationService: ConfirmationService,
-              private priceListMemberService: PriceListMemberService) {
+    private priceListMemberService: PriceListMemberService) {
     this.title.setTitle('Price List Member')
   }
 
   ngOnInit(): void {
   }
 
-  loadData(event: LazyLoadEvent) {
+  loadData(event: LazyLoadEvent): void {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
-    this.loading = true;
+    this.loading = true
 
     this.getAllPriceListMemberSubscription = this.priceListMemberService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
@@ -51,7 +54,7 @@ export class PriceListMemberListComponent implements OnInit, OnDestroy {
   }
 
   clear(table: Table): void {
-    table.clear();
+    table.clear()
   }
 
   filter(text: any): void {
@@ -72,21 +75,21 @@ export class PriceListMemberListComponent implements OnInit, OnDestroy {
     })
   }
 
-  deleteById(id: string){
+  deleteById(id: string): void {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete this data?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.store.dispatch(deletePriceListMemberAction({ payload: id }))
-          this.deleteProgress()
+        this.store.dispatch(deletePriceListMemberAction({ payload: id }))
+        this.deleteProgress()
       }
-    });
+    })
   }
 
   ngOnDestroy(): void {
-    this.getAllPriceListMemberSubscription?.unsubscribe
-    this.priceListMemberDeleteSubscription?.unsubscribe
+    this.getAllPriceListMemberSubscription?.unsubscribe()
+    this.priceListMemberDeleteSubscription?.unsubscribe()
   }
 
 }

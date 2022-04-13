@@ -1,4 +1,4 @@
-export class DeleteByEnrollEventIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteByEnrollEventIdDtoRes {
+	msg?: string
+}
 

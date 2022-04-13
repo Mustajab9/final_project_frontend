@@ -65,7 +65,7 @@ export class EventListComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(id: string) {
-    this.router.navigateByUrl(`/member/event/participant/${id}`)
+    this.router.navigateByUrl(`/member/event/participant/event-list/${id}`)
   }
 
   ngOnDestroy(): void {

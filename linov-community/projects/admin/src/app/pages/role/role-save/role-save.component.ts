@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { InsertRoleDtoReq } from '../../../../../../core/src/app/dto/role/insert-role-dto-req';
-import { insertRoleAction } from '../../../../../../core/src/app/state/role/role.action';
-import { roleSelectorInsert } from '../../../../../../core/src/app/state/role/role.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { InsertRoleDtoReq } from '../../../../../../core/src/app/dto/role/insert-role-dto-req'
+import { insertRoleAction } from '../../../../../../core/src/app/state/role/role.action'
+import { roleSelectorInsert } from '../../../../../../core/src/app/state/role/role.selector'
 
 @Component({
   selector: 'app-role-save',

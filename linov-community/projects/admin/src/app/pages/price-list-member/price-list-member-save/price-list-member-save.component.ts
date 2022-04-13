@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { InsertPriceListMemberDtoReq } from '../../../../../../core/src/app/dto/price-list-member/insert-price-list-member-dto-req';
-import { insertPriceListMemberAction } from '../../../../../../core/src/app/state/price-list-member/price-list-member.action';
-import { priceListMemberSelectorInsert } from '../../../../../../core/src/app/state/price-list-member/price-list-member.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { InsertPriceListMemberDtoReq } from '../../../../../../core/src/app/dto/price-list-member/insert-price-list-member-dto-req'
+import { insertPriceListMemberAction } from '../../../../../../core/src/app/state/price-list-member/price-list-member.action'
+import { priceListMemberSelectorInsert } from '../../../../../../core/src/app/state/price-list-member/price-list-member.selector'
 
 @Component({
   selector: 'app-price-list-member-save',
@@ -32,7 +34,7 @@ export class PriceListMemberSaveComponent implements OnInit, OnDestroy {
     })
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.store.dispatch(insertPriceListMemberAction({ payload: this.data }))
       this.insertProgress()

@@ -1,4 +1,4 @@
-export class InsertAttachmentDtoDataRes { 
-	 id?: string 
-} 
+export class InsertAttachmentDtoDataRes {
+	id!: string
+}
 

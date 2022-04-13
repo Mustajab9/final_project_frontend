@@ -1,4 +1,4 @@
-export class UpdatePollingChoiceDtoDataRes { 
-	 version?: number 
-} 
+export class UpdatePollingChoiceDtoDataRes {
+	version?: number
+}
 

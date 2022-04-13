@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { CategorySaveComponent } from './category-save.component';
+import { CategorySaveComponent } from './category-save.component'
 
 describe('CategorySaveComponent', () => {
-  let component: CategorySaveComponent;
-  let fixture: ComponentFixture<CategorySaveComponent>;
+  let component: CategorySaveComponent
+  let fixture: ComponentFixture<CategorySaveComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ CategorySaveComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CategorySaveComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(CategorySaveComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

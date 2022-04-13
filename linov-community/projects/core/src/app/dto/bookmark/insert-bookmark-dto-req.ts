@@ -1,4 +1,4 @@
-export class InsertBookmarkDtoReq { 
-	 threadId?: string 
-} 
+export class InsertBookmarkDtoReq {
+	threadId?: string
+}
 

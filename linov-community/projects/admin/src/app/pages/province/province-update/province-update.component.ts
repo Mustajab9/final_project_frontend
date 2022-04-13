@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdateProvinceDtoReq } from 'projects/core/src/app/dto/province/update-province-dto-req';
-import { updateProvinceAction } from 'projects/core/src/app/state/province/province.action';
-import { provinceSelectorById, provinceSelectorUpdate } from 'projects/core/src/app/state/province/province.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { UpdateProvinceDtoReq } from '../../../../../../core/src/app/dto/province/update-province-dto-req'
+import { updateProvinceAction } from '../../../../../../core/src/app/state/province/province.action'
+import { provinceSelectorById, provinceSelectorUpdate } from '../../../../../../core/src/app/state/province/province.selector'
 
 @Component({
   selector: 'app-province-update',

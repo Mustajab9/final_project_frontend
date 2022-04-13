@@ -1,4 +1,4 @@
-export class DeleteBySocialMediaIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteBySocialMediaIdDtoRes {
+	msg?: string
+}
 

@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { InsertIndustryDtoReq } from '../../../../../../core/src/app/dto/industry/insert-industry-dto-req';
-import { insertIndustryAction } from '../../../../../../core/src/app/state/industry/industry.action';
-import { industrySelectorInsert } from '../../../../../../core/src/app/state/industry/industry.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { InsertIndustryDtoReq } from '../../../../../../core/src/app/dto/industry/insert-industry-dto-req'
+import { insertIndustryAction } from '../../../../../../core/src/app/state/industry/industry.action'
+import { industrySelectorInsert } from '../../../../../../core/src/app/state/industry/industry.selector'
 
 @Component({
   selector: 'app-industry-save',
@@ -32,7 +34,7 @@ export class IndustrySaveComponent implements OnInit, OnDestroy {
     })
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.store.dispatch(insertIndustryAction({ payload: this.data }))
       this.insertProgress()

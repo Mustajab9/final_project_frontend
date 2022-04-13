@@ -1,7 +1,7 @@
-import { InsertUserDtoDataRes } from './insert-user-dto-data-res' 
+import { InsertUserDtoDataRes } from './insert-user-dto-data-res'
 
-export class InsertUserDtoRes { 
-	 msg?: string 
-	 data!: InsertUserDtoDataRes 
-} 
+export class InsertUserDtoRes {
+	msg?: string
+	data!: InsertUserDtoDataRes
+}
 

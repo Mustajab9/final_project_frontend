@@ -1,4 +1,4 @@
-export class UpdateCategoryDtoDataRes { 
-	 version?: number 
-} 
+export class UpdateCategoryDtoDataRes {
+	version?: number
+}
 

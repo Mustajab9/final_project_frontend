@@ -1,4 +1,4 @@
-export class InsertProfileSosmedDtoDataRes { 
-	 id?: string 
-} 
+export class InsertProfileSosmedDtoDataRes {
+	id?: string
+}
 

@@ -1,4 +1,4 @@
-export class UpdateProvinceDtoDataRes { 
-	 version?: number 
-} 
+export class UpdateProvinceDtoDataRes {
+	version?: number
+}
 

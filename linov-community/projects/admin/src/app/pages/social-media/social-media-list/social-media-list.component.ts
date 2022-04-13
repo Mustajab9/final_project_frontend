@@ -1,14 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { GetAllSocialMediaDtoDataRes } from '../../../../../../core/src/app/dto/social-media/get-all-social-media-dto-data-res';
-import { SocialMediaService } from '../../../../../../core/src/app/service/social-media.service';
-import { deleteSocialMediaAction } from '../../../../../../core/src/app/state/social-media/social-media.action';
-import { Subscription } from 'rxjs';
-import { socialMediaSelectorDelete } from '../../../../../../core/src/app/state/social-media/social-media.selector';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
+import { Table } from 'primeng/table'
+
+import { GetAllSocialMediaDtoDataRes } from '../../../../../../core/src/app/dto/social-media/get-all-social-media-dto-data-res'
+import { SocialMediaService } from '../../../../../../core/src/app/service/social-media.service'
+import { deleteSocialMediaAction } from '../../../../../../core/src/app/state/social-media/social-media.action'
+import { socialMediaSelectorDelete } from '../../../../../../core/src/app/state/social-media/social-media.selector'
 
 @Component({
   selector: 'app-social-media-list',
@@ -38,7 +41,7 @@ export class SocialMediaListComponent implements OnInit, OnDestroy {
   }
 
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
-    this.loading = true;
+    this.loading = true
 
     this.getAllSocialMediaSubscription = this.socialMediaService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
@@ -51,7 +54,7 @@ export class SocialMediaListComponent implements OnInit, OnDestroy {
   }
 
   clear(table: Table): void {
-    table.clear();
+    table.clear()
   }
 
   filter(text: any): void {
@@ -81,7 +84,7 @@ export class SocialMediaListComponent implements OnInit, OnDestroy {
           this.store.dispatch(deleteSocialMediaAction({ payload: id }))
           this.deleteProgress()
       }
-    });
+    })
   }
 
   ngOnDestroy(): void {

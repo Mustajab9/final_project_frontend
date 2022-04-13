@@ -1,7 +1,7 @@
-import { GetAllBookmarkDtoDataRes } from './get-all-bookmark-dto-data-res' 
+import { GetAllBookmarkDtoDataRes } from './get-all-bookmark-dto-data-res'
 
-export class GetAllBookmarkDtoRes { 
-	 msg?: string 
-	 data!: GetAllBookmarkDtoDataRes[] 
-} 
+export class GetAllBookmarkDtoRes {
+	msg?: string
+	data!: GetAllBookmarkDtoDataRes[]
+}
 

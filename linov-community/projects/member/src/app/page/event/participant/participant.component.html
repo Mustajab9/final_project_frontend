@@ -7,7 +7,7 @@
             <p-toolbar styleClass="my-4">
                 <ng-template pTemplate="left">
                     <app-button classBtn="p-button-secondary"  typeBtn="submit"
-                                labelBtn="Back" idBtn="back" iconType="pi-arrow-left" routerLinkBtn="/member/event/list">
+                                labelBtn="Back" idBtn="back" iconType="pi-arrow-left" (clickBtnEvent)="onBack()">
                     </app-button>
                 </ng-template>
 

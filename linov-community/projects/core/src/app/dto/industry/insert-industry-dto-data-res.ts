@@ -1,4 +1,4 @@
-export class InsertIndustryDtoDataRes { 
-	 id?: string 
-} 
+export class InsertIndustryDtoDataRes {
+	id?: string
+}
 

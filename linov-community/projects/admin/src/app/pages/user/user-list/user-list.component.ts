@@ -1,14 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { GetAllUserDtoDataRes } from '../../../../../../core/src/app/dto/user/get-all-user-dto-data-res';
-import { UserService } from '../../../../../../core/src/app/service/user.service';
-import { deleteUserAction } from '../../../../../../core/src/app/state/user/user.action';
-import { Subscription } from 'rxjs';
-import { userSelectorDelete } from '../../../../../../core/src/app/state/user/user.selector';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
+import { Table } from 'primeng/table'
+
+import { GetAllUserDtoDataRes } from '../../../../../../core/src/app/dto/user/get-all-user-dto-data-res'
+import { UserService } from '../../../../../../core/src/app/service/user.service'
+import { deleteUserAction } from '../../../../../../core/src/app/state/user/user.action'
+import { userSelectorDelete } from '../../../../../../core/src/app/state/user/user.selector'
 
 @Component({
   selector: 'app-user-list',
@@ -38,7 +41,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
-    this.loading = true;
+    this.loading = true
 
     this.getAllUserSubscription = this.userService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
@@ -51,7 +54,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   clear(table: Table): void {
-    table.clear();
+    table.clear()
   }
 
   filter(text: any): void {
@@ -81,7 +84,7 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.store.dispatch(deleteUserAction({ payload: id }))
         this.deleteProgress()
       }
-    });
+    })
   }
 
   ngOnDestroy(): void {

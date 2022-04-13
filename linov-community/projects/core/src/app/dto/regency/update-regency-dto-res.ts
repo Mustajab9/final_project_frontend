@@ -1,7 +1,7 @@
-import { UpdateRegencyDtoDataRes } from './update-regency-dto-data-res' 
+import { UpdateRegencyDtoDataRes } from './update-regency-dto-data-res'
 
-export class UpdateRegencyDtoRes { 
-	 msg?: string 
-	 data!: UpdateRegencyDtoDataRes 
-} 
+export class UpdateRegencyDtoRes {
+	msg?: string
+	data!: UpdateRegencyDtoDataRes
+}
 

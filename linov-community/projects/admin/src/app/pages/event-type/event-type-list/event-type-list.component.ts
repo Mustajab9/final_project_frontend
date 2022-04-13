@@ -1,14 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { GetAllEventTypeDtoDataRes } from '../../../../../../core/src/app/dto/event-type/get-all-event-type-dto-data-res';
-import { EventTypeService } from '../../../../../../core/src/app/service/event-type.service';
-import { deleteEventTypeAction } from '../../../../../../core/src/app/state/event-type/event-type.action';
-import { Subscription } from 'rxjs';
-import { eventTypeSelectorDelete } from 'projects/core/src/app/state/event-type/event-type.selector';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
+import { Table } from 'primeng/table'
+
+import { GetAllEventTypeDtoDataRes } from '../../../../../../core/src/app/dto/event-type/get-all-event-type-dto-data-res'
+import { EventTypeService } from '../../../../../../core/src/app/service/event-type.service'
+import { deleteEventTypeAction } from '../../../../../../core/src/app/state/event-type/event-type.action'
+import { eventTypeSelectorDelete } from '../../../../../../core/src/app/state/event-type/event-type.selector'
 
 @Component({
   selector: 'app-event-type-list',
@@ -26,19 +28,19 @@ export class EventTypeListComponent implements OnInit, OnDestroy {
   loading: boolean = true
 
   constructor(private title: Title, private router: Router, private store: Store, private confirmationService: ConfirmationService,
-              private eventTypeService: EventTypeService) {
+    private eventTypeService: EventTypeService) {
     this.title.setTitle('Event Type List')
   }
 
   ngOnInit(): void {
   }
 
-  loadData(event: LazyLoadEvent) {
+  loadData(event: LazyLoadEvent): void {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
-    this.loading = true;
+    this.loading = true
 
     this.getAllEventTypeSubscription = this.eventTypeService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
@@ -51,7 +53,7 @@ export class EventTypeListComponent implements OnInit, OnDestroy {
   }
 
   clear(table: Table): void {
-    table.clear();
+    table.clear()
   }
 
   filter(text: any): void {
@@ -72,21 +74,21 @@ export class EventTypeListComponent implements OnInit, OnDestroy {
     })
   }
 
-  deleteById(id: string){
+  deleteById(id: string): void {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete this data?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.store.dispatch(deleteEventTypeAction({ payload: id }))
-          this.deleteProgress()
+        this.store.dispatch(deleteEventTypeAction({ payload: id }))
+        this.deleteProgress()
       }
-    });
+    })
   }
 
   ngOnDestroy(): void {
-    this.getAllEventTypeSubscription?.unsubscribe
-    this.eventTypeDeleteSubscription?.unsubscribe
+    this.getAllEventTypeSubscription?.unsubscribe()
+    this.eventTypeDeleteSubscription?.unsubscribe()
   }
 
 }

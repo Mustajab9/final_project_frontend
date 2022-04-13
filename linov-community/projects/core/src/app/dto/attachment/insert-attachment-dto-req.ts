@@ -1,3 +1,3 @@
-export class InsertAttachmentDtoReq { 
-} 
+export class InsertAttachmentDtoReq {
+}
 

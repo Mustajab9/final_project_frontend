@@ -1,4 +1,4 @@
-export class UpdateUserDtoDataRes { 
-	 version?: number 
-} 
+export class UpdateUserDtoDataRes {
+	version?: number
+}
 

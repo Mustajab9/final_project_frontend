@@ -1,5 +1,5 @@
-export class InsertThreadTypeDtoReq { 
-	 typeName?: string 
-	 typeCode?: string 
-} 
+export class InsertThreadTypeDtoReq {
+	typeName?: string
+	typeCode?: string
+}
 

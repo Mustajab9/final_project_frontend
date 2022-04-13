@@ -1,20 +1,24 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { IndustryListComponent } from "./industry-list/industry-list.component";
-import { IndustrySaveComponent } from "./industry-save/industry-save.component";
-import { IndustryUpdateComponent } from "./industry-update/industry-update.component";
-import { IndustryRouter } from "./industry.router";
+import { CommonModule } from "@angular/common"
+import { NgModule } from "@angular/core"
+import { FormsModule } from "@angular/forms"
+
+import { StoreModule } from "@ngrx/store"
+import { EffectsModule } from "@ngrx/effects"
+
+import { ConfirmationService } from "primeng/api"
+import { ButtonModule } from "primeng/button"
+import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { TableModule } from 'primeng/table'
-import { ButtonModule } from "primeng/button";
-import { ConfirmDialogModule } from "primeng/confirmdialog";
-import { ToolbarModule } from "primeng/toolbar";
-import { StoreModule } from "@ngrx/store";
-import { EffectsModule } from "@ngrx/effects";
-import { ConfirmationService, MessageService } from "primeng/api";
+import { ToolbarModule } from "primeng/toolbar"
+
+import { IndustryRouter } from "./industry.router"
+import { IndustryListComponent } from "./industry-list/industry-list.component"
+import { IndustrySaveComponent } from "./industry-save/industry-save.component"
+import { IndustryUpdateComponent } from "./industry-update/industry-update.component"
+
 import { ComponentModule } from "../../../../../core/src/app/component/components.module"
-import { industryReducer } from "../../../../../core/src/app/state/industry/industry.reducer";
-import { IndustryEffect } from "../../../../../core/src/app/state/industry/industry.effect";
+import { industryReducer } from "../../../../../core/src/app/state/industry/industry.reducer"
+import { IndustryEffect } from "../../../../../core/src/app/state/industry/industry.effect"
 
 @NgModule({
     declarations: [

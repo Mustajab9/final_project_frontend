@@ -1,4 +1,4 @@
-export class AuthorizationDtoRes { 
-	 msg?: string 
-} 
+export class AuthorizationDtoRes {
+	msg?: string
+}
 

@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdatePositionDtoReq } from '../../../../../../core/src/app/dto/position/update-position-dto-req';
-import { updatePositionAction } from '../../../../../../core/src/app/state/position/position.action';
-import { positionSelectorById, positionSelectorUpdate } from '../../../../../../core/src/app/state/position/position.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { UpdatePositionDtoReq } from '../../../../../../core/src/app/dto/position/update-position-dto-req'
+import { updatePositionAction } from '../../../../../../core/src/app/state/position/position.action'
+import { positionSelectorById, positionSelectorUpdate } from '../../../../../../core/src/app/state/position/position.selector'
 
 @Component({
   selector: 'app-position-update',
@@ -35,13 +37,13 @@ export class PositionUpdateComponent implements OnInit, OnDestroy {
 
   updateProgress(): void {
     this.updatePositionSubscription = this.store.select(positionSelectorUpdate).subscribe(result => {
-      if(result){
+      if (result) {
         this.router.navigateByUrl('/admin/position/list')
       }
     })
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.store.dispatch(updatePositionAction({ payload: this.data }))
       this.updateProgress()

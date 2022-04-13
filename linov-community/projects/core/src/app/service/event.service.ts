@@ -69,7 +69,7 @@ export class EventService {
     }
 
     update(updateReq: UpdateEventDtoReq): Observable<UpdateEventDtoRes> {
-        return this.http.post<UpdateEventDtoRes>(`http://localhost:8080/events`, updateReq)
+        return this.http.put<UpdateEventDtoRes>(`http://localhost:8080/events`, updateReq)
     }
 
     delete(id: string): Observable<DeleteByEventIdDtoRes> {

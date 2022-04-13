@@ -1,4 +1,4 @@
-export class UpdateSubscriptionDtoDataRes { 
-	 version?: number 
-} 
+export class UpdateSubscriptionDtoDataRes {
+	version?: number
+}
 

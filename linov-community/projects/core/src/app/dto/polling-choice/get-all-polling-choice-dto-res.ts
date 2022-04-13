@@ -1,7 +1,7 @@
-import { GetAllPollingChoiceDtoDataRes } from './get-all-polling-choice-dto-data-res' 
+import { GetAllPollingChoiceDtoDataRes } from './get-all-polling-choice-dto-data-res'
 
-export class GetAllPollingChoiceDtoRes { 
-	 msg?: string 
-	 data?: GetAllPollingChoiceDtoDataRes[] 
-} 
+export class GetAllPollingChoiceDtoRes {
+	msg?: string
+	data?: GetAllPollingChoiceDtoDataRes[]
+}
 

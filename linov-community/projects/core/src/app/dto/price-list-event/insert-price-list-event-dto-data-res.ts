@@ -1,4 +1,4 @@
-export class InsertPriceListEventDtoDataRes { 
-	 id?: string 
-} 
+export class InsertPriceListEventDtoDataRes {
+	id?: string
+}
 

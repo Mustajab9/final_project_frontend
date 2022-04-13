@@ -1,12 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { GetAllSubscriptionDtoDataRes } from 'projects/core/src/app/dto/subscription/get-all-subscription-dto-data-res';
-import { SubscriptionService } from 'projects/core/src/app/service/subscription.service';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
+import { Table } from 'primeng/table'
+
+import { GetAllSubscriptionDtoDataRes } from '../../../../../../core/src/app/dto/subscription/get-all-subscription-dto-data-res'
+import { SubscriptionService } from '../../../../../../core/src/app/service/subscription.service'
 
 @Component({
   selector: 'app-profile-list',
@@ -35,7 +38,7 @@ export class ProfileListComponent implements OnInit, OnDestroy {
   }
 
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
-    this.loading = true;
+    this.loading = true
 
     this.getAllProfileSubscription = this.subscriptionService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
@@ -48,7 +51,7 @@ export class ProfileListComponent implements OnInit, OnDestroy {
   }
 
   clear(table: Table): void {
-    table.clear();
+    table.clear()
   }
 
   filter(text: any): void {

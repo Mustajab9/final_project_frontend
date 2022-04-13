@@ -1,7 +1,7 @@
-import { UpdateProvinceDtoDataRes } from './update-province-dto-data-res' 
+import { UpdateProvinceDtoDataRes } from './update-province-dto-data-res'
 
-export class UpdateProvinceDtoRes { 
-	 msg?: string 
-	 data!: UpdateProvinceDtoDataRes 
-} 
+export class UpdateProvinceDtoRes {
+	msg?: string
+	data!: UpdateProvinceDtoDataRes
+}
 

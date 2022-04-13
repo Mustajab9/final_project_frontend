@@ -1,13 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { InsertRegencyDtoReq } from '../../../../../../core/src/app/dto/regency/insert-regency-dto-req';
-import { insertRegencyAction } from '../../../../../../core/src/app/state/regency/regency.action';
-import { regencySelectorInsert } from '../../../../../../core/src/app/state/regency/regency.selector';
-import { Subscription } from 'rxjs';
-import { GetAllProvinceDtoDataRes } from 'projects/core/src/app/dto/province/get-all-province-dto-data-res';
-import { ProvinceService } from 'projects/core/src/app/service/province.service';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { InsertRegencyDtoReq } from '../../../../../../core/src/app/dto/regency/insert-regency-dto-req'
+import { insertRegencyAction } from '../../../../../../core/src/app/state/regency/regency.action'
+import { regencySelectorInsert } from '../../../../../../core/src/app/state/regency/regency.selector'
+import { GetAllProvinceDtoDataRes } from '../../../../../../core/src/app/dto/province/get-all-province-dto-data-res'
+import { ProvinceService } from '../../../../../../core/src/app/service/province.service'
 
 @Component({
   selector: 'app-regency-save',

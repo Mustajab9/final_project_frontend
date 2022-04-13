@@ -1,4 +1,4 @@
-export class UpdateProfileSosmedDtoDataRes { 
-	 version?: number 
-} 
+export class UpdateProfileSosmedDtoDataRes {
+	version?: number
+}
 

@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { InsertPositionDtoReq } from '../../../../../../core/src/app/dto/position/insert-position-dto-req';
-import { insertPositionAction } from '../../../../../../core/src/app/state/position/position.action';
-import { positionSelectorInsert } from '../../../../../../core/src/app/state/position/position.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { InsertPositionDtoReq } from '../../../../../../core/src/app/dto/position/insert-position-dto-req'
+import { insertPositionAction } from '../../../../../../core/src/app/state/position/position.action'
+import { positionSelectorInsert } from '../../../../../../core/src/app/state/position/position.selector'
 
 @Component({
   selector: 'app-position-save',
@@ -32,7 +34,7 @@ export class PositionSaveComponent implements OnInit, OnDestroy {
     })
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.store.dispatch(insertPositionAction({ payload: this.data }))
       this.insertProgress()

@@ -1,5 +1,5 @@
-export class InsertThreadCommentDtoReq { 
-	 commentContent?: string 
-	 threadId?: string 
-} 
+export class InsertThreadCommentDtoReq {
+	commentContent?: string
+	threadId?: string
+}
 

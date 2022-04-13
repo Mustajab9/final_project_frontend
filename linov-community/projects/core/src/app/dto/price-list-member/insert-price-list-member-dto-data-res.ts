@@ -1,4 +1,4 @@
-export class InsertPriceListMemberDtoDataRes { 
-	 id?: string 
-} 
+export class InsertPriceListMemberDtoDataRes {
+	id?: string
+}
 

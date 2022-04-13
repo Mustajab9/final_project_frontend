@@ -1,7 +1,7 @@
-import { GetByPriceListEventIdDtoDataRes } from './get-by-price-list-event-id-dto-data-res' 
+import { GetByPriceListEventIdDtoDataRes } from './get-by-price-list-event-id-dto-data-res'
 
-export class GetByPriceListEventIdDtoRes { 
-	 msg?: string 
-	 data?: GetByPriceListEventIdDtoDataRes 
-} 
+export class GetByPriceListEventIdDtoRes {
+	msg?: string
+	data?: GetByPriceListEventIdDtoDataRes
+}
 

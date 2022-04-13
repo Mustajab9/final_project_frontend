@@ -1,4 +1,4 @@
-export class InsertThreadLikeDtoReq { 
-	 threadId?: string 
-} 
+export class InsertThreadLikeDtoReq {
+	threadId?: string
+}
 

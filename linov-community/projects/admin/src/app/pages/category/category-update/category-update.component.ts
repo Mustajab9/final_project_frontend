@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { Store } from '@ngrx/store';
-import { updateCategoryAction } from 'projects/core/src/app/state/category/category.action';
-import { categorySelectorById, categorySelectorUpdate } from 'projects/core/src/app/state/category/category.selector';
 import { Subscription } from 'rxjs';
+
+import { updateCategoryAction } from '../../../../../../core/src/app/state/category/category.action';
+import { categorySelectorById, categorySelectorUpdate } from '../../../../../../core/src/app/state/category/category.selector';
 import { UpdateCategoryDtoReq } from '../../../../../../core/src/app/dto/category/update-category-dto-req';
 
 @Component({
@@ -35,13 +37,13 @@ export class CategoryUpdateComponent implements OnInit, OnDestroy {
 
   updateProgress(): void {
     this.updateCategorySubscription = this.store.select(categorySelectorUpdate).subscribe(result => {
-      if(result){
+      if (result) {
         this.router.navigateByUrl('/admin/category/list')
       }
     })
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.store.dispatch(updateCategoryAction({ payload: this.data }))
       this.updateProgress()

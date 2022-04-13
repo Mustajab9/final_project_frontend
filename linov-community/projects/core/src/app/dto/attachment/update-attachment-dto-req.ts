@@ -1,3 +1,3 @@
-export class UpdateAttachmentDtoReq { 
-} 
+export class UpdateAttachmentDtoReq {
+}
 

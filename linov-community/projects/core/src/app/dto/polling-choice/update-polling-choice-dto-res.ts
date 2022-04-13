@@ -1,7 +1,7 @@
-import { UpdatePollingChoiceDtoDataRes } from './update-polling-choice-dto-data-res' 
+import { UpdatePollingChoiceDtoDataRes } from './update-polling-choice-dto-data-res'
 
-export class UpdatePollingChoiceDtoRes { 
-	 msg?: string 
-	 data?: UpdatePollingChoiceDtoDataRes 
-} 
+export class UpdatePollingChoiceDtoRes {
+	msg?: string
+	data?: UpdatePollingChoiceDtoDataRes
+}
 

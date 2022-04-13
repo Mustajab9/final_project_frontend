@@ -1,4 +1,4 @@
-export class InsertPaymentMethodDtoDataRes { 
-	 id?: string 
-} 
+export class InsertPaymentMethodDtoDataRes {
+	id?: string
+}
 

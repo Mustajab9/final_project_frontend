@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { InsertThreadTypeDtoReq } from '../../../../../../core/src/app/dto/thread-type/insert-thread-type-dto-req';
-import { insertThreadTypeAction } from '../../../../../../core/src/app/state/thread-type/thread-type.action';
-import { threadTypeSelectorInsert } from '../../../../../../core/src/app/state/thread-type/thread-type.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { InsertThreadTypeDtoReq } from '../../../../../../core/src/app/dto/thread-type/insert-thread-type-dto-req'
+import { insertThreadTypeAction } from '../../../../../../core/src/app/state/thread-type/thread-type.action'
+import { threadTypeSelectorInsert } from '../../../../../../core/src/app/state/thread-type/thread-type.selector'
 
 @Component({
   selector: 'app-thread-type-save',

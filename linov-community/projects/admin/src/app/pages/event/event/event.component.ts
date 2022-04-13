@@ -1,16 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
-import { GetByEventIdDtoDataRes } from 'projects/core/src/app/dto/event/get-by-event-id-dto-data-res';
-import { UpdateEventDtoReq } from 'projects/core/src/app/dto/event/update-event-dto-req';
-import { EventService } from 'projects/core/src/app/service/event.service';
-import { updateEventAction } from 'projects/core/src/app/state/event/event.action';
-import { eventSelectorUpdate } from 'projects/core/src/app/state/event/event.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Store } from '@ngrx/store'
+import { Subscription } from 'rxjs'
+
+import { LazyLoadEvent } from 'primeng/api'
+import { Table } from 'primeng/table'
+
+import { GetAllEventDtoDataRes } from '../../../../../../core/src/app/dto/event/get-all-event-dto-data-res'
+import { GetByEventIdDtoDataRes } from '../../../../../../core/src/app/dto/event/get-by-event-id-dto-data-res'
+import { UpdateEventDtoReq } from '../../../../../../core/src/app/dto/event/update-event-dto-req'
+import { EventService } from '../../../../../../core/src/app/service/event.service'
 
 @Component({
   selector: 'app-event',
@@ -41,12 +42,12 @@ export class EventComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  loadData(event: LazyLoadEvent) {
+  loadData(event: LazyLoadEvent): void {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
-    this.loading = true;
+    this.loading = true
 
     this.getAllEventSubscription = this.eventService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
@@ -59,7 +60,7 @@ export class EventComponent implements OnInit, OnDestroy {
   }
 
   clear(table: Table): void {
-    table.clear();
+    table.clear()
   }
 
   filter(text: any): void {
@@ -68,27 +69,22 @@ export class EventComponent implements OnInit, OnDestroy {
     })
   }
 
-  updateProgress(): void {
-    this.updateEventSubscription = this.store.select(eventSelectorUpdate).subscribe(result => {
-      if (result) {
-        this.getData(0, 10)
-      }
-    })
-  }
-
-  onSubmit(id: string) {
+  onSubmit(id: string): void {
     this.router.navigateByUrl(`/admin/event/participant/${id}`)
   }
 
-  onApprove(id: string){
+  onApprove(id: string): void {
     this.getByEventIdSubscription = this.eventService.getById(id).subscribe(result => {
-      if(result){
-        this.update.id = result.data.id
+      if (result) {
+        this.update.id = id
         this.update.isActive = result.data.isActive
         this.update.version = result.data.version
         this.update.isApprove = true
-        this.store.dispatch(updateEventAction({ payload: this.update }))
-        this.updateProgress()
+        this.updateEventSubscription = this.eventService.update(this.update).subscribe(result => {
+          if (result) {
+            this.getData(0, 10)
+          }
+        })
       }
     })
   }

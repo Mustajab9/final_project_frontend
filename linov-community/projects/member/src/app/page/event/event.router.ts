@@ -24,7 +24,7 @@ const routes: Routes = [
         component: EnrollSaveComponent
     },
     {
-        path: 'participant/:id',
+        path: 'participant/:type/:id',
         component: ParticipantComponent
     }
 ]

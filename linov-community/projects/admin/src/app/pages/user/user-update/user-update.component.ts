@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { UpdateUserDtoReq } from '../../../../../../core/src/app/dto/user/update-user-dto-req';
-import { updateUserAction } from '../../../../../../core/src/app/state/user/user.action';
-import { userSelectorById, userSelectorUpdate } from '../../../../../../core/src/app/state/user/user.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { UpdateUserDtoReq } from '../../../../../../core/src/app/dto/user/update-user-dto-req'
+import { updateUserAction } from '../../../../../../core/src/app/state/user/user.action'
+import { userSelectorById, userSelectorUpdate } from '../../../../../../core/src/app/state/user/user.selector'
 
 @Component({
   selector: 'app-user-update',

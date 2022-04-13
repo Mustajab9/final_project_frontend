@@ -1,14 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { GetAllRegencyDtoDataRes } from '../../../../../../core/src/app/dto/regency/get-all-regency-dto-data-res';
-import { RegencyService } from '../../../../../../core/src/app/service/regency.service';
-import { deleteRegencyAction } from '../../../../../../core/src/app/state/regency/regency.action';
-import { Subscription } from 'rxjs';
-import { regencySelectorDelete } from '../../../../../../core/src/app/state/regency/regency.selector';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
+import { Table } from 'primeng/table'
+
+import { GetAllRegencyDtoDataRes } from '../../../../../../core/src/app/dto/regency/get-all-regency-dto-data-res'
+import { RegencyService } from '../../../../../../core/src/app/service/regency.service'
+import { deleteRegencyAction } from '../../../../../../core/src/app/state/regency/regency.action'
+import { regencySelectorDelete } from '../../../../../../core/src/app/state/regency/regency.selector'
 
 @Component({
   selector: 'app-regency-list',
@@ -38,7 +41,7 @@ export class RegencyListComponent implements OnInit, OnDestroy {
   }
 
   getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
-    this.loading = true;
+    this.loading = true
 
     this.getAllRegencySubscription = this.regencyService.getAll(startPage, maxPage, query).subscribe({
       next: result => {
@@ -51,7 +54,7 @@ export class RegencyListComponent implements OnInit, OnDestroy {
   }
 
   clear(table: Table): void {
-    table.clear();
+    table.clear()
   }
 
   filter(text: any): void {
@@ -81,7 +84,7 @@ export class RegencyListComponent implements OnInit, OnDestroy {
           this.store.dispatch(deleteRegencyAction({ payload: id }))
           this.deleteProgress()
       }
-    });
+    })
   }
 
   ngOnDestroy(): void {

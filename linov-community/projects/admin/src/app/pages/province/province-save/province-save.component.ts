@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { InsertProvinceDtoReq } from '../../../../../../core/src/app/dto/province/insert-province-dto-req';
-import { insertProvinceAction } from '../../../../../../core/src/app/state/province/province.action';
-import { provinceSelectorInsert } from '../../../../../../core/src/app/state/province/province.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { InsertProvinceDtoReq } from '../../../../../../core/src/app/dto/province/insert-province-dto-req'
+import { insertProvinceAction } from '../../../../../../core/src/app/state/province/province.action'
+import { provinceSelectorInsert } from '../../../../../../core/src/app/state/province/province.selector'
 
 @Component({
   selector: 'app-province-save',

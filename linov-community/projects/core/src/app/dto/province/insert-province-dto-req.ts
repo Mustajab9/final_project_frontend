@@ -1,5 +1,5 @@
-export class InsertProvinceDtoReq { 
-	 provinceName?: string 
-	 provinceCode?: string 
-} 
+export class InsertProvinceDtoReq {
+	provinceName?: string
+	provinceCode?: string
+}
 

@@ -32,7 +32,7 @@ export class PaymentMethodSaveComponent implements OnInit, OnDestroy {
     })
   }
 
-  onSubmit(isValid: boolean) {
+  onSubmit(isValid: boolean): void {
     if (isValid) {
       this.store.dispatch(insertPaymentMethodAction({ payload: this.data }))
       this.insertProgress()

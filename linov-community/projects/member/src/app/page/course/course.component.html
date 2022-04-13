@@ -154,9 +154,14 @@
                                     classLabel="p-2 bg-light rounded-pill text-end" nameLabel="{{event.categoryName}}">
                                 </app-label>
 
-                                <app-button
-                                    classBtn="mt-2 w-100" labelBtn="Enroll"
+                                <app-button *ngIf="event.createdBy != userId"
+                                    classBtn="mt-2 w-100 p-button-success" labelBtn="Enroll"
                                     [requiredIcon]="false" (clickBtnEvent)="onEnroll(event.id)">
+                                </app-button>
+
+                                <app-button *ngIf="event.createdBy == userId"
+                                    classBtn="mt-2 w-100" labelBtn="Participant" iconType="pi-list"
+                                    [requiredIcon]="true" (clickBtnEvent)="onSubmit(event.id)">
                                 </app-button>
                             </div>
                         </div>

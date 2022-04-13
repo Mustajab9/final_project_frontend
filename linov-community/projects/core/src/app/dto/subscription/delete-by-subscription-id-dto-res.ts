@@ -1,4 +1,4 @@
-export class DeleteBySubscriptionIdDtoRes { 
-	 msg?: string 
-} 
+export class DeleteBySubscriptionIdDtoRes {
+	msg?: string
+}
 

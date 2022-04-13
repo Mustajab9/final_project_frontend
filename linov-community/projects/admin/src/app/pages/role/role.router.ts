@@ -1,8 +1,9 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { RoleListComponent } from "./role-list/role-list.component";
-import { RoleSaveComponent } from "./role-save/role-save.component";
-import { RoleUpdateComponent } from "./role-update/role-update.component";
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+
+import { RoleListComponent } from "./role-list/role-list.component"
+import { RoleSaveComponent } from "./role-save/role-save.component"
+import { RoleUpdateComponent } from "./role-update/role-update.component"
 
 const routes: Routes = [
     {

@@ -1,7 +1,7 @@
-export class UpdatePaymentMethodDtoReq { 
-	 id?: string 
-	 paymentName?: string 
-	 version?: number 
-	 isActive?: boolean 
-} 
+export class UpdatePaymentMethodDtoReq {
+	id?: string
+	paymentName?: string
+	version?: number
+	isActive?: boolean
+}
 

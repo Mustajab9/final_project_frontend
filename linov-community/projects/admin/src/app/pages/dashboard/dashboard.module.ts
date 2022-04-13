@@ -1,10 +1,10 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { TableModule } from "primeng/table";
-import { ComponentModule } from "projects/core/src/app/component/components.module";
-import { DashboardComponent } from "./dashboard.component";
-import { DashboardRouter } from "./dashboard.router";
+import { CommonModule } from "@angular/common"
+import { NgModule } from "@angular/core"
+import { FormsModule } from "@angular/forms"
+
+import { DashboardRouter } from "./dashboard.router"
+import { DashboardComponent } from "./dashboard.component"
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 
 @NgModule({
     declarations: [
@@ -14,8 +14,7 @@ import { DashboardRouter } from "./dashboard.router";
         DashboardRouter,
         CommonModule,
         FormsModule,
-        ComponentModule,
-        TableModule
+        ComponentModule
     ]
 })
 export class DashboardModule { }
