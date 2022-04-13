@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   insertBookmarkDtoReq: InsertBookmarkDtoReq = new InsertBookmarkDtoReq()
   insertChoiceVoteDtoReq: InsertChoiceVoteDtoReq = new InsertChoiceVoteDtoReq()
   threadAllSubscription?: Subscription
+  articleAllSubscription?: Subscription
   eventAllSubscription?: Subscription
   getThreadLikeByThreadAndUserSubscription?: Subscription
   threadLikeInsertSubscription?: Subscription
@@ -39,9 +40,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   value: number = 0
   responsiveOptions: any
   isPollingClicked: boolean = false
-
   initialPage: number = 0
   maxPage: number = 10
+
+  blockedPanel: boolean = false;
 
   constructor(private title: Title, private router: Router,
     private threadService: ThreadService, private threadLikeService: ThreadLikeService,
@@ -139,7 +141,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   onScroll(): void {
     this.initialPage = this.initialPage+10
     this.threadAllSubscription = this.threadService.getAll(this.initialPage, this.maxPage).subscribe(result => {
-      this.threads = [...this.threads, ...result.data]
+      this.threads = [...this.threads, ...result.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')]
     })
   }
 

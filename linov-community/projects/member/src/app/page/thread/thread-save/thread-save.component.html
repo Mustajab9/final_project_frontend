@@ -1,10 +1,17 @@
-<div class="container my-5">
+<div class="container mb-5">
     <div class="row">
         <div class="col-sm-9">
             <div class="my-4 row">
-                <div class="col-4">
-                    <i class="fa-solid fa-comment me-4"></i>
-                    <span class="fs-5 fw-bold" style="color: #323232;">New Thread</span>
+                <div class="col-4 d-flex align-items-center gap-3">
+                    <app-button 
+                        classBtn="p-button-outlined" (clickBtnEvent)="onBack()"
+                        [requiredIcon]="true" iconType="pi-arrow-left">
+                    </app-button>
+
+                    <div>
+                        <i class="fa-solid fa-comment me-2"></i>
+                        <span class="fs-5 fw-bold" style="color: #323232;">New Thread</span>
+                    </div>
                 </div>
             </div>
 
@@ -28,7 +35,7 @@
                         </form-textarea>
 
                         <div class="row mt-3">
-                            <div class="d-flex flex-column col-6">
+                            <div class="d-flex flex-column col-6" *ngIf="writeType != 'article'">
                                 <app-label forLabel="" classLabel="" nameLabel="Category"></app-label>
                                 <p-multiSelect name="category"
                                     [options]="threadCategories" [(ngModel)]="selectedCategory"
@@ -38,11 +45,11 @@
                             </div>
 
                             <div class="d-flex flex-column col-6">
-                                <app-label forLabel="" classLabel="" nameLabel="Thread Type"></app-label>
-                                <p-dropdown name="type"
-                                    [options]="threadTypes" [(ngModel)]="selectedType" placeholder="Select Type" 
-                                    optionLabel="typeName" [required]="true" [showClear]="true">
-                                </p-dropdown>
+                                <form-select 
+                                    forLabel="type" nameLabel="Thread Type" [requiredLabel]="true" 
+                                    [optionData]="threadTypes" optionLabel="typeName" optionValue="id"
+                                    [(ngModelSelect)]="selectedType.id">
+                                </form-select>
                             </div>
                         </div>
 
@@ -92,7 +99,7 @@
                         <div class="d-flex justify-content-end align-items-center text-end gap-3 mt-3">
                             <app-label *ngFor="let file of uploadedFiles" forLabel="upload" nameLabel="{{file.name}}, "></app-label>
                             <p-fileUpload 
-                                mode="basic" (onSelect)="onBasicUpload($event)" [previewWidth]="10"
+                                mode="basic" (onSelect)="onBasicUpload($event)" [previewWidth]="10" pTooltip="Browse File" tooltipPosition="left"
                                 chooseIcon="pi pi-file" [multiple]="true" [files]="uploadedFiles" accept="image/*">
                             </p-fileUpload>
 
@@ -107,7 +114,7 @@
         </div>
         <div class="col-sm-3">
             <div class="my-4">
-                <i class="fa-solid fa-link me-3"></i>
+                <i class="fa-solid fa-link me-2"></i>
                 <span class="fs-5 fw-bold" style="color: #323232;">Features</span>
             </div>
         </div>

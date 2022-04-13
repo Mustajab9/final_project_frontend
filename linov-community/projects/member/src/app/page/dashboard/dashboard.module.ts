@@ -10,6 +10,8 @@ import { ChartModule } from 'primeng/chart';
 import { CarouselModule } from 'primeng/carousel';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { PanelModule } from 'primeng/panel';
+import { BlockUIModule } from 'primeng/blockui';
 
 @NgModule({
     declarations: [
@@ -25,6 +27,8 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
         CarouselModule,
         ProgressBarModule,
         InfiniteScrollModule,
+        PanelModule,
+        BlockUIModule,
         DashboardRouter
     ]
 })

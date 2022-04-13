@@ -55,6 +55,9 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
 
     this.threadTypeAllSubscription = this.threadTypeService.getAll().subscribe(result => {
       this.threadTypes = result.data
+      if(this.writeType == 'article') {
+        this.selectedType = this.threadTypes.filter(comp => comp.typeCode == 'TY03')[0]
+      }
     })
   }
 
@@ -76,12 +79,16 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
     }
 
     this.threadInsertSubscription = this.threadService.insert(this.thread, this.uploadedFiles).subscribe(result => {
-      if(this.writeType == 'article') {
-        this.router.navigateByUrl('/member/article/dashboard')
-      }else if(this.writeType == 'thread') {
-        this.router.navigateByUrl('/member/dashboard')
-      }
+      this.onBack()
     })
+  }
+
+  onBack(): void {
+    if(this.writeType == 'article') {
+      this.router.navigateByUrl('/member/article/dashboard')
+    }else if(this.writeType == 'thread') {
+      this.router.navigateByUrl('/member/dashboard')
+    }
   }
 
   addChoice(): void {

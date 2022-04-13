@@ -37,7 +37,7 @@
                                                 <app-label classLabel="fw-bold" nameLabel="Edit Profile"></app-label>
                                             </div>
                                             <div class="col-6 text-end">
-                                                <app-button classBtn="p-button-warning text-center"
+                                                <app-button *ngIf="roleCode == 'R01' || roleCode == 'R02'" classBtn="p-button-warning text-center"
                                                     labelBtn="Get Premium" idBtn="premium"
                                                     routerLink="/member/subscription/">
                                                 </app-button>

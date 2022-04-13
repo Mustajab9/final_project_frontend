@@ -11,6 +11,15 @@
 }
 
 .limitTextHeight {
-    height: 20px;
     overflow: hidden;
+}
+
+:host ::ng-deep .p-component-overlay-enter {
+    animation: enter 150ms forwards;
+    background-color: rgb(240, 240, 240, 0.4);
+    backdrop-filter: blur(3px)
+}
+
+:host ::ng-deep .p-panel-content {
+    border: none;
 }

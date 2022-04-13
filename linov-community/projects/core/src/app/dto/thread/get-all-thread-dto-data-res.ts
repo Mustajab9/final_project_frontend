@@ -16,6 +16,7 @@ export class GetAllThreadDtoDataRes {
 	totalVote!: number
 	totalLike!: number
 	totalComment!: number
+	isPremium!: boolean
 	isLiked!: boolean
 	isBookmarked!: boolean
 	isVoted!: boolean

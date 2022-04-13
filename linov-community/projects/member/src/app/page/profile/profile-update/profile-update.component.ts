@@ -40,6 +40,7 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
   isFound: boolean = false
   getUserByEmailSubscription?: Subscription
   changePasswordSubscription?: Subscription
+  roleCode?: string | undefined = this.loginService.getData()?.data.roleCode
 
   profile: GetProfileByUserDtoDataRes = new GetProfileByUserDtoDataRes()
   profileSosmed: GetProfileSosmedByUserDtoDataRes[] = []

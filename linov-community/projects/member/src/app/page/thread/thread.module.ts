@@ -16,6 +16,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { CarouselModule } from 'primeng/carousel';
+import { BlockUIModule } from 'primeng/blockui';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
     declarations: [
@@ -35,6 +37,8 @@ import { CarouselModule } from 'primeng/carousel';
         DropdownModule,
         TableModule,
         CarouselModule,
+        BlockUIModule,
+        TooltipModule,
         ThreadRouter
     ]
 })
