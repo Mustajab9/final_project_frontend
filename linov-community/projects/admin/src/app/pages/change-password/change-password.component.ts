@@ -62,7 +62,6 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
 
   onSubmit(isValid: boolean) {
     if (isValid) {
-      const roleCode: string | undefined = this.dataLogin?.data.roleCode
       this.changePasswordSubscription = this.userService.changePassword(this.data).subscribe(result => {
         if (result) {
           this.initData();

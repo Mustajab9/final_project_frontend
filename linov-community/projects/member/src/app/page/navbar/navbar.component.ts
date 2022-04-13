@@ -27,25 +27,29 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.items = [
       {
         label: 'Dashboard',
-        icon : 'pi pi-home'
+        icon: 'pi pi-home'
       },
       {
         label: 'Thread',
-        icon : 'pi pi-th-large'
+        icon: 'pi pi-th-large'
       },
       {
         label: 'Course',
-        icon : 'pi pi-book'
+        icon: 'pi pi-book'
       },
       {
         label: 'Event',
-        icon : 'pi pi-calendar'
+        icon: 'pi pi-calendar'
       }
     ]
 
     this.getCountEventNotPaidSubscription = this.eventService.getCountNotPaid().subscribe(result => {
       this.countNotPaid = result.countNotPaid
     })
+  }
+
+  changePassword() {
+    this.router.navigateByUrl('/member/change-password')
   }
 
   onClick(): void {

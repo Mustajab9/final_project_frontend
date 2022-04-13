@@ -49,6 +49,11 @@ const routes: Routes = [
         loadChildren: () => import('./page/article/article.module').then(m => m.ArticleModule)
     },
     {
+        path: 'member/change-password',
+        component: NavbarComponent,
+        loadChildren: () => import('./page/change-password/change-password.module').then(m => m.ChangePasswordModule)
+    },
+    {
         path: '',
         redirectTo: 'member/dashboard',
         pathMatch: 'full'

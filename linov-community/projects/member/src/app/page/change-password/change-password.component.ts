@@ -1,19 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
-import { Title } from '@angular/platform-browser'
-import { Router } from '@angular/router'
-import { Subscription } from 'rxjs'
-import { UserService } from '../../../../../core/src/app/service/user.service'
-import { RoleService } from '../../../../../core/src/app/service/role.service'
-import { LoginService } from '../../../../../core/src/app/service/login.service'
-import { LoginDtoRes } from '../../../../../core/src/app/dto/user/login-dto-res'
-import { ChangePasswordDtoReq } from '../../../../../core/src/app/dto/user/change-password-dto-req'
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { ChangePasswordDtoReq } from 'projects/core/src/app/dto/user/change-password-dto-req';
+import { LoginDtoRes } from 'projects/core/src/app/dto/user/login-dto-res';
+import { LoginService } from 'projects/core/src/app/service/login.service';
+import { UserService } from 'projects/core/src/app/service/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.css']
 })
-export class ChangePasswordComponent implements OnInit, OnDestroy {
+export class ChangePasswordComponent implements OnInit {
 
   data: ChangePasswordDtoReq = new ChangePasswordDtoReq()
 
@@ -30,6 +29,10 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.initData()
+  }
+
+  initData(): void {
     const id: string | undefined = this.dataLogin?.data.id
     this.getUserByEmailSubscription = this.userService.getById(id).subscribe(result => {
       if (result) {
@@ -59,14 +62,9 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
 
   onSubmit(isValid: boolean) {
     if (isValid) {
-      const roleCode: string | undefined = this.dataLogin?.data.roleCode
       this.changePasswordSubscription = this.userService.changePassword(this.data).subscribe(result => {
         if (result) {
-          if (roleCode == 'R01') {
-            this.router.navigateByUrl(`admin/dashboard`)
-          } else {
-            this.router.navigateByUrl(`member/dashboard`)
-          }
+          this.initData();
         }
       })
     }
@@ -76,4 +74,5 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     this.getUserByEmailSubscription?.unsubscribe
     this.changePasswordSubscription?.unsubscribe
   }
+
 }

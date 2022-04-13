@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
     <div class="container-fluid">
-        <img src="../../../assets/image/linovhr.png" style="height: 40px;" routerLink="#" alt="logo">
+        <img src="../../../assets/image/linov-roket.png" style="height: 60px; width: 60px;" routerLink="#" alt="logo">
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +25,8 @@
         </div>
 
         <a routerLink="/member/cart-list" class="me-3" style="color: black;">
-            <p-avatar icon="pi pi-shopping-cart" pBadge value="{{countNotPaid}}" severity="primary" styleClass="mr-0" size="">
+            <p-avatar icon="pi pi-shopping-cart" pBadge value="{{countNotPaid}}" severity="primary" styleClass="mr-0"
+                size="">
             </p-avatar>
         </a>
 
@@ -39,8 +40,7 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-light"
                         aria-labelledby="navbarDarkDropdownMenuLink">
                         <li><a class="dropdown-item" routerLink="/member/profile-update">Edit Profile</a></li>
-                        <li><a class="dropdown-item" routerLink="" >Change Password</a></li>
-                        <li><a class="dropdown-item" (click)="onClick()" >Log Out</a></li>
+                        <li><a class="dropdown-item" (click)="onClick()">Log Out</a></li>
                     </ul>
                 </li>
             </ul>

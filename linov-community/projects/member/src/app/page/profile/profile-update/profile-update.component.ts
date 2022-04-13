@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GetAllIndustryDtoDataRes } from 'projects/core/src/app/dto/industry/get-all-industry-dto-data-res';
@@ -11,6 +11,8 @@ import { UpdateProfilesDtoReq } from 'projects/core/src/app/dto/profiles/update-
 import { GetAllProvinceDtoDataRes } from 'projects/core/src/app/dto/province/get-all-province-dto-data-res';
 import { GetAllRegencyDtoDataRes } from 'projects/core/src/app/dto/regency/get-all-regency-dto-data-res';
 import { GetAllSocialMediaDtoDataRes } from 'projects/core/src/app/dto/social-media/get-all-social-media-dto-data-res';
+import { ChangePasswordDtoReq } from 'projects/core/src/app/dto/user/change-password-dto-req';
+import { LoginDtoRes } from 'projects/core/src/app/dto/user/login-dto-res';
 import { IndustryService } from 'projects/core/src/app/service/industry.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
 import { PositionService } from 'projects/core/src/app/service/position.service';
@@ -19,6 +21,7 @@ import { ProfilesService } from 'projects/core/src/app/service/profiles.service'
 import { ProvinceService } from 'projects/core/src/app/service/province.service';
 import { RegencyService } from 'projects/core/src/app/service/regency.service';
 import { SocialMediaService } from 'projects/core/src/app/service/social-media.service';
+import { UserService } from 'projects/core/src/app/service/user.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -26,12 +29,22 @@ import { Subscription } from 'rxjs';
   templateUrl: './profile-update.component.html',
   styleUrls: ['./profile-update.component.css']
 })
-export class ProfileUpdateComponent implements OnInit {
+export class ProfileUpdateComponent implements OnInit, OnDestroy {
+
+  data: ChangePasswordDtoReq = new ChangePasswordDtoReq()
+
+  dataLogin: LoginDtoRes | null = this.loginService.getData()
+  filterTimeout: any
+  newPass!: string
+  confirmationPass!: string
+  isFound: boolean = false
+  getUserByEmailSubscription?: Subscription
+  changePasswordSubscription?: Subscription
 
   profile: GetProfileByUserDtoDataRes = new GetProfileByUserDtoDataRes()
   profileSosmed: GetProfileSosmedByUserDtoDataRes[] = []
   provinces: GetAllProvinceDtoDataRes[] = []
-  regencies: GetAllRegencyDtoDataRes[] =[]
+  regencies: GetAllRegencyDtoDataRes[] = []
   industries: GetAllIndustryDtoDataRes[] = []
   positions: GetAllPositionDtoDataRes[] = []
   socialMedias: GetAllSocialMediaDtoDataRes[] = []
@@ -53,9 +66,9 @@ export class ProfileUpdateComponent implements OnInit {
     private provinceService: ProvinceService, private regencyService: RegencyService,
     private industryService: IndustryService, private positionService: PositionService,
     private socialMediaService: SocialMediaService, private loginService: LoginService,
-    private activatedRoute: ActivatedRoute) { 
-      this.title.setTitle('Update Profile')
-    }
+    private activatedRoute: ActivatedRoute, private userService: UserService) {
+    this.title.setTitle('Update Profile')
+  }
 
   ngOnInit(): void {
     this.initData()
@@ -93,6 +106,17 @@ export class ProfileUpdateComponent implements OnInit {
     this.socialMediasSubscription = this.socialMediaService.getAll().subscribe(result => {
       this.socialMedias = result.data
     })
+
+    const id: string | undefined = this.dataLogin?.data.id
+    this.getUserByEmailSubscription = this.userService.getById(id).subscribe(result => {
+      if (result) {
+        this.data.id = result.data?.id
+        this.data.email = result.data.username
+        this.data.roleId = result.data?.roleId
+        this.data.isActive = result.data?.isActive
+        this.data.version = result.data?.version
+      }
+    })
   }
 
   provinceChange(id: string): void {
@@ -104,18 +128,18 @@ export class ProfileUpdateComponent implements OnInit {
   onSave(): void {
     const profileId: string | undefined = this.loginService.getData()?.data.id
     console.log(profileId)
-    for(let sosmed of this.profileSosmed) {
-      if(sosmed.id) {
+    for (let sosmed of this.profileSosmed) {
+      if (sosmed.id) {
         this.updateProfileSocmed.id = sosmed.id
         this.updateProfileSocmed.accountName = sosmed.accountName
         this.updateProfileSocmed.version = sosmed.version
         this.updateProfileSocmed.isActive = sosmed.isActive
         this.profileSosmedService.update(this.updateProfileSocmed).subscribe()
-      }else {
+      } else {
         let id: string
         this.profileService.getByUserId().subscribe(result => {
           id = result.data.id
-          
+
           this.insertProfileSocmed.profileId = id
           this.insertProfileSocmed.accountName = sosmed.accountName
           this.insertProfileSocmed.socialMediaId = sosmed.socialMediaid
@@ -123,7 +147,7 @@ export class ProfileUpdateComponent implements OnInit {
             this.router.navigateByUrl('/member/dashboard')
           })
         })
-        
+
       }
     }
 
@@ -132,4 +156,42 @@ export class ProfileUpdateComponent implements OnInit {
     })
   }
 
+  changePassword() {
+    if (this.filterTimeout) {
+      clearTimeout(this.filterTimeout)
+    }
+
+    this.filterTimeout = setTimeout(() => {
+      if (this.newPass == this.confirmationPass) {
+        this.data.newPassword = this.newPass
+        this.isFound = true
+      } else {
+        this.isFound = false
+      }
+    }, 1000)
+  }
+
+  onSubmit(isValid: boolean) {
+    if (isValid) {
+      this.changePasswordSubscription = this.userService.changePassword(this.data).subscribe(result => {
+        if (result) {
+          this.initData();
+        }
+      })
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.profileSubscription?.unsubscribe()
+    this.profileSosmedSubscription?.unsubscribe()
+    this.provincesSubscription?.unsubscribe()
+    this.regenciesSubscription?.unsubscribe()
+    this.industriesSubscription?.unsubscribe()
+    this.positionsSubscription?.unsubscribe()
+    this.socialMediasSubscription?.unsubscribe()
+    this.insertProfileSocmedSubscription?.unsubscribe()
+    this.updateProfileSubscription?.unsubscribe()
+    this.getUserByEmailSubscription?.unsubscribe()
+    this.changePasswordSubscription?.unsubscribe()
+  }
 }
