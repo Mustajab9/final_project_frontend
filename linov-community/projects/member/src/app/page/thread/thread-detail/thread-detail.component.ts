@@ -4,12 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { InsertBookmarkDtoReq } from 'projects/core/src/app/dto/bookmark/insert-bookmark-dto-req';
 import { InsertChoiceVoteDtoReq } from 'projects/core/src/app/dto/choice-vote/insert-choice-vote-dto-req';
+import { GetThreadCommentByThreadDtoDataRes } from 'projects/core/src/app/dto/thread-comment/get-thread-comment-by-thread-dto-data-res';
 import { InsertThreadCommentDtoReq } from 'projects/core/src/app/dto/thread-comment/insert-thread-comment-dto-req';
 import { InsertThreadLikeDtoReq } from 'projects/core/src/app/dto/thread-like/insert-thread-like-dto-req';
 import { GetByThreadIdDtoDataRes } from 'projects/core/src/app/dto/thread/get-by-thread-id-dto-data-res';
 import { BookmarkService } from 'projects/core/src/app/service/bookmark.service';
 import { ChoiceVoteService } from 'projects/core/src/app/service/choice-vote.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
+import { ThreadCommentService } from 'projects/core/src/app/service/thread-comment.service';
 import { ThreadLikeService } from 'projects/core/src/app/service/thread-like.service';
 import { ThreadService } from 'projects/core/src/app/service/thread.service';
 import { Subscription } from 'rxjs';
@@ -22,10 +24,13 @@ import { Subscription } from 'rxjs';
 export class ThreadDetailComponent implements OnInit {
 
   threadById: GetByThreadIdDtoDataRes = new GetByThreadIdDtoDataRes()
+  threadCommentsByThread: GetThreadCommentByThreadDtoDataRes[] = []
+
   insertThreadComment: InsertThreadCommentDtoReq = new InsertThreadCommentDtoReq()
   insertThreadLikeDtoReq: InsertThreadLikeDtoReq = new InsertThreadLikeDtoReq()
   insertBookmarkDtoReq: InsertBookmarkDtoReq = new InsertBookmarkDtoReq()
   insertChoiceVoteDtoReq: InsertChoiceVoteDtoReq = new InsertChoiceVoteDtoReq()
+
   threadAllSubscription?: Subscription
   eventAllSubscription?: Subscription
   getThreadLikeByThreadAndUserSubscription?: Subscription
@@ -36,6 +41,7 @@ export class ThreadDetailComponent implements OnInit {
   bookmarkDeleteSubscription?: Subscription
   threadByIdSubscription? : Subscription
   threadCommentInsertSubscription?: Subscription
+  getThreadCommentByThreadSubscription?: Subscription
   activatedRouteSubscription?: Subscription
   choiceVoteInsertSubscription?: Subscription
 
@@ -47,7 +53,7 @@ export class ThreadDetailComponent implements OnInit {
     private threadService: ThreadService, private threadLikeService: ThreadLikeService,
     private bookmarkService: BookmarkService, private choiceVoteService: ChoiceVoteService,
     private loginService: LoginService, private activatedRoute: ActivatedRoute,
-    private confirmationService: ConfirmationService) {
+    private confirmationService: ConfirmationService, private threadCommentService: ThreadCommentService) {
 
     this.title.setTitle('Thread Detail')
   }
@@ -62,6 +68,10 @@ export class ThreadDetailComponent implements OnInit {
     this.threadByIdSubscription = this.threadService.getById(id).subscribe(result => {
       this.threadById = result.data
     })
+
+    this.getThreadCommentByThreadSubscription = this.threadCommentService.getByThread(id).subscribe(result => {
+      this.threadCommentsByThread = result.data
+    }) 
   }
 
   onLike(id: string, isLike: boolean): void {
@@ -149,6 +159,13 @@ export class ThreadDetailComponent implements OnInit {
         }
       });
     }
+  }
+
+  onReply(): void {
+    this.insertThreadComment.threadId = this.threadById.id
+    this.threadCommentInsertSubscription = this.threadCommentService.insert(this.insertThreadComment).subscribe(result => {
+      this.router.navigateByUrl('/member/dashboard')
+    })
   }
 
 }

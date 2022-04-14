@@ -2,6 +2,6 @@ import { GetThreadCommentByThreadDtoDataRes } from './get-thread-comment-by-thre
 
 export class GetThreadCommentByThreadDtoRes {
 	msg?: string
-	data?: GetThreadCommentByThreadDtoDataRes[]
+	data!: GetThreadCommentByThreadDtoDataRes[]
 }
 

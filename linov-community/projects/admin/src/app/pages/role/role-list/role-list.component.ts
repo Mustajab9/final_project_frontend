@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 
-import { Subscription } from 'rxjs'
+import { Subscription, firstValueFrom } from 'rxjs'
 import { Store } from '@ngrx/store'
 
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
@@ -12,6 +12,7 @@ import { GetAllRoleDtoDataRes } from '../../../../../../core/src/app/dto/role/ge
 import { RoleService } from '../../../../../../core/src/app/service/role.service'
 import { deleteRoleAction } from '../../../../../../core/src/app/state/role/role.action'
 import { roleSelectorDelete } from '../../../../../../core/src/app/state/role/role.selector'
+import { GetAllRoleDtoRes } from 'projects/core/src/app/dto/role/get-all-role-dto-res'
 
 @Component({
   selector: 'app-role-list',
@@ -21,9 +22,8 @@ import { roleSelectorDelete } from '../../../../../../core/src/app/state/role/ro
 export class RoleListComponent implements OnInit, OnDestroy {
 
   data: GetAllRoleDtoDataRes[] = []
-
-  getAllRoleSubscription?: Subscription
   roleDeleteSubscription?: Subscription
+
   maxPage: number = 10
   totalRecords: number = 0
   loading: boolean = true
@@ -40,17 +40,16 @@ export class RoleListComponent implements OnInit, OnDestroy {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
-  getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
+  async getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): Promise<void> {
     this.loading = true
-
-    this.getAllRoleSubscription = this.roleService.getAll(startPage, maxPage, query).subscribe({
-      next: result => {
-        this.data = result.data
-        this.loading = false
-        this.totalRecords = result.total
-      },
-      error: _ => this.loading = false
-    })
+    try {
+      const result: GetAllRoleDtoRes = await firstValueFrom(this.roleService.getAll(startPage, maxPage, query))
+      this.data = result.data
+      this.loading = false
+      this.totalRecords = result.total
+    }catch {
+      this.loading = false
+    }
   }
 
   clear(table: Table): void {
@@ -88,7 +87,6 @@ export class RoleListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllRoleSubscription?.unsubscribe()
     this.roleDeleteSubscription?.unsubscribe()
   }
 

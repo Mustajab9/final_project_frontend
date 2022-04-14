@@ -15,7 +15,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6 d-flex align-items-center">
-                            <img src="../../../assets/image/profile.png" class="me-2" style="height: 40px; width: 40px;">
+                            <img *ngIf="!threadById.profileImage" src="assets/image/undraw_profile_pic.svg" class="me-2" style="height: 40px; width: 40px;">
+                            <img *ngIf="threadById.profileImage" src="http://localhost:8080/attachments/{{threadById.attachmentId}}" class="me-2" style="height: 40px; width: 40px;">
                             <app-label class="align-self-center" nameLabel="{{threadById.profileName}}"></app-label>
                         </div>
 
@@ -82,37 +83,42 @@
                 <span class="fs-5 fw-bold" style="color: #323232;">Comments</span>
             </div>
 
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body">
                     <div class="d-flex gap-3">
                         <img src="../../../assets/image/profile.png" class="align-self-top"
                             style="height: 40px; width: 40px;">
                         <form class="w-100">
-                            <app-textarea placeholderTextarea="Drop your comment here" idTextarea="comment">
+                            <app-textarea 
+                                placeholderTextarea="Drop your comment here" idTextarea="comment"
+                                [(ngModelTextarea)]="insertThreadComment.commentContent">
                             </app-textarea>
 
                             <div class="mt-4 d-grid gap-3 d-md-flex justify-content-md-end">
-                                <button class="btn btn-primary me-md-2" type="button">Reply</button>
+                                <button class="btn btn-primary me-md-2" type="button" (click)="onReply()">Reply</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <div class="card my-3">
+            <div class="card my-3" *ngFor="let comment of threadCommentsByThread">
                 <div class="card-body">
                     <div class="d-flex gap-3">
-                        <img src="../../../assets/image/profile.png" class="align-self-top"
+                        <img *ngIf="!threadById.attachmentId" src="assets/image/undraw_profile_pic.svg" class="mb-3"
+                                style="height: 90px; width: 90px;">
+                        <img *ngIf="threadById.attachmentId" src="http://localhost:8080/attachments/{{threadById.attachmentId}}" class="align-self-top"
                             style="height: 40px; width: 40px;">
-                        <app-label class="align-self-center" nameLabel=""></app-label>
+                        <app-label class="align-self-center" nameLabel="{{threadById.profileName}}"></app-label>
                     </div>
 
                     <div class="mt-4">
-                        <p>Thread Comment</p>
+                        <p>{{comment.commentContent}}</p>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="col-sm-3">
             <div class="my-4">
                 <i class="fa-solid fa-link me-3"></i>
