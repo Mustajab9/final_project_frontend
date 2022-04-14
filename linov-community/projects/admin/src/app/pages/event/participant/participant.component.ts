@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { ActivatedRoute } from '@angular/router'
-import { Subscription } from 'rxjs'
+import { Subscription, firstValueFrom } from 'rxjs'
 
 import { GetAllEnrollEventDtoDataRes } from '../../../../../../core/src/app/dto/enroll-event/get-all-enroll-event-dto-data-res'
 import { UpdateEnrollEventDtoReq } from '../../../../../../core/src/app/dto/enroll-event/update-enroll-event-dto-req'
@@ -22,9 +22,7 @@ export class ParticipantComponent implements OnInit, OnDestroy {
   eventData: GetByEventIdDtoDataRes = new GetByEventIdDtoDataRes()
   userId: string | undefined = this.loginService.getData()?.data.id
 
-  getAllEventParticipantSubscription?: Subscription
   activatedRouteSubscription?: Subscription
-  getByEventIdSubscription?: Subscription
   updateEnrollEventSubscription?: Subscription
   getByEnrollEventIdSubscription?: Subscription
 
@@ -37,45 +35,36 @@ export class ParticipantComponent implements OnInit, OnDestroy {
     this.initData()
   }
 
-  initData(): void {
-    this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
-      const id = (result as any).id
+  async initData(): Promise<void> {
+    const {id} = await firstValueFrom(this.activatedRoute.params)
+    const allResult = await firstValueFrom(this.enrollService.getAll())
+    if (allResult) {
+      this.data = allResult.data.filter(comp => comp.eventId == id)
+    }
 
-      this.getAllEventParticipantSubscription = this.enrollService.getAll().subscribe(result => {
-        if (result) {
-          this.data = result.data.filter(comp => comp.eventId == id)
-        }
-      })
-
-      this.getByEventIdSubscription = this.eventService.getById(id).subscribe(result => {
-        if (result) {
-          this.eventData.id = id
-          this.eventData = result.data
-        }
-      })
-    })
+    const resultEventById = await firstValueFrom(this.eventService.getById(id))
+    if (resultEventById) {
+      this.eventData.id = id
+      this.eventData = resultEventById.data
+    }
   }
 
-  onApprove(id: string): void {
-    this.getByEnrollEventIdSubscription = this.enrollService.getById(id).subscribe(result => {
-      if (result) {
-        this.updateReq.isApprove = true
-        this.updateReq.id = result.data?.id
-        this.updateReq.version = result.data?.version
-        this.updateReq.isActive = result.data?.isActive
+  async onApprove(id: string): Promise<void> {
+    const resultEnrollEventById = await firstValueFrom(this.enrollService.getById(id))
+    if (resultEnrollEventById) {
+      this.updateReq.isApprove = true
+      this.updateReq.id = resultEnrollEventById.data?.id
+      this.updateReq.version = resultEnrollEventById.data?.version
+      this.updateReq.isActive = resultEnrollEventById.data?.isActive
 
-        this.updateEnrollEventSubscription = this.enrollService.update(this.updateReq).subscribe(result => {
-          if (result) {
-            this.initData()
-          }
-        })
+      const resultUpdate = await firstValueFrom(this.enrollService.update(this.updateReq))
+      if (resultUpdate) {
+        this.initData()
       }
-    })
+    }
   }
 
   ngOnDestroy(): void {
-    this.getAllEventParticipantSubscription?.unsubscribe()
     this.updateEnrollEventSubscription?.unsubscribe()
   }
-
 }

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 
-import { Subscription } from 'rxjs'
+import { Subscription, firstValueFrom } from 'rxjs'
 import { Store } from '@ngrx/store'
 
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
@@ -16,11 +16,10 @@ import { SubscriptionService } from '../../../../../../core/src/app/service/subs
   templateUrl: './profile-list.component.html',
   styleUrls: ['./profile-list.component.css']
 })
-export class ProfileListComponent implements OnInit, OnDestroy {
+export class ProfileListComponent {
 
   data: GetAllSubscriptionDtoDataRes[] = []
 
-  getAllProfileSubscription?: Subscription
   maxPage: number = 10
   totalRecords: number = 0
   loading: boolean = true
@@ -30,24 +29,21 @@ export class ProfileListComponent implements OnInit, OnDestroy {
     this.title.setTitle('Profile Subscription')
   }
 
-  ngOnInit(): void {
-  }
-
   loadData(event: LazyLoadEvent) {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
-  getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
+  async getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): Promise<void> {
     this.loading = true
 
-    this.getAllProfileSubscription = this.subscriptionService.getAll(startPage, maxPage, query).subscribe({
-      next: result => {
-        this.data = result.data
-        this.loading = false
-        this.totalRecords = result.total
-      },
-      error: _ => this.loading = false
-    })
+    try {
+      const resultAll = await firstValueFrom(this.subscriptionService.getAll(startPage, maxPage, query))
+      this.data = resultAll.data
+      this.loading = false
+      this.totalRecords = resultAll.total
+    }catch {
+      this.loading = false
+    }
   }
 
   clear(table: Table): void {
@@ -59,9 +55,4 @@ export class ProfileListComponent implements OnInit, OnDestroy {
       return d.SubscriptionCode?.includes(text) || d.profileName?.includes(text) || d.email?.includes(text) || d.profileCompany?.includes(text)
     })
   }
-
-  ngOnDestroy(): void {
-    this.getAllProfileSubscription?.unsubscribe()
-  }
-
 }

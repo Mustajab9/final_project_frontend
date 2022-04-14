@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 
 import { Store } from '@ngrx/store'
-import { Subscription } from 'rxjs'
+import { Subscription, firstValueFrom } from 'rxjs'
 
 import { LazyLoadEvent } from 'primeng/api'
 import { Table } from 'primeng/table'
@@ -12,23 +12,20 @@ import { GetAllEventDtoDataRes } from '../../../../../../core/src/app/dto/event/
 import { GetByEventIdDtoDataRes } from '../../../../../../core/src/app/dto/event/get-by-event-id-dto-data-res'
 import { UpdateEventDtoReq } from '../../../../../../core/src/app/dto/event/update-event-dto-req'
 import { EventService } from '../../../../../../core/src/app/service/event.service'
+import { GetAllEventDtoRes } from 'projects/core/src/app/dto/event/get-all-event-dto-res'
 
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.css']
 })
-export class EventComponent implements OnInit, OnDestroy {
+export class EventComponent implements OnDestroy {
 
   data: GetAllEventDtoDataRes[] = []
   eventData: GetByEventIdDtoDataRes = new GetByEventIdDtoDataRes()
   update: UpdateEventDtoReq = new UpdateEventDtoReq()
 
-  updateEventSubscription?: Subscription
-  getAllEventSubscription?: Subscription
   eventDeleteSubscription?: Subscription
-  getByEventIdSubscription?: Subscription
-  getEventStatusSubscription?: Subscription
 
   maxPage: number = 10
   totalRecords: number = 0
@@ -39,24 +36,21 @@ export class EventComponent implements OnInit, OnDestroy {
     this.title.setTitle('Event List')
   }
 
-  ngOnInit(): void {
-  }
-
   loadData(event: LazyLoadEvent): void {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
-  getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
+  async getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): Promise<void> {
     this.loading = true
 
-    this.getAllEventSubscription = this.eventService.getAll(startPage, maxPage, query).subscribe({
-      next: result => {
-        this.data = result.data
-        this.loading = false
-        this.totalRecords = result.total
-      },
-      error: _ => this.loading = false
-    })
+    try {
+      const result: GetAllEventDtoRes = await firstValueFrom(this.eventService.getAll(startPage, maxPage, query))
+      this.data = result.data
+      this.loading = false
+      this.totalRecords = result.total
+    }catch {
+      this.loading = false
+    }
   }
 
   clear(table: Table): void {
@@ -73,25 +67,24 @@ export class EventComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`/admin/event/participant/${id}`)
   }
 
-  onApprove(id: string): void {
-    this.getByEventIdSubscription = this.eventService.getById(id).subscribe(result => {
+  async onApprove(id: string): Promise<void> {
+    try {
+      const result = await firstValueFrom(this.eventService.getById(id))
       if (result) {
         this.update.id = id
         this.update.isActive = result.data.isActive
         this.update.version = result.data.version
         this.update.isApprove = true
-        this.updateEventSubscription = this.eventService.update(this.update).subscribe(result => {
-          if (result) {
-            this.getData(0, 10)
-          }
-        })
+        
+        const resultUpdate = await firstValueFrom(this.eventService.update(this.update))
+        if(resultUpdate) {
+          this.getData(0, 10)
+        }
       }
-    })
+    }catch {}
   }
 
   ngOnDestroy(): void {
-    this.getAllEventSubscription?.unsubscribe()
     this.eventDeleteSubscription?.unsubscribe()
-    this.updateEventSubscription?.unsubscribe()
   }
 }

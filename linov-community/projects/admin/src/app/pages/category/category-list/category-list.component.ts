@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Subscription, firstValueFrom } from 'rxjs';
 
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -12,17 +12,17 @@ import { GetAllCategoryDtoDataRes } from '../../../../../../core/src/app/dto/cat
 import { CategoryService } from '../../../../../../core/src/app/service/category.service';
 import { deleteCategoryAction } from '../../../../../../core/src/app/state/category/category.action';
 import { categorySelectorDelete } from '../../../../../../core/src/app/state/category/category.selector';
+import { GetAllCategoryDtoRes } from 'projects/core/src/app/dto/category/get-all-category-dto-res';
 
 @Component({
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
   styleUrls: ['./category-list.component.css']
 })
-export class CategoryListComponent implements OnInit, OnDestroy {
+export class CategoryListComponent implements OnDestroy {
 
   data: GetAllCategoryDtoDataRes[] = []
 
-  getAllCategorySubscription?: Subscription
   categoryDeleteSubscription?: Subscription
   maxPage: number = 10
   totalRecords: number = 0
@@ -33,24 +33,20 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     this.title.setTitle('Category List')
   }
 
-  ngOnInit(): void {
-  }
-
   loadData(event: LazyLoadEvent): void {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
-  getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
-    this.loading = true;
-
-    this.getAllCategorySubscription = this.categoryService.getAll(startPage, maxPage, query).subscribe({
-      next: result => {
-        this.data = result.data
-        this.loading = false
-        this.totalRecords = result.total
-      },
-      error: _ => this.loading = false
-    })
+  async getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): Promise<void> {
+    this.loading = true
+    try {
+      const result: GetAllCategoryDtoRes = await firstValueFrom(this.categoryService.getAll(startPage, maxPage, query))
+      this.data = result.data
+      this.loading = false
+      this.totalRecords = result.total
+    }catch {
+      this.loading = false
+    }
   }
 
   clear(table: Table): void {
@@ -88,7 +84,6 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllCategorySubscription?.unsubscribe()
     this.categoryDeleteSubscription?.unsubscribe()
   }
 }

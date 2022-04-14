@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 
-import { Subscription } from 'rxjs'
+import { firstValueFrom, Subscription } from 'rxjs'
 
 import { GetProfileByUserDtoDataRes } from '../../../../../core/src/app/dto/profiles/get-profile-by-user-dto-data-res'
 import { LoginDtoDataRes } from '../../../../../core/src/app/dto/user/login-dto-data-res'
@@ -13,21 +13,17 @@ import { ProfilesService } from '../../../../../core/src/app/service/profiles.se
   templateUrl: './navfoot.component.html',
   styleUrls: ['./navfoot.component.css']
 })
-export class NavfootComponent implements OnInit, OnDestroy {
+export class NavfootComponent implements OnInit {
 
   userProfile: GetProfileByUserDtoDataRes = new GetProfileByUserDtoDataRes()
 
-  getProfileByUserSubscription?: Subscription
-
   constructor(private router: Router, private loginService: LoginService, private profilesService: ProfilesService) { }
 
-  ngOnInit(): void {
-    const data: LoginDtoDataRes | undefined = this.loginService.getData()?.data
-    this.getProfileByUserSubscription = this.profilesService.getByUserId().subscribe(result => {
-      if (result) {
-        this.userProfile = result.data
-      }
-    })
+  async ngOnInit() {
+    const resultProfileById = await firstValueFrom(this.profilesService.getByUserId())
+    if (resultProfileById) {
+      this.userProfile = resultProfileById.data
+    }
   }
 
   changePassword(): void {
@@ -38,9 +34,4 @@ export class NavfootComponent implements OnInit, OnDestroy {
     this.loginService.clearData()
     this.router.navigateByUrl('/login/admin')
   }
-
-  ngOnDestroy(): void {
-    this.getProfileByUserSubscription?.unsubscribe()
-  }
-
 }

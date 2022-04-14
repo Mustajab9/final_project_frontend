@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 
-import { Subscription } from 'rxjs'
+import { Subscription, firstValueFrom } from 'rxjs'
 import { Store } from '@ngrx/store'
 
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
@@ -18,11 +18,10 @@ import { industrySelectorDelete } from '../../../../../../core/src/app/state/ind
   templateUrl: './industry-list.component.html',
   styleUrls: ['./industry-list.component.css']
 })
-export class IndustryListComponent implements OnInit, OnDestroy {
+export class IndustryListComponent implements OnDestroy {
 
   data: GetAllIndustryDtoDataRes[] = []
 
-  getAllIndustrySubscription?: Subscription
   industryDeleteSubscription?: Subscription
   maxPage: number = 10
   totalRecords: number = 0
@@ -33,24 +32,20 @@ export class IndustryListComponent implements OnInit, OnDestroy {
     this.title.setTitle('Industry List')
   }
 
-  ngOnInit(): void {
-  }
-
   loadData(event: LazyLoadEvent): void {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
-  getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
+  async getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): Promise<void> {
     this.loading = true
-
-    this.getAllIndustrySubscription = this.industryService.getAll(startPage, maxPage, query).subscribe({
-      next: result => {
-        this.data = result.data
-        this.loading = false
-        this.totalRecords = result.total
-      },
-      error: _ => this.loading = false
-    })
+    try {
+      const resultAllIndustry = await firstValueFrom(this.industryService.getAll(startPage, maxPage, query))
+      this.data = resultAllIndustry.data
+      this.loading = false
+      this.totalRecords = resultAllIndustry.total
+    }catch {
+      this.loading = false
+    }
   }
 
   clear(table: Table): void {
@@ -88,7 +83,6 @@ export class IndustryListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllIndustrySubscription?.unsubscribe()
     this.industryDeleteSubscription?.unsubscribe()
   }
 

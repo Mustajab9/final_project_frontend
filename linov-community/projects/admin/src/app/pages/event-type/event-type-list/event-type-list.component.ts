@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
-import { Subscription } from 'rxjs'
+import { Subscription, firstValueFrom } from 'rxjs'
 import { Store } from '@ngrx/store'
 
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
@@ -17,11 +17,10 @@ import { eventTypeSelectorDelete } from '../../../../../../core/src/app/state/ev
   templateUrl: './event-type-list.component.html',
   styleUrls: ['./event-type-list.component.css']
 })
-export class EventTypeListComponent implements OnInit, OnDestroy {
+export class EventTypeListComponent implements OnDestroy {
 
   data: GetAllEventTypeDtoDataRes[] = []
 
-  getAllEventTypeSubscription?: Subscription
   eventTypeDeleteSubscription?: Subscription
   maxPage: number = 10
   totalRecords: number = 0
@@ -32,24 +31,20 @@ export class EventTypeListComponent implements OnInit, OnDestroy {
     this.title.setTitle('Event Type List')
   }
 
-  ngOnInit(): void {
-  }
-
   loadData(event: LazyLoadEvent): void {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
-  getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
+  async getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): Promise<void> {
     this.loading = true
-
-    this.getAllEventTypeSubscription = this.eventTypeService.getAll(startPage, maxPage, query).subscribe({
-      next: result => {
-        this.data = result.data
-        this.loading = false
-        this.totalRecords = result.total
-      },
-      error: _ => this.loading = false
-    })
+    try {
+      const resultAllEvent = await firstValueFrom(this.eventTypeService.getAll(startPage, maxPage, query))
+      this.data = resultAllEvent.data
+      this.loading = false
+      this.totalRecords = resultAllEvent.total
+    }catch {
+      this.loading = false
+    }
   }
 
   clear(table: Table): void {
@@ -87,7 +82,6 @@ export class EventTypeListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllEventTypeSubscription?.unsubscribe()
     this.eventTypeDeleteSubscription?.unsubscribe()
   }
 

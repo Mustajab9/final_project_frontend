@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 
-import { Subscription } from 'rxjs'
+import { Subscription, firstValueFrom } from 'rxjs'
 import { Store } from '@ngrx/store'
 
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
@@ -18,11 +18,10 @@ import { socialMediaSelectorDelete } from '../../../../../../core/src/app/state/
   templateUrl: './social-media-list.component.html',
   styleUrls: ['./social-media-list.component.css']
 })
-export class SocialMediaListComponent implements OnInit, OnDestroy {
+export class SocialMediaListComponent implements OnDestroy {
 
   data: GetAllSocialMediaDtoDataRes[] = []
 
-  getAllSocialMediaSubscription?: Subscription
   socialMediaDeleteSubscription?: Subscription
   maxPage: number = 10
   totalRecords: number = 0
@@ -33,24 +32,20 @@ export class SocialMediaListComponent implements OnInit, OnDestroy {
     this.title.setTitle('Social Media List')
   }
 
-  ngOnInit(): void {
-  }
-
   loadData(event: LazyLoadEvent) {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
-  getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
+  async getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): Promise<void> {
     this.loading = true
-
-    this.getAllSocialMediaSubscription = this.socialMediaService.getAll(startPage, maxPage, query).subscribe({
-      next: result => {
-        this.data = result.data
-        this.loading = false
-        this.totalRecords = result.total
-      },
-      error: _ => this.loading = false
-    })
+    try {
+      const resultAll = await firstValueFrom(this.socialMediaService.getAll(startPage, maxPage, query))
+      this.data = resultAll.data
+      this.loading = false
+      this.totalRecords = resultAll.total
+    }catch {
+      this.loading = false
+    }
   }
 
   clear(table: Table): void {
@@ -88,7 +83,6 @@ export class SocialMediaListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllSocialMediaSubscription?.unsubscribe()
     this.socialMediaDeleteSubscription?.unsubscribe()
   }
 

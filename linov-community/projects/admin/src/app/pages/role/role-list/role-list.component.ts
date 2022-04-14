@@ -56,11 +56,11 @@ export class RoleListComponent implements OnInit, OnDestroy {
     table.clear()
   }
 
-  filter(text: any): void {
-    this.data = this.data.filter(d => {
-      return d.roleCode?.includes(text) || d.roleName?.toString().includes(text)
-    })
-  }
+  // filter(text: any): void {
+  //   this.data = this.data.filter(d => {
+  //     return d.roleCode?.includes(text) || d.roleName?.toString().includes(text)
+  //   })
+  // }
 
   update(id: number): void {
     this.router.navigateByUrl(`/admin/role/${id}`)

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 
-import { Subscription } from 'rxjs'
+import { Subscription, firstValueFrom } from 'rxjs'
 import { Store } from '@ngrx/store'
 
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
@@ -18,11 +18,10 @@ import { userSelectorDelete } from '../../../../../../core/src/app/state/user/us
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit, OnDestroy {
+export class UserListComponent implements OnDestroy {
 
   data: GetAllUserDtoDataRes[] = []
 
-  getAllUserSubscription?: Subscription
   userDeleteSubscription?: Subscription
   maxPage: number = 10
   totalRecords: number = 0
@@ -33,24 +32,21 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.title.setTitle('User List')
   }
 
-  ngOnInit(): void {
-  }
-
   loadData(event: LazyLoadEvent) {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
-  getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
+  async getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): Promise<void> {
     this.loading = true
 
-    this.getAllUserSubscription = this.userService.getAll(startPage, maxPage, query).subscribe({
-      next: result => {
-        this.data = result.data
-        this.loading = false
-        this.totalRecords = result.total
-      },
-      error: _ => this.loading = false
-    })
+    try {
+      const resultAll = await firstValueFrom(this.userService.getAll(startPage, maxPage, query))
+      this.data = resultAll.data
+      this.loading = false
+      this.totalRecords = resultAll.total
+    }catch {
+      this.loading = false
+    }
   }
 
   clear(table: Table): void {
@@ -88,7 +84,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllUserSubscription?.unsubscribe()
     this.userDeleteSubscription?.unsubscribe()
   }
 

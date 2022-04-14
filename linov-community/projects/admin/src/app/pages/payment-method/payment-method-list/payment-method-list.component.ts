@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 
-import { Subscription } from 'rxjs'
+import { Subscription, firstValueFrom } from 'rxjs'
 import { Store } from '@ngrx/store'
 
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
@@ -18,11 +18,10 @@ import { paymentMethodSelectorDelete } from '../../../../../../core/src/app/stat
   templateUrl: './payment-method-list.component.html',
   styleUrls: ['./payment-method-list.component.css']
 })
-export class PaymentMethodListComponent implements OnInit, OnDestroy {
+export class PaymentMethodListComponent implements OnDestroy {
 
   data: GetAllPaymentMethodDtoDataRes[] = []
 
-  getAllPaymentMethodSubscription?: Subscription
   paymentMethodDeleteSubscription?: Subscription
   maxPage: number = 10
   totalRecords: number = 0
@@ -33,24 +32,21 @@ export class PaymentMethodListComponent implements OnInit, OnDestroy {
     this.title.setTitle('Payment Method List')
   }
 
-  ngOnInit(): void {
-  }
-
   loadData(event: LazyLoadEvent): void {
     this.getData(event.first, event.rows, event.globalFilter)
   }
 
-  getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): void {
+  async getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): Promise<void> {
     this.loading = true
 
-    this.getAllPaymentMethodSubscription = this.paymentMethodService.getAll(startPage, maxPage, query).subscribe({
-      next: result => {
-        this.data = result.data
-        this.loading = false
-        this.totalRecords = result.total
-      },
-      error: _ => this.loading = false
-    })
+    try {
+      const resultAll = await firstValueFrom(this.paymentMethodService.getAll(startPage, maxPage, query))
+      this.data = resultAll.data
+      this.loading = false
+      this.totalRecords = resultAll.total
+    }catch {
+      this.loading = false
+    }
   }
 
   clear(table: Table): void {
@@ -88,7 +84,6 @@ export class PaymentMethodListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllPaymentMethodSubscription?.unsubscribe()
     this.paymentMethodDeleteSubscription?.unsubscribe()
   }
 
