@@ -19,6 +19,8 @@ export class GetByThreadIdDtoDataRes {
 	isLiked!: boolean
 	isBookmarked!: boolean
 	isVoted!: boolean
+	profileName!: string
+	profileImage!: string
 	version!: number
 	isActive!: boolean
 }

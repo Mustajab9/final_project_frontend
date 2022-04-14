@@ -151,7 +151,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   onComment(id: string){
     if(this.isLogin){
-      this.router.navigateByUrl(`memeber/thread/detail/${id}`)
+      this.router.navigateByUrl(`/member/thread/detail/${id}`)
     }else{
       this.confirmationService.confirm({
         message: 'You Must Be Login First',

@@ -6,6 +6,7 @@ import { DeleteByEventIdDtoRes } from '../dto/event/delete-by-event-id-dto-res'
 import { GetAllEventDtoRes } from '../dto/event/get-all-event-dto-res'
 import { GetByEventIdDtoRes } from '../dto/event/get-by-event-id-dto-res'
 import { GetCountNotPaidDtoDataRes } from '../dto/event/get-count-not-paid-dto-data-res'
+import { GetEventByCategoryDtoRes } from '../dto/event/get-event-by-category-dto-res'
 import { InsertEventDtoReq } from '../dto/event/insert-event-dto-req'
 import { InsertEventDtoRes } from '../dto/event/insert-event-dto-res'
 import { UpdateEventDtoReq } from '../dto/event/update-event-dto-req'
@@ -57,6 +58,10 @@ export class EventService {
 
     getCountNotPaid(): Observable<GetCountNotPaidDtoDataRes> {
         return this.http.get<GetCountNotPaidDtoDataRes>(`http://localhost:8080/events/count-not-paid`)
+    }
+
+    getByCategory(id: string): Observable<GetAllEventDtoRes> {
+        return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/category/${id}`)
     }
 
     insert(insertReq: InsertEventDtoReq, file?: File): Observable<InsertEventDtoRes> {
