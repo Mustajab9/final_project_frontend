@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { CanLoad, Router} from '@angular/router'
+import { CanLoad, Router } from '@angular/router'
 
 import { LoginDtoRes } from '../dto/user/login-dto-res'
 import { LoginService } from '../service/login.service'
@@ -9,15 +9,15 @@ import { LoginService } from '../service/login.service'
 })
 export class AuthGuard implements CanLoad {
 
-    constructor(private router: Router, private loginService: LoginService) {}
+    constructor(private router: Router, private loginService: LoginService) { }
 
     canLoad(): boolean {
         const dataLogin: LoginDtoRes | null = this.loginService.getData()
 
-        if(dataLogin?.data.token){
+        if (dataLogin?.data.token) {
             return true
-        }else{
-            this.router.navigateByUrl('/login')
+        } else {
+            this.router.navigateByUrl('/login/member')
             return false
         }
     }

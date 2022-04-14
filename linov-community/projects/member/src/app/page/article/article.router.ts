@@ -3,23 +3,23 @@ import { RouterModule, Routes } from "@angular/router";
 import { ArticleDashboardComponent } from "./article-dashboard/article-dashboard.component";
 import { ArticleListComponent } from "./article-list/article-list.component";
 
-const routes : Routes = [
+const routes: Routes = [
     {
-        path : 'dashboard',
-        component : ArticleDashboardComponent
+        path: 'article/dashboard',
+        component: ArticleDashboardComponent
     },
     {
-        path : 'list',
-        component : ArticleListComponent
+        path: 'article/list',
+        component: ArticleListComponent
     }
 ]
 
 @NgModule({
-    imports : [
+    imports: [
         RouterModule.forChild(routes)
     ],
-    exports : [
+    exports: [
         RouterModule
     ]
 })
-export class ArticleRouter {}
+export class ArticleRouter { }

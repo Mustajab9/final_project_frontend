@@ -58,7 +58,7 @@ const routes: Routes = [
         canLoad: [AuthGuard]
     },
     {
-        path: 'member/article',
+        path: 'member',
         component: NavbarComponent,
         loadChildren: () => import('./page/article/article.module').then(m => m.ArticleModule),
         canActivate: [AccessGuard]
