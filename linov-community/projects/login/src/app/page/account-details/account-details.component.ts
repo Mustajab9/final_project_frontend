@@ -1,15 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { GetAllIndustryDtoDataRes } from 'projects/core/src/app/dto/industry/get-all-industry-dto-data-res';
-import { GetAllPositionDtoDataRes } from 'projects/core/src/app/dto/position/get-all-position-dto-data-res';
-import { InsertProfilesDtoReq } from 'projects/core/src/app/dto/profiles/insert-profiles-dto-req';
-import { IndustryService } from 'projects/core/src/app/service/industry.service';
-import { PositionService } from 'projects/core/src/app/service/position.service';
-import { insertProfilesAction } from 'projects/core/src/app/state/profiles/profiles.action';
-import { profilesSelectorInsert } from 'projects/core/src/app/state/profiles/profiles.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { GetAllIndustryDtoDataRes } from '../../../../../core/src/app/dto/industry/get-all-industry-dto-data-res'
+import { GetAllPositionDtoDataRes } from '../../../../../core/src/app/dto/position/get-all-position-dto-data-res'
+import { InsertProfilesDtoReq } from '../../../../../core/src/app/dto/profiles/insert-profiles-dto-req'
+import { IndustryService } from '../../../../../core/src/app/service/industry.service'
+import { LoadingService } from '../../../../../core/src/app/service/loading.service'
+import { PositionService } from '../../../../../core/src/app/service/position.service'
+import { insertProfilesAction } from '../../../../../core/src/app/state/profiles/profiles.action'
+import { profilesSelectorInsert } from '../../../../../core/src/app/state/profiles/profiles.selector'
 
 @Component({
   selector: 'app-account-details',
@@ -19,6 +22,7 @@ import { Subscription } from 'rxjs';
 export class AccountDetailsComponent implements OnInit, OnDestroy {
 
   data: InsertProfilesDtoReq = new InsertProfilesDtoReq()
+  isLoading: boolean = false
 
   industries: GetAllIndustryDtoDataRes[] = []
   positions: GetAllPositionDtoDataRes[] = []
@@ -27,13 +31,18 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   insertProfileSubscription?: Subscription
   getAllIndustrySubscription?: Subscription
   getAllPositioSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
 
   constructor(private title: Title, private router: Router, private store: Store, private activatedRoute: ActivatedRoute,
-    private industryService: IndustryService, private positionService: PositionService) {
+    private industryService: IndustryService, private positionService: PositionService, private loadingService: LoadingService) {
     this.title.setTitle("Sign Up")
   }
 
   ngOnInit(): void {
+    this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
       const fullName = (result as any).fullName
       const id = (result as any).id

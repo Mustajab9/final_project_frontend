@@ -9,7 +9,6 @@ import { AppLoginRouter } from './app.router';
 import { ComponentModule } from '../../../core/src/app/component/components.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { VerificationCodeComponent } from './page/verification-code/verification-code.component';
 
 @NgModule({
   declarations: [

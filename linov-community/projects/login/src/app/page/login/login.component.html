@@ -29,7 +29,7 @@
                     <a class="text-end mt-2 d-block" routerLink="member/forgot-password">Forgot Password</a>
 
                     <app-button class="w-100" typeBtn="submit" labelBtn="SIGN IN" idBtn="login" classBtn="mt-4 w-100"
-                        [disbaledBtn]="formLogin.form.invalid">
+                        [disbaledBtn]="formLogin.form.invalid" [loadingBtn]="this.isLoading">
                     </app-button>
 
                     <hr>

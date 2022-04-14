@@ -57,4 +57,24 @@ export class ThreadService {
     delete(id: string) : Observable<DeleteByThreadIdDtoRes> {
         return this.http.delete<DeleteByThreadIdDtoRes>(`http://localhost:8080/threads/${id}`)
     }
+
+    getAllNl(startPage?: number, maxPage?: number) : Observable<GetAllThreadDtoRes> {
+        if(startPage || maxPage) {
+            return this.http.get<GetAllThreadDtoRes>(`http://localhost:8080/threads/nl?startPage=${startPage}&maxPage=${maxPage}`)
+        }else {
+            return this.http.get<GetAllThreadDtoRes>(`http://localhost:8080/threads/nl`)
+        }
+    }
+
+    getByIdNl(id: string) : Observable<GetByThreadIdDtoRes> {
+        return this.http.get<GetByThreadIdDtoRes>(`http://localhost:8080/threads/nl/${id}`)
+    }
+
+    getByUserNl() : Observable<GetThreadByUserDtoRes> {
+        return this.http.get<GetThreadByUserDtoRes>(`http://localhost:8080/threads/nl/user`)
+    }
+
+    getByCategoryNl(id: number[]) : Observable<GetThreadByCategoryDtoRes> {
+        return this.http.get<GetThreadByCategoryDtoRes>(`http://localhost:8080/threads/nl/category/${id}`)
+    }
 }

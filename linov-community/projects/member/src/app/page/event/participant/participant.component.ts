@@ -8,6 +8,7 @@ import { GetByEventIdDtoDataRes } from 'projects/core/src/app/dto/event/get-by-e
 import { UpdateEventDtoReq } from 'projects/core/src/app/dto/event/update-event-dto-req';
 import { EnrollEventService } from 'projects/core/src/app/service/enroll-event.service';
 import { EventService } from 'projects/core/src/app/service/event.service';
+import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { loadEnrollEventAction, updateEnrollEventAction } from 'projects/core/src/app/state/enroll-event/enroll-event.action';
 import { enrollEventSelectorAll, enrollEventSelectorInit, enrollEventSelectorUpdate } from 'projects/core/src/app/state/enroll-event/enroll-event.selector';
 import { eventSelectorById } from 'projects/core/src/app/state/event/event.selector';
@@ -25,6 +26,7 @@ export class ParticipantComponent implements OnInit, OnDestroy {
   updateReq: UpdateEnrollEventDtoReq = new UpdateEnrollEventDtoReq()
   eventData: GetByEventIdDtoDataRes = new GetByEventIdDtoDataRes()
   writeType!: string
+  isLoading: boolean = false
 
   getAllEventParticipantSubscription?: Subscription
   activatedRouteSubscription?: Subscription
@@ -33,7 +35,7 @@ export class ParticipantComponent implements OnInit, OnDestroy {
   getByEnrollEventIdSubscription?: Subscription
 
   constructor(private title: Title, private activatedRoute: ActivatedRoute, private store: Store, private router: Router,
-    private eventService: EventService, private enrollService: EnrollEventService) {
+    private eventService: EventService, private enrollService: EnrollEventService, private loadingService: LoadingService) {
     this.title.setTitle("Participant Event")
   }
 
@@ -42,6 +44,10 @@ export class ParticipantComponent implements OnInit, OnDestroy {
   }
 
   initData(): void {
+    this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
       this.writeType = (result as any).type
       const id = (result as any).id
@@ -89,5 +95,4 @@ export class ParticipantComponent implements OnInit, OnDestroy {
     this.getAllEventParticipantSubscription?.unsubscribe()
     this.updateEnrollEventSubscription?.unsubscribe()
   }
-
 }

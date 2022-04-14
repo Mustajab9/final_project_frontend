@@ -10,9 +10,10 @@ import { AppComponent } from './app.component';
 import { AppRouter } from './app.router';
 import { NavbarModule } from './page/navbar/navbar.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpHandlerElearning } from 'projects/core/src/app/http/http-handler';
+import { HttpHandlerLRC } from 'projects/core/src/app/http/http-handler';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { LoadingHandlerLRC } from 'projects/core/src/app/http/loading-handler';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,12 @@ import { ToastModule } from 'primeng/toast';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: HttpHandlerElearning,
+      useClass: HttpHandlerLRC,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingHandlerLRC,
       multi: true
     },
     MessageService,

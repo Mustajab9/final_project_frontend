@@ -123,7 +123,7 @@
                             </div>
 
                             <div class="mt-5">
-                                <a (click)="onLike(threadByUser.id, threadByUser.isLiked)" class="btn me-2">
+                                <a pButton [loading]="this.isLoading" (click)="onLike(threadByUser.id, threadByUser.isLiked)" class="btn me-2">
                                     <i *ngIf="!threadByUser.isLiked" class="fa-regular fa-heart"></i>
                                     <i *ngIf="threadByUser.isLiked" class="fa-solid fa-heart"></i>
                                     {{threadByUser.totalLike}}
@@ -134,7 +134,7 @@
                                     {{threadByUser.totalComment}}
                                 </a>
 
-                                <a (click)="onBookmark(threadByUser.id, threadByUser.isBookmarked)" class="btn me-2">
+                                <a pButton [loading]="this.isLoading" (click)="onBookmark(threadByUser.id, threadByUser.isBookmarked)" class="btn me-2">
                                     <i *ngIf="!threadByUser.isBookmarked" class="fa-regular fa-bookmark"></i>
                                     <i *ngIf="threadByUser.isBookmarked" class="fa-solid fa-bookmark"></i>
                                 </a>
@@ -165,7 +165,7 @@
                                         <p class="mt-3">{{threadByLike.threadContent}}</p>
                                     </app-a>
                                 </div>
-                                
+
                                 <p-carousel *ngIf="threadByLike.attachmentId && threadByLike.attachmentId.length>0"
                                     [value]="threadByLike.attachmentId" [numVisible]="1" [numScroll]="1"
                                     [circular]="false" [responsiveOptions]="responsiveOptions">
@@ -206,7 +206,7 @@
                             </div>
 
                             <div class="mt-5">
-                                 <a (click)="onLike(threadByLike.id, threadByLike.isLiked)" class="btn me-2">
+                                <a pButton [loading]="this.isLoading" (click)="onLike(threadByLike.id, threadByLike.isLiked)" class="btn me-2">
                                     <i *ngIf="!threadByLike.isLiked" class="fa-regular fa-heart"></i>
                                     <i *ngIf="threadByLike.isLiked" class="fa-solid fa-heart"></i>
                                     {{threadByLike.totalLike}}
@@ -217,7 +217,7 @@
                                     {{threadByLike.totalComment}}
                                 </a>
 
-                                <a (click)="onBookmark(threadByLike.id, threadByLike.isBookmarked)" class="btn me-2">
+                                <a pButton [loading]="this.isLoading" (click)="onBookmark(threadByLike.id, threadByLike.isBookmarked)" class="btn me-2">
                                     <i *ngIf="!threadByLike.isBookmarked" class="fa-regular fa-bookmark"></i>
                                     <i *ngIf="threadByLike.isBookmarked" class="fa-solid fa-bookmark"></i>
                                 </a>
@@ -289,7 +289,7 @@
                             </div>
 
                             <div class="mt-5">
-                                 <a (click)="onLike(threadByBookmark.id, threadByBookmark.isLiked)" class="btn me-2">
+                                 <a pButton [loading]="this.isLoading" (click)="onLike(threadByBookmark.id, threadByBookmark.isLiked)" class="btn me-2">
                                     <i *ngIf="!threadByBookmark.isLiked" class="fa-regular fa-heart"></i>
                                     <i *ngIf="threadByBookmark.isLiked" class="fa-solid fa-heart"></i>
                                     {{threadByBookmark.totalLike}}
@@ -300,7 +300,7 @@
                                     {{threadByBookmark.totalComment}}
                                 </a>
 
-                                <a (click)="onBookmark(threadByBookmark.id, threadByBookmark.isBookmarked)" class="btn me-2">
+                                <a pButton [loading]="this.isLoading" (click)="onBookmark(threadByBookmark.id, threadByBookmark.isBookmarked)" class="btn me-2">
                                     <i *ngIf="!threadByBookmark.isBookmarked" class="fa-regular fa-bookmark"></i>
                                     <i *ngIf="threadByBookmark.isBookmarked" class="fa-solid fa-bookmark"></i>
                                 </a>

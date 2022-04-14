@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { GetByUserIdDtoDataRes } from 'projects/core/src/app/dto/user/get-by-user-id-dto-data-res';
-import { UpdateUserDtoReq } from 'projects/core/src/app/dto/user/update-user-dto-req';
-import { UserService } from 'projects/core/src/app/service/user.service';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+import { Subscription } from 'rxjs'
+
+import { GetByUserIdDtoDataRes } from '../../../../../core/src/app/dto/user/get-by-user-id-dto-data-res'
+import { UpdateUserDtoReq } from '../../../../../core/src/app/dto/user/update-user-dto-req'
+import { LoadingService } from '../../../../../core/src/app/service/loading.service'
+import { UserService } from '../../../../../core/src/app/service/user.service'
 
 @Component({
   selector: 'app-verification-code',
@@ -17,15 +18,23 @@ export class VerificationCodeComponent implements OnInit {
   data: UpdateUserDtoReq = new UpdateUserDtoReq()
   dataById: GetByUserIdDtoDataRes = new GetByUserIdDtoDataRes()
   verifCode?: string
+  isLoading: boolean = false
+
   activatedRouteSubscription?: Subscription
   userGetByIdSubscription?: Subscription
   userUpdateSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
 
-  constructor(private title: Title, private router: Router, private userService: UserService, private activatedRoute: ActivatedRoute) {
+  constructor(private title: Title, private router: Router, private userService: UserService,
+    private activatedRoute: ActivatedRoute, private loadingService: LoadingService) {
     this.title.setTitle("Verification Code")
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
       const id = (result as any).id
       this.dataById.id = id
@@ -59,6 +68,7 @@ export class VerificationCodeComponent implements OnInit {
     this.activatedRouteSubscription?.unsubscribe()
     this.userGetByIdSubscription?.unsubscribe()
     this.userUpdateSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 
 }

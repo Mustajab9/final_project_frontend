@@ -10,6 +10,7 @@ import { GetAllThreadDtoDataRes } from 'projects/core/src/app/dto/thread/get-all
 import { BookmarkService } from 'projects/core/src/app/service/bookmark.service';
 import { ChoiceVoteService } from 'projects/core/src/app/service/choice-vote.service';
 import { EventService } from 'projects/core/src/app/service/event.service';
+import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
 import { ThreadLikeService } from 'projects/core/src/app/service/thread-like.service';
 import { ThreadService } from 'projects/core/src/app/service/thread.service';
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isPollingClicked: boolean = false
   initialPage: number = 0
   maxPage: number = 10
+  isLoading: boolean = false
 
   isLogin: boolean = this.loginService.isLogin()
   blockedPanel: boolean = false;
@@ -51,7 +53,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private threadService: ThreadService, private threadLikeService: ThreadLikeService,
     private bookmarkService: BookmarkService, private eventService: EventService,
     private choiceVoteService: ChoiceVoteService, private loginService: LoginService,
-    private confirmationService: ConfirmationService) {
+    private confirmationService: ConfirmationService, private loadingService: LoadingService) {
 
     this.title.setTitle('Dashboard')
     this.responsiveOptions = [
@@ -78,17 +80,31 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   initData(): void {
-    this.threadAllSubscription = this.threadService.getAll(this.initialPage, this.maxPage).subscribe(result => {
-      this.threads = result.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')
+    this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
     })
 
-    this.eventAllSubscription = this.eventService.getAll().subscribe(result => {
-      this.events = result.data
-    })
+    if (this.isLogin) {
+      this.threadAllSubscription = this.threadService.getAll(this.initialPage, this.maxPage).subscribe(result => {
+        this.threads = result.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')
+      })
+
+      this.eventAllSubscription = this.eventService.getAll().subscribe(result => {
+        this.events = result.data
+      })
+    } else {
+      this.threadAllSubscription = this.threadService.getAllNl(this.initialPage, this.maxPage).subscribe(result => {
+        this.threads = result.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')
+      })
+
+      this.eventAllSubscription = this.eventService.getAllNl().subscribe(result => {
+        this.events = result.data
+      })
+    }
   }
 
   onLike(id: string, isLike: boolean): void {
-    if(this.isLogin){
+    if (this.isLogin) {
       this.insertThreadLikeDtoReq.threadId = id
       if (isLike == false) {
         isLike = !isLike
@@ -106,7 +122,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           }
         })
       }
-    }else{
+    } else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -119,7 +135,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onBookmark(id: string, isBookmarked: boolean): void {
-    if(this.isLogin){
+    if (this.isLogin) {
       this.insertBookmarkDtoReq.threadId = id
       if (isBookmarked == false) {
         isBookmarked = !isBookmarked
@@ -137,7 +153,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           }
         })
       }
-    }else{
+    } else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -149,10 +165,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  onComment(id: string){
-    if(this.isLogin){
+  onComment(id: string) {
+    if (this.isLogin) {
       this.router.navigateByUrl(`/member/thread/detail/${id}`)
-    }else{
+    } else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -165,9 +181,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onPolling(id: string, isVoted: boolean): void {
-    if(this.isLogin){
+    if (this.isLogin) {
       this.insertChoiceVoteDtoReq.choiceId = id
-      if(isVoted == false) {
+      if (isVoted == false) {
         isVoted = !isVoted
         this.choiceVoteInsertSubscription = this.choiceVoteService.insert(this.insertChoiceVoteDtoReq).subscribe(_ => {
           this.initData()
@@ -177,7 +193,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if (this.value >= 100) {
         this.value = 100;
       }
-    }else{
+    } else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -190,10 +206,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onScroll(): void {
-    this.initialPage = this.initialPage+10
-    this.threadAllSubscription = this.threadService.getAll(this.initialPage, this.maxPage).subscribe(result => {
-      this.threads = [...this.threads, ...result.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')]
-    })
+    if (this.isLogin) {
+      this.initialPage = this.initialPage + 10
+      this.threadAllSubscription = this.threadService.getAll(this.initialPage, this.maxPage).subscribe(result => {
+        this.threads = [...this.threads, ...result.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')]
+      })
+    } else {
+      this.initialPage = this.initialPage + 10
+      this.threadAllSubscription = this.threadService.getAllNl(this.initialPage, this.maxPage).subscribe(result => {
+        this.threads = [...this.threads, ...result.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')]
+      })
+    }
   }
 
   ngOnDestroy(): void {

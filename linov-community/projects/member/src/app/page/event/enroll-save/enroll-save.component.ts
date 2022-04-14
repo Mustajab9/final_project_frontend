@@ -6,6 +6,7 @@ import { GetByEventIdDtoDataRes } from 'projects/core/src/app/dto/event/get-by-e
 import { GetAllPaymentMethodDtoDataRes } from 'projects/core/src/app/dto/payment-method/get-all-payment-method-dto-data-res';
 import { EnrollEventService } from 'projects/core/src/app/service/enroll-event.service';
 import { EventService } from 'projects/core/src/app/service/event.service';
+import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { PaymentMethodService } from 'projects/core/src/app/service/payment-method.service';
 import { Subscription } from 'rxjs';
 
@@ -21,32 +22,39 @@ export class EnrollSaveComponent implements OnInit, OnDestroy {
   eventData: GetByEventIdDtoDataRes = new GetByEventIdDtoDataRes()
 
   file?: File
+  isLoading: boolean = false
+
   activatedRouteSubscription?: Subscription
   getAllPaymentMethodSubscription?: Subscription
   getByEventIdSubscription?: Subscription
   insertEnrollEventSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
 
   constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute, private eventService: EventService,
-              private enrollService: EnrollEventService, private paymentService: PaymentMethodService) {
+    private enrollService: EnrollEventService, private paymentService: PaymentMethodService, private loadingService: LoadingService) {
     this.title.setTitle('Enroll Event')
   }
 
   ngOnInit(): void {
+    this.loadingService.loading$?.subscribe(result =>{
+      this.isLoading = result
+    })
+
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
-        const id = (result as any).id
-        this.data.eventId = id
-        this.getByEventIdSubscription = this.eventService.getById(id).subscribe(result => {
-          if(result){
-            this.eventData.eventTitle = result.data.eventTitle
-            this.eventData.eventProvider = result.data.eventProvider
-            this.eventData.eventLocation = result.data.eventLocation
-            this.eventData.eventPrice = result.data.eventPrice
-          }
-        })
+      const id = (result as any).id
+      this.data.eventId = id
+      this.getByEventIdSubscription = this.eventService.getById(id).subscribe(result => {
+        if (result) {
+          this.eventData.eventTitle = result.data.eventTitle
+          this.eventData.eventProvider = result.data.eventProvider
+          this.eventData.eventLocation = result.data.eventLocation
+          this.eventData.eventPrice = result.data.eventPrice
+        }
+      })
     })
 
     this.getAllPaymentMethodSubscription = this.paymentService.getAll().subscribe(result => {
-      if(result){
+      if (result) {
         this.paymentData = result.data
       }
     })
@@ -56,8 +64,8 @@ export class EnrollSaveComponent implements OnInit, OnDestroy {
     this.file = event.target.files[0]
   }
 
-  onSubmit(isValid: boolean){
-    if(isValid){
+  onSubmit(isValid: boolean) {
+    if (isValid) {
       this.insertEnrollEventSubscription = this.enrollService.insert(this.data, this.file).subscribe(result => {
         this.router.navigateByUrl('/member/course')
       })

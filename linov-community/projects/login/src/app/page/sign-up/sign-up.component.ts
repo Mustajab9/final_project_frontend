@@ -1,11 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { InsertUserDtoReq } from 'projects/core/src/app/dto/user/insert-user-dto-req';
-import { insertUserAction } from 'projects/core/src/app/state/user/user.action';
-import { userSelectorInsert } from 'projects/core/src/app/state/user/user.selector';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { InsertUserDtoReq } from '../../../../../core/src/app/dto/user/insert-user-dto-req'
+import { LoadingService } from '../../../../../core/src/app/service/loading.service'
+import { insertUserAction } from '../../../../../core/src/app/state/user/user.action'
+import { userSelectorInsert } from '../../../../../core/src/app/state/user/user.selector'
 
 @Component({
   selector: 'app-sign-up',
@@ -16,13 +19,20 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   data: InsertUserDtoReq = new InsertUserDtoReq()
   fullName?: string
-  registerSubscription?: Subscription
+  isLoading: boolean = false
 
-  constructor(private title: Title, private router: Router, private store: Store) {
+  registerSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
+
+  constructor(private title: Title, private router: Router, private store: Store, private loadingService: LoadingService) {
     this.title.setTitle("Sign Up")
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.data.roleCode = 'R03'
   }
 
@@ -43,5 +53,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.registerSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

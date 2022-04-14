@@ -36,7 +36,7 @@
                             forLabel="file" nameLabel="Event File" classLabel="h5" [requiredLabel]="true"
                             typeInput="file" (inputChange)="changeFile($event)">
                 </form-input>
-                <app-button classBtn="p-button-warning mt-4 me-3" labelBtn="Check Out" typeBtn="submit"
+                <app-button classBtn="p-button-warning mt-4 me-3" labelBtn="Check Out" typeBtn="submit" [loadingBtn]="this.isLoading"
                     [requiredIcon]="true" iconType="pi-shopping-cart" [disbaledBtn]="formInput.form.invalid">
                 </app-button>
                 <app-button classBtn="p-button-outlined p-button-secondary mt-4" labelBtn="Cancel" routerLinkBtn="/member/cart-list"

@@ -10,6 +10,7 @@ import { InsertThreadLikeDtoReq } from 'projects/core/src/app/dto/thread-like/in
 import { GetByThreadIdDtoDataRes } from 'projects/core/src/app/dto/thread/get-by-thread-id-dto-data-res';
 import { BookmarkService } from 'projects/core/src/app/service/bookmark.service';
 import { ChoiceVoteService } from 'projects/core/src/app/service/choice-vote.service';
+import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
 import { ThreadCommentService } from 'projects/core/src/app/service/thread-comment.service';
 import { ThreadLikeService } from 'projects/core/src/app/service/thread-like.service';
@@ -39,7 +40,7 @@ export class ThreadDetailComponent implements OnInit {
   getBookmarkByThreadAndUserSubscription?: Subscription
   bookmarkInsertSubscription?: Subscription
   bookmarkDeleteSubscription?: Subscription
-  threadByIdSubscription? : Subscription
+  threadByIdSubscription?: Subscription
   threadCommentInsertSubscription?: Subscription
   getThreadCommentByThreadSubscription?: Subscription
   activatedRouteSubscription?: Subscription
@@ -48,8 +49,9 @@ export class ThreadDetailComponent implements OnInit {
   value: number = 0;
   responsiveOptions: any;
   isLogin: boolean = this.loginService.isLogin()
+  isLoading: boolean = false
 
-  constructor(private title : Title, private router: Router,
+  constructor(private title: Title, private router: Router, private loadingService: LoadingService,
     private threadService: ThreadService, private threadLikeService: ThreadLikeService,
     private bookmarkService: BookmarkService, private choiceVoteService: ChoiceVoteService,
     private loginService: LoginService, private activatedRoute: ActivatedRoute,
@@ -59,6 +61,10 @@ export class ThreadDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
       this.initData((result as any).id)
     })
@@ -71,11 +77,11 @@ export class ThreadDetailComponent implements OnInit {
 
     this.getThreadCommentByThreadSubscription = this.threadCommentService.getByThread(id).subscribe(result => {
       this.threadCommentsByThread = result.data
-    }) 
+    })
   }
 
   onLike(id: string, isLike: boolean): void {
-    if(this.isLogin){
+    if (this.isLogin) {
       this.insertThreadLikeDtoReq.threadId = id
       if (isLike == false) {
         isLike = !isLike
@@ -93,7 +99,7 @@ export class ThreadDetailComponent implements OnInit {
           }
         })
       }
-    }else{
+    } else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -106,7 +112,7 @@ export class ThreadDetailComponent implements OnInit {
   }
 
   onBookmark(id: string, isBookmarked: boolean): void {
-    if(this.isLogin){
+    if (this.isLogin) {
       this.insertBookmarkDtoReq.threadId = id
       if (isBookmarked == false) {
         isBookmarked = !isBookmarked
@@ -124,7 +130,7 @@ export class ThreadDetailComponent implements OnInit {
           }
         })
       }
-    }else{
+    } else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -137,9 +143,9 @@ export class ThreadDetailComponent implements OnInit {
   }
 
   onPolling(id: string, isVoted: boolean): void {
-    if(this.isLogin){
+    if (this.isLogin) {
       this.insertChoiceVoteDtoReq.choiceId = id
-      if(isVoted == false) {
+      if (isVoted == false) {
         isVoted = !isVoted
         this.choiceVoteInsertSubscription = this.choiceVoteService.insert(this.insertChoiceVoteDtoReq).subscribe(_ => {
           this.initData(this.threadById.id)
@@ -149,7 +155,7 @@ export class ThreadDetailComponent implements OnInit {
       if (this.value >= 100) {
         this.value = 100;
       }
-    }else{
+    } else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -162,10 +168,21 @@ export class ThreadDetailComponent implements OnInit {
   }
 
   onReply(): void {
-    this.insertThreadComment.threadId = this.threadById.id
-    this.threadCommentInsertSubscription = this.threadCommentService.insert(this.insertThreadComment).subscribe(result => {
-      this.router.navigateByUrl('/member/dashboard')
-    })
+    if(this.isLogin){
+      this.insertThreadComment.threadId = this.threadById.id
+      this.threadCommentInsertSubscription = this.threadCommentService.insert(this.insertThreadComment).subscribe(result => {
+        this.router.navigateByUrl('/member/dashboard')
+      })
+    }else{
+      this.confirmationService.confirm({
+        message: 'You Must Be Login First',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.router.navigateByUrl('/login/member')
+        }
+      });
+    }
   }
 
 }

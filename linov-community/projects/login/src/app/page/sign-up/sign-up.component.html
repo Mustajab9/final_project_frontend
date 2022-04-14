@@ -41,7 +41,7 @@
 
                     <app-button
                         class="w-100" typeBtn="submit" labelBtn="SIGN UP" idBtn="register" classBtn="mt-2 w-100"
-                        [disbaledBtn]="formRegister.form.invalid">
+                        [disbaledBtn]="formRegister.form.invalid" [loadingBtn]="this.isLoading">
                     </app-button>
 
                     <app-label forLabel="otherSignIn" nameLabel="Or Sign Up Using" classLabel="mt-5 d-flex justify-content-center"></app-label>

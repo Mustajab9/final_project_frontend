@@ -26,13 +26,13 @@ export class CartListComponent implements OnInit, OnDestroy {
   loading: boolean = true
 
   constructor(private title: Title, private router: Router, private eventService: EventService,
-              private checkoutService: CheckOutService, private loginService: LoginService){
+    private checkoutService: CheckOutService, private loginService: LoginService) {
     this.title.setTitle("Cart Event List")
   }
 
   ngOnInit(): void {
     this.getAllEventNotPaidSubscription = this.eventService.getEventNotPaid(this.userId).subscribe(result => {
-      if(result){
+      if (result) {
         this.data = result.data
       }
     })

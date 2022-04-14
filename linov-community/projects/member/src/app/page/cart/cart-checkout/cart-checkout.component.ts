@@ -5,6 +5,7 @@ import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-e
 import { InsertPaymentEventDtoReq } from 'projects/core/src/app/dto/payment-event/insert-payment-event-dto-req';
 import { GetAllPaymentMethodDtoDataRes } from 'projects/core/src/app/dto/payment-method/get-all-payment-method-dto-data-res';
 import { CheckOutService } from 'projects/core/src/app/service/checkout.service';
+import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { PaymentEventService } from 'projects/core/src/app/service/payment-event.service';
 import { PaymentMethodService } from 'projects/core/src/app/service/payment-method.service';
 import { Subscription } from 'rxjs';
@@ -21,14 +22,22 @@ export class CartCheckoutComponent implements OnInit, OnDestroy {
   paymentData: GetAllPaymentMethodDtoDataRes[] = []
 
   file?: File
+  isLoading: boolean = false
   getAllPaymentMethodSubscription?: Subscription
   insertPaymentEventSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
 
   constructor(private title: Title, private router: Router, private checkOutService: CheckOutService,
-              private paymentMethodService: PaymentMethodService, private paymentEventService: PaymentEventService) {
+    private paymentMethodService: PaymentMethodService, private paymentEventService: PaymentEventService,
+    private loadingService: LoadingService) {
+    this.title.setTitle('Cart Checkout')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.data = this.checkOutService.getData()
     this.checkOutService.clearData()
 
@@ -40,7 +49,7 @@ export class CartCheckoutComponent implements OnInit, OnDestroy {
     })
 
     this.getAllPaymentMethodSubscription = this.paymentMethodService.getAll().subscribe(result => {
-      if(result){
+      if (result) {
         this.paymentData = result.data
       }
     })
@@ -50,10 +59,10 @@ export class CartCheckoutComponent implements OnInit, OnDestroy {
     this.file = event.target.files[0]
   }
 
-  onSubmit(isValid: boolean){
-    if(isValid){
+  onSubmit(isValid: boolean) {
+    if (isValid) {
       this.insertPaymentEventSubscription = this.paymentEventService.insert(this.insertReq, this.file).subscribe(result => {
-        if(result){
+        if (result) {
           this.router.navigateByUrl('/member/course')
         }
       })
@@ -63,5 +72,6 @@ export class CartCheckoutComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.getAllPaymentMethodSubscription?.unsubscribe()
     this.insertPaymentEventSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

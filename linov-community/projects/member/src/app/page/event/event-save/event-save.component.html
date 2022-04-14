@@ -63,7 +63,7 @@
                             <form-button class="d-flex mt-5" classBtnPrimary="p-button-secondary me-3"
                                 labelBtnPrimary="Back" idBtnPrimary="back" routerLinkBtnPrimary="/member/course"
                                 classBtnSecondary="p-button-success" labelBtnSecondary="Submit" idBtnSecondary="input"
-                                typeBtnSecondary="submit" [disbaledBtnSecondary]="formInput.form.invalid">
+                                typeBtnSecondary="submit" [loadingBtnSecondary]="this.isLoading" [disbaledBtnSecondary]="formInput.form.invalid">
                             </form-button>
                         </form>
                     </div>

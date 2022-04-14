@@ -37,10 +37,12 @@
                                                 <app-label classLabel="fw-bold" nameLabel="Edit Profile"></app-label>
                                             </div>
                                             <div class="col-6 text-end">
-                                                <app-button *ngIf="roleCode == 'R01' || roleCode == 'R02'" classBtn="p-button-warning text-center"
+                                                <app-button *ngIf="roleCode == 'R03'" classBtn="p-button-warning text-center"
                                                     labelBtn="Get Premium" idBtn="premium"
                                                     routerLink="/member/subscription/">
                                                 </app-button>
+                                                <app-label *ngIf="roleCode == 'R02'" nameLabel="Subscription Active Until {{subscriptions[0].subscriptionDuration}}">
+                                                </app-label>
                                             </div>
                                         </div>
                                     </div>
@@ -144,7 +146,6 @@
                                             </app-label>
                                             <form>
                                                 <div class="row">
-                                                    {{profileSosmed | json}}
                                                     <div class="col-6" *ngFor="let socmed of profileSosmed">
                                                         <form-input forLabel="{{socmed.socialMediaName}}"
                                                             classLabel="mt-2" nameLabel="{{socmed.socialMediaName}}"
@@ -159,7 +160,7 @@
 
                                         <div class="mt-5 gap-3 d-flex justify-content-center">
                                             <app-button idBtn="save" labelBtn="Save" routerLink="" [requiredIcon]="true"
-                                                iconType="pi-save" (clickBtnEvent)="onSave()">
+                                                iconType="pi-save" (clickBtnEvent)="onSave()" [loadingBtn]="this.isLoading">
                                             </app-button>
                                             <app-button classBtn="p-button-outlined p-button-secondary" idBtn="cancel"
                                                 labelBtn="Cancel" routerLink="" [requiredIcon]="true"
@@ -221,7 +222,7 @@
                                             </div>
 
                                             <app-button class="w-100" typeBtn="submit" labelBtn="SUBMIT" idBtn="login"
-                                                classBtn="mt-3 w-100"
+                                                classBtn="mt-3 w-100" [loadingBtn]="this.isLoading"
                                                 [disbaledBtn]="formChange.form.invalid || newPass != confirmationPass">
                                             </app-button>
                                         </form>

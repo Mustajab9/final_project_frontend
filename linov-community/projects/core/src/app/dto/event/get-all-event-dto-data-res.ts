@@ -23,6 +23,7 @@ export class GetAllEventDtoDataRes {
 	paymentName!: string
 	enrollIsApprove!: boolean
 	enrollInvoice!: string
+	isEnroll!: boolean
 	createdBy!: string
 	version!: number
 	isActive!: boolean

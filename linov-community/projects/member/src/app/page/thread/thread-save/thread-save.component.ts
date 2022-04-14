@@ -6,6 +6,7 @@ import { GetAllCategoryDtoDataRes } from 'projects/core/src/app/dto/category/get
 import { GetAllThreadTypeDtoDataRes } from 'projects/core/src/app/dto/thread-type/get-all-thread-type-dto-data-res';
 import { InsertThreadDtoReq } from 'projects/core/src/app/dto/thread/insert-thread-dto-req';
 import { CategoryService } from 'projects/core/src/app/service/category.service';
+import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
 import { ThreadTypeService } from 'projects/core/src/app/service/thread-type.service';
 import { ThreadService } from 'projects/core/src/app/service/thread.service';
@@ -28,13 +29,15 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
   threadInsertSubscription?: Subscription
   threadCategoryAllSubscription?: Subscription
   threadTypeAllSubscription?: Subscription
+  loadingServiceSubcription?: Subscription
 
   choices: string[] = []
   choice?: string
   writeType!: string
   isLogin: boolean = this.loginService.isLogin()
+  isLoading: boolean = false
 
-  constructor(private title: Title, private router: Router,
+  constructor(private title: Title, private router: Router, private loadingService: LoadingService,
     private threadService: ThreadService, private categoryService: CategoryService,
     private threadTypeService: ThreadTypeService, private loginService: LoginService,
     private activatedRoute: ActivatedRoute, private confirmationService: ConfirmationService ) {
@@ -51,6 +54,10 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
   }
 
   initData(): void {
+    this.loadingServiceSubcription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.threadCategoryAllSubscription = this.categoryService.getAll().subscribe(result => {
       this.threadCategories = result.data
     })
@@ -80,7 +87,6 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
       for (let choice of this.choices) {
         this.thread.choiceName.push(choice)
       }
-      
       this.threadInsertSubscription = this.threadService.insert(this.thread, this.uploadedFiles).subscribe(result => {
         this.onBack()
       })
@@ -131,5 +137,6 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.threadInsertSubscription?.unsubscribe()
+    this.loadingServiceSubcription?.unsubscribe()
   }
 }

@@ -16,6 +16,7 @@ export class GetEventByCategoryDtoDataRes {
 	typeName!: string
 	attachmentId!: string
 	attachmentExtension!: string
+	isEnroll!: boolean
 	createdBy!: string
 	version!: number
 	isActive!: boolean

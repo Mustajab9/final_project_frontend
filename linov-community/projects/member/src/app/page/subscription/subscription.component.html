@@ -10,23 +10,7 @@
                 <div class="col" *ngFor="let subPrice of subPrices, let i=index">
                     <div class="card h-60">
                         <img src="../../../assets/image/learning.svg" class="card-img-top" alt="...">
-                        <!-- <div class="card-body" style="background-color: rgb(255, 187, 0);">
-                            <div class="body text-center" style="background-color: rgb(200, 255, 0)">
-                                <span class="fs-5 fw-bold" style="color: #323232;">Level 1</span>
-                            </div>
-                            <div class="body text-center">
-                                <span class="fs-5 fw-bold" style="color: #ffffff;">$ 5<br></span>
-                                <span class="fs-5 fw-bold" style="color: #ffffff;">Per Month</span>
-                            </div>
-                        </div> -->
                         <div class="card-body row">
-                            <!-- <div class="mt-3 col-6">
-                                <app-label classLabel="" nameLabel="Provider"></app-label>
-                            </div>
-                            <div class="mt-3 col-6 text-end">
-                                <app-label classLabel="" nameLabel="Event Type"></app-label>
-                            </div> -->
-
                             <app-label forLabel="" classLabel="fs-5 fw-bold" nameLabel="Premium {{i+1}}"
                                 style="color: #323232;">
                             </app-label>
@@ -46,7 +30,7 @@
                                 </div>
 
                                 <app-button (clickBtnEvent)="submit(subPrice.id!)" classBtn="mt-2 w-100 fixed-buttom"
-                                    labelBtn="Enroll" [requiredIcon]="false">
+                                    labelBtn="Enroll" [requiredIcon]="false" [loadingBtn]="this.isLoading">
                                 </app-button>
                             </div>
                         </div>

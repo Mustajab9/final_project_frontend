@@ -16,28 +16,42 @@ export class ArticleDashboardComponent implements OnInit {
 
   articles: GetAllThreadDtoDataRes[] = []
   events: GetAllEventDtoDataRes[] = []
+  isLogin: boolean = this.loginService.isLogin()
 
   constructor(private title: Title, private router: Router,
     private threadService: ThreadService, private loginService: LoginService,
-    private eventService: EventService) { 
-      this.title.setTitle('Article Dashboard')
-    }
+    private eventService: EventService) {
+    this.title.setTitle('Article Dashboard')
+  }
 
   ngOnInit(): void {
     this.initData()
   }
 
   initData(): void {
-    this.threadService.getAll().subscribe(result => {
-      this.articles = result.data.filter(comp => {
-        comp.isReadMore = true
-        return comp.typeCode == 'TY03'
+    if (this.isLogin) {
+      this.threadService.getAll().subscribe(result => {
+        this.articles = result.data.filter(comp => {
+          comp.isReadMore = true
+          return comp.typeCode == 'TY03'
+        })
       })
-    })
 
-    this.eventService.getAll().subscribe(result => {
-      this.events = result.data
-    })
+      this.eventService.getAll().subscribe(result => {
+        this.events = result.data
+      })
+    } else {
+      this.threadService.getAllNl().subscribe(result => {
+        this.articles = result.data.filter(comp => {
+          comp.isReadMore = true
+          return comp.typeCode == 'TY03'
+        })
+      })
+
+      this.eventService.getAllNl().subscribe(result => {
+        this.events = result.data
+      })
+    }
   }
 
   showText(index: number): void {

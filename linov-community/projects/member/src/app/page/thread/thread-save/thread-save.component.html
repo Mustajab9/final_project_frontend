@@ -86,7 +86,7 @@
                                     <tr>
                                         <td>{{choice}}</td>
                                         <td>
-                                            <app-button 
+                                            <app-button
                                                 classBtn="p-button-danger" [requiredIcon]="true" iconType="pi-trash"
                                                 (clickBtnEvent)="deleteChoice(choice)">
                                             </app-button>
@@ -98,13 +98,13 @@
 
                         <div class="d-flex justify-content-end align-items-center text-end gap-3 mt-3">
                             <app-label *ngFor="let file of uploadedFiles" forLabel="upload" nameLabel="{{file.name}}, "></app-label>
-                            <p-fileUpload 
+                            <p-fileUpload
                                 mode="basic" (onSelect)="onBasicUpload($event)" [previewWidth]="10" pTooltip="Browse File" tooltipPosition="left"
                                 chooseIcon="pi pi-file" [multiple]="true" [files]="uploadedFiles" accept="image/*">
                             </p-fileUpload>
 
                             <app-button
-                                classBtn="" typeBtn="submit" idBtn="save" labelBtn="Save"
+                                classBtn="" typeBtn="submit" idBtn="save" labelBtn="Save" [loadingBtn]="this.isLoading"
                                 [requiredIcon]="true" iconType="pi-save" [disbaledBtn]="!validateSubmit()" >
                             </app-button>
                         </div>

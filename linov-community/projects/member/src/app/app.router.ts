@@ -64,13 +64,6 @@ const routes: Routes = [
         canLoad: [AuthGuard]
     },
     {
-        path: 'member',
-        component: NavbarComponent,
-        loadChildren: () => import('./page/change-password/change-password.module').then(m => m.ChangePasswordModule),
-        canActivate: [AccessGuard],
-        canLoad: [AuthGuard]
-    },
-    {
         path: '',
         redirectTo: 'member/dashboard',
         pathMatch: 'full'

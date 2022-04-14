@@ -19,6 +19,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { BlockUIModule } from 'primeng/blockui';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService } from "primeng/api";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import { ConfirmationService } from "primeng/api";
         CarouselModule,
         BlockUIModule,
         TooltipModule,
-        ThreadRouter
+        ThreadRouter,
+        ConfirmDialogModule
     ],
     providers: [
         ConfirmationService

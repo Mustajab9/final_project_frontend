@@ -11,9 +11,11 @@ import { UpdateProfilesDtoReq } from 'projects/core/src/app/dto/profiles/update-
 import { GetAllProvinceDtoDataRes } from 'projects/core/src/app/dto/province/get-all-province-dto-data-res';
 import { GetAllRegencyDtoDataRes } from 'projects/core/src/app/dto/regency/get-all-regency-dto-data-res';
 import { GetAllSocialMediaDtoDataRes } from 'projects/core/src/app/dto/social-media/get-all-social-media-dto-data-res';
+import { GetAllSubscriptionDtoDataRes } from 'projects/core/src/app/dto/subscription/get-all-subscription-dto-data-res';
 import { ChangePasswordDtoReq } from 'projects/core/src/app/dto/user/change-password-dto-req';
 import { LoginDtoRes } from 'projects/core/src/app/dto/user/login-dto-res';
 import { IndustryService } from 'projects/core/src/app/service/industry.service';
+import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
 import { PositionService } from 'projects/core/src/app/service/position.service';
 import { ProfileSosmedService } from 'projects/core/src/app/service/profile-sosmed.service';
@@ -21,6 +23,7 @@ import { ProfilesService } from 'projects/core/src/app/service/profiles.service'
 import { ProvinceService } from 'projects/core/src/app/service/province.service';
 import { RegencyService } from 'projects/core/src/app/service/regency.service';
 import { SocialMediaService } from 'projects/core/src/app/service/social-media.service';
+import { SubscriptionService } from 'projects/core/src/app/service/subscription.service';
 import { UserService } from 'projects/core/src/app/service/user.service';
 import { Subscription } from 'rxjs';
 
@@ -41,17 +44,21 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
   getUserByEmailSubscription?: Subscription
   changePasswordSubscription?: Subscription
   roleCode?: string | undefined = this.loginService.getData()?.data.roleCode
+  isLoading: boolean = false
 
-  profile: GetProfileByUserDtoDataRes = new GetProfileByUserDtoDataRes()
+  subscriptions: GetAllSubscriptionDtoDataRes[] = []
   profileSosmed: GetProfileSosmedByUserDtoDataRes[] = []
   provinces: GetAllProvinceDtoDataRes[] = []
   regencies: GetAllRegencyDtoDataRes[] = []
   industries: GetAllIndustryDtoDataRes[] = []
   positions: GetAllPositionDtoDataRes[] = []
   socialMedias: GetAllSocialMediaDtoDataRes[] = []
+
   insertProfileSocmed: InsertProfileSosmedDtoReq = new InsertProfileSosmedDtoReq()
   updateProfileSocmed: UpdateProfileSosmedDtoReq = new UpdateProfileSosmedDtoReq()
   updateProfile: UpdateProfilesDtoReq = new UpdateProfilesDtoReq()
+  profile: GetProfileByUserDtoDataRes = new GetProfileByUserDtoDataRes()
+
   profileSubscription?: Subscription
   profileSosmedSubscription?: Subscription
   provincesSubscription?: Subscription
@@ -61,13 +68,15 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
   socialMediasSubscription?: Subscription
   insertProfileSocmedSubscription?: Subscription
   updateProfileSubscription?: Subscription
+  getSubscriptionByProfileSubscription?: Subscription
 
   constructor(private title: Title, private router: Router,
     private profileService: ProfilesService, private profileSosmedService: ProfileSosmedService,
     private provinceService: ProvinceService, private regencyService: RegencyService,
     private industryService: IndustryService, private positionService: PositionService,
     private socialMediaService: SocialMediaService, private loginService: LoginService,
-    private activatedRoute: ActivatedRoute, private userService: UserService) {
+    private subscriptionService: SubscriptionService, private userService: UserService,
+    private loadingService: LoadingService) {
     this.title.setTitle('Update Profile')
   }
 
@@ -76,6 +85,10 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
   }
 
   initData(): void {
+    this.loadingService.loading$?.subscribe(result =>{
+      this.isLoading = result
+    })
+
     this.profileSubscription = this.profileService.getByUserId().subscribe(result => {
       this.profile = result.data
       this.updateProfile.id = result.data.id
@@ -86,7 +99,14 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
       this.updateProfile.regencyId = result.data.regencyId
       this.updateProfile.isActive = result.data.isActive
       this.updateProfile.version = result.data.version
+
+      this.getSubscriptionByProfileSubscription = this.subscriptionService.getAll().subscribe(result => {
+        if (result) {
+          this.subscriptions = result.data.filter(comp => comp.profileId == this.profile.id)
+        }
+      })
     })
+
 
     this.profileSosmedSubscription = this.profileSosmedService.getByUser().subscribe(result => {
       this.profileSosmed = result.data
@@ -151,8 +171,7 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.updateProfileSubscription = this.profileService.update(this.updateProfile).subscribe(result => {
-      // this.router.navigateByUrl('/member/thread')
+    this.updateProfileSubscription = this.profileService.update(this.updateProfile).subscribe(_ => {
     })
   }
 

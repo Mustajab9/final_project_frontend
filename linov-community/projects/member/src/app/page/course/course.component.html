@@ -3,7 +3,7 @@
         <img src="../../../assets/image/community1.jpg" class="img-fluid">
     </div>
     <div>
-    <p-toolbar styleClass="my-4">
+    <p-toolbar *ngIf="isLogin" styleClass="my-4">
         <ng-template pTemplate="left">
         </ng-template>
 
@@ -48,7 +48,7 @@
 
                     <hr>
 
-                    <div>
+                    <div *ngIf="isLogin">
                         <app-label classLabel="" nameLabel="Jadwal"></app-label>
                         <app-button iconType="pi-calendar" classBtn="p-button-outlined mt-2 mb-3 w-100" labelBtn="COURSE / EVENT SCHEDULE"
                                     routerLinkBtn="/member/event/enroll">
@@ -104,17 +104,23 @@
                                 <app-label
                                     classLabel="p-2 bg-light rounded-pill text-end" nameLabel="{{event.categoryName}}">
                                 </app-label>
-
-                                <app-button *ngIf="event.createdBy != userId"
-                                    classBtn="mt-2 w-100 p-button-success" labelBtn="Enroll"
-                                    [requiredIcon]="false" (clickBtnEvent)="onEnroll(event.id)">
-                                </app-button>
-
-                                <app-button *ngIf="event.createdBy == userId"
-                                    classBtn="mt-2 w-100" labelBtn="Participant" iconType="pi-list"
-                                    [requiredIcon]="true" (clickBtnEvent)="onSubmit(event.id)">
-                                </app-button>
                             </div>
+                        </div>
+                        <div *ngIf="isLogin" class="card-footer">
+                            <app-button *ngIf="event.createdBy != userId && event.isEnroll == false"
+                                classBtn="mt-2 w-100 p-button-success" labelBtn="Enroll"
+                                [requiredIcon]="false" (clickBtnEvent)="onEnroll(event.id)">
+                            </app-button>
+
+                            <app-button *ngIf="event.createdBy != userId && event.isEnroll == true"
+                                classBtn="mt-2 w-100 p-button-success" labelBtn="Already Enroll"
+                                [requiredIcon]="false" routerLinkBtn="member/event/enroll">
+                            </app-button>
+
+                            <app-button *ngIf="event.createdBy == userId"
+                                classBtn="mt-2 w-100" labelBtn="Participant" iconType="pi-list"
+                                [requiredIcon]="true" (clickBtnEvent)="onSubmit(event.id)">
+                            </app-button>
                         </div>
                     </div>
                 </div>

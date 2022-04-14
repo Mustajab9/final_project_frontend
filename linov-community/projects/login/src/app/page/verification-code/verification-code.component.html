@@ -23,7 +23,7 @@
                     </form-input>
 
                     <app-button class="w-100" typeBtn="submit" labelBtn="CONFIRM" idBtn="register" classBtn="mt-2 w-100"
-                        [disbaledBtn]="formVerification.form.invalid">
+                        [disbaledBtn]="formVerification.form.invalid" [loadingBtn]="this.isLoading">
                     </app-button>
 
                     <app-label forLabel="otherSignIn" nameLabel="Or Sign Up Using"

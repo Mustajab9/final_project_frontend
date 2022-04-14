@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="text-end">
-                        <a (click)="onLike(threadById.id, threadById.isLiked)" class="btn me-2">
+                        <a pButton [loading]="this.isLoading" (click)="onLike(threadById.id, threadById.isLiked)" class="me-2">
                             <i *ngIf="threadById.isLiked == false" class="fa-regular fa-heart"></i>
                             <i *ngIf="threadById.isLiked == true" class="fa-solid fa-heart"></i>
                             {{threadById.totalLike}}
@@ -70,7 +70,7 @@
                             {{threadById.totalComment}}
                         </a>
 
-                        <a (click)="onBookmark(threadById.id, threadById.isBookmarked)" class="btn me-2">
+                        <a pButton [loading]="this.isLoading" (click)="onBookmark(threadById.id, threadById.isBookmarked)" class="me-2">
                             <i *ngIf="threadById.isBookmarked == false" class="fa-regular fa-bookmark"></i>
                             <i *ngIf="threadById.isBookmarked == true" class="fa-solid fa-bookmark"></i>
                         </a>
@@ -89,13 +89,13 @@
                         <img src="../../../assets/image/profile.png" class="align-self-top"
                             style="height: 40px; width: 40px;">
                         <form class="w-100">
-                            <app-textarea 
+                            <app-textarea
                                 placeholderTextarea="Drop your comment here" idTextarea="comment"
                                 [(ngModelTextarea)]="insertThreadComment.commentContent">
                             </app-textarea>
 
                             <div class="mt-4 d-grid gap-3 d-md-flex justify-content-md-end">
-                                <button class="btn btn-primary me-md-2" type="button" (click)="onReply()">Reply</button>
+                                <button pButton class=" me-md-2" type="button" [loading]="this.isLoading" (click)="onReply()">Reply</button>
                             </div>
                         </form>
                     </div>

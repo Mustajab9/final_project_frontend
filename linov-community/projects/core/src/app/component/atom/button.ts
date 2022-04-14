@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
     selector: 'app-button',
     template: ` <button pButton pRipple (click)="clickBtn()" [class]="classBtn" [routerLink]="routerLinkBtn" [label]="labelBtn"
                         [id]="idBtn" [name]="idBtn" [disabled]="disbaledBtn" [type]="typeBtn" icon="pi {{iconType}}"
-                        iconPos="left">
+                        iconPos="left" [loading]="loadingBtn">
                 </button>`
 })
 
@@ -33,6 +33,9 @@ export class ButtonComponent {
 
     @Input()
     disbaledBtn: boolean = false
+
+    @Input()
+    loadingBtn: boolean = false
 
     @Output()
     clickBtnEvent: EventEmitter<void> = new EventEmitter<void>()

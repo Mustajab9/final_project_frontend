@@ -8,7 +8,7 @@ import { LoginDtoRes } from '../dto/user/login-dto-res'
 import { LoginService } from '../service/login.service'
 
 @Injectable()
-export class HttpHandlerElearning implements HttpInterceptor {
+export class HttpHandlerLRC implements HttpInterceptor {
 
     constructor(private loginService: LoginService, private messageService: MessageService, private router: Router) { }
 

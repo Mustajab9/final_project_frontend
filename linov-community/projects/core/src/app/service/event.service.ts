@@ -80,4 +80,24 @@ export class EventService {
     delete(id: string): Observable<DeleteByEventIdDtoRes> {
         return this.http.delete<DeleteByEventIdDtoRes>(`http://localhost:8080/events/${id}`)
     }
+
+    getAllNl(startPage?: number, maxPage?: number, query?: string): Observable<GetAllEventDtoRes> {
+        if (startPage || maxPage) {
+            if (query) {
+                return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/nl?query=${query}&startPage=${startPage}&maxPage=${maxPage}`)
+            } else {
+                return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/nl?startPage=${startPage}&maxPage=${maxPage}`)
+            }
+        } else {
+            return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/nl`)
+        }
+    }
+
+    getByIdNl(id: string): Observable<GetByEventIdDtoRes> {
+        return this.http.get<GetByEventIdDtoRes>(`http://localhost:8080/events/nl/${id}`)
+    }
+
+    getByCategoryNl(id: string): Observable<GetAllEventDtoRes> {
+        return this.http.get<GetAllEventDtoRes>(`http://localhost:8080/events/nl/category/${id}`)
+    }
 }

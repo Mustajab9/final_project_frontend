@@ -5,11 +5,11 @@ import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/co
     template: ` <div [class]="divClass">
                     <app-button (clickBtnEvent)="clickBtnPrimary()" [classBtn]="classBtnPrimary" [labelBtn]="labelBtnPrimary"
                                 [idBtn]="idBtnPrimary" [routerLinkBtn]="routerLinkBtnPrimary" [typeBtn]="typeBtnPrimary"
-                                [requiredIcon]="requiredIconPrimary" [iconType]="iconTypePrimary">
+                                [requiredIcon]="requiredIconPrimary" [iconType]="iconTypePrimary" [loadingBtn]="loadingBtnPrimary">
                     </app-button>
                     <app-button (clickBtnEvent)="clickBtnSecondary()" [classBtn]="classBtnSecondary" [labelBtn]="labelBtnSecondary"
                                 [idBtn]="idBtnSecondary" [routerLinkBtn]="routerLinkBtnSecondary" [requiredIcon]="requiredIconSecondary"
-                                [iconType]="iconTypeSecondary" [disbaledBtn]="disbaledBtnSecondary" [typeBtn]="typeBtnSecondary">
+                                [iconType]="iconTypeSecondary" [disbaledBtn]="disbaledBtnSecondary" [typeBtn]="typeBtnSecondary" [loadingBtn]="loadingBtnSecondary">
                     </app-button>
                 </div>`
 })
@@ -34,6 +34,9 @@ export class FormButtonComponent{
 
     @Input()
     requiredIconPrimary: boolean = false
+
+    @Input()
+    loadingBtnPrimary: boolean = false
 
     @Input()
     typeBtnPrimary: string = 'button'
@@ -64,6 +67,9 @@ export class FormButtonComponent{
 
     @Input()
     disbaledBtnSecondary: boolean = false
+
+    @Input()
+    loadingBtnSecondary: boolean = false
 
     @Input()
     typeBtnSecondary: string = 'button'

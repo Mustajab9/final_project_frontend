@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { UserService } from 'projects/core/src/app/service/user.service';
-import { Subscription } from 'rxjs';
-import { LoginDtoReq } from '../../../../../core/src/app/dto/user/login-dto-req';
-import { LoginService } from '../../../../../core/src/app/service/login.service';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+import { Subscription } from 'rxjs'
+
+import { LoadingService } from '../../../../../core/src/app/service/loading.service'
+import { UserService } from '../../../../../core/src/app/service/user.service'
+import { LoginDtoReq } from '../../../../../core/src/app/dto/user/login-dto-req'
+import { LoginService } from '../../../../../core/src/app/service/login.service'
 
 @Component({
   selector: 'app-login',
@@ -14,9 +16,14 @@ import { LoginService } from '../../../../../core/src/app/service/login.service'
 export class LoginComponent implements OnInit, OnDestroy {
 
   login: LoginDtoReq = new LoginDtoReq()
-  private loginSubscription?: Subscription
-  private checkUserSubscription?: Subscription
-  constructor(private title: Title, private router: Router, private loginService: LoginService, private userService: UserService) {
+  isLoading: boolean = false
+
+  loginSubscription?: Subscription
+  checkUserSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
+
+  constructor(private title: Title, private router: Router, private loginService: LoginService,
+    private userService: UserService, private loadingService: LoadingService) {
     this.title.setTitle('Login')
   }
 
@@ -46,5 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.loginSubscription?.unsubscribe()
+    this.checkUserSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }
