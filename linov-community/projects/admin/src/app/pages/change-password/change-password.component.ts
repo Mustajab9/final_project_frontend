@@ -1,18 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
-import { Subscription } from 'rxjs'
+import { firstValueFrom } from 'rxjs'
 
 import { UserService } from '../../../../../core/src/app/service/user.service'
 import { LoginService } from '../../../../../core/src/app/service/login.service'
 import { LoginDtoRes } from '../../../../../core/src/app/dto/user/login-dto-res'
 import { ChangePasswordDtoReq } from '../../../../../core/src/app/dto/user/change-password-dto-req'
+import { LoadingService } from '../../../../../core/src/app/service/loading.service'
+import { GetByUserIdDtoRes } from '../../../../../core/src/app/dto/user/get-by-user-id-dto-res'
+import { UpdateUserDtoRes } from '../../../../../core/src/app/dto/user/update-user-dto-res'
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.css']
 })
-export class ChangePasswordComponent implements OnInit, OnDestroy {
+export class ChangePasswordComponent implements OnInit {
 
   data: ChangePasswordDtoReq = new ChangePasswordDtoReq()
 
@@ -21,10 +24,10 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   newPass!: string
   confirmationPass!: string
   isFound: boolean = false
-  getUserByEmailSubscription?: Subscription
-  changePasswordSubscription?: Subscription
+  isLoading: boolean = false
 
-  constructor(private title: Title, private userService: UserService, private loginService: LoginService) {
+  constructor(private title: Title, private userService: UserService,
+    private loginService: LoginService, private loadingService: LoadingService) {
     this.title.setTitle("Change Password")
   }
 
@@ -32,17 +35,20 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     this.initData()
   }
 
-  initData(): void {
-    const id: string | undefined = this.dataLogin?.data.id
-    this.getUserByEmailSubscription = this.userService.getById(id).subscribe(result => {
-      if (result) {
-        this.data.id = result.data?.id
-        this.data.email = result.data.username
-        this.data.roleId = result.data?.roleId
-        this.data.isActive = result.data?.isActive
-        this.data.version = result.data?.version
-      }
+  async initData(): Promise<void> {
+    this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
     })
+
+    const id: string | undefined = this.dataLogin?.data.id
+    const result: GetByUserIdDtoRes = await firstValueFrom(this.userService.getById(id))
+    if (result) {
+      this.data.id = result.data?.id
+      this.data.email = result.data.username
+      this.data.roleId = result.data?.roleId
+      this.data.isActive = result.data?.isActive
+      this.data.version = result.data?.version
+    }
   }
 
   changePassword(): void {
@@ -60,18 +66,12 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     }, 1000)
   }
 
-  onSubmit(isValid: boolean): void {
+  async onSubmit(isValid: boolean): Promise<void> {
     if (isValid) {
-      this.changePasswordSubscription = this.userService.changePassword(this.data).subscribe(result => {
-        if (result) {
-          this.initData();
-        }
-      })
+      const result: UpdateUserDtoRes = await firstValueFrom(this.userService.changePassword(this.data))
+      if (result) {
+        this.initData()
+      }
     }
-  }
-
-  ngOnDestroy(): void {
-    this.getUserByEmailSubscription?.unsubscribe()
-    this.changePasswordSubscription?.unsubscribe()
   }
 }

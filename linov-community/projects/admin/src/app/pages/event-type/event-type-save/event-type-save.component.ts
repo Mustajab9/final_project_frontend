@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs'
 import { InsertEventTypeDtoReq } from '../../../../../../core/src/app/dto/event-type/insert-event-type-dto-req'
 import { insertEventTypeAction } from '../../../../../../core/src/app/state/event-type/event-type.action'
 import { eventTypeSelectorInsert } from '../../../../../../core/src/app/state/event-type/event-type.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 
 @Component({
@@ -18,13 +19,19 @@ import { eventTypeSelectorInsert } from '../../../../../../core/src/app/state/ev
 export class EventTypeSaveComponent implements OnInit, OnDestroy {
 
   data: InsertEventTypeDtoReq = new InsertEventTypeDtoReq()
-  eventTypeInsertSubscription?: Subscription
+  isLoading: boolean = false
 
-  constructor(private title: Title, private router: Router, private store: Store) {
+  eventTypeInsertSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
+
+  constructor(private title: Title, private router: Router, private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Add Event Type')
   }
 
   ngOnInit(): void {
+    this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
   }
 
   insertProgress(): void {
@@ -44,5 +51,6 @@ export class EventTypeSaveComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.eventTypeInsertSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

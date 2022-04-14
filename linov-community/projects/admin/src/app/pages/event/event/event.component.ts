@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 
 import { Store } from '@ngrx/store'
-import { Subscription, firstValueFrom } from 'rxjs'
+import { firstValueFrom } from 'rxjs'
 
 import { LazyLoadEvent } from 'primeng/api'
 import { Table } from 'primeng/table'
@@ -12,28 +12,35 @@ import { GetAllEventDtoDataRes } from '../../../../../../core/src/app/dto/event/
 import { GetByEventIdDtoDataRes } from '../../../../../../core/src/app/dto/event/get-by-event-id-dto-data-res'
 import { UpdateEventDtoReq } from '../../../../../../core/src/app/dto/event/update-event-dto-req'
 import { EventService } from '../../../../../../core/src/app/service/event.service'
-import { GetAllEventDtoRes } from 'projects/core/src/app/dto/event/get-all-event-dto-res'
+import { GetAllEventDtoRes } from '../../../../../../core/src/app/dto/event/get-all-event-dto-res'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.css']
 })
-export class EventComponent implements OnDestroy {
+export class EventComponent implements OnInit {
 
   data: GetAllEventDtoDataRes[] = []
   eventData: GetByEventIdDtoDataRes = new GetByEventIdDtoDataRes()
   update: UpdateEventDtoReq = new UpdateEventDtoReq()
 
-  eventDeleteSubscription?: Subscription
-
   maxPage: number = 10
   totalRecords: number = 0
   loading: boolean = true
   displayResponsive: boolean = false
+  isLoading: boolean = false
 
-  constructor(private title: Title, private router: Router, private store: Store, private eventService: EventService) {
+  constructor(private title: Title, private router: Router, private store: Store,
+    private eventService: EventService, private loadingService: LoadingService) {
     this.title.setTitle('Event List')
+  }
+
+  ngOnInit(): void {
+    this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
   }
 
   loadData(event: LazyLoadEvent): void {
@@ -48,7 +55,7 @@ export class EventComponent implements OnDestroy {
       this.data = result.data
       this.loading = false
       this.totalRecords = result.total
-    }catch {
+    } catch {
       this.loading = false
     }
   }
@@ -75,16 +82,12 @@ export class EventComponent implements OnDestroy {
         this.update.isActive = result.data.isActive
         this.update.version = result.data.version
         this.update.isApprove = true
-        
+
         const resultUpdate = await firstValueFrom(this.eventService.update(this.update))
-        if(resultUpdate) {
+        if (resultUpdate) {
           this.getData(0, 10)
         }
       }
-    }catch {}
-  }
-
-  ngOnDestroy(): void {
-    this.eventDeleteSubscription?.unsubscribe()
+    } catch { }
   }
 }

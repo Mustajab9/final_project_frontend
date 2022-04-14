@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store'
 import { UpdatePositionDtoReq } from '../../../../../../core/src/app/dto/position/update-position-dto-req'
 import { updatePositionAction } from '../../../../../../core/src/app/state/position/position.action'
 import { positionSelectorById, positionSelectorUpdate } from '../../../../../../core/src/app/state/position/position.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-position-update',
@@ -17,16 +18,23 @@ import { positionSelectorById, positionSelectorUpdate } from '../../../../../../
 export class PositionUpdateComponent implements OnInit, OnDestroy {
 
   data: UpdatePositionDtoReq = new UpdatePositionDtoReq()
+  isLoading: boolean = false
 
   activatedRouteSubscription?: Subscription
   getByPositionIdSubscription?: Subscription
   updatePositionSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
 
-  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute, private store: Store) {
+  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute,
+    private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Update Position')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
       const id = (result as any).id
       this.getByPositionIdSubscription = this.store.select(positionSelectorById(id)).subscribe(result => {
@@ -54,5 +62,6 @@ export class PositionUpdateComponent implements OnInit, OnDestroy {
     this.activatedRouteSubscription?.unsubscribe()
     this.getByPositionIdSubscription?.unsubscribe()
     this.updatePositionSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store'
 import { InsertProvinceDtoReq } from '../../../../../../core/src/app/dto/province/insert-province-dto-req'
 import { insertProvinceAction } from '../../../../../../core/src/app/state/province/province.action'
 import { provinceSelectorInsert } from '../../../../../../core/src/app/state/province/province.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-province-save',
@@ -17,13 +18,19 @@ import { provinceSelectorInsert } from '../../../../../../core/src/app/state/pro
 export class ProvinceSaveComponent implements OnInit, OnDestroy {
 
   data: InsertProvinceDtoReq = new InsertProvinceDtoReq()
-  provinceInsertSubscription?: Subscription
+  isLoading: boolean = false
 
-  constructor(private title: Title, private router: Router, private store: Store) {
+  provinceInsertSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
+
+  constructor(private title: Title, private router: Router, private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Add Province')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
   }
 
   insertProgress(): void {
@@ -43,5 +50,6 @@ export class ProvinceSaveComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.provinceInsertSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

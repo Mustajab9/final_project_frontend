@@ -1,13 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
 
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store'
+import { Subscription } from 'rxjs'
 
-import { InsertCategoryDtoReq } from '../../../../../../core/src/app/dto/category/insert-category-dto-req';
-import { insertCategoryAction } from '../../../../../../core/src/app/state/category/category.action';
-import { categorySelectorInsert } from '../../../../../../core/src/app/state/category/category.selector';
+import { InsertCategoryDtoReq } from '../../../../../../core/src/app/dto/category/insert-category-dto-req'
+import { insertCategoryAction } from '../../../../../../core/src/app/state/category/category.action'
+import { categorySelectorInsert } from '../../../../../../core/src/app/state/category/category.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-category-save',
@@ -17,9 +18,12 @@ import { categorySelectorInsert } from '../../../../../../core/src/app/state/cat
 export class CategorySaveComponent implements OnInit, OnDestroy {
 
   data: InsertCategoryDtoReq = new InsertCategoryDtoReq()
-  categoryInsertSubscription?: Subscription
+  isLoading: boolean = false
 
-  constructor(private title: Title, private router: Router, private store: Store) {
+  categoryInsertSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
+
+  constructor(private title: Title, private router: Router, private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Add Category')
   }
 

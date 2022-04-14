@@ -10,6 +10,7 @@ import { insertRegencyAction } from '../../../../../../core/src/app/state/regenc
 import { regencySelectorInsert } from '../../../../../../core/src/app/state/regency/regency.selector'
 import { GetAllProvinceDtoDataRes } from '../../../../../../core/src/app/dto/province/get-all-province-dto-data-res'
 import { ProvinceService } from '../../../../../../core/src/app/service/province.service'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-regency-save',
@@ -19,16 +20,24 @@ import { ProvinceService } from '../../../../../../core/src/app/service/province
 export class RegencySaveComponent implements OnInit, OnDestroy {
 
   data: InsertRegencyDtoReq = new InsertRegencyDtoReq()
+  isLoading: boolean = false
+
   provinceData: GetAllProvinceDtoDataRes[] = []
 
   regencyInsertSubscription?: Subscription
   getAllProvinceSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
 
-  constructor(private title: Title, private router: Router, private store: Store, private provinceService: ProvinceService) {
+  constructor(private title: Title, private router: Router, private store: Store,
+    private provinceService: ProvinceService, private loadingService: LoadingService) {
     this.title.setTitle('Add Regency')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.getAllProvinceSubscription = this.provinceService.getAll().subscribe(result => {
       if(result){
         this.provinceData = result.data
@@ -54,5 +63,6 @@ export class RegencySaveComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.regencyInsertSubscription?.unsubscribe()
     this.getAllProvinceSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

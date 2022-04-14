@@ -24,7 +24,7 @@
                                             classBtnPrimary="p-button-secondary me-3" labelBtnPrimary="Back"
                                             idBtnPrimary="back" routerLinkBtnPrimary="/admin/user/list"
                                             classBtnSecondary="p-button-success" labelBtnSecondary="Submit"
-                                            idBtnSecondary="input" typeBtnSecondary="submit"
+                                            idBtnSecondary="input" typeBtnSecondary="submit" [loadingBtnSecondary]="isLoading"
                                             [disbaledBtnSecondary]="formUpdate.form.invalid">
                             </form-button>
                         </form>

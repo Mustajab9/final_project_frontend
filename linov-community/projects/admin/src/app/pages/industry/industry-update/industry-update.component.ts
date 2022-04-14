@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store'
 import { UpdateIndustryDtoReq } from '../../../../../../core/src/app/dto/industry/update-industry-dto-req'
 import { updateIndustryAction } from '../../../../../../core/src/app/state/industry/industry.action'
 import { industrySelectorById, industrySelectorUpdate } from '../../../../../../core/src/app/state/industry/industry.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-industry-update',
@@ -17,16 +18,23 @@ import { industrySelectorById, industrySelectorUpdate } from '../../../../../../
 export class IndustryUpdateComponent implements OnInit, OnDestroy {
 
   data: UpdateIndustryDtoReq = new UpdateIndustryDtoReq()
+  isLoading: boolean = false
 
   activatedRouteSubscription?: Subscription
   getByIndustryIdSubscription?: Subscription
   updateIndustrySubscription?: Subscription
+  loadingServiceSubscription?: Subscription
 
-  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute, private store: Store) {
+  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute,
+    private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Update Industry')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
       const id = (result as any).id
       this.getByIndustryIdSubscription = this.store.select(industrySelectorById(id)).subscribe(result => {
@@ -54,5 +62,6 @@ export class IndustryUpdateComponent implements OnInit, OnDestroy {
     this.activatedRouteSubscription?.unsubscribe()
     this.getByIndustryIdSubscription?.unsubscribe()
     this.updateIndustrySubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

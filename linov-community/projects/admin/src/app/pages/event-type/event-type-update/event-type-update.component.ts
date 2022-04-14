@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store'
 import { UpdateEventTypeDtoReq } from '../../../../../../core/src/app/dto/event-type/update-event-type-dto-req'
 import { updateEventTypeAction } from '../../../../../../core/src/app/state/event-type/event-type.action'
 import { eventTypeSelectorById, eventTypeSelectorUpdate } from '../../../../../../core/src/app/state/event-type/event-type.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-event-type-update',
@@ -17,16 +18,23 @@ import { eventTypeSelectorById, eventTypeSelectorUpdate } from '../../../../../.
 export class EventTypeUpdateComponent implements OnInit, OnDestroy {
 
   data: UpdateEventTypeDtoReq = new UpdateEventTypeDtoReq()
+  isLoading: boolean = false
 
   activatedRouteSubscription?: Subscription
   getByEventTypeIdSubscription?: Subscription
   updateEventTypeSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
 
-  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute, private store: Store) {
+  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute,
+    private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Update EventType')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
       const id = (result as any).id
       this.getByEventTypeIdSubscription = this.store.select(eventTypeSelectorById(id)).subscribe(result => {
@@ -54,5 +62,6 @@ export class EventTypeUpdateComponent implements OnInit, OnDestroy {
     this.activatedRouteSubscription?.unsubscribe()
     this.getByEventTypeIdSubscription?.unsubscribe()
     this.updateEventTypeSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store'
 import { InsertSocialMediaDtoReq } from '../../../../../../core/src/app/dto/social-media/insert-social-media-dto-req'
 import { insertSocialMediaAction } from '../../../../../../core/src/app/state/social-media/social-media.action'
 import { socialMediaSelectorInsert } from '../../../../../../core/src/app/state/social-media/social-media.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-social-media-save',
@@ -17,13 +18,19 @@ import { socialMediaSelectorInsert } from '../../../../../../core/src/app/state/
 export class SocialMediaSaveComponent implements OnInit, OnDestroy {
 
   data: InsertSocialMediaDtoReq = new InsertSocialMediaDtoReq()
-  socialMediaInsertSubscription?: Subscription
+  isLoading: boolean = false
 
-  constructor(private title: Title, private router: Router, private store: Store) {
+  socialMediaInsertSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
+
+  constructor(private title: Title, private router: Router, private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Add Social Media')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
   }
 
   insertProgress(): void {
@@ -43,5 +50,6 @@ export class SocialMediaSaveComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.socialMediaInsertSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store'
 import { UpdatePriceListEventDtoReq } from '../../../../../../core/src/app/dto/price-list-event/update-price-list-event-dto-req'
 import { updatePriceListEventAction } from '../../../../../../core/src/app/state/price-list-event/price-list-event.action'
 import { priceListEventSelectorById, priceListEventSelectorUpdate } from '../../../../../../core/src/app/state/price-list-event/price-list-event.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-price-list-event-update',
@@ -17,16 +18,23 @@ import { priceListEventSelectorById, priceListEventSelectorUpdate } from '../../
 export class PriceListEventUpdateComponent implements OnInit, OnDestroy {
 
   data: UpdatePriceListEventDtoReq = new UpdatePriceListEventDtoReq()
+  isLoading: boolean = false
 
   activatedRouteSubscription?: Subscription
   getByPriceListEventIdSubscription?: Subscription
   updatePriceListEventSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
 
-  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute, private store: Store) {
+  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute,
+    private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Update Price Event List')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
       const id = (result as any).id
       this.getByPriceListEventIdSubscription = this.store.select(priceListEventSelectorById(id)).subscribe(result => {
@@ -54,5 +62,6 @@ export class PriceListEventUpdateComponent implements OnInit, OnDestroy {
     this.activatedRouteSubscription?.unsubscribe()
     this.getByPriceListEventIdSubscription?.unsubscribe()
     this.updatePriceListEventSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

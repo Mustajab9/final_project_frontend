@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store'
 import { InsertPriceListEventDtoReq } from '../../../../../../core/src/app/dto/price-list-event/insert-price-list-event-dto-req'
 import { insertPriceListEventAction } from '../../../../../../core/src/app/state/price-list-event/price-list-event.action'
 import { priceListEventSelectorInsert } from '../../../../../../core/src/app/state/price-list-event/price-list-event.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-price-list-event-save',
@@ -17,13 +18,19 @@ import { priceListEventSelectorInsert } from '../../../../../../core/src/app/sta
 export class PriceListEventSaveComponent implements OnInit, OnDestroy {
 
   data: InsertPriceListEventDtoReq = new InsertPriceListEventDtoReq()
-  priceListEventInsertSubscription?: Subscription
+  isLoading: boolean = false
 
-  constructor(private title: Title, private router: Router, private store: Store) {
+  priceListEventInsertSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
+
+  constructor(private title: Title, private router: Router, private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Add Price Event List')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
   }
 
   insertProgress(): void {
@@ -43,5 +50,6 @@ export class PriceListEventSaveComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.priceListEventInsertSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

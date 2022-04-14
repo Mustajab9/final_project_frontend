@@ -10,6 +10,7 @@ import { insertUserAction } from '../../../../../../core/src/app/state/user/user
 import { userSelectorInsert } from '../../../../../../core/src/app/state/user/user.selector'
 import { GetAllRoleDtoDataRes } from '../../../../../../core/src/app/dto/role/get-all-role-dto-data-res'
 import { RoleService } from '../../../../../../core/src/app/service/role.service'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-user-save',
@@ -18,17 +19,24 @@ import { RoleService } from '../../../../../../core/src/app/service/role.service
 })
 export class UserSaveComponent implements OnInit, OnDestroy {
 
-  data: InsertUserDtoReq = new InsertUserDtoReq()
   roleData: GetAllRoleDtoDataRes[] = []
+  data: InsertUserDtoReq = new InsertUserDtoReq()
+  isLoading: boolean = false
 
   roleGetAllSubscription?: Subscription
   userInsertSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
 
-  constructor(private title: Title, private router: Router, private store: Store, private roleService: RoleService) {
+  constructor(private title: Title, private router: Router, private store: Store,
+    private roleService: RoleService, private loadingService: LoadingService) {
     this.title.setTitle('Add User')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.roleGetAllSubscription = this.roleService.getAll(0, 10).subscribe(result => {
       if(result){
         this.roleData = result.data
@@ -53,5 +61,6 @@ export class UserSaveComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userInsertSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

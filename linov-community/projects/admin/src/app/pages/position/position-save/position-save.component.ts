@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store'
 import { InsertPositionDtoReq } from '../../../../../../core/src/app/dto/position/insert-position-dto-req'
 import { insertPositionAction } from '../../../../../../core/src/app/state/position/position.action'
 import { positionSelectorInsert } from '../../../../../../core/src/app/state/position/position.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-position-save',
@@ -17,13 +18,19 @@ import { positionSelectorInsert } from '../../../../../../core/src/app/state/pos
 export class PositionSaveComponent implements OnInit, OnDestroy {
 
   data: InsertPositionDtoReq = new InsertPositionDtoReq()
-  positionInsertSubscription?: Subscription
+  isLoading: boolean = false
 
-  constructor(private title: Title, private router: Router, private store: Store) {
+  positionInsertSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
+
+  constructor(private title: Title, private router: Router, private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Add Position')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
   }
 
   insertProgress(): void {
@@ -43,5 +50,6 @@ export class PositionSaveComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.positionInsertSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

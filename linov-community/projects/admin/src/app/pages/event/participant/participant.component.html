@@ -45,7 +45,7 @@
                         <td *ngIf="!data.attachmentId" class="text-center">-</td>
                         <td *ngIf="data.isApprove == false || data.createdBy == userId" class="text-center">
                             <button pButton pRipple class="p-button-success" id="approve" label="Approving"
-                                    icon="pi pi-check-circle" (click)="onApprove(data.id)">
+                                    icon="pi pi-check-circle" (click)="onApprove(data.id)" [loading]="isLoading">
                             </button>
                         </td>
                         <td *ngIf="data.isApprove == true" class="text-center">-</td>

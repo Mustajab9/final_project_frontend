@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store'
 import { InsertPriceListMemberDtoReq } from '../../../../../../core/src/app/dto/price-list-member/insert-price-list-member-dto-req'
 import { insertPriceListMemberAction } from '../../../../../../core/src/app/state/price-list-member/price-list-member.action'
 import { priceListMemberSelectorInsert } from '../../../../../../core/src/app/state/price-list-member/price-list-member.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-price-list-member-save',
@@ -17,13 +18,19 @@ import { priceListMemberSelectorInsert } from '../../../../../../core/src/app/st
 export class PriceListMemberSaveComponent implements OnInit, OnDestroy {
 
   data: InsertPriceListMemberDtoReq = new InsertPriceListMemberDtoReq()
-  priceListMemberInsertSubscription?: Subscription
+  isLoading: boolean = false
 
-  constructor(private title: Title, private router: Router, private store: Store) {
+  priceListMemberInsertSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
+
+  constructor(private title: Title, private router: Router, private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Add Price Member List')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
   }
 
   insertProgress(): void {
@@ -43,5 +50,6 @@ export class PriceListMemberSaveComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.priceListMemberInsertSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

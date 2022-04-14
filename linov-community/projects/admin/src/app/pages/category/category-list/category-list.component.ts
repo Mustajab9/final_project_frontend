@@ -1,18 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
 
-import { Store } from '@ngrx/store';
-import { Subscription, firstValueFrom } from 'rxjs';
+import { Store } from '@ngrx/store'
+import { Subscription, firstValueFrom } from 'rxjs'
 
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api'
+import { Table } from 'primeng/table'
 
-import { GetAllCategoryDtoDataRes } from '../../../../../../core/src/app/dto/category/get-all-category-dto-data-res';
-import { CategoryService } from '../../../../../../core/src/app/service/category.service';
-import { deleteCategoryAction } from '../../../../../../core/src/app/state/category/category.action';
-import { categorySelectorDelete } from '../../../../../../core/src/app/state/category/category.selector';
-import { GetAllCategoryDtoRes } from 'projects/core/src/app/dto/category/get-all-category-dto-res';
+import { GetAllCategoryDtoDataRes } from '../../../../../../core/src/app/dto/category/get-all-category-dto-data-res'
+import { CategoryService } from '../../../../../../core/src/app/service/category.service'
+import { deleteCategoryAction } from '../../../../../../core/src/app/state/category/category.action'
+import { categorySelectorDelete } from '../../../../../../core/src/app/state/category/category.selector'
+import { GetAllCategoryDtoRes } from '../../../../../../core/src/app/dto/category/get-all-category-dto-res'
 
 @Component({
   selector: 'app-category-list',
@@ -50,7 +50,7 @@ export class CategoryListComponent implements OnDestroy {
   }
 
   clear(table: Table): void {
-    table.clear();
+    table.clear()
   }
 
   filter(text: any): void {
@@ -80,7 +80,7 @@ export class CategoryListComponent implements OnDestroy {
         this.store.dispatch(deleteCategoryAction({ payload: id }))
         this.deleteProgress()
       }
-    });
+    })
   }
 
   ngOnDestroy(): void {

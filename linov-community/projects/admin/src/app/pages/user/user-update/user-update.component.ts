@@ -1,3 +1,4 @@
+
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { ActivatedRoute, Router } from '@angular/router'
@@ -8,6 +9,7 @@ import { Store } from '@ngrx/store'
 import { UpdateUserDtoReq } from '../../../../../../core/src/app/dto/user/update-user-dto-req'
 import { updateUserAction } from '../../../../../../core/src/app/state/user/user.action'
 import { userSelectorById, userSelectorUpdate } from '../../../../../../core/src/app/state/user/user.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-user-update',
@@ -17,16 +19,23 @@ import { userSelectorById, userSelectorUpdate } from '../../../../../../core/src
 export class UserUpdateComponent implements OnInit, OnDestroy {
 
   data: UpdateUserDtoReq = new UpdateUserDtoReq()
+  isLoading: boolean = false
 
   activatedRouteSubscription?: Subscription
   getByUserIdSubscription?: Subscription
   updateUserSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
 
-  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute, private store: Store) {
+  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute,
+    private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Update User')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
       const id = (result as any).id
       this.getByUserIdSubscription = this.store.select(userSelectorById(id)).subscribe(result => {
@@ -59,5 +68,6 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
     this.activatedRouteSubscription?.unsubscribe()
     this.getByUserIdSubscription?.unsubscribe()
     this.updateUserSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

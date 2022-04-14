@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store'
 import { UpdatePaymentMethodDtoReq } from '../../../../../../core/src/app/dto/payment-method/update-payment-method-dto-req'
 import { updatePaymentMethodAction } from '../../../../../../core/src/app/state/payment-method/payment-method.action'
 import { paymentMethodSelectorById, paymentMethodSelectorUpdate } from '../../../../../../core/src/app/state/payment-method/payment-method.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-payment-method-update',
@@ -17,16 +18,23 @@ import { paymentMethodSelectorById, paymentMethodSelectorUpdate } from '../../..
 export class PaymentMethodUpdateComponent implements OnInit, OnDestroy {
 
   data: UpdatePaymentMethodDtoReq = new UpdatePaymentMethodDtoReq()
+  isLoading: boolean = false
 
   activatedRouteSubscription?: Subscription
   getByPaymentMethodIdSubscription?: Subscription
   updatePaymentMethodSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
 
-  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute, private store: Store) {
+  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute,
+    private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Update Payment Method')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
+
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
       const id = (result as any).id
       this.getByPaymentMethodIdSubscription = this.store.select(paymentMethodSelectorById(id)).subscribe(result => {
@@ -54,5 +62,6 @@ export class PaymentMethodUpdateComponent implements OnInit, OnDestroy {
     this.activatedRouteSubscription?.unsubscribe()
     this.getByPaymentMethodIdSubscription?.unsubscribe()
     this.updatePaymentMethodSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

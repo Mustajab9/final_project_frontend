@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store'
 import { InsertIndustryDtoReq } from '../../../../../../core/src/app/dto/industry/insert-industry-dto-req'
 import { insertIndustryAction } from '../../../../../../core/src/app/state/industry/industry.action'
 import { industrySelectorInsert } from '../../../../../../core/src/app/state/industry/industry.selector'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-industry-save',
@@ -17,13 +18,19 @@ import { industrySelectorInsert } from '../../../../../../core/src/app/state/ind
 export class IndustrySaveComponent implements OnInit, OnDestroy {
 
   data: InsertIndustryDtoReq = new InsertIndustryDtoReq()
-  industryInsertSubscription?: Subscription
+  isLoading: boolean = false
 
-  constructor(private title: Title, private router: Router, private store: Store) {
+  industryInsertSubscription?: Subscription
+  loadingServiceSubscription?: Subscription
+
+  constructor(private title: Title, private router: Router, private store: Store, private loadingService: LoadingService) {
     this.title.setTitle('Add Industry')
   }
 
   ngOnInit(): void {
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
+      this.isLoading = result
+    })
   }
 
   insertProgress(): void {
@@ -43,5 +50,6 @@ export class IndustrySaveComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.industryInsertSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

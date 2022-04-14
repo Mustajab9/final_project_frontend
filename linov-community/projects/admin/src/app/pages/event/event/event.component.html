@@ -42,7 +42,7 @@
                 <td *ngIf="!data.paymentAttachment" class="text-center">-</td>
                 <td class="text-center">
                     <button *ngIf="data.isApprove == false" pButton pRipple class="p-button-success me-3" id="approve" label="Approving"
-                            icon="pi pi-check-circle" (click)="onApprove(data.id)">
+                            icon="pi pi-check-circle" (click)="onApprove(data.id)" [loading]="isLoading">
                     </button>
                     <button pButton pRipple class="p-button-info me-3" id="participant" label="Participant"
                         icon="pi pi-list" (click)="onSubmit(data.id)">
