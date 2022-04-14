@@ -19,8 +19,8 @@
                         Event</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/member/article/dashboard"><i
-                            class="fa-solid fa-newspaper me-2"></i>Article</a>
+                    <a class="nav-link" routerLink="/member/article/dashboard">
+                        <i class="fa-solid fa-newspaper me-2"></i>Article</a>
                 </li>
             </ul>
         </div>
@@ -45,6 +45,12 @@
                     </ul>
                 </li>
             </ul>
+        </div>
+        <div *ngIf="!isLogin" class="" id="navbarNavDarkDropdown">
+            <app-button classBtn="p-button-secondary" labelBtn="Login"
+                        [requiredIcon]="true" iconType="pi-arrow-circle-right"
+                        routerLinkBtn="/login/member">
+            </app-button>
         </div>
     </div>
 </nav>
