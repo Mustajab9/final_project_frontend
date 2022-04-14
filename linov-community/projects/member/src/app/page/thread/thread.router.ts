@@ -10,11 +10,11 @@ const routes : Routes = [
         component : ThreadComponent
     },
     {
-        path : 'detail/:id',
+        path : 'thread/detail/:id',
         component : ThreadDetailComponent
     },
     {
-        path : 'save/:type',
+        path : 'thread/save/:type',
         component : ThreadSaveComponent
     }
 ]

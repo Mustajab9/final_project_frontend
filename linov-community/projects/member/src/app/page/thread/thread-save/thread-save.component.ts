@@ -43,23 +43,11 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.isLogin) {
-      this.activatedRoute.params.subscribe(result => {
-        this.writeType = (result as any).type
-      })
+    this.activatedRoute.params.subscribe(result => {
+      this.writeType = (result as any).type
+    })
 
-      this.initData()
-    } else {
-      this.confirmationService.confirm({
-        message: 'You Must Be Login First',
-        header: 'Confirm',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-          this.router.navigateByUrl('/login/member')
-        }
-      });
-    }
-
+    this.initData()
   }
 
   initData(): void {
@@ -80,21 +68,32 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    this.thread.categoryId = []
-    for (let category of this.selectedCategory) {
-      this.thread.categoryId.push(category.id!)
+    if(this.isLogin){
+      this.thread.categoryId = []
+      for (let category of this.selectedCategory) {
+        this.thread.categoryId.push(category.id!)
+      }
+
+      this.thread.typeId = this.selectedType.id!
+
+      this.thread.choiceName = []
+      for (let choice of this.choices) {
+        this.thread.choiceName.push(choice)
+      }
+      
+      this.threadInsertSubscription = this.threadService.insert(this.thread, this.uploadedFiles).subscribe(result => {
+        this.onBack()
+      })
+    } else {
+      this.confirmationService.confirm({
+        message: 'You Must Be Login First',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.router.navigateByUrl('/login/member')
+        }
+      });
     }
-
-    this.thread.typeId = this.selectedType.id!
-
-    this.thread.choiceName = []
-    for (let choice of this.choices) {
-      this.thread.choiceName.push(choice)
-    }
-
-    this.threadInsertSubscription = this.threadService.insert(this.thread, this.uploadedFiles).subscribe(result => {
-      this.onBack()
-    })
   }
 
   onBack(): void {

@@ -9,7 +9,6 @@ export class AccessGuard implements CanActivate {
     constructor(private router: Router, private loginService: LoginService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-
         const url: string = state.url
         const roleCode: string | undefined = this.loginService.getData()?.data.roleCode
 

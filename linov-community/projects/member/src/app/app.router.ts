@@ -26,6 +26,12 @@ const routes: Routes = [
     {
         path: 'member',
         component: NavbarComponent,
+        loadChildren: () => import('./page/article/article.module').then(m => m.ArticleModule),
+        canActivate: [AccessGuard]
+    },
+    {
+        path: 'member',
+        component: NavbarComponent,
         loadChildren: () => import('./page/cart/cart-list/cart-list.module').then(m => m.CartListModule),
         canActivate: [AccessGuard],
         canLoad: [AuthGuard]
@@ -56,12 +62,6 @@ const routes: Routes = [
         loadChildren: () => import('./page/subscription/subscription.module').then(m => m.SubscriptionModule),
         canActivate: [AccessGuard],
         canLoad: [AuthGuard]
-    },
-    {
-        path: 'member',
-        component: NavbarComponent,
-        loadChildren: () => import('./page/article/article.module').then(m => m.ArticleModule),
-        canActivate: [AccessGuard]
     },
     {
         path: 'member',
