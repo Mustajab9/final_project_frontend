@@ -4,6 +4,22 @@
 
 <div class="container-fluid">
     <div class="row px-5">
+        <!-- <div class="my-3 col-3 pr-5">
+            <div class="my-3">
+                <i class="fa-solid fa-filter me-4"></i>
+                <span class="fs-5 fw-bold" style="color: #323232;">Filters</span>
+            </div>
+
+            <div class="card text-color">
+                <div class="card-body" style="padding: 0px 15px;">
+                    <div class="mt-3">
+                        <app-label classLabel="mb-0" forLabel="" nameLabel="Category"></app-label>
+                        <p-listbox [options]="categories" [(ngModel)]="selectedCategory" optionLabel="categoryName" [metaKeySelection]="false" [checkbox]="true" [multiple]="true" [style]="{'width': 'fit-content'}"></p-listbox>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
         <div class="my-3 col-9 pr-5">
             <div class="my-3">
                 <i class="fa-solid fa-comment me-4"></i>
@@ -15,13 +31,13 @@
             </app-button>
 
             <div infinite-scroll (scrolled)="onScroll()">
-                <div class="card text-color border-secondary mb-4" *ngFor="let thread of threads">
+                <div class="card text-color border-secondary mb-4" *ngFor="let thread of threads;let i=index">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6 d-flex align-items-center">
-                                <img src="../../../assets/image/profile.png" class="me-2"
-                                    style="height: 35px; width: 35px;">
-                                <app-label class="align-self-center" nameLabel="Profile Name"></app-label>
+                                <img *ngIf="!thread.profileImage" src="assets/image/undraw_profile_pic.svg" class="me-2" style="height: 35px; width: 35px;">
+                                <img *ngIf="thread.profileImage" src="http://localhost:8080/attachments/{{thread.profileImage}}" class="me-2" style="height: 35px; width: 35px;">
+                                <app-label class="align-self-center" nameLabel="{{thread.profileName}}"></app-label>
                             </div>
 
                             <div class="col-6 text-end">
@@ -35,11 +51,11 @@
                         </p-blockUI>
 
                         <p-panel class="mt-4" #pnl [showHeader]="false">
-                            <h3>{{thread.threadTitle}}</h3>
-
-                            <div [ngClass]="{'limitTextHeight' : thread.isReadMore}">
-                                <p class="mt-3">{{thread.threadContent}}</p>
-                                <app-a labelA="Read More" routerLinkA="/member/thread/detail/{{thread.id}}"></app-a>
+                            <div class="">
+                                <h3>{{thread.threadTitle}}</h3>
+                                <p class="mt-3">{{thread.isReadMore? thread.threadContent.substring(0, 300): thread.threadContent}}<span *ngIf="thread.threadContent.length>=300">... </span>
+                                    <a class="link" *ngIf="thread.threadContent.length>=300" (click)="showText(thread.id)">{{thread.isReadMore? 'Read More': 'Read Less'}}</a>
+                                </p>
                             </div>
 
                             <p-carousel *ngIf="thread.attachmentId && thread.attachmentId.length>0"
@@ -48,7 +64,7 @@
                                 <ng-template let-attachment pTemplate="item">
                                     <div class="product-item">
                                         <div class="product-item-content">
-                                            <div class="mb-3 text-center">
+                                            <div class="text-center">
                                                 <img src="http://localhost:8080/attachments/{{attachment}}"
                                                     height="400px" width="400px">
                                             </div>
@@ -80,22 +96,22 @@
                             </div>
                         </p-panel>
 
-                        <div class="mt-3">
-                            <a pButton [loading]="this.isLoading" (click)="onLike(thread.id, thread.isLiked)" class="me-2">
-                                <i *ngIf="thread.isLiked == false" class="fa-regular fa-heart"></i>
-                                <i *ngIf="thread.isLiked == true" class="fa-solid fa-heart"></i>
+                        <div class="">
+                            <button pButton [loading]="this.isLoading" (click)="onLike(thread.id, thread.isLiked)" class="p-button-text">
+                                <i *ngIf="thread.isLiked == false" class="fa-regular fa-heart me-2"></i>
+                                <i *ngIf="thread.isLiked == true" class="fa-solid fa-heart me-2"></i>
                                 {{thread.totalLike}}
-                            </a>
+                            </button>
 
-                            <a pButton [loading]="this.isLoading" class="me-2" (click)="onComment(thread.id)">
-                                <i class="fa-regular fa-comment"></i>
+                            <button pButton [loading]="this.isLoading" class="p-button-text" (click)="onComment(thread.id)">
+                                <i class="fa-regular fa-comment me-2"></i>
                                 {{thread.totalComment}}
-                            </a>
+                            </button>
 
-                            <a pButton [loading]="this.isLoading" (click)="onBookmark(thread.id, thread.isBookmarked)" class="me-2">
-                                <i *ngIf="thread.isBookmarked == false" class="fa-regular fa-bookmark"></i>
-                                <i *ngIf="thread.isBookmarked == true" class="fa-solid fa-bookmark"></i>
-                            </a>
+                            <button pButton [loading]="this.isLoading" (click)="onBookmark(thread.id, thread.isBookmarked)" class="p-button-text">
+                                <i *ngIf="thread.isBookmarked == false" class="fa-regular fa-bookmark me-2"></i>
+                                <i *ngIf="thread.isBookmarked == true" class="fa-solid fa-bookmark me-2"></i>
+                            </button>
                         </div>
 
                     </div>
@@ -106,7 +122,7 @@
         <div class="my-3 col-3">
             <div class="my-3">
                 <i class="fa-solid fa-calendar me-4"></i>
-                <span class="fs-5 fw-bold" style="color: #323232;">Training & Event</span>
+                <span class="fs-5 fw-bold" style="color: #323232;">Course & Event</span>
             </div>
 
             <div class="card text-color custom-card mb-3" *ngFor="let event of events">

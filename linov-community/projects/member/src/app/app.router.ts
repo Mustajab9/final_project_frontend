@@ -32,14 +32,7 @@ const routes: Routes = [
     {
         path: 'member',
         component: NavbarComponent,
-        loadChildren: () => import('./page/cart/cart-list/cart-list.module').then(m => m.CartListModule),
-        canActivate: [AccessGuard],
-        canLoad: [AuthGuard]
-    },
-    {
-        path: 'member',
-        component: NavbarComponent,
-        loadChildren: () => import('./page/cart/cart-checkout/cart-checkout.module').then(m => m.CartCheckoutModule),
+        loadChildren: () => import('./page/cart/cart.module').then(m => m.CartModule),
         canActivate: [AccessGuard],
         canLoad: [AuthGuard]
     },

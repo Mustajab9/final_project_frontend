@@ -48,7 +48,7 @@
                                 <form-select 
                                     forLabel="type" nameLabel="Thread Type" [requiredLabel]="true" 
                                     [optionData]="threadTypes" optionLabel="typeName" optionValue="id"
-                                    [(ngModelSelect)]="selectedType.id">
+                                    [(ngModelSelect)]="selectedType.id" (ngModelSelectChange)="onThreadTypeChange($event)">
                                 </form-select>
                             </div>
                         </div>

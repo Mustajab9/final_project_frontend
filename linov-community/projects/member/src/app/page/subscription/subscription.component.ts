@@ -8,7 +8,7 @@ import { LoginService } from 'projects/core/src/app/service/login.service';
 import { PriceListMemberService } from 'projects/core/src/app/service/price-list-member.service';
 import { ProfilesService } from 'projects/core/src/app/service/profiles.service';
 import { SubscriptionService } from 'projects/core/src/app/service/subscription.service';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-subscription',
@@ -22,7 +22,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
   isLoading: boolean = false
   subPrices: GetAllPriceListMemberDtoDataRes[] = []
   subInsert: InsertSubscriptionDtoReq = new InsertSubscriptionDtoReq()
-  insertMemberPremiumSubscription? : Subscription
+  loadingSubscription?: Subscription
 
   constructor(private loginService: LoginService, private subscriptionService: SubscriptionService,
     private profileService: ProfilesService, private priceListMemberService: PriceListMemberService,
@@ -34,33 +34,32 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     this.initData()
   }
 
-  initData(): void {
+  async initData(): Promise<void> {
     this.loadingSevrice.loading$?.subscribe(result => {
       this.isLoading = result
     })
 
-    this.priceListMemberService.getAll().subscribe(result => {
-      this.subPrices = result.data
-    })
+    const resultAllPriceList = await firstValueFrom(this.priceListMemberService.getAll())
+    this.subPrices = resultAllPriceList.data
   }
 
-  submit(priceId: string): void {
+  async submit(priceId: string): Promise<void> {
     this.userId = this.loginService.getData()?.data?.id
-    this.profileService.getByUserId().subscribe(result => {
-      this.profileId = result.data?.id
-    })
+
+    const resultProfileById = await firstValueFrom(this.profileService.getByUserId())
+    this.profileId = resultProfileById.data?.id
+
     this.subInsert.profileId = this.profileId
     this.subInsert.priceId = priceId
 
-    this.insertMemberPremiumSubscription = this.subscriptionService.insert(this.subInsert).subscribe(result => {
-      if (result) {
-        this.initData()
-      }
-    })
+    const resultInsertSubscription = await firstValueFrom(this.subscriptionService.insert(this.subInsert))
+    if (resultInsertSubscription) {
+      this.initData()
+    }
   }
 
   ngOnDestroy(): void {
-    this.insertMemberPremiumSubscription?.unsubscribe()
+    this.loadingSubscription?.unsubscribe()
   }
 
 }

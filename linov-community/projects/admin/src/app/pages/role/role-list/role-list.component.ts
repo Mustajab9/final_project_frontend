@@ -19,7 +19,7 @@ import { GetAllRoleDtoRes } from 'projects/core/src/app/dto/role/get-all-role-dt
   templateUrl: './role-list.component.html',
   styleUrls: ['./role-list.component.css']
 })
-export class RoleListComponent implements OnInit, OnDestroy {
+export class RoleListComponent implements OnDestroy {
 
   data: GetAllRoleDtoDataRes[] = []
   roleDeleteSubscription?: Subscription
@@ -31,9 +31,6 @@ export class RoleListComponent implements OnInit, OnDestroy {
   constructor(private title: Title, private router: Router, private store: Store, private confirmationService: ConfirmationService,
               private roleService: RoleService) {
     this.title.setTitle('Role List')
-  }
-
-  ngOnInit(): void {
   }
 
   loadData(event: LazyLoadEvent) {

@@ -3,19 +3,20 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { GetAllCategoryDtoDataRes } from 'projects/core/src/app/dto/category/get-all-category-dto-data-res';
 import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
+import { GetAllEventDtoRes } from 'projects/core/src/app/dto/event/get-all-event-dto-res';
 import { GetEventByCategoryDtoDataRes } from 'projects/core/src/app/dto/event/get-event-by-category-dto-data-res';
 import { CategoryService } from 'projects/core/src/app/service/category.service';
 import { EventService } from 'projects/core/src/app/service/event.service';
 import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })
-export class CourseComponent implements OnInit, OnDestroy {
+export class CourseComponent implements OnInit {
 
   data: GetAllEventDtoDataRes[] = []
   eventByCategory: GetEventByCategoryDtoDataRes[] = []
@@ -23,9 +24,6 @@ export class CourseComponent implements OnInit, OnDestroy {
   userId?: string = this.loginService.getData()?.data.id
   isLogin: boolean = this.loginService.isLogin()
 
-  getAllEventSubscription?: Subscription
-  eventByCategorySubscription?: Subscription
-  categoriesSubscription?: Subscription
   isLoading!: boolean
 
   constructor(private title: Title, private router: Router, private eventService: EventService,
@@ -38,28 +36,24 @@ export class CourseComponent implements OnInit, OnDestroy {
     this.initData()
   }
 
-  initData(): void {
+  async initData(): Promise<void> {
     this.loadingService.loading$?.subscribe(result => {
       this.isLoading = result
     })
 
+    let resultAllEvent: GetAllEventDtoRes
     if (this.isLogin) {
-      this.getAllEventSubscription = this.eventService.getAll().subscribe(result => {
-        if (result) {
-          this.data = result.data
-        }
-      })
+      resultAllEvent = await firstValueFrom(this.eventService.getAll())
     } else {
-      this.getAllEventSubscription = this.eventService.getAllNl().subscribe(result => {
-        if (result) {
-          this.data = result.data
-        }
-      })
+      resultAllEvent = await firstValueFrom(this.eventService.getAllNl())
     }
 
-    this.categoriesSubscription = this.categoryService.getAll().subscribe(result => {
-      this.categories = result.data
-    })
+    if(resultAllEvent) {
+      this.data = resultAllEvent.data
+    }
+
+    const resultAllCategory = await firstValueFrom(this.categoryService.getAll())
+    this.categories = resultAllCategory.data
   }
 
   onEnroll(id: string) {
@@ -70,22 +64,14 @@ export class CourseComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`/member/event/participant/event-all/${id}`)
   }
 
-  onCategory(id: string) {
+  async onCategory(id: string) {
+    let resultAllCategory: GetAllEventDtoRes
     if(this.isLogin){
-      this.eventByCategorySubscription = this.eventService.getByCategory(id).subscribe(result => {
-        this.data = result.data
-      })
+      resultAllCategory = await firstValueFrom(this.eventService.getByCategory(id))
     }else{
-      this.eventByCategorySubscription = this.eventService.getByCategoryNl(id).subscribe(result => {
-        this.data = result.data
-      })
+      resultAllCategory = await firstValueFrom(this.eventService.getByCategoryNl(id))
     }
-  }
 
-  ngOnDestroy(): void {
-    this.getAllEventSubscription?.unsubscribe()
-    this.eventByCategorySubscription?.unsubscribe()
-    this.categoriesSubscription?.unsubscribe()
+    this.data = resultAllCategory.data
   }
-
 }

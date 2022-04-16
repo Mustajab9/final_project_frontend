@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
@@ -15,14 +15,14 @@ import { LoginService } from 'projects/core/src/app/service/login.service';
 import { ThreadCommentService } from 'projects/core/src/app/service/thread-comment.service';
 import { ThreadLikeService } from 'projects/core/src/app/service/thread-like.service';
 import { ThreadService } from 'projects/core/src/app/service/thread.service';
-import { Subscription } from 'rxjs';
+import { first, firstValueFrom, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-thread-detail',
   templateUrl: './thread-detail.component.html',
   styleUrls: ['./thread-detail.component.css']
 })
-export class ThreadDetailComponent implements OnInit {
+export class ThreadDetailComponent implements OnInit, OnDestroy {
 
   threadById: GetByThreadIdDtoDataRes = new GetByThreadIdDtoDataRes()
   threadCommentsByThread: GetThreadCommentByThreadDtoDataRes[] = []
@@ -31,20 +31,7 @@ export class ThreadDetailComponent implements OnInit {
   insertThreadLikeDtoReq: InsertThreadLikeDtoReq = new InsertThreadLikeDtoReq()
   insertBookmarkDtoReq: InsertBookmarkDtoReq = new InsertBookmarkDtoReq()
   insertChoiceVoteDtoReq: InsertChoiceVoteDtoReq = new InsertChoiceVoteDtoReq()
-
-  threadAllSubscription?: Subscription
-  eventAllSubscription?: Subscription
-  getThreadLikeByThreadAndUserSubscription?: Subscription
-  threadLikeInsertSubscription?: Subscription
-  threadLikeDeleteSubscription?: Subscription
-  getBookmarkByThreadAndUserSubscription?: Subscription
-  bookmarkInsertSubscription?: Subscription
-  bookmarkDeleteSubscription?: Subscription
-  threadByIdSubscription?: Subscription
-  threadCommentInsertSubscription?: Subscription
-  getThreadCommentByThreadSubscription?: Subscription
-  activatedRouteSubscription?: Subscription
-  choiceVoteInsertSubscription?: Subscription
+  loadingSubscription?: Subscription
 
   value: number = 0;
   responsiveOptions: any;
@@ -60,46 +47,42 @@ export class ThreadDetailComponent implements OnInit {
     this.title.setTitle('Thread Detail')
   }
 
-  ngOnInit(): void {
-    this.loadingService.loading$?.subscribe(result => {
+  async ngOnInit() {
+    this.loadingSubscription = this.loadingService.loading$?.subscribe(result => {
       this.isLoading = result
     })
 
-    this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
-      this.initData((result as any).id)
-    })
+    const {id} = await firstValueFrom(this.activatedRoute.params)
+    this.initData(id)
   }
 
-  initData(id: string): void {
-    this.threadByIdSubscription = this.threadService.getById(id).subscribe(result => {
-      this.threadById = result.data
-    })
+  async initData(id: string): Promise<void> {
+    const resultThreadById = await firstValueFrom(this.threadService.getById(id))
+    this.threadById = resultThreadById.data
 
-    this.getThreadCommentByThreadSubscription = this.threadCommentService.getByThread(id).subscribe(result => {
-      this.threadCommentsByThread = result.data
-    })
+    const resultThreadCommentByThreadId = await firstValueFrom(this.threadCommentService.getByThread(id))
+    this.threadCommentsByThread = resultThreadCommentByThreadId.data
   }
 
-  onLike(id: string, isLike: boolean): void {
+  async onLike(id: string, isLike: boolean): Promise<void> {
     if (this.isLogin) {
       this.insertThreadLikeDtoReq.threadId = id
-      if (isLike == false) {
-        isLike = !isLike
-        this.threadLikeInsertSubscription = this.threadLikeService.insert(this.insertThreadLikeDtoReq).subscribe(_ => {
-          this.initData(this.threadById.id)
-        })
-      } else if (isLike == true) {
+
+      if (!isLike) {
+        await firstValueFrom(this.threadLikeService.insert(this.insertThreadLikeDtoReq))
+        this.initData(this.threadById.id)
+
+      } else if (isLike) {
         const userId: string | undefined = this.loginService.getData()?.data.id
-        isLike = !isLike
-        this.getThreadLikeByThreadAndUserSubscription = this.threadLikeService.getByThreadAndUser(id, userId).subscribe(result => {
-          if (result) {
-            this.threadLikeDeleteSubscription = this.threadLikeService.delete(result.data.id).subscribe(_ => {
-              this.initData(this.threadById.id)
-            })
-          }
-        })
+
+        const resultThreadLikeByThreadAndUser = await firstValueFrom(this.threadLikeService.getByThreadAndUser(id, userId))
+        if (resultThreadLikeByThreadAndUser) {
+          await firstValueFrom(this.threadLikeService.delete(resultThreadLikeByThreadAndUser.data.id))
+          this.initData(this.threadById.id)
+        }
       }
-    } else {
+    } 
+    else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -111,26 +94,25 @@ export class ThreadDetailComponent implements OnInit {
     }
   }
 
-  onBookmark(id: string, isBookmarked: boolean): void {
+  async onBookmark(id: string, isBookmarked: boolean): Promise<void> {
     if (this.isLogin) {
       this.insertBookmarkDtoReq.threadId = id
-      if (isBookmarked == false) {
-        isBookmarked = !isBookmarked
-        this.bookmarkInsertSubscription = this.bookmarkService.insert(this.insertBookmarkDtoReq).subscribe(_ => {
-          this.initData(this.threadById.id)
-        })
-      } else if (isBookmarked == true) {
+
+      if (!isBookmarked) {
+        await firstValueFrom(this.bookmarkService.insert(this.insertBookmarkDtoReq))
+        this.initData(this.threadById.id)
+        
+      } else if (isBookmarked) {
         const userId: string | undefined = this.loginService.getData()?.data.id
-        isBookmarked = !isBookmarked
-        this.getBookmarkByThreadAndUserSubscription = this.bookmarkService.getByUserAndThread(id, userId).subscribe(result => {
-          if (result) {
-            this.bookmarkDeleteSubscription = this.bookmarkService.delete(result.data.id).subscribe(_ => {
-              this.initData(this.threadById.id)
-            })
-          }
-        })
+
+        const resultBookmarkByThreadAndUser = await firstValueFrom(this.bookmarkService.getByUserAndThread(id, userId))
+        if (resultBookmarkByThreadAndUser) {
+          await firstValueFrom(this.bookmarkService.delete(resultBookmarkByThreadAndUser.data.id))
+          this.initData(this.threadById.id)
+        }
       }
-    } else {
+    } 
+    else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -142,20 +124,16 @@ export class ThreadDetailComponent implements OnInit {
     }
   }
 
-  onPolling(id: string, isVoted: boolean): void {
+  async onPolling(id: string, isVoted: boolean): Promise<void> {
     if (this.isLogin) {
       this.insertChoiceVoteDtoReq.choiceId = id
-      if (isVoted == false) {
-        isVoted = !isVoted
-        this.choiceVoteInsertSubscription = this.choiceVoteService.insert(this.insertChoiceVoteDtoReq).subscribe(_ => {
-          this.initData(this.threadById.id)
-        })
+
+      if (!isVoted) {
+        await firstValueFrom(this.choiceVoteService.insert(this.insertChoiceVoteDtoReq))
+        this.initData(this.threadById.id)
       }
-      this.value = this.value + Math.floor(Math.random() * 10) + 1;
-      if (this.value >= 100) {
-        this.value = 100;
-      }
-    } else {
+    } 
+    else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -167,13 +145,13 @@ export class ThreadDetailComponent implements OnInit {
     }
   }
 
-  onReply(): void {
+  async onReply(): Promise<void> {
     if(this.isLogin){
       this.insertThreadComment.threadId = this.threadById.id
-      this.threadCommentInsertSubscription = this.threadCommentService.insert(this.insertThreadComment).subscribe(result => {
-        this.router.navigateByUrl('/member/dashboard')
-      })
-    }else{
+      await firstValueFrom(this.threadCommentService.insert(this.insertThreadComment))
+      this.router.navigateByUrl('/member/dashboard')
+    }
+    else{
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -185,4 +163,7 @@ export class ThreadDetailComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.loadingSubscription?.unsubscribe()
+  }
 }

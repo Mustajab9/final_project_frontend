@@ -12,7 +12,7 @@ import { EventService } from 'projects/core/src/app/service/event.service';
 import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { insertEventAction } from 'projects/core/src/app/state/event/event.action';
 import { eventSelectorInsert } from 'projects/core/src/app/state/event/event.selector';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-event-save',
@@ -29,10 +29,6 @@ export class EventSaveComponent implements OnInit, OnDestroy {
   timeStart: Date = new Date()
   timeEnd: Date = new Date()
   isLoading: boolean = false
-
-  insertEventSubscription?: Subscription
-  getAllCategorySubscription?: Subscription
-  getAllTypeSubscripton?: Subscription
   loadingServiceSubscription?: Subscription
 
   constructor(private title: Title, private router: Router, private store: Store, private datePipe: DatePipe,
@@ -41,22 +37,20 @@ export class EventSaveComponent implements OnInit, OnDestroy {
     this.title.setTitle('Add Event')
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
       this.isLoading = result
     })
 
-    this.getAllCategorySubscription = this.categoryService.getAll().subscribe(result => {
-      if (result) {
-        this.categoryData = result.data
-      }
-    })
+    const resultAllCategory = await firstValueFrom(this.categoryService.getAll())
+    if (resultAllCategory) {
+      this.categoryData = resultAllCategory.data
+    }
 
-    this.getAllTypeSubscripton = this.typeService.getAll().subscribe(result => {
-      if (result) {
-        this.typeData = result.data
-      }
-    })
+    const resultAllType = await firstValueFrom(this.typeService.getAll())
+    if (resultAllType) {
+      this.typeData = resultAllType.data
+    }
   }
 
   getDate() {
@@ -80,20 +74,16 @@ export class EventSaveComponent implements OnInit, OnDestroy {
     this.file = event.target.files[0]
   }
 
-  onSubmit(isValid: boolean) {
+  async onSubmit(isValid: boolean) {
     if (isValid) {
-      this.insertEventSubscription = this.eventService.insert(this.data, this.file).subscribe(result => {
-        if (result) {
-          this.router.navigateByUrl('/member/course')
-        }
-      })
+      const resultInsert = await firstValueFrom(this.eventService.insert(this.data, this.file))
+      if (resultInsert) {
+        this.router.navigateByUrl('/member/course')
+      }
     }
   }
 
   ngOnDestroy(): void {
-    this.insertEventSubscription?.unsubscribe()
-    this.getAllCategorySubscription?.unsubscribe()
-    this.getAllTypeSubscripton?.unsubscribe()
     this.loadingServiceSubscription?.unsubscribe()
   }
 }

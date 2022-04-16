@@ -13,6 +13,7 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { PanelModule } from 'primeng/panel';
 import { BlockUIModule } from 'primeng/blockui';
 import { ConfirmationService } from "primeng/api";
+import { ListboxModule } from 'primeng/listbox';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { ConfirmationService } from "primeng/api";
         InfiniteScrollModule,
         PanelModule,
         BlockUIModule,
+        ListboxModule,
         DashboardRouter,
     ],
     providers: [

@@ -6,10 +6,10 @@ export class GetAllThreadDtoDataRes {
 	threadTitle!: string
 	threadContent!: string
 	typeCode!: string
-	categoryId!: String[]
-	categoryName!: String[]
-	attachmentId!: String[]
-	attachemntExtension?: String[]
+	categoryId!: string[]
+	categoryName!: string[]
+	attachmentId!: string[]
+	attachemntExtension?: string[]
 	pollingName!: string
 	choices!: GetThreadPollingChoiceDtoRes[]
 	countVote!: number[]

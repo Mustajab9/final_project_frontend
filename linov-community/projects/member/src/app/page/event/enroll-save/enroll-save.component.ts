@@ -8,7 +8,7 @@ import { EnrollEventService } from 'projects/core/src/app/service/enroll-event.s
 import { EventService } from 'projects/core/src/app/service/event.service';
 import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { PaymentMethodService } from 'projects/core/src/app/service/payment-method.service';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-enroll-save',
@@ -24,10 +24,6 @@ export class EnrollSaveComponent implements OnInit, OnDestroy {
   file?: File
   isLoading: boolean = false
 
-  activatedRouteSubscription?: Subscription
-  getAllPaymentMethodSubscription?: Subscription
-  getByEventIdSubscription?: Subscription
-  insertEnrollEventSubscription?: Subscription
   loadingServiceSubscription?: Subscription
 
   constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute, private eventService: EventService,
@@ -35,46 +31,40 @@ export class EnrollSaveComponent implements OnInit, OnDestroy {
     this.title.setTitle('Enroll Event')
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.loadingService.loading$?.subscribe(result =>{
       this.isLoading = result
     })
 
-    this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
-      const id = (result as any).id
-      this.data.eventId = id
-      this.getByEventIdSubscription = this.eventService.getById(id).subscribe(result => {
-        if (result) {
-          this.eventData.eventTitle = result.data.eventTitle
-          this.eventData.eventProvider = result.data.eventProvider
-          this.eventData.eventLocation = result.data.eventLocation
-          this.eventData.eventPrice = result.data.eventPrice
-        }
-      })
-    })
+    const {id} = await firstValueFrom(this.activatedRoute.params)
+    this.data.eventId = id
 
-    this.getAllPaymentMethodSubscription = this.paymentService.getAll().subscribe(result => {
-      if (result) {
-        this.paymentData = result.data
-      }
-    })
+    const resultByEventId = await firstValueFrom(this.eventService.getById(id))
+    if (resultByEventId) {
+      this.eventData.eventTitle = resultByEventId.data.eventTitle
+      this.eventData.eventProvider = resultByEventId.data.eventProvider
+      this.eventData.eventLocation = resultByEventId.data.eventLocation
+      this.eventData.eventPrice = resultByEventId.data.eventPrice
+    }
+
+    const resultAllPaymentMethod = await firstValueFrom(this.paymentService.getAll())
+    if (resultAllPaymentMethod) {
+      this.paymentData = resultAllPaymentMethod.data
+    }
   }
 
   changeFile(event: any): void {
     this.file = event.target.files[0]
   }
 
-  onSubmit(isValid: boolean) {
+  async onSubmit(isValid: boolean) {
     if (isValid) {
-      this.insertEnrollEventSubscription = this.enrollService.insert(this.data, this.file).subscribe(result => {
-        this.router.navigateByUrl('/member/course')
-      })
+      await firstValueFrom(this.enrollService.insert(this.data, this.file))
+      this.router.navigateByUrl('/member/course')
     }
   }
 
   ngOnDestroy(): void {
-    this.activatedRouteSubscription?.unsubscribe()
-    this.getAllPaymentMethodSubscription?.unsubscribe()
-    this.getByEventIdSubscription?.unsubscribe()
+    this.loadingServiceSubscription?.unsubscribe()
   }
 }

@@ -35,8 +35,8 @@ export class ThreadService {
         return this.http.get<GetThreadByUserDtoRes>(`http://localhost:8080/threads/user`)
     }
 
-    getByCategory(id: number[]) : Observable<GetThreadByCategoryDtoRes> {
-        return this.http.get<GetThreadByCategoryDtoRes>(`http://localhost:8080/threads/category/${id}`)
+    getByCategory(id: string[]) : Observable<GetAllThreadDtoRes> {
+        return this.http.get<GetAllThreadDtoRes>(`http://localhost:8080/threads/category/${id}`)
     }
 
     insert(insertReq: InsertThreadDtoReq, files: any[]) : Observable<InsertThreadDtoRes> {
@@ -74,7 +74,7 @@ export class ThreadService {
         return this.http.get<GetThreadByUserDtoRes>(`http://localhost:8080/threads/nl/user`)
     }
 
-    getByCategoryNl(id: number[]) : Observable<GetThreadByCategoryDtoRes> {
-        return this.http.get<GetThreadByCategoryDtoRes>(`http://localhost:8080/threads/nl/category/${id}`)
+    getByCategoryNl(id: string[]) : Observable<GetAllThreadDtoRes> {
+        return this.http.get<GetAllThreadDtoRes>(`http://localhost:8080/threads/nl/category/${id}`)
     }
 }

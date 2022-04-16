@@ -1,10 +1,15 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { CartListComponent } from "./cart-list.component";
+import { CartCheckoutComponent } from "./cart-checkout/cart-checkout.component";
+import { CartListComponent } from "./cart-list/cart-list.component";
 
 const routes : Routes = [
     {
-        path : 'cart-list',
+        path : 'cart/checkout',
+        component : CartCheckoutComponent
+    },
+    {
+        path : 'cart/list',
         component : CartListComponent
     }
 ]
@@ -17,4 +22,4 @@ const routes : Routes = [
         RouterModule
     ]
 })
-export class CartListRouter {}
+export class CartRouter {}

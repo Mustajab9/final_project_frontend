@@ -10,7 +10,7 @@ import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
 import { ThreadTypeService } from 'projects/core/src/app/service/thread-type.service';
 import { ThreadService } from 'projects/core/src/app/service/thread.service';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-thread-save',
@@ -21,21 +21,19 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
 
   type!: string;
   uploadedFiles: any[] = [];
-  thread: InsertThreadDtoReq = new InsertThreadDtoReq()
-  threadCategories: GetAllCategoryDtoDataRes[] = []
-  selectedCategory: GetAllCategoryDtoDataRes[] = []
-  threadTypes: GetAllThreadTypeDtoDataRes[] = []
-  selectedType: GetAllThreadTypeDtoDataRes = new GetAllThreadTypeDtoDataRes()
-  threadInsertSubscription?: Subscription
-  threadCategoryAllSubscription?: Subscription
-  threadTypeAllSubscription?: Subscription
-  loadingServiceSubcription?: Subscription
-
   choices: string[] = []
   choice?: string
   writeType!: string
   isLogin: boolean = this.loginService.isLogin()
   isLoading: boolean = false
+
+  thread: InsertThreadDtoReq = new InsertThreadDtoReq()
+  threadCategories: GetAllCategoryDtoDataRes[] = []
+  selectedCategory: GetAllCategoryDtoDataRes[] = []
+  threadTypes: GetAllThreadTypeDtoDataRes[] = []
+  selectedType: GetAllThreadTypeDtoDataRes = new GetAllThreadTypeDtoDataRes()
+
+  loadingServiceSubcription?: Subscription
 
   constructor(private title: Title, private router: Router, private loadingService: LoadingService,
     private threadService: ThreadService, private categoryService: CategoryService,
@@ -45,36 +43,37 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
     this.title.setTitle('Create Thread')
   }
 
-  ngOnInit(): void {
-    this.activatedRoute.params.subscribe(result => {
-      this.writeType = (result as any).type
-    })
+  async ngOnInit() {
+    const {type} = await firstValueFrom(this.activatedRoute.params)
+    this.writeType = type
 
     this.initData()
   }
 
-  initData(): void {
+  async initData(): Promise<void> {
     this.loadingServiceSubcription = this.loadingService.loading$?.subscribe(result => {
       this.isLoading = result
     })
 
-    this.threadCategoryAllSubscription = this.categoryService.getAll().subscribe(result => {
-      this.threadCategories = result.data
-    })
+    const resultAllThreadCategory = await firstValueFrom(this.categoryService.getAll())
+    this.threadCategories = resultAllThreadCategory.data
 
-    this.threadTypeAllSubscription = this.threadTypeService.getAll().subscribe(result => {
-      this.threadTypes = result.data
-      if (this.writeType == 'article') {
-        this.selectedType = this.threadTypes.filter(comp => comp.typeCode == 'TY03')[0]
-      }
-    })
+    const resultAllThreadType = await firstValueFrom(this.threadTypeService.getAll())
+    this.threadTypes = resultAllThreadType.data
+
+    if (this.writeType == 'article') {
+      this.selectedType = this.threadTypes.filter(comp => comp.typeCode == 'TY03')[0]
+    }
+    else {
+      this.selectedType = this.threadTypes.filter(comp => comp.typeCode == 'TY02')[0]
+    }
   }
 
   onBasicUpload(event: any) {
     this.uploadedFiles = event.currentFiles
   }
 
-  onSave() {
+  async onSave() {
     if(this.isLogin){
       this.thread.categoryId = []
       for (let category of this.selectedCategory) {
@@ -87,10 +86,11 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
       for (let choice of this.choices) {
         this.thread.choiceName.push(choice)
       }
-      this.threadInsertSubscription = this.threadService.insert(this.thread, this.uploadedFiles).subscribe(result => {
-        this.onBack()
-      })
-    } else {
+
+      await firstValueFrom(this.threadService.insert(this.thread, this.uploadedFiles))
+      this.onBack()
+    } 
+    else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -121,6 +121,10 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
     this.choices = this.choices.filter(data => data != choice)
   }
 
+  onThreadTypeChange(id: any): void {
+    this.selectedType = this.threadTypes.filter(comp => comp.id == id)[0]
+  }
+
   validateSubmit(): boolean {
     if (!this.thread.threadTitle) return false
     if (!this.thread.threadContent) return false
@@ -136,7 +140,6 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.threadInsertSubscription?.unsubscribe()
     this.loadingServiceSubcription?.unsubscribe()
   }
 }

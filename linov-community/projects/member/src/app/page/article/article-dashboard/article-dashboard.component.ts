@@ -6,6 +6,7 @@ import { GetAllThreadDtoDataRes } from 'projects/core/src/app/dto/thread/get-all
 import { EventService } from 'projects/core/src/app/service/event.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
 import { ThreadService } from 'projects/core/src/app/service/thread.service';
+import { Subscription, firstValueFrom } from 'rxjs'
 
 @Component({
   selector: 'app-article-dashboard',
@@ -28,29 +29,25 @@ export class ArticleDashboardComponent implements OnInit {
     this.initData()
   }
 
-  initData(): void {
+  async initData(): Promise<void> {
     if (this.isLogin) {
-      this.threadService.getAll().subscribe(result => {
-        this.articles = result.data.filter(comp => {
-          comp.isReadMore = true
-          return comp.typeCode == 'TY03'
-        })
+      const resultThreadAll = await firstValueFrom(this.threadService.getAll())
+      this.articles = resultThreadAll.data.filter(comp => {
+        comp.isReadMore = true
+        return comp.typeCode == 'TY03'
       })
 
-      this.eventService.getAll().subscribe(result => {
-        this.events = result.data
-      })
+      const resultEventAll = await firstValueFrom(this.eventService.getAll())
+      this.events = resultEventAll.data
     } else {
-      this.threadService.getAllNl().subscribe(result => {
-        this.articles = result.data.filter(comp => {
-          comp.isReadMore = true
-          return comp.typeCode == 'TY03'
-        })
+      const resultThreadAllNotLogin = await firstValueFrom(this.threadService.getAllNl())
+      this.articles = resultThreadAllNotLogin.data.filter(comp => {
+        comp.isReadMore = true
+        return comp.typeCode == 'TY03'
       })
 
-      this.eventService.getAllNl().subscribe(result => {
-        this.events = result.data
-      })
+      const resultEventAllNotLogin = await firstValueFrom(this.eventService.getAllNl())
+      this.events = resultEventAllNotLogin.data
     }
   }
 

@@ -3,18 +3,22 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { InsertBookmarkDtoReq } from 'projects/core/src/app/dto/bookmark/insert-bookmark-dto-req';
+import { GetAllCategoryDtoDataRes } from 'projects/core/src/app/dto/category/get-all-category-dto-data-res';
 import { InsertChoiceVoteDtoReq } from 'projects/core/src/app/dto/choice-vote/insert-choice-vote-dto-req';
 import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
+import { GetAllEventDtoRes } from 'projects/core/src/app/dto/event/get-all-event-dto-res';
 import { InsertThreadLikeDtoReq } from 'projects/core/src/app/dto/thread-like/insert-thread-like-dto-req';
 import { GetAllThreadDtoDataRes } from 'projects/core/src/app/dto/thread/get-all-thread-dto-data-res';
+import { GetAllThreadDtoRes } from 'projects/core/src/app/dto/thread/get-all-thread-dto-res';
 import { BookmarkService } from 'projects/core/src/app/service/bookmark.service';
+import { CategoryService } from 'projects/core/src/app/service/category.service';
 import { ChoiceVoteService } from 'projects/core/src/app/service/choice-vote.service';
 import { EventService } from 'projects/core/src/app/service/event.service';
 import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
 import { ThreadLikeService } from 'projects/core/src/app/service/thread-like.service';
 import { ThreadService } from 'projects/core/src/app/service/thread.service';
-import { Subscription } from 'rxjs';
+import { Subscription, firstValueFrom, first } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,19 +29,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   threads: GetAllThreadDtoDataRes[] = []
   events: GetAllEventDtoDataRes[] = []
+  categories: GetAllCategoryDtoDataRes[] = []
+  selectedCategory: GetAllCategoryDtoDataRes[] = []
   insertThreadLikeDtoReq: InsertThreadLikeDtoReq = new InsertThreadLikeDtoReq()
   insertBookmarkDtoReq: InsertBookmarkDtoReq = new InsertBookmarkDtoReq()
   insertChoiceVoteDtoReq: InsertChoiceVoteDtoReq = new InsertChoiceVoteDtoReq()
-  threadAllSubscription?: Subscription
-  articleAllSubscription?: Subscription
-  eventAllSubscription?: Subscription
-  getThreadLikeByThreadAndUserSubscription?: Subscription
-  threadLikeInsertSubscription?: Subscription
-  threadLikeDeleteSubscription?: Subscription
-  getBookmarkByThreadAndUserSubscription?: Subscription
-  bookmarkInsertSubscription?: Subscription
-  bookmarkDeleteSubscription?: Subscription
-  choiceVoteInsertSubscription?: Subscription
+  loadingSubscription?: Subscription
 
   value: number = 0
   responsiveOptions: any
@@ -45,6 +42,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   initialPage: number = 0
   maxPage: number = 10
   isLoading: boolean = false
+  categoryId: string[] = []
 
   isLogin: boolean = this.loginService.isLogin()
   blockedPanel: boolean = false;
@@ -53,7 +51,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private threadService: ThreadService, private threadLikeService: ThreadLikeService,
     private bookmarkService: BookmarkService, private eventService: EventService,
     private choiceVoteService: ChoiceVoteService, private loginService: LoginService,
-    private confirmationService: ConfirmationService, private loadingService: LoadingService) {
+    private confirmationService: ConfirmationService, private loadingService: LoadingService,
+    private categoryService: CategoryService) {
 
     this.title.setTitle('Dashboard')
     this.responsiveOptions = [
@@ -79,48 +78,67 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.initData()
   }
 
-  initData(): void {
-    this.loadingService.loading$?.subscribe(result => {
+  async initData(): Promise<void> {
+    this.loadingSubscription = this.loadingService.loading$?.subscribe(result => {
       this.isLoading = result
     })
 
-    if (this.isLogin) {
-      this.threadAllSubscription = this.threadService.getAll(this.initialPage, this.maxPage).subscribe(result => {
-        this.threads = result.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')
-      })
-
-      this.eventAllSubscription = this.eventService.getAll().subscribe(result => {
-        this.events = result.data
-      })
+    let resultAllThread: GetAllThreadDtoRes
+    let resultAllEvent: GetAllEventDtoRes
+    if (this.isLogin) { 
+      resultAllThread = await firstValueFrom(this.threadService.getAll(this.initialPage, this.maxPage))
+      resultAllEvent = await firstValueFrom(this.eventService.getAll())
+      
     } else {
-      this.threadAllSubscription = this.threadService.getAllNl(this.initialPage, this.maxPage).subscribe(result => {
-        this.threads = result.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')
-      })
-
-      this.eventAllSubscription = this.eventService.getAllNl().subscribe(result => {
-        this.events = result.data
-      })
+      resultAllThread = await firstValueFrom(this.threadService.getAllNl(this.initialPage, this.maxPage))
+      resultAllEvent = await firstValueFrom(this.eventService.getAllNl())
     }
+
+    this.threads = resultAllThread.data.filter(comp => {
+      comp.isReadMore = true
+      this.categoryId = comp.categoryId
+      return comp.typeCode == 'TY01' || comp.typeCode == 'TY02'
+    })
+
+    this.events = resultAllEvent.data
+
+    const resultAllCategory = await firstValueFrom(this.categoryService.getAll())
+    this.categories = resultAllCategory.data
   }
 
-  onLike(id: string, isLike: boolean): void {
+  showText(id: string): void {
+    this.router.navigateByUrl(`/member/thread/detail/${id}`)
+  }
+
+  async onCategory(id: string[]) {
+    let resultAllThreadByCategory: GetAllThreadDtoRes
+    if(this.isLogin){
+      resultAllThreadByCategory = await firstValueFrom(this.threadService.getByCategory(id))
+    }else{
+      resultAllThreadByCategory = await firstValueFrom(this.threadService.getByCategoryNl(id))
+    }
+
+    this.threads = resultAllThreadByCategory.data
+  }
+
+  async onLike(id: string, isLike: boolean): Promise<void> {
     if (this.isLogin) {
       this.insertThreadLikeDtoReq.threadId = id
-      if (isLike == false) {
-        isLike = !isLike
-        this.threadLikeInsertSubscription = this.threadLikeService.insert(this.insertThreadLikeDtoReq).subscribe(_ => {
-          this.initData()
-        })
-      } else if (isLike == true) {
+
+      if (!isLike) {
+        await firstValueFrom(this.threadLikeService.insert(this.insertThreadLikeDtoReq))
+        this.initialPage = 0
+        this.initData()
+
+      } else if (isLike) {
         const userId: string | undefined = this.loginService.getData()?.data.id
-        isLike = !isLike
-        this.getThreadLikeByThreadAndUserSubscription = this.threadLikeService.getByThreadAndUser(id, userId).subscribe(result => {
-          if (result) {
-            this.threadLikeDeleteSubscription = this.threadLikeService.delete(result.data.id).subscribe(_ => {
-              this.initData()
-            })
-          }
-        })
+        const resultByThreadAndUser = await firstValueFrom(this.threadLikeService.getByThreadAndUser(id, userId))
+
+        if (resultByThreadAndUser) {
+          await firstValueFrom(this.threadLikeService.delete(resultByThreadAndUser.data.id))
+          this.initialPage = 0
+          this.initData()
+        }
       }
     } else {
       this.confirmationService.confirm({
@@ -134,24 +152,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  onBookmark(id: string, isBookmarked: boolean): void {
+  async onBookmark(id: string, isBookmarked: boolean): Promise<void> {
     if (this.isLogin) {
       this.insertBookmarkDtoReq.threadId = id
-      if (isBookmarked == false) {
-        isBookmarked = !isBookmarked
-        this.bookmarkInsertSubscription = this.bookmarkService.insert(this.insertBookmarkDtoReq).subscribe(_ => {
-          this.initData()
-        })
-      } else if (isBookmarked == true) {
+
+      if (!isBookmarked) {
+        await firstValueFrom(this.bookmarkService.insert(this.insertBookmarkDtoReq))
+        this.initialPage = 0
+        this.initData()
+
+      } else if (isBookmarked) {
         const userId: string | undefined = this.loginService.getData()?.data.id
-        isBookmarked = !isBookmarked
-        this.getBookmarkByThreadAndUserSubscription = this.bookmarkService.getByUserAndThread(id, userId).subscribe(result => {
-          if (result) {
-            this.bookmarkDeleteSubscription = this.bookmarkService.delete(result.data.id).subscribe(_ => {
-              this.initData()
-            })
-          }
-        })
+        const resultByThreadAndUser = await firstValueFrom(this.bookmarkService.getByUserAndThread(id, userId))
+        if (resultByThreadAndUser) {
+          await firstValueFrom(this.bookmarkService.delete(resultByThreadAndUser.data.id))
+          this.initialPage = 0
+          this.initData()
+        }
       }
     } else {
       this.confirmationService.confirm({
@@ -180,18 +197,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  onPolling(id: string, isVoted: boolean): void {
+  async onPolling(id: string, isVoted: boolean): Promise<void> {
     if (this.isLogin) {
       this.insertChoiceVoteDtoReq.choiceId = id
-      if (isVoted == false) {
-        isVoted = !isVoted
-        this.choiceVoteInsertSubscription = this.choiceVoteService.insert(this.insertChoiceVoteDtoReq).subscribe(_ => {
-          this.initData()
-        })
-      }
-      this.value = this.value + Math.floor(Math.random() * 10) + 1;
-      if (this.value >= 100) {
-        this.value = 100;
+      if (!isVoted) {
+        await firstValueFrom(this.choiceVoteService.insert(this.insertChoiceVoteDtoReq))
+        this.initialPage = 0
+        this.initData()
       }
     } else {
       this.confirmationService.confirm({
@@ -205,29 +217,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  onScroll(): void {
+  async onScroll(): Promise<void> {
+    let resultAllThread: GetAllThreadDtoRes
     if (this.isLogin) {
       this.initialPage = this.initialPage + 10
-      this.threadAllSubscription = this.threadService.getAll(this.initialPage, this.maxPage).subscribe(result => {
-        this.threads = [...this.threads, ...result.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')]
-      })
+      resultAllThread = await firstValueFrom(this.threadService.getAll(this.initialPage, this.maxPage))
     } else {
       this.initialPage = this.initialPage + 10
-      this.threadAllSubscription = this.threadService.getAllNl(this.initialPage, this.maxPage).subscribe(result => {
-        this.threads = [...this.threads, ...result.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')]
-      })
+      resultAllThread = await firstValueFrom(this.threadService.getAllNl(this.initialPage, this.maxPage))
     }
+
+    this.threads = [...this.threads, ...resultAllThread.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')]
   }
 
   ngOnDestroy(): void {
-    this.threadAllSubscription?.unsubscribe()
-    this.eventAllSubscription?.unsubscribe()
-    this.getThreadLikeByThreadAndUserSubscription?.unsubscribe()
-    this.threadLikeInsertSubscription?.unsubscribe()
-    this.threadLikeDeleteSubscription?.unsubscribe()
-    this.getBookmarkByThreadAndUserSubscription?.unsubscribe()
-    this.bookmarkInsertSubscription?.unsubscribe()
-    this.bookmarkDeleteSubscription?.unsubscribe()
-    this.choiceVoteInsertSubscription?.unsubscribe()
+    this.loadingSubscription?.unsubscribe()
   }
 }

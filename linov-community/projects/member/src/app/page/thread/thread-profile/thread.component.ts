@@ -17,7 +17,7 @@ import { ProfileSosmedService } from 'projects/core/src/app/service/profile-sosm
 import { ProfilesService } from 'projects/core/src/app/service/profiles.service';
 import { ThreadLikeService } from 'projects/core/src/app/service/thread-like.service';
 import { ThreadService } from 'projects/core/src/app/service/thread.service';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-thread',
@@ -34,19 +34,7 @@ export class ThreadComponent implements OnInit, OnDestroy {
   insertThreadLikeDtoReq: InsertThreadLikeDtoReq = new InsertThreadLikeDtoReq()
   insertBookmarkDtoReq: InsertBookmarkDtoReq = new InsertBookmarkDtoReq()
   insertChoiceVoteDtoReq: InsertChoiceVoteDtoReq = new InsertChoiceVoteDtoReq()
-  profileSubscription?: Subscription
-  profileSosmedsSubscription?: Subscription
-  threadByUsersSubscription?: Subscription
-  threadByUserLikesSubscription?: Subscription
-  threadByBookmarksSubscription?: Subscription
-  getThreadLikeByThreadAndUserSubscription?: Subscription
-  threadLikeInsertSubscription?: Subscription
-  threadLikeDeleteSubscription?: Subscription
-  getBookmarkByThreadAndUserSubscription?: Subscription
-  bookmarkInsertSubscription?: Subscription
-  bookmarkDeleteSubscription?: Subscription
-  choiceVoteInsertSubscription?: Subscription
-  activatedRouteSubscription?: Subscription
+  loadingSubscription?: Subscription
 
   value: number = 0;
   responsiveOptions: any;
@@ -82,88 +70,70 @@ export class ThreadComponent implements OnInit, OnDestroy {
     this.initData()
   }
 
-  initData(): void {
-    this.loadingService.loading$?.subscribe(result => {
+  async initData(): Promise<void> {
+    this.loadingSubscription = this.loadingService.loading$?.subscribe(result => {
       this.isLoading = result
     })
 
-    this.profileSubscription = this.profileService.getByUserId().subscribe(result => {
-      this.profile = result.data
-    })
+    const resultProfileByUser = await firstValueFrom(this.profileService.getByUserId())
+    this.profile = resultProfileByUser.data
 
-    this.profileSosmedsSubscription = this.profileSosmedService.getByUser().subscribe(result => {
-      this.profileSosmeds = result.data
-    })
+    const resultProfileSosmedByUser = await firstValueFrom(this.profileSosmedService.getByUser())
+    this.profileSosmeds = resultProfileSosmedByUser.data
 
-    this.threadByUsersSubscription = this.threadService.getByUser().subscribe(result => {
-      this.threadByUsers = result.data
-    })
+    const resultThreadByUser = await firstValueFrom(this.threadService.getByUser())
+    this.threadByUsers = resultThreadByUser.data
 
-    this.threadByUserLikesSubscription = this.threadLikeService.getByUser().subscribe(result => {
-      this.threadByUserLikes = result.data
-    })
+    const resultThreadByUserLike = await firstValueFrom(this.threadLikeService.getByUser())
+    this.threadByUserLikes = resultThreadByUserLike.data
 
-    this.threadByBookmarksSubscription = this.bookmarkService.getByUser().subscribe(result => {
-      this.threadByBookmarks = result.data
-    })
-
+    const resultThreadByBookmark = await firstValueFrom(this.bookmarkService.getByUser())
+    this.threadByBookmarks = resultThreadByBookmark.data
   }
 
-  onLike(id: string, isLike: boolean): void {
+  async onLike(id: string, isLike: boolean): Promise<void> {
     this.insertThreadLikeDtoReq.threadId = id
-    if (isLike == false) {
-      isLike = !isLike
-      this.threadLikeInsertSubscription = this.threadLikeService.insert(this.insertThreadLikeDtoReq).subscribe(_ => {
-        this.initData()
-      })
-    } else if (isLike == true) {
+    if (!isLike) {
+      await firstValueFrom(this.threadLikeService.insert(this.insertThreadLikeDtoReq))
+      this.initData()
+
+    } else if (isLike) {
       const userId: string | undefined = this.loginService.getData()?.data.id
-      isLike = !isLike
-      this.getThreadLikeByThreadAndUserSubscription = this.threadLikeService.getByThreadAndUser(id, userId).subscribe(result => {
-        if (result) {
-          this.threadLikeDeleteSubscription = this.threadLikeService.delete(result.data.id).subscribe(_ => {
-            this.initData()
-          })
-        }
-      })
+
+      const resultThreadLikeByThreadAndUser = await firstValueFrom(this.threadLikeService.getByThreadAndUser(id, userId))
+      if (resultThreadLikeByThreadAndUser) {
+        await firstValueFrom(this.threadLikeService.delete(resultThreadLikeByThreadAndUser.data.id))
+        this.initData()
+      }
     }
   }
 
-  onBookmark(id: string, isBookmarked: boolean): void {
+  async onBookmark(id: string, isBookmarked: boolean): Promise<void> {
     this.insertBookmarkDtoReq.threadId = id
-    if (isBookmarked == false) {
-      isBookmarked = !isBookmarked
-      this.bookmarkInsertSubscription = this.bookmarkService.insert(this.insertBookmarkDtoReq).subscribe(_ => {
-        this.initData()
-      })
-    } else if (isBookmarked == true) {
+    if (!isBookmarked) {
+      await firstValueFrom(this.bookmarkService.insert(this.insertBookmarkDtoReq))
+      this.initData()
+
+    } else if (isBookmarked) {
       const userId: string | undefined = this.loginService.getData()?.data.id
-      isBookmarked = !isBookmarked
-      this.getBookmarkByThreadAndUserSubscription = this.bookmarkService.getByUserAndThread(id, userId).subscribe(result => {
-        if (result) {
-          this.bookmarkDeleteSubscription = this.bookmarkService.delete(result.data.id).subscribe(_ => {
-            this.initData()
-          })
-        }
-      })
+
+      const resultBookmarkByThreadAndUser = await firstValueFrom(this.bookmarkService.getByUserAndThread(id, userId))
+      if (resultBookmarkByThreadAndUser) {
+        await firstValueFrom(this.bookmarkService.delete(resultBookmarkByThreadAndUser.data.id))
+        this.initData()
+      }
     }
   }
 
-  onPolling(id: string, isVoted: boolean): void {
+  async onPolling(id: string, isVoted: boolean): Promise<void> {
     this.insertChoiceVoteDtoReq.choiceId = id
-    if(isVoted == false) {
-      isVoted = !isVoted
-      this.choiceVoteInsertSubscription = this.choiceVoteService.insert(this.insertChoiceVoteDtoReq).subscribe(_ => {
-        this.initData()
-      })
-    }
-    this.value = this.value + Math.floor(Math.random() * 10) + 1;
-    if (this.value >= 100) {
-      this.value = 100;
+    if(!isVoted) {
+      await firstValueFrom(this.choiceVoteService.insert(this.insertChoiceVoteDtoReq))
+      this.initData()
     }
   }
 
   ngOnDestroy(): void {
-
+    this.loadingSubscription?.unsubscribe()
   }
 }

@@ -6,21 +6,20 @@ import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-e
 import { CheckOutService } from 'projects/core/src/app/service/checkout.service';
 import { EventService } from 'projects/core/src/app/service/event.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart-list',
   templateUrl: './cart-list.component.html',
   styleUrls: ['./cart-list.component.css']
 })
-export class CartListComponent implements OnInit, OnDestroy {
+export class CartListComponent implements OnInit {
 
   data: GetAllEventDtoDataRes[] = []
   selectedEvent: GetAllEventDtoDataRes[] = [];
 
   userId?: string = this.loginService.getData()?.data.id
 
-  getAllEventNotPaidSubscription?: Subscription
   maxPage: number = 10
   totalRecords: number = 0
   loading: boolean = true
@@ -30,21 +29,16 @@ export class CartListComponent implements OnInit, OnDestroy {
     this.title.setTitle("Cart Event List")
   }
 
-  ngOnInit(): void {
-    this.getAllEventNotPaidSubscription = this.eventService.getEventNotPaid(this.userId).subscribe(result => {
-      if (result) {
-        this.data = result.data
-      }
-    })
+  async ngOnInit(): Promise<void> {
+    const resultAll = await firstValueFrom(this.eventService.getEventNotPaid(this.userId))
+    if (resultAll) {
+      this.data = resultAll.data
+    }
   }
 
   onSubmit() {
     this.checkoutService.addCart(this.selectedEvent)
     this.router.navigateByUrl('member/cart-checkout')
-  }
-
-  ngOnDestroy(): void {
-    this.getAllEventNotPaidSubscription?.unsubscribe()
   }
 
 }

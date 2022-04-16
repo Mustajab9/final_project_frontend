@@ -10,6 +10,10 @@
     color: #323232;
 }
 
+.link {
+    cursor: pointer;
+}
+
 .limitTextHeight {
     overflow: hidden;
 }
@@ -21,5 +25,16 @@
 }
 
 :host ::ng-deep .p-panel-content {
+    border: none;
+}
+
+:host ::ng-deep .p-listbox-header {
+    padding: 0 1rem;
+    margin-top: 10px;
+    background: white;
+}
+
+:host ::ng-deep .p-listbox {
+    width: fit-content;
     border: none;
 }

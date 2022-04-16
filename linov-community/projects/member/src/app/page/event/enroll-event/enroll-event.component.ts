@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
 import { EventService } from 'projects/core/src/app/service/event.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-enroll-event',
@@ -14,7 +14,6 @@ export class EnrollEventComponent implements OnInit {
 
   data: GetAllEventDtoDataRes[] = []
 
-  getAllEventSubscription?: Subscription
   userId!: string
   displayResponsive: boolean = false
 
@@ -22,21 +21,15 @@ export class EnrollEventComponent implements OnInit {
     this.title.setTitle('Course & Event List')
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.userId = this.loginService.getData()!.data.id
-    this.getAllEventSubscription = this.eventService.getByEnroll(this.userId).subscribe(result => {
-      if (result) {
-        this.data = result.data
-      }
-    })
+    const resultAll = await firstValueFrom(this.eventService.getByEnroll(this.userId))
+    if (resultAll) {
+      this.data = resultAll.data
+    }
   }
 
   show(){
     this.displayResponsive = true
   }
-
-  ngOnDestroy(): void {
-    this.getAllEventSubscription?.unsubscribe()
-  }
-
 }

@@ -8,7 +8,7 @@ import { CheckOutService } from 'projects/core/src/app/service/checkout.service'
 import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { PaymentEventService } from 'projects/core/src/app/service/payment-event.service';
 import { PaymentMethodService } from 'projects/core/src/app/service/payment-method.service';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart-checkout',
@@ -23,8 +23,6 @@ export class CartCheckoutComponent implements OnInit, OnDestroy {
 
   file?: File
   isLoading: boolean = false
-  getAllPaymentMethodSubscription?: Subscription
-  insertPaymentEventSubscription?: Subscription
   loadingServiceSubscription?: Subscription
 
   constructor(private title: Title, private router: Router, private checkOutService: CheckOutService,
@@ -33,7 +31,7 @@ export class CartCheckoutComponent implements OnInit, OnDestroy {
     this.title.setTitle('Cart Checkout')
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
       this.isLoading = result
     })
@@ -48,30 +46,26 @@ export class CartCheckoutComponent implements OnInit, OnDestroy {
       this.insertReq.eventId?.push(eventId)
     })
 
-    this.getAllPaymentMethodSubscription = this.paymentMethodService.getAll().subscribe(result => {
-      if (result) {
-        this.paymentData = result.data
-      }
-    })
+    const resultAllPayment = await firstValueFrom(this.paymentMethodService.getAll())
+    if (resultAllPayment) {
+      this.paymentData = resultAllPayment.data
+    }
   }
 
   changeFile(event: any): void {
     this.file = event.target.files[0]
   }
 
-  onSubmit(isValid: boolean) {
+  async onSubmit(isValid: boolean) {
     if (isValid) {
-      this.insertPaymentEventSubscription = this.paymentEventService.insert(this.insertReq, this.file).subscribe(result => {
-        if (result) {
-          this.router.navigateByUrl('/member/course')
-        }
-      })
+      const resultInsertPayment = await firstValueFrom(this.paymentEventService.insert(this.insertReq, this.file))
+      if (resultInsertPayment) {
+        this.router.navigateByUrl('/member/course')
+      }
     }
   }
 
   ngOnDestroy(): void {
-    this.getAllPaymentMethodSubscription?.unsubscribe()
-    this.insertPaymentEventSubscription?.unsubscribe()
     this.loadingServiceSubscription?.unsubscribe()
   }
 }

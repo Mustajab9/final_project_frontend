@@ -1,18 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { resultMemoize, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { GetAllEnrollEventDtoDataRes } from 'projects/core/src/app/dto/enroll-event/get-all-enroll-event-dto-data-res';
 import { UpdateEnrollEventDtoReq } from 'projects/core/src/app/dto/enroll-event/update-enroll-event-dto-req';
 import { GetByEventIdDtoDataRes } from 'projects/core/src/app/dto/event/get-by-event-id-dto-data-res';
-import { UpdateEventDtoReq } from 'projects/core/src/app/dto/event/update-event-dto-req';
 import { EnrollEventService } from 'projects/core/src/app/service/enroll-event.service';
 import { EventService } from 'projects/core/src/app/service/event.service';
 import { LoadingService } from 'projects/core/src/app/service/loading.service';
-import { loadEnrollEventAction, updateEnrollEventAction } from 'projects/core/src/app/state/enroll-event/enroll-event.action';
-import { enrollEventSelectorAll, enrollEventSelectorInit, enrollEventSelectorUpdate } from 'projects/core/src/app/state/enroll-event/enroll-event.selector';
-import { eventSelectorById } from 'projects/core/src/app/state/event/event.selector';
-import { Observable, Subscription } from 'rxjs';
+import { enrollEventSelectorAll } from 'projects/core/src/app/state/enroll-event/enroll-event.selector';
+import { firstValueFrom, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-participant',
@@ -27,12 +24,7 @@ export class ParticipantComponent implements OnInit, OnDestroy {
   eventData: GetByEventIdDtoDataRes = new GetByEventIdDtoDataRes()
   writeType!: string
   isLoading: boolean = false
-
-  getAllEventParticipantSubscription?: Subscription
-  activatedRouteSubscription?: Subscription
-  getByEventIdSubscription?: Subscription
-  updateEnrollEventSubscription?: Subscription
-  getByEnrollEventIdSubscription?: Subscription
+  loadingSubscription?: Subscription
 
   constructor(private title: Title, private activatedRoute: ActivatedRoute, private store: Store, private router: Router,
     private eventService: EventService, private enrollService: EnrollEventService, private loadingService: LoadingService) {
@@ -43,44 +35,38 @@ export class ParticipantComponent implements OnInit, OnDestroy {
     this.initData()
   }
 
-  initData(): void {
+  async initData(): Promise<void> {
     this.loadingService.loading$?.subscribe(result => {
       this.isLoading = result
     })
 
-    this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
-      this.writeType = (result as any).type
-      const id = (result as any).id
+    const {id, type} = await firstValueFrom(this.activatedRoute.params)
+    this.writeType = type
 
-      this.getAllEventParticipantSubscription = this.enrollService.getAll().subscribe(result => {
-        if (result) {
-          this.data = result.data.filter(comp => comp.eventId == id)
-        }
-      })
+    const resultAll = await firstValueFrom(this.enrollService.getAll())
+    if (resultAll) {
+      this.data = resultAll.data.filter(comp => comp.eventId == id)
+    }
 
-      this.getByEventIdSubscription = this.eventService.getById(id).subscribe(result => {
-        if (result) {
-          this.eventData = result.data
-        }
-      })
-    })
+    const resultById = await firstValueFrom(this.eventService.getById(id))
+    if (resultById) {
+      this.eventData = resultById.data
+    }
   }
 
-  onApprove(id: string): void {
-    this.getByEnrollEventIdSubscription = this.enrollService.getById(id).subscribe(result => {
-      if (result) {
-        this.updateReq.isApprove = true
-        this.updateReq.id = result.data?.id
-        this.updateReq.version = result.data?.version
-        this.updateReq.isActive = result.data?.isActive
+  async onApprove(id: string): Promise<void> {
+    const resultEnrollById = await firstValueFrom(this.enrollService.getById(id))
+    if (resultEnrollById) {
+      this.updateReq.isApprove = true
+      this.updateReq.id = resultEnrollById.data?.id
+      this.updateReq.version = resultEnrollById.data?.version
+      this.updateReq.isActive = resultEnrollById.data?.isActive
+    }
 
-        this.updateEnrollEventSubscription = this.enrollService.update(this.updateReq).subscribe(result => {
-          if (result) {
-            this.initData()
-          }
-        })
-      }
-    })
+    const resultUpdateEnroll = await firstValueFrom(this.enrollService.update(this.updateReq))
+    if (resultUpdateEnroll) {
+      this.initData()
+    }
   }
 
   onBack(): void{
@@ -92,7 +78,6 @@ export class ParticipantComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getAllEventParticipantSubscription?.unsubscribe()
-    this.updateEnrollEventSubscription?.unsubscribe()
+    this.loadingSubscription?.unsubscribe()
   }
 }
