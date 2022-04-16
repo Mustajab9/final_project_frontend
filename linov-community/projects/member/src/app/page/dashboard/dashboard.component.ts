@@ -7,6 +7,7 @@ import { GetAllCategoryDtoDataRes } from 'projects/core/src/app/dto/category/get
 import { InsertChoiceVoteDtoReq } from 'projects/core/src/app/dto/choice-vote/insert-choice-vote-dto-req';
 import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
 import { GetAllEventDtoRes } from 'projects/core/src/app/dto/event/get-all-event-dto-res';
+import { GetProfileByUserDtoDataRes } from 'projects/core/src/app/dto/profiles/get-profile-by-user-dto-data-res';
 import { InsertThreadLikeDtoReq } from 'projects/core/src/app/dto/thread-like/insert-thread-like-dto-req';
 import { GetAllThreadDtoDataRes } from 'projects/core/src/app/dto/thread/get-all-thread-dto-data-res';
 import { GetAllThreadDtoRes } from 'projects/core/src/app/dto/thread/get-all-thread-dto-res';
@@ -16,6 +17,7 @@ import { ChoiceVoteService } from 'projects/core/src/app/service/choice-vote.ser
 import { EventService } from 'projects/core/src/app/service/event.service';
 import { LoadingService } from 'projects/core/src/app/service/loading.service';
 import { LoginService } from 'projects/core/src/app/service/login.service';
+import { ProfilesService } from 'projects/core/src/app/service/profiles.service';
 import { ThreadLikeService } from 'projects/core/src/app/service/thread-like.service';
 import { ThreadService } from 'projects/core/src/app/service/thread.service';
 import { Subscription, firstValueFrom, first } from 'rxjs';
@@ -43,6 +45,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   maxPage: number = 10
   isLoading: boolean = false
   categoryId: string[] = []
+  roleCode = this.loginService.getData()?.data.roleCode
 
   isLogin: boolean = this.loginService.isLogin()
   blockedPanel: boolean = false;
@@ -100,7 +103,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       return comp.typeCode == 'TY01' || comp.typeCode == 'TY02'
     })
 
-    this.events = resultAllEvent.data
+    this.events = resultAllEvent.data.slice(0,2)
 
     const resultAllCategory = await firstValueFrom(this.categoryService.getAll())
     this.categories = resultAllCategory.data

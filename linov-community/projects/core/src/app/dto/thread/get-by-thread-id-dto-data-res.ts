@@ -6,6 +6,7 @@ export class GetByThreadIdDtoDataRes {
 	threadTitle!: string
 	threadContent!: string
 	typeCode!: string
+	typeName!: string
 	categoryId!: string[]
 	categoryName!: string[]
 	attachmentId!: string[]

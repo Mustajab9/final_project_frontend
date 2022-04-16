@@ -65,22 +65,22 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6 d-flex align-items-center">
-                                    <img src="assets/image/undraw_profile_pic.svg" class="me-2"
-                                        style="height: 35px; width: 35px;">
-                                    <app-label class="align-self-center" nameLabel="Profile Name"></app-label>
+                                    <img *ngIf="!threadByUser.profileImage" src="assets/image/undraw_profile_pic.svg" class="me-2" style="height: 35px; width: 35px;">
+                                    <img *ngIf="threadByUser.profileImage" src="http://localhost:8080/attachments/{{profile.profileImageId}}" class="me-2" style="height: 35px; width: 35px;">
+                                    <app-label class="align-self-center" nameLabel="{{threadByUser.profileName}}"></app-label>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="Category">
+                                    <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="{{threadByUser.categoryName}}">
                                     </app-label>
                                 </div>
                             </div>
 
                             <div class="mt-3">
-                                <h3>{{threadByUser.threadTitle}}</h3>
-                                <div [ngClass]="{'limitTextHeight' : threadByUser.isReadMore}">
-                                    <p class="mt-3">{{threadByUser.threadContent}}</p>
-                                    <app-a labelA="Read More" routerLinkA="/member/thread/detail/{{threadByUser.id}}">
-                                    </app-a>
+                                <div>
+                                    <h3>{{threadByUser.threadTitle}}</h3>
+                                    <p class="mt-3">{{threadByUser.isReadMore? threadByUser.threadContent.substring(0, 300): threadByUser.threadContent}}<span *ngIf="threadByUser.threadContent.length>=300">... </span>
+                                        <a class="link" *ngIf="threadByUser.threadContent.length>=300" (click)="showText(threadByUser.id)">{{threadByUser.isReadMore? 'Read More': 'Read Less'}}</a>
+                                    </p>
                                 </div>
 
                                 <p-carousel *ngIf="threadByUser.attachmentId && threadByUser.attachmentId.length>0"
@@ -123,21 +123,21 @@
                             </div>
 
                             <div class="mt-5">
-                                <a pButton [loading]="this.isLoading" (click)="onLike(threadByUser.id, threadByUser.isLiked)" class="btn me-2">
-                                    <i *ngIf="!threadByUser.isLiked" class="fa-regular fa-heart"></i>
-                                    <i *ngIf="threadByUser.isLiked" class="fa-solid fa-heart"></i>
+                                <button pButton [loading]="this.isLoading" (click)="onLike(threadByUser.id, threadByUser.isLiked)" class="p-button-text">
+                                    <i *ngIf="!threadByUser.isLiked" class="fa-regular fa-heart me-2"></i>
+                                    <i *ngIf="threadByUser.isLiked" class="fa-solid fa-heart me-2"></i>
                                     {{threadByUser.totalLike}}
-                                </a>
+                                </button>
 
-                                <a class="btn me-2" routerLink="/member/thread/detail/{{threadByUser.id}}">
-                                    <i class="fa-regular fa-comment"></i>
+                                <button pButton class="p-button-text" routerLink="/member/thread/detail/{{threadByUser.id}}">
+                                    <i class="fa-regular fa-comment me-2"></i>
                                     {{threadByUser.totalComment}}
-                                </a>
+                                </button>
 
-                                <a pButton [loading]="this.isLoading" (click)="onBookmark(threadByUser.id, threadByUser.isBookmarked)" class="btn me-2">
-                                    <i *ngIf="!threadByUser.isBookmarked" class="fa-regular fa-bookmark"></i>
-                                    <i *ngIf="threadByUser.isBookmarked" class="fa-solid fa-bookmark"></i>
-                                </a>
+                                <button pButton [loading]="this.isLoading" (click)="onBookmark(threadByUser.id, threadByUser.isBookmarked)" class="p-button-text">
+                                    <i *ngIf="!threadByUser.isBookmarked" class="fa-regular fa-bookmark me-2"></i>
+                                    <i *ngIf="threadByUser.isBookmarked" class="fa-solid fa-bookmark me-2"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -206,21 +206,21 @@
                             </div>
 
                             <div class="mt-5">
-                                <a pButton [loading]="this.isLoading" (click)="onLike(threadByLike.id, threadByLike.isLiked)" class="btn me-2">
-                                    <i *ngIf="!threadByLike.isLiked" class="fa-regular fa-heart"></i>
-                                    <i *ngIf="threadByLike.isLiked" class="fa-solid fa-heart"></i>
+                                <button pButton [loading]="this.isLoading" (click)="onLike(threadByLike.id, threadByLike.isLiked)" class="p-button-text">
+                                    <i *ngIf="!threadByLike.isLiked" class="fa-regular fa-heart me-2"></i>
+                                    <i *ngIf="threadByLike.isLiked" class="fa-solid fa-heart me-2"></i>
                                     {{threadByLike.totalLike}}
-                                </a>
+                                </button>
 
-                                <a class="btn me-2" routerLink="/member/thread/detail/{{threadByLike.id}}">
-                                    <i class="fa-regular fa-comment"></i>
+                                <button pButton class="p-button-text" routerLink="/member/thread/detail/{{threadByLike.id}}">
+                                    <i class="fa-regular fa-comment me-2"></i>
                                     {{threadByLike.totalComment}}
-                                </a>
+                                </button>
 
-                                <a pButton [loading]="this.isLoading" (click)="onBookmark(threadByLike.id, threadByLike.isBookmarked)" class="btn me-2">
-                                    <i *ngIf="!threadByLike.isBookmarked" class="fa-regular fa-bookmark"></i>
-                                    <i *ngIf="threadByLike.isBookmarked" class="fa-solid fa-bookmark"></i>
-                                </a>
+                                <button pButton [loading]="this.isLoading" (click)="onBookmark(threadByLike.id, threadByLike.isBookmarked)" class="p-button-text">
+                                    <i *ngIf="!threadByLike.isBookmarked" class="fa-regular fa-bookmark me-2"></i>
+                                    <i *ngIf="threadByLike.isBookmarked" class="fa-solid fa-bookmark me-2"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -289,21 +289,21 @@
                             </div>
 
                             <div class="mt-5">
-                                 <a pButton [loading]="this.isLoading" (click)="onLike(threadByBookmark.id, threadByBookmark.isLiked)" class="btn me-2">
-                                    <i *ngIf="!threadByBookmark.isLiked" class="fa-regular fa-heart"></i>
-                                    <i *ngIf="threadByBookmark.isLiked" class="fa-solid fa-heart"></i>
+                                 <button pButton [loading]="this.isLoading" (click)="onLike(threadByBookmark.id, threadByBookmark.isLiked)" class="p-button-text">
+                                    <i *ngIf="!threadByBookmark.isLiked" class="fa-regular fa-heart me-2"></i>
+                                    <i *ngIf="threadByBookmark.isLiked" class="fa-solid fa-heart me-2"></i>
                                     {{threadByBookmark.totalLike}}
-                                </a>
+                                </button>
 
-                                <a class="btn me-2" routerLink="/member/thread/detail/{{threadByBookmark.id}}">
-                                    <i class="fa-regular fa-comment"></i>
+                                <button pButton class="p-button-text" routerLink="/member/thread/detail/{{threadByBookmark.id}}">
+                                    <i class="fa-regular fa-comment me-2"></i>
                                     {{threadByBookmark.totalComment}}
-                                </a>
+                                </button>
 
-                                <a pButton [loading]="this.isLoading" (click)="onBookmark(threadByBookmark.id, threadByBookmark.isBookmarked)" class="btn me-2">
-                                    <i *ngIf="!threadByBookmark.isBookmarked" class="fa-regular fa-bookmark"></i>
-                                    <i *ngIf="threadByBookmark.isBookmarked" class="fa-solid fa-bookmark"></i>
-                                </a>
+                                <button pButton [loading]="this.isLoading" (click)="onBookmark(threadByBookmark.id, threadByBookmark.isBookmarked)" class="p-button-text">
+                                    <i *ngIf="!threadByBookmark.isBookmarked" class="fa-regular fa-bookmark me-2"></i>
+                                    <i *ngIf="threadByBookmark.isBookmarked" class="fa-solid fa-bookmark me-2"></i>
+                                </button>
                             </div>
                         </div>
                     </div>

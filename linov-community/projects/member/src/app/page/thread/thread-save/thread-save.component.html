@@ -20,8 +20,14 @@
                     <app-label 
                         forLabel="" classLabel="fw-bold" nameLabel="Create Thread">
                     </app-label>
-                    
+                    {{thread | json}}
+
                     <form #formThread="ngForm" (ngSubmit)="onSave()">
+                        <div class="d-flex flex-column mt-3">
+                            <app-label forLabel="premium" nameLabel="Thread Premium"></app-label>
+                            <p-inputSwitch [(ngModel)]="thread.isPremium" name="premium" id="premium"></p-inputSwitch>
+                        </div>
+
                         <form-textarea
                             classLabel="form-label mt-3" forLabel="title" nameLabel="Title"
                             classInput="form-control" typeInput="text" placeholderTextarea="Enter your thread title here"

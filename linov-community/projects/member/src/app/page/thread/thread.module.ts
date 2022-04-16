@@ -20,29 +20,20 @@ import { BlockUIModule } from 'primeng/blockui';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService } from "primeng/api";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
     declarations: [
         ThreadComponent, ThreadDetailComponent, ThreadSaveComponent
     ],
     imports: [
-        ComponentModule,
-        CommonModule,
-        FormsModule,
-        TabViewModule,
-        SidebarModule,
-        MegaMenuModule,
-        ButtonModule,
-        FileUploadModule,
-        HttpClientModule,
-        MultiSelectModule,
-        DropdownModule,
-        TableModule,
-        CarouselModule,
-        BlockUIModule,
-        TooltipModule,
-        ThreadRouter,
-        ConfirmDialogModule
+        ComponentModule, CommonModule, FormsModule,
+        TabViewModule, SidebarModule, MegaMenuModule,
+        ButtonModule, FileUploadModule, HttpClientModule,
+        MultiSelectModule, DropdownModule, TableModule,
+        CarouselModule, BlockUIModule, TooltipModule,
+        ConfirmDialogModule, InputSwitchModule,
+        ThreadRouter
     ],
     providers: [
         ConfirmationService

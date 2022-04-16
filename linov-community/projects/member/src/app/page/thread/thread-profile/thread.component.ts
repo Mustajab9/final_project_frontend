@@ -91,6 +91,10 @@ export class ThreadComponent implements OnInit, OnDestroy {
     this.threadByBookmarks = resultThreadByBookmark.data
   }
 
+  showText(id: string): void {
+    this.router.navigateByUrl(`/member/thread/detail/${id}`)
+  }
+
   async onLike(id: string, isLike: boolean): Promise<void> {
     this.insertThreadLikeDtoReq.threadId = id
     if (!isLike) {

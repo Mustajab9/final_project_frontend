@@ -5,7 +5,8 @@ import { ButtonModule } from "primeng/button";
 import { ComponentModule } from "projects/core/src/app/component/components.module";
 import { ProfileUpdateComponent } from "./profile-update.component";
 import { ProfileUpdateRouter } from "./profile-update.router";
-import {TabViewModule} from 'primeng/tabview';
+import { TabViewModule } from 'primeng/tabview';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import {TabViewModule} from 'primeng/tabview';
         FormsModule,
         ButtonModule,
         TabViewModule,
+        FileUploadModule,
         ProfileUpdateRouter
     ]
 })

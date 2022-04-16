@@ -45,6 +45,7 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
   changePasswordSubscription?: Subscription
   roleCode?: string | undefined = this.loginService.getData()?.data.roleCode
   isLoading: boolean = false
+  uploadedFiles: any
 
   subscriptions: GetAllSubscriptionDtoDataRes[] = []
   profileSosmed: GetProfileSosmedByUserDtoDataRes[] = []
@@ -140,6 +141,11 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
     })
   }
 
+  onBasicUpload(event: any) {
+    this.uploadedFiles = event.currentFiles[0]
+    console.log(event.currentFiles[0])
+  }
+
   provinceChange(id: string): void {
     this.regenciesSubscription = this.regencyService.getByProvince(id).subscribe(result => {
       this.regencies = result.data
@@ -171,8 +177,7 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.updateProfileSubscription = this.profileService.update(this.updateProfile).subscribe(_ => {
-    })
+    this.updateProfileSubscription = this.profileService.update(this.updateProfile, this.uploadedFiles).subscribe()
   }
 
   changePassword() {

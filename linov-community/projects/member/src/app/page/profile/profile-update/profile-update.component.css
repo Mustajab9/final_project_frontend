@@ -5,3 +5,7 @@
 .nav-link.active {
     border-right: 3px solid #21325E;
 }
+
+:host ::ng-deep .p-fileupload .p-button-label {
+    display: none;
+}

@@ -24,15 +24,15 @@ export class ProfilesEffect {
     updateProfilesEffect = createEffect(() =>
         this.action$.pipe(
             ofType(updateProfilesAction),
-            mergeMap(
-                ({ payload }) => this.profileService.update(payload).pipe(
-                    map(result => {
-                        const newPayload: UpdateProfilesDtoReq = { ...payload }
-                        newPayload.version = result.data.version
-                        return updateProfilesSuccessAction({ payload: newPayload })
-                    })
-                )
-            )
+            // mergeMap(
+            //     ({ payload }) => this.profileService.update(payload).pipe(
+            //         map(result => {
+            //             const newPayload: UpdateProfilesDtoReq = { ...payload }
+            //             newPayload.version = result.data.version
+            //             return updateProfilesSuccessAction({ payload: newPayload })
+            //         })
+            //     )
+            // )
         )
     )
 

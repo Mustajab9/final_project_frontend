@@ -46,7 +46,7 @@
                             </div>
                         </div>
 
-                        <p-blockUI *ngIf="thread.isPremium" [target]="pnl" [blocked]="thread.isPremium">
+                        <p-blockUI *ngIf="thread.isPremium && roleCode == 'R03'" [target]="pnl" [blocked]="thread.isPremium">
                             <a routerLink="/member/subscription"><i class="pi pi-lock" style="font-size: 3rem; color: #323232;"></i></a>
                         </p-blockUI>
 

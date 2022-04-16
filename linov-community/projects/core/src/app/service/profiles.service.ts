@@ -34,8 +34,14 @@ export class ProfilesService {
         return this.http.post<InsertProfilesDtoRes>(`http://localhost:8080/profiles`, insertReq)
     }
 
-    update(updateReq: UpdateProfilesDtoReq): Observable<UpdateProfilesDtoRes> {
-        return this.http.put<UpdateProfilesDtoRes>(`http://localhost:8080/profiles`, updateReq)
+    update(updateReq: UpdateProfilesDtoReq, file: any): Observable<UpdateProfilesDtoRes> {
+        const formData: FormData = new FormData()
+        formData.append('content', JSON.stringify(updateReq))
+        if(file) {
+            formData.append('file', file)
+            console.log(file)
+        }
+        return this.http.put<UpdateProfilesDtoRes>(`http://localhost:8080/profiles`, formData)
     }
 
     delete(id: string): Observable<DeleteByProfilesIdDtoRes> {
