@@ -10,7 +10,7 @@ import { Table } from 'primeng/table'
 
 import { GetAllRegencyDtoDataRes } from '../../../../../../core/src/app/dto/regency/get-all-regency-dto-data-res'
 import { RegencyService } from '../../../../../../core/src/app/service/regency.service'
-import { deleteRegencyAction } from '../../../../../../core/src/app/state/regency/regency.action'
+import { deleteRegencyAction, loadRegencyAction } from '../../../../../../core/src/app/state/regency/regency.action'
 import { regencySelectorDelete } from '../../../../../../core/src/app/state/regency/regency.selector'
 
 @Component({
@@ -42,6 +42,7 @@ export class RegencyListComponent implements OnDestroy {
     try {
       const resultAll = await firstValueFrom(this.regencyService.getAll(startPage, maxPage, query))
       this.data = resultAll.data
+      this.store.dispatch(loadRegencyAction({payload: {startPage, maxPage, query}}))
       this.loading = false
       this.totalRecords = resultAll.total
     }catch {

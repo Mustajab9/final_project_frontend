@@ -10,7 +10,7 @@ import { Table } from 'primeng/table'
 
 import { GetAllIndustryDtoDataRes } from '../../../../../../core/src/app/dto/industry/get-all-industry-dto-data-res'
 import { IndustryService } from '../../../../../../core/src/app/service/industry.service'
-import { deleteIndustryAction } from '../../../../../../core/src/app/state/industry/industry.action'
+import { deleteIndustryAction, loadIndustryAction } from '../../../../../../core/src/app/state/industry/industry.action'
 import { industrySelectorDelete } from '../../../../../../core/src/app/state/industry/industry.selector'
 
 @Component({
@@ -41,6 +41,7 @@ export class IndustryListComponent implements OnDestroy {
     try {
       const resultAllIndustry = await firstValueFrom(this.industryService.getAll(startPage, maxPage, query))
       this.data = resultAllIndustry.data
+      this.store.dispatch(loadIndustryAction({payload: {startPage, maxPage, query}}))
       this.loading = false
       this.totalRecords = resultAllIndustry.total
     }catch {

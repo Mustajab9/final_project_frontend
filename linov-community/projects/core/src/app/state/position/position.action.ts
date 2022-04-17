@@ -7,7 +7,7 @@ import { GetByPositionIdDtoDataRes } from '../../dto/position/get-by-position-id
 
 const loadPositionAction = createAction(
     '[Position Page] load position',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined} }>()
 )
 
 const loadPositionSuccessAction = createAction(

@@ -1,25 +1,25 @@
+<div class="d-flex justify-content-center">
+    <img src="../../../assets/image/community1.jpg" class="img-fluid">
+</div>
 <div class="container-fluid">
-    <div class="d-flex justify-content-center">
-        <img src="../../../assets/image/community1.jpg" class="img-fluid">
-    </div>
     <div>
-    <p-toolbar *ngIf="isLogin" styleClass="my-4">
-        <ng-template pTemplate="left">
-        </ng-template>
+        <p-toolbar *ngIf="isLogin" styleClass="my-4">
+            <ng-template pTemplate="left">
+            </ng-template>
 
-        <ng-template pTemplate="right">
-            <app-button classBtn="p-button-success me-3"  typeBtn="submit"
-                        labelBtn="My Event" idBtn="event" iconType="pi-report" routerLinkBtn="/member/event/list">
-            </app-button>
-            <app-button classBtn="p-button-success"  typeBtn="submit"
-                        labelBtn="Add" idBtn="add" iconType="pi-plus" routerLinkBtn="/member/event/new">
-            </app-button>
-        </ng-template>
-    </p-toolbar>
+            <ng-template pTemplate="right">
+                <app-button classBtn="p-button-success me-3" typeBtn="submit" labelBtn="My Event" idBtn="event"
+                    iconType="pi-report" routerLinkBtn="/member/event/list">
+                </app-button>
+                <app-button classBtn="p-button-success" typeBtn="submit" labelBtn="Add" idBtn="add" iconType="pi-plus"
+                    routerLinkBtn="/member/event/new">
+                </app-button>
+            </ng-template>
+        </p-toolbar>
     </div>
     <div class="row px-5">
-        <div class="my-3 col-3 pr-5">
-            <div class="my-3">
+        <div class="col-3 pr-5">
+            <div class="mb-3">
                 <i class="fa-solid fa-filter me-4"></i>
                 <span class="fs-5 fw-bold" style="color: #323232;">Filters</span>
             </div>
@@ -30,16 +30,19 @@
                         <app-label classLabel="mb-0" forLabel="" nameLabel="Category"></app-label>
                         <div class="mt-2">
                             <a class="list-group-item list-group-item-action border-0" (click)="initData()">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault1" id="flexRadioDefault1">
-                                <app-label
-                                    classLabel="form-check-label ms-3" forLabel="flexRadioDefault1" nameLabel="All">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault1"
+                                    id="flexRadioDefault1">
+                                <app-label classLabel="form-check-label ms-3" forLabel="flexRadioDefault1"
+                                    nameLabel="All">
                                 </app-label>
                             </a>
                             <div class="list-group" *ngFor="let category of categories">
-                                <a class="list-group-item list-group-item-action border-0" (click)="onCategory(category.id)">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault1" id="flexRadioDefault1">
-                                    <app-label
-                                        classLabel="form-check-label ms-3" forLabel="flexRadioDefault1" nameLabel="{{category.categoryName}}">
+                                <a class="list-group-item list-group-item-action border-0"
+                                    (click)="onCategory(category.id)">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault1"
+                                        id="flexRadioDefault1">
+                                    <app-label classLabel="form-check-label ms-3" forLabel="flexRadioDefault1"
+                                        nameLabel="{{category.categoryName}}">
                                     </app-label>
                                 </a>
                             </div>
@@ -50,16 +53,16 @@
 
                     <div *ngIf="isLogin">
                         <app-label classLabel="" nameLabel="Jadwal"></app-label>
-                        <app-button iconType="pi-calendar" classBtn="p-button-outlined mt-2 mb-3 w-100" labelBtn="COURSE / EVENT SCHEDULE"
-                                    routerLinkBtn="/member/event/enroll">
+                        <app-button iconType="pi-calendar" classBtn="p-button-outlined mt-2 mb-3 w-100"
+                            labelBtn="COURSE / EVENT SCHEDULE" routerLinkBtn="/member/event/enroll">
                         </app-button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="my-3 col-9">
-            <div class="my-3">
+        <div class="col-9">
+            <div class="mb-3">
                 <i class="fa-solid fa-calendar me-4"></i>
                 <span class="fs-5 fw-bold" style="color: #323232;">Course & Event</span>
             </div>
@@ -67,7 +70,8 @@
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div *ngFor="let event of data" class="col">
                     <div class="card h-100">
-                        <img src="http://localhost:8080/attachments/{{event.attachmentId}}" height="300px" class="card-img-top" alt="...">
+                        <img src="http://localhost:8080/attachments/{{event.attachmentId}}" height="300px"
+                            class="card-img-top" alt="...">
                         <div class="card-body row">
                             <div class="mt-3 col-6">
                                 <app-label classLabel="" nameLabel="{{event.eventProvider}}"></app-label>
@@ -76,19 +80,21 @@
                                 <app-label classLabel="" nameLabel="{{event.typeName}}"></app-label>
                             </div>
 
-                            <app-label
-                                forLabel="" classLabel="fs-5 fw-bold" nameLabel="{{event.eventTitle}}" style="color: #323232;">
+                            <app-label forLabel="" classLabel="fs-5 fw-bold" nameLabel="{{event.eventTitle}}"
+                                style="color: #323232;">
                             </app-label>
 
                             <div class="d-flex flex-column">
                                 <div>
                                     <i class="fa-regular fa-calendar me-3"></i>
-                                    <app-label classLabel="me-4" nameLabel="{{event.eventDateStart}} - {{event.eventDateEnd}}"></app-label>
+                                    <app-label classLabel="me-4"
+                                        nameLabel="{{event.eventDateStart}} - {{event.eventDateEnd}}"></app-label>
                                 </div>
 
                                 <div>
                                     <i class="fa-regular fa-clock me-3"></i>
-                                    <app-label classLabel="" nameLabel="{{event.eventTimeStart}} - {{event.eventTimeEnd}}"></app-label>
+                                    <app-label classLabel=""
+                                        nameLabel="{{event.eventTimeStart}} - {{event.eventTimeEnd}}"></app-label>
                                 </div>
 
                                 <div>
@@ -101,25 +107,24 @@
                                     <app-label classLabel="" nameLabel="{{event.eventPrice}}"></app-label>
                                 </div>
 
-                                <app-label
-                                    classLabel="p-2 bg-light rounded-pill text-end" nameLabel="{{event.categoryName}}">
+                                <app-label classLabel="p-2 bg-light rounded-pill text-end"
+                                    nameLabel="{{event.categoryName}}">
                                 </app-label>
                             </div>
                         </div>
                         <div *ngIf="isLogin" class="card-footer">
                             <app-button *ngIf="event.createdBy != userId && event.isEnroll == false"
-                                classBtn="mt-2 w-100 p-button-success" labelBtn="Enroll"
-                                [requiredIcon]="false" (clickBtnEvent)="onEnroll(event.id)">
+                                classBtn="mt-2 w-100 p-button-success" labelBtn="Enroll" [requiredIcon]="false"
+                                (clickBtnEvent)="onEnroll(event.id)">
                             </app-button>
 
                             <app-button *ngIf="event.createdBy != userId && event.isEnroll == true"
-                                classBtn="mt-2 w-100 p-button-success" labelBtn="Already Enroll"
-                                [requiredIcon]="false" routerLinkBtn="/member/event/enroll">
+                                classBtn="mt-2 w-100 p-button-success" labelBtn="Already Enroll" [requiredIcon]="false"
+                                routerLinkBtn="/member/event/enroll">
                             </app-button>
 
-                            <app-button *ngIf="event.createdBy == userId"
-                                classBtn="mt-2 w-100" labelBtn="Participant" iconType="pi-list"
-                                [requiredIcon]="true" (clickBtnEvent)="onSubmit(event.id)">
+                            <app-button *ngIf="event.createdBy == userId" classBtn="mt-2 w-100" labelBtn="Participant"
+                                iconType="pi-list" [requiredIcon]="true" (clickBtnEvent)="onSubmit(event.id)">
                             </app-button>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container">
     <div class="row">
         <div class="col-sm-9">
             <div class="my-4 row">
@@ -56,21 +56,21 @@
                     </div>
 
                     <div class="text-end">
-                        <a (click)="onLike(threadById.id, threadById.isLiked)" class="btn me-2">
-                            <i *ngIf="threadById.isLiked == false" class="fa-regular fa-heart"></i>
-                            <i *ngIf="threadById.isLiked == true" class="fa-solid fa-heart"></i>
+                        <button pButton [loading]="this.isLoading" (click)="onLike(threadById.id, threadById.isLiked)" class="p-button-text">
+                            <i *ngIf="threadById.isLiked == false" class="fa-regular fa-heart me-2"></i>
+                            <i *ngIf="threadById.isLiked == true" class="fa-solid fa-heart me-2"></i>
                             {{threadById.totalLike}}
-                        </a>
+                        </button>
 
-                        <a class="btn me-2">
-                            <i class="fa-regular fa-comment"></i>
+                        <button pButton [loading]="this.isLoading" class="p-button-text">
+                            <i class="fa-regular fa-comment me-2"></i>
                             {{threadById.totalComment}}
-                        </a>
+                        </button>
 
-                        <a (click)="onBookmark(threadById.id, threadById.isBookmarked)" class="btn me-2">
-                            <i *ngIf="threadById.isBookmarked == false" class="fa-regular fa-bookmark"></i>
-                            <i *ngIf="threadById.isBookmarked == true" class="fa-solid fa-bookmark"></i>
-                        </a>
+                        <button pButton [loading]="this.isLoading" (click)="onBookmark(threadById.id, threadById.isBookmarked)" class="p-button-text">
+                            <i *ngIf="!threadById.isBookmarked" class="fa-regular fa-bookmark me-2"></i>
+                            <i *ngIf="threadById.isBookmarked" class="fa-solid fa-bookmark me-2"></i>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ import { GetByIndustryIdDtoDataRes } from '../../dto/industry/get-by-industry-id
 
 const loadIndustryAction = createAction(
     '[Industry Page] load industry',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined} }>()
 )
 
 const loadIndustrySuccessAction = createAction(

@@ -7,7 +7,7 @@ import { GetByRegencyIdDtoDataRes } from '../../dto/regency/get-by-regency-id-dt
 
 const loadRegencyAction = createAction(
     '[Regency Page] load regency',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined} }>()
 )
 
 const loadRegencySuccessAction = createAction(

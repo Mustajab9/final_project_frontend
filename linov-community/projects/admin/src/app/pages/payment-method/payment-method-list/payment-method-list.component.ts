@@ -10,7 +10,7 @@ import { Table } from 'primeng/table'
 
 import { GetAllPaymentMethodDtoDataRes } from '../../../../../../core/src/app/dto/payment-method/get-all-payment-method-dto-data-res'
 import { PaymentMethodService } from '../../../../../../core/src/app/service/payment-method.service'
-import { deletePaymentMethodAction } from '../../../../../../core/src/app/state/payment-method/payment-method.action'
+import { deletePaymentMethodAction, loadPaymentMethodAction } from '../../../../../../core/src/app/state/payment-method/payment-method.action'
 import { paymentMethodSelectorDelete } from '../../../../../../core/src/app/state/payment-method/payment-method.selector'
 
 @Component({
@@ -42,6 +42,7 @@ export class PaymentMethodListComponent implements OnDestroy {
     try {
       const resultAll = await firstValueFrom(this.paymentMethodService.getAll(startPage, maxPage, query))
       this.data = resultAll.data
+      this.store.dispatch(loadPaymentMethodAction({payload: {startPage, maxPage, query}}))
       this.loading = false
       this.totalRecords = resultAll.total
     }catch {

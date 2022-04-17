@@ -10,7 +10,7 @@ import { Table } from 'primeng/table'
 
 import { GetAllRoleDtoDataRes } from '../../../../../../core/src/app/dto/role/get-all-role-dto-data-res'
 import { RoleService } from '../../../../../../core/src/app/service/role.service'
-import { deleteRoleAction } from '../../../../../../core/src/app/state/role/role.action'
+import { deleteRoleAction, loadRoleAction } from '../../../../../../core/src/app/state/role/role.action'
 import { roleSelectorDelete } from '../../../../../../core/src/app/state/role/role.selector'
 import { GetAllRoleDtoRes } from 'projects/core/src/app/dto/role/get-all-role-dto-res'
 
@@ -42,6 +42,7 @@ export class RoleListComponent implements OnDestroy {
     try {
       const result: GetAllRoleDtoRes = await firstValueFrom(this.roleService.getAll(startPage, maxPage, query))
       this.data = result.data
+      this.store.dispatch(loadRoleAction({payload: {startPage, maxPage, query}}))
       this.loading = false
       this.totalRecords = result.total
     }catch {

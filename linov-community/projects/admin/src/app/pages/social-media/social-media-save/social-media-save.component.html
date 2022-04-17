@@ -17,7 +17,12 @@
                             <form-input class="col-12 col-sm-6 mb-3"
                                         forLabel="social-media-name" classLabel="h5" nameLabel="Social Media Name" [requiredLabel]="true"
                                         typeInput="text" placeholderInput="Enter Social Media Name"
-                                        minInput="5" maxInput="100" [(ngModelInput)]="data.socialMediaName">
+                                        minInput="5" maxInput="50" [(ngModelInput)]="data.socialMediaName">
+                            </form-input>
+                            <form-input class="col-12 col-sm-6 mb-3"
+                                        forLabel="social-media-icon" classLabel="h5" nameLabel="Social Media Icon" [requiredLabel]="true"
+                                        typeInput="text" placeholderInput="Enter Social Media Icon (ex: fa-brands fa-facebook-square)"
+                                        minInput="5" maxInput="50" [(ngModelInput)]="data.socialMediaIcon">
                             </form-input>
                             <form-button class="d-flex mt-3" classBtnPrimary="p-button-secondary me-3"
                                 labelBtnPrimary="Back" idBtnPrimary="back" routerLinkBtnPrimary="/admin/social-media/list"

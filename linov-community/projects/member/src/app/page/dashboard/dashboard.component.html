@@ -34,7 +34,7 @@
                 <div class="card text-color border-secondary mb-4" *ngFor="let thread of threads;let i=index">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6 d-flex align-items-center">
+                            <div class="col-6 d-flex align-items-center gap-2">
                                 <img *ngIf="!thread.profileImage" src="assets/image/undraw_profile_pic.svg" class="me-2" style="height: 35px; width: 35px;">
                                 <img *ngIf="thread.profileImage" src="http://localhost:8080/attachments/{{thread.profileImage}}" class="me-2" style="height: 35px; width: 35px;"  class="rounded-circle">
                                 <app-label class="align-self-center" nameLabel="{{thread.profileName}}"></app-label>
@@ -109,8 +109,8 @@
                             </button>
 
                             <button pButton [loading]="this.isLoading" (click)="onBookmark(thread.id, thread.isBookmarked)" class="p-button-text">
-                                <i *ngIf="thread.isBookmarked == false" class="fa-regular fa-bookmark me-2"></i>
-                                <i *ngIf="thread.isBookmarked == true" class="fa-solid fa-bookmark me-2"></i>
+                                <i *ngIf="!thread.isBookmarked" class="fa-regular fa-bookmark me-2"></i>
+                                <i *ngIf="thread.isBookmarked" class="fa-solid fa-bookmark me-2"></i>
                             </button>
                         </div>
 

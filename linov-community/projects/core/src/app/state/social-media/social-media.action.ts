@@ -7,7 +7,7 @@ import { GetBySocialMediaIdDtoDataRes } from '../../dto/social-media/get-by-soci
 
 const loadSocialMediaAction = createAction(
     '[SocialMedia Page] load social media',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined, } }>()
 )
 
 const loadSocialMediaSuccessAction = createAction(

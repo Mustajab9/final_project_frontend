@@ -7,7 +7,7 @@ import { GetByCategoryIdDtoDataRes } from '../../dto/category/get-by-category-id
 
 const loadCategoryAction = createAction(
     '[Category Page] load category',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined} }>()
 )
 
 const loadCategorySuccessAction = createAction(

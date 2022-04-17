@@ -16,17 +16,11 @@
                     </div>
 
                     <div class="d-flex justify-content-center mt-3">
-                        <a class="btn btn-outline-info rounded-circle me-2 mt-1" id="linkedin"
-                            href="https://www.linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i>
-                        </a>
-
-                        <a class="btn btn-outline-info rounded-circle me-2 mt-1" id="linkedin"
-                            href="https://www.linkedin.com" target="_blank"><i class="fa-brands fa-facebook-square"></i>
-                        </a>
-
-                        <a class="btn btn-outline-info rounded-circle mt-1" id="linkedin"
-                            href="https://www.linkedin.com" target="_blank"><i class="fa-brands fa-twitter-square"></i>
-                        </a>
+                        <ng-container *ngFor="let sosmed of profileSosmeds">
+                            <a class="btn btn-outline-info rounded-circle me-2 mt-1"
+                                href="{{sosmed.accountName}}" target="_blank"><i class="{{sosmed.socialMediaIcon}}"></i>
+                            </a>
+                        </ng-container>
                     </div>
 
                     <span><i class="fa-solid fa-user me-4 mt-4"></i>Personal Details</span>

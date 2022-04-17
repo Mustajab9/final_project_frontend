@@ -7,7 +7,7 @@ import { GetByPaymentMethodIdDtoDataRes } from '../../dto/payment-method/get-by-
 
 const loadPaymentMethodAction = createAction(
     '[PaymentMethod Page] load payment method',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined} }>()
 )
 
 const loadPaymentMethodSuccessAction = createAction(

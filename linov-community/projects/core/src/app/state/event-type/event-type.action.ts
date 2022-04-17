@@ -7,7 +7,7 @@ import { GetByEventTypeIdDtoDataRes } from '../../dto/event-type/get-by-event-ty
 
 const loadEventTypeAction = createAction(
     '[EventType Page] load event type',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined} }>()
 )
 
 const loadEventTypeSuccessAction = createAction(

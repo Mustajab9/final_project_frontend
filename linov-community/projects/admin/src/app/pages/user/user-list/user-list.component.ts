@@ -10,7 +10,7 @@ import { Table } from 'primeng/table'
 
 import { GetAllUserDtoDataRes } from '../../../../../../core/src/app/dto/user/get-all-user-dto-data-res'
 import { UserService } from '../../../../../../core/src/app/service/user.service'
-import { deleteUserAction } from '../../../../../../core/src/app/state/user/user.action'
+import { deleteUserAction, loadUserAction } from '../../../../../../core/src/app/state/user/user.action'
 import { userSelectorDelete } from '../../../../../../core/src/app/state/user/user.selector'
 
 @Component({
@@ -42,6 +42,7 @@ export class UserListComponent implements OnDestroy {
     try {
       const resultAll = await firstValueFrom(this.userService.getAll(startPage, maxPage, query))
       this.data = resultAll.data
+      this.store.dispatch(loadUserAction({payload: {startPage, maxPage, query}}))
       this.loading = false
       this.totalRecords = resultAll.total
     }catch {

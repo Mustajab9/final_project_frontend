@@ -10,7 +10,7 @@ import { Table } from 'primeng/table'
 
 import { GetAllThreadTypeDtoDataRes } from '../../../../../../core/src/app/dto/thread-type/get-all-thread-type-dto-data-res'
 import { ThreadTypeService } from '../../../../../../core/src/app/service/thread-type.service'
-import { deleteThreadTypeAction } from '../../../../../../core/src/app/state/thread-type/thread-type.action'
+import { deleteThreadTypeAction, loadThreadTypeAction } from '../../../../../../core/src/app/state/thread-type/thread-type.action'
 import { threadTypeSelectorDelete } from '../../../../../../core/src/app/state/thread-type/thread-type.selector'
 
 @Component({
@@ -42,6 +42,7 @@ export class ThreadTypeListComponent implements OnDestroy {
     try {
       const resultAll = await firstValueFrom(this.threadTypeService.getAll(startPage, maxPage, query))
       this.data = resultAll.data
+      this.store.dispatch(loadThreadTypeAction({payload: {startPage, maxPage, query}}))
       this.loading = false
       this.totalRecords = resultAll.total
     }catch {

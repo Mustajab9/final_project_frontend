@@ -64,8 +64,8 @@ export class ThreadDetailComponent implements OnInit, OnDestroy {
     const resultThreadById = await firstValueFrom(this.threadService.getById(id))
     this.threadById = resultThreadById.data
 
-    const resultThreadByCategory = await firstValueFrom(this.threadService.getByCategory(resultThreadById.data.categoryId))
-    this.threadByCategory = resultThreadByCategory.data
+    // const resultThreadByCategory = await firstValueFrom(this.threadService.getByCategory(resultThreadById.data.categoryId))
+    // this.threadByCategory = resultThreadByCategory.data
 
     const resultThreadCommentByThreadId = await firstValueFrom(this.threadCommentService.getByThread(id))
     this.threadCommentsByThread = resultThreadCommentByThreadId.data

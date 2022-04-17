@@ -31,12 +31,9 @@ export class SocialMediaUpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => {
-      this.isLoading = result
-    })
+    this.loadingServiceSubscription = this.loadingService.loading$?.subscribe(result => this.isLoading = result)
 
-    this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
-      const id = (result as any).id
+    this.activatedRouteSubscription = this.activatedRoute.params.subscribe(({id}) => {
       this.getBySocialMediaIdSubscription = this.store.select(socialMediaSelectorById(id)).subscribe(result => {
         this.data = { ...result }
       })

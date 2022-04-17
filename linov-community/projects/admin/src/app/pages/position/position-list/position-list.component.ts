@@ -10,7 +10,7 @@ import { Table } from 'primeng/table'
 
 import { GetAllPositionDtoDataRes } from '../../../../../../core/src/app/dto/position/get-all-position-dto-data-res'
 import { PositionService } from '../../../../../../core/src/app/service/position.service'
-import { deletePositionAction } from '../../../../../../core/src/app/state/position/position.action'
+import { deletePositionAction, loadPositionAction } from '../../../../../../core/src/app/state/position/position.action'
 import { positionSelectorDelete } from '../../../../../../core/src/app/state/position/position.selector'
 
 @Component({
@@ -42,6 +42,7 @@ export class PositionListComponent implements OnDestroy {
     try {
       const resultAll = await firstValueFrom(this.positionService.getAll(startPage, maxPage, query))
       this.data = resultAll.data
+      this.store.dispatch(loadPositionAction({payload: {startPage, maxPage, query}}))
       this.loading = false
       this.totalRecords = resultAll.total
     }catch {

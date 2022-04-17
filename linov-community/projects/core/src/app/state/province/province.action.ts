@@ -7,7 +7,7 @@ import { GetByProvinceIdDtoDataRes } from '../../dto/province/get-by-province-id
 
 const loadProvinceAction = createAction(
     '[Province Page] load province',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined} }>()
 )
 
 const loadProvinceSuccessAction = createAction(

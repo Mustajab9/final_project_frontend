@@ -7,7 +7,7 @@ import { GetByPriceListMemberIdDtoDataRes } from '../../dto/price-list-member/ge
 
 const loadPriceListMemberAction = createAction(
     '[PriceListMember Page] load price list member',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined} }>()
 )
 
 const loadPriceListMemberSuccessAction = createAction(

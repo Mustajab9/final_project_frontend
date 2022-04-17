@@ -7,7 +7,7 @@ import { GetByUserIdDtoDataRes } from '../../dto/user/get-by-user-id-dto-data-re
 
 const loadUserAction = createAction(
     '[User Page] load user',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined} }>()
 )
 
 const loadUserSuccessAction = createAction(

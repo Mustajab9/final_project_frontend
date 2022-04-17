@@ -9,7 +9,7 @@ import { Table } from 'primeng/table'
 
 import { GetAllEventTypeDtoDataRes } from '../../../../../../core/src/app/dto/event-type/get-all-event-type-dto-data-res'
 import { EventTypeService } from '../../../../../../core/src/app/service/event-type.service'
-import { deleteEventTypeAction } from '../../../../../../core/src/app/state/event-type/event-type.action'
+import { deleteEventTypeAction, loadEventTypeAction } from '../../../../../../core/src/app/state/event-type/event-type.action'
 import { eventTypeSelectorDelete } from '../../../../../../core/src/app/state/event-type/event-type.selector'
 
 @Component({
@@ -40,6 +40,7 @@ export class EventTypeListComponent implements OnDestroy {
     try {
       const resultAllEvent = await firstValueFrom(this.eventTypeService.getAll(startPage, maxPage, query))
       this.data = resultAllEvent.data
+      this.store.dispatch(loadEventTypeAction({payload: {startPage, maxPage, query}}))
       this.loading = false
       this.totalRecords = resultAllEvent.total
     }catch {

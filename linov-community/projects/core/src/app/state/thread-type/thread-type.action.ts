@@ -7,7 +7,7 @@ import { GetByThreadTypeIdDtoDataRes } from '../../dto/thread-type/get-by-thread
 
 const loadThreadTypeAction = createAction(
     '[ThreadType Page] load thread type',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined} }>()
 )
 
 const loadThreadTypeSuccessAction = createAction(

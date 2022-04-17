@@ -1,4 +1,4 @@
 export class UpdateSocialMediaDtoDataRes {
-	version?: number
+	version!: number
 }
 

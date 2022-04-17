@@ -1,5 +1,6 @@
 export class InsertSocialMediaDtoReq {
-	socialMediaName?: string
-	socialMediaCode?: string
+	socialMediaName!: string
+	socialMediaIcon!: string
+	socialMediaCode!: string
 }
 

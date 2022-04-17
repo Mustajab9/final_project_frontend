@@ -7,7 +7,7 @@ import { GetByPriceListEventIdDtoDataRes } from '../../dto/price-list-event/get-
 
 const loadPriceListEventAction = createAction(
     '[PriceListEvent Page] load price list event',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined} }>()
 )
 
 const loadPriceListEventSuccessAction = createAction(

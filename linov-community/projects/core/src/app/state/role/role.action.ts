@@ -7,7 +7,7 @@ import { GetByRoleIdDtoDataRes } from '../../dto/role/get-by-role-id-dto-data-re
 
 const loadRoleAction = createAction(
     '[Role Page] load role',
-    props<{ payload: {query: string, startPage: number, maxPage: number} }>()
+    props<{ payload: {startPage: number, maxPage: number, query: string | undefined} }>()
 )
 
 const loadRoleSuccessAction = createAction(

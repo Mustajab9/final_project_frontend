@@ -98,7 +98,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.threads = resultAllThread.data.filter(comp => {
       comp.isReadMore = true
-      this.categoryId = comp.categoryId
       return comp.typeCode == 'TY01' || comp.typeCode == 'TY02'
     })
 
@@ -110,17 +109,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   showText(id: string): void {
     this.router.navigateByUrl(`/member/thread/detail/${id}`)
-  }
-
-  async onCategory(id: string[]) {
-    let resultAllThreadByCategory: GetAllThreadDtoRes
-    if (this.isLogin) {
-      resultAllThreadByCategory = await firstValueFrom(this.threadService.getByCategory(id))
-    } else {
-      resultAllThreadByCategory = await firstValueFrom(this.threadService.getByCategoryNl(id))
-    }
-
-    this.threads = resultAllThreadByCategory.data
   }
 
   async onLike(id: string, isLike: boolean): Promise<void> {

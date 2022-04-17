@@ -30,6 +30,7 @@
             <tr>
                 <th>Social Media Code</th>
                 <th>Social Media Name</th>
+                <th>Social Media Icon</th>
                 <th class="text-center">Action</th>
             </tr>
         </ng-template>
@@ -38,6 +39,7 @@
             <tr>
                 <td>{{data.socialMediaCode}}</td>
                 <td>{{data.socialMediaName}}</td>
+                <td>{{data.socialMediaIcon}}</td>
                 <td class="text-center">
                     <app-button idBtn="update" classBtn="p-button-warning me-2" iconType="pi-undo" (clickBtnEvent)="update(data.id)">
                     </app-button>

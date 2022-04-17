@@ -10,7 +10,7 @@ import { Table } from 'primeng/table'
 
 import { GetAllCategoryDtoDataRes } from '../../../../../../core/src/app/dto/category/get-all-category-dto-data-res'
 import { CategoryService } from '../../../../../../core/src/app/service/category.service'
-import { deleteCategoryAction } from '../../../../../../core/src/app/state/category/category.action'
+import { deleteCategoryAction, loadCategoryAction } from '../../../../../../core/src/app/state/category/category.action'
 import { categorySelectorDelete } from '../../../../../../core/src/app/state/category/category.selector'
 import { GetAllCategoryDtoRes } from '../../../../../../core/src/app/dto/category/get-all-category-dto-res'
 
@@ -42,6 +42,7 @@ export class CategoryListComponent implements OnDestroy {
     try {
       const result: GetAllCategoryDtoRes = await firstValueFrom(this.categoryService.getAll(startPage, maxPage, query))
       this.data = result.data
+      this.store.dispatch(loadCategoryAction({payload: {startPage, maxPage, query}}))
       this.loading = false
       this.totalRecords = result.total
     }catch {

@@ -10,7 +10,7 @@ import { Table } from 'primeng/table'
 
 import { GetAllPriceListMemberDtoDataRes } from '../../../../../../core/src/app/dto/price-list-member/get-all-price-list-member-dto-data-res'
 import { PriceListMemberService } from '../../../../../../core/src/app/service/price-list-member.service'
-import { deletePriceListMemberAction } from '../../../../../../core/src/app/state/price-list-member/price-list-member.action'
+import { deletePriceListMemberAction, loadPriceListMemberAction } from '../../../../../../core/src/app/state/price-list-member/price-list-member.action'
 import { priceListMemberSelectorDelete } from '../../../../../../core/src/app/state/price-list-member/price-list-member.selector'
 
 @Component({
@@ -42,6 +42,7 @@ export class PriceListMemberListComponent implements OnDestroy {
     try {
       const resultAll = await firstValueFrom(this.priceListMemberService.getAll(startPage, maxPage, query))
       this.data = resultAll.data
+      this.store.dispatch(loadPriceListMemberAction({payload: {startPage, maxPage, query}}))
       this.loading = false
       this.totalRecords = resultAll.total
     }catch {

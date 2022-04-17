@@ -23,6 +23,7 @@ export const socialMediaReducer = createReducer(
             let newData = { ...comp }
             if (comp.id == payload.id) {
                 newData.socialMediaName = payload.socialMediaName
+                newData.socialMediaIcon = payload.socialMediaIcon
                 newData.isActive = payload.isActive
                 newData.version = payload.version
             }

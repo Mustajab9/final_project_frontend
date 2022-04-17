@@ -83,7 +83,10 @@ export class ThreadComponent implements OnInit, OnDestroy {
     this.profileSosmeds = resultProfileSosmedByUser.data
 
     const resultThreadByUser = await firstValueFrom(this.threadService.getByUser())
-    this.threadByUsers = resultThreadByUser.data
+    this.threadByUsers = resultThreadByUser.data.filter(comp => {
+      comp.isReadMore = true
+      return comp.typeCode == 'TY01' || comp.typeCode == 'TY02'
+    })
 
     const resultThreadByUserLike = await firstValueFrom(this.threadLikeService.getByUser())
     this.threadByUserLikes = resultThreadByUserLike.data

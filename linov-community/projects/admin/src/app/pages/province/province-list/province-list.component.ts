@@ -10,7 +10,7 @@ import { Table } from 'primeng/table'
 
 import { GetAllProvinceDtoDataRes } from '../../../../../../core/src/app/dto/province/get-all-province-dto-data-res'
 import { ProvinceService } from '../../../../../../core/src/app/service/province.service'
-import { deleteProvinceAction } from '../../../../../../core/src/app/state/province/province.action'
+import { deleteProvinceAction, loadProvinceAction } from '../../../../../../core/src/app/state/province/province.action'
 import { provinceSelectorDelete } from '../../../../../../core/src/app/state/province/province.selector'
 
 @Component({
@@ -42,6 +42,7 @@ export class ProvinceListComponent implements OnDestroy {
     try {
       const resultAll = await firstValueFrom(this.provinceService.getAll(startPage, maxPage, query))
       this.data = resultAll.data
+      this.store.dispatch(loadProvinceAction({payload: {startPage, maxPage, query}}))
       this.loading = false
       this.totalRecords = resultAll.total
     }catch {

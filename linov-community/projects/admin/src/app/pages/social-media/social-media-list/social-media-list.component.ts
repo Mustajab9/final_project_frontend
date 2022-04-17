@@ -10,7 +10,7 @@ import { Table } from 'primeng/table'
 
 import { GetAllSocialMediaDtoDataRes } from '../../../../../../core/src/app/dto/social-media/get-all-social-media-dto-data-res'
 import { SocialMediaService } from '../../../../../../core/src/app/service/social-media.service'
-import { deleteSocialMediaAction } from '../../../../../../core/src/app/state/social-media/social-media.action'
+import { deleteSocialMediaAction, loadSocialMediaAction } from '../../../../../../core/src/app/state/social-media/social-media.action'
 import { socialMediaSelectorDelete } from '../../../../../../core/src/app/state/social-media/social-media.selector'
 
 @Component({
@@ -41,6 +41,7 @@ export class SocialMediaListComponent implements OnDestroy {
     try {
       const resultAll = await firstValueFrom(this.socialMediaService.getAll(startPage, maxPage, query))
       this.data = resultAll.data
+      this.store.dispatch(loadSocialMediaAction({payload: {startPage, maxPage, query}}))
       this.loading = false
       this.totalRecords = resultAll.total
     }catch {
