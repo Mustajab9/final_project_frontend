@@ -39,7 +39,6 @@ export class ProfilesService {
         formData.append('content', JSON.stringify(updateReq))
         if(file) {
             formData.append('file', file)
-            console.log(file)
         }
         return this.http.put<UpdateProfilesDtoRes>(`http://localhost:8080/profiles`, formData)
     }

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
-import { EventService } from 'projects/core/src/app/service/event.service';
-import { LoginService } from 'projects/core/src/app/service/login.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { firstValueFrom, Subscription } from 'rxjs'
+
+import { GetAllEventDtoDataRes } from '../../../../../../core/src/app/dto/event/get-all-event-dto-data-res'
+import { EventService } from '../../../../../../core/src/app/service/event.service'
+import { LoginService } from '../../../../../../core/src/app/service/login.service'
 
 @Component({
   selector: 'app-enroll-event',

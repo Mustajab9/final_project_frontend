@@ -5,6 +5,7 @@ export class UpdateProfilesDtoReq {
 	industryId?: string
 	positionId?: string
 	regencyId?: string
+	provinceId!: string
 	version?: number
 	isActive?: boolean
 }

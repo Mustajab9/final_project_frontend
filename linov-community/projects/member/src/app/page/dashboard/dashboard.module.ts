@@ -1,19 +1,21 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { DashboardComponent } from "./dashboard.component";
-import { DashboardRouter } from "./dashboard.router";
-import { ComponentModule } from "projects/core/src/app/component/components.module";
-import { ButtonModule } from "primeng/button";
-import { TabViewModule } from 'primeng/tabview';
-import { ChartModule } from 'primeng/chart';
-import { CarouselModule } from 'primeng/carousel';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { InfiniteScrollModule } from "ngx-infinite-scroll";
-import { PanelModule } from 'primeng/panel';
-import { BlockUIModule } from 'primeng/blockui';
-import { ConfirmationService } from "primeng/api";
-import { ListboxModule } from 'primeng/listbox';
+import { CommonModule } from "@angular/common"
+import { NgModule } from "@angular/core"
+import { FormsModule } from "@angular/forms"
+import { InfiniteScrollModule } from "ngx-infinite-scroll"
+
+import { ConfirmationService } from "primeng/api"
+import { ButtonModule } from "primeng/button"
+import { BlockUIModule } from 'primeng/blockui'
+import { ChartModule } from 'primeng/chart'
+import { CarouselModule } from 'primeng/carousel'
+import { PanelModule } from 'primeng/panel'
+import { ProgressBarModule } from 'primeng/progressbar'
+import { TabViewModule } from 'primeng/tabview'
+import { ListboxModule } from 'primeng/listbox'
+
+import { DashboardRouter } from "./dashboard.router"
+import { DashboardComponent } from "./dashboard.component"
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 
 @NgModule({
     declarations: [

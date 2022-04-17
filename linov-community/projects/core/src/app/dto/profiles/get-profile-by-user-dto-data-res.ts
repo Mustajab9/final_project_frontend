@@ -16,6 +16,7 @@ export class GetProfileByUserDtoDataRes {
 	regencyId!: string
 	regencyName!: string
 	postalCode!: string
+	roleCode!: string
 	version!: number
 	isActive!: boolean
 }

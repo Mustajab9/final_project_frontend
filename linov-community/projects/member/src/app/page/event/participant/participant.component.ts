@@ -1,15 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { GetAllEnrollEventDtoDataRes } from 'projects/core/src/app/dto/enroll-event/get-all-enroll-event-dto-data-res';
-import { UpdateEnrollEventDtoReq } from 'projects/core/src/app/dto/enroll-event/update-enroll-event-dto-req';
-import { GetByEventIdDtoDataRes } from 'projects/core/src/app/dto/event/get-by-event-id-dto-data-res';
-import { EnrollEventService } from 'projects/core/src/app/service/enroll-event.service';
-import { EventService } from 'projects/core/src/app/service/event.service';
-import { LoadingService } from 'projects/core/src/app/service/loading.service';
-import { enrollEventSelectorAll } from 'projects/core/src/app/state/enroll-event/enroll-event.selector';
-import { firstValueFrom, Observable, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { firstValueFrom, Observable, Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { GetAllEnrollEventDtoDataRes } from '../../../../../../core/src/app/dto/enroll-event/get-all-enroll-event-dto-data-res'
+import { UpdateEnrollEventDtoReq } from '../../../../../../core/src/app/dto/enroll-event/update-enroll-event-dto-req'
+import { GetByEventIdDtoDataRes } from '../../../../../../core/src/app/dto/event/get-by-event-id-dto-data-res'
+import { EnrollEventService } from '../../../../../../core/src/app/service/enroll-event.service'
+import { EventService } from '../../../../../../core/src/app/service/event.service'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
+import { enrollEventSelectorAll } from '../../../../../../core/src/app/state/enroll-event/enroll-event.selector'
 
 @Component({
   selector: 'app-participant',

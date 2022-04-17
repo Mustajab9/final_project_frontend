@@ -39,16 +39,19 @@
                                             <div class="col-6 text-end">
                                                 <app-button *ngIf="roleCode == 'R03'" classBtn="p-button-warning text-center"
                                                     labelBtn="Get Premium" idBtn="premium"
-                                                    routerLink="/member/subscription/">
+                                                    routerLink="/member/subscription/new">
                                                 </app-button>
-                                                <app-label *ngIf="roleCode == 'R02'" nameLabel="Subscription Active Until {{subscriptions[0].subscriptionDuration}}">
+                                                <app-label *ngIf="roleCode == 'R02'" nameLabel="Subscription Active Until {{subscriptionDuration}}">
                                                 </app-label>
+                                                <app-button *ngIf="roleCode == 'R02'" classBtn="p-button-text text-center" labelBtn="Extend Your Premium" idBtn="premium"
+                                                        routerLink="/member/subscription/add">
+                                                </app-button>
+                                                <app-label *ngIf="roleCode == 'R01'"></app-label>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="card-body">
-                                        {{uploadedFiles | json}}
                                         <div class="mt-3 d-flex flex-column align-items-center">
                                             <img *ngIf="!profile.profileImageId"
                                                 src="assets/image/undraw_profile_pic.svg" class="mb-3"
@@ -98,8 +101,8 @@
                                                         nameLabel="Province" classSelect="form-select"
                                                         style="max-width: 50%;" [optionData]="provinces"
                                                         optionLabel="provinceName" optionValue="id"
-                                                        [(ngModelSelect)]="profile.provinceId" [requiredLabel]="true"
-                                                        (ngModelSelectChange)="provinceChange(profile.provinceId)">
+                                                        [(ngModelSelect)]="updateProfile.provinceId" [requiredLabel]="true"
+                                                        (ngModelSelectChange)="provinceChange(updateProfile.provinceId)">
                                                     </form-select>
 
                                                     <form-select forLabel="regency" classLabel="mt-2"

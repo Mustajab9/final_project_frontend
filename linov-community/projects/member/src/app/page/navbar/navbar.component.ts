@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MenuItem, MegaMenuItem } from 'primeng/api';
-import { GetProfileByUserDtoDataRes } from 'projects/core/src/app/dto/profiles/get-profile-by-user-dto-data-res';
-import { EventService } from 'projects/core/src/app/service/event.service';
-import { LoginService } from 'projects/core/src/app/service/login.service';
-import { ProfilesService } from 'projects/core/src/app/service/profiles.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { firstValueFrom, Subscription } from 'rxjs'
+
+import { GetProfileByUserDtoDataRes } from '../../../../../core/src/app/dto/profiles/get-profile-by-user-dto-data-res'
+import { EventService } from '../../../../../core/src/app/service/event.service'
+import { LoginService } from '../../../../../core/src/app/service/login.service'
+import { ProfilesService } from '../../../../../core/src/app/service/profiles.service'
 
 @Component({
   selector: 'app-navbar',
@@ -14,9 +14,10 @@ import { firstValueFrom, Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
 
-  countries: any[] = [];
-  selectedCity1: any;
-  visibleSidebar1: any;
+  countries: any[] = []
+  roleCode: string | undefined = this.loginService.getData()?.data.roleCode
+  selectedCity1: any
+  visibleSidebar1: any
   isLogin: boolean = this.loginService.isLogin()
   countNotPaid!: number
 

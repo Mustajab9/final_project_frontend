@@ -1,28 +1,32 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { EventRouter } from "./event.router";
-import { ComponentModule } from "projects/core/src/app/component/components.module";
-import { ButtonModule } from "primeng/button";
-import { TabViewModule } from 'primeng/tabview';
-import { ChartModule } from 'primeng/chart';
-import { ListboxModule } from 'primeng/listbox';
-import { ToolbarModule } from "primeng/toolbar";
-import { CalendarModule } from 'primeng/calendar';
-import { FileUploadModule } from 'primeng/fileupload';
-import { DialogModule } from 'primeng/dialog';
-import { EnrollEventComponent } from './enroll-event/enroll-event.component';
-import { EventListComponent } from './event-list/event-list.component';
-import { EventSaveComponent } from './event-save/event-save.component';
-import { EnrollSaveComponent } from './enroll-save/enroll-save.component';
-import { TableModule } from "primeng/table";
-import { ConfirmDialogModule } from "primeng/confirmdialog";
-import { StoreModule } from "@ngrx/store";
-import { EffectsModule } from "@ngrx/effects";
-import { ConfirmationService } from "primeng/api";
-import { eventReducer } from "projects/core/src/app/state/event/event.reducer";
-import { ParticipantComponent } from './participant/participant.component';
-import { EventEffect } from "projects/core/src/app/state/event/event.effect";
+import { CommonModule } from "@angular/common"
+import { NgModule } from "@angular/core"
+import { FormsModule } from "@angular/forms"
+
+import { StoreModule } from "@ngrx/store"
+import { EffectsModule } from "@ngrx/effects"
+
+import { ConfirmationService } from "primeng/api"
+import { ButtonModule } from "primeng/button"
+import { ChartModule } from 'primeng/chart'
+import { CalendarModule } from 'primeng/calendar'
+import { ConfirmDialogModule } from "primeng/confirmdialog"
+import { DialogModule } from 'primeng/dialog'
+import { FileUploadModule } from 'primeng/fileupload'
+import { ListboxModule } from 'primeng/listbox'
+import { TableModule } from "primeng/table"
+import { TabViewModule } from 'primeng/tabview'
+import { ToolbarModule } from "primeng/toolbar"
+
+import { EventRouter } from "./event.router"
+import { EnrollEventComponent } from './enroll-event/enroll-event.component'
+import { EventListComponent } from './event-list/event-list.component'
+import { EventSaveComponent } from './event-save/event-save.component'
+import { EnrollSaveComponent } from './enroll-save/enroll-save.component'
+import { ParticipantComponent } from './participant/participant.component'
+
+import { eventReducer } from "../../../../../core/src/app/state/event/event.reducer"
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
+import { EventEffect } from "../../../../../core/src/app/state/event/event.effect"
 
 @NgModule({
     declarations: [

@@ -1,23 +1,24 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GetBookmarkByUserDtoDataRes } from 'projects/core/src/app/dto/bookmark/get-bookmark-by-user-dto-data-res';
-import { InsertBookmarkDtoReq } from 'projects/core/src/app/dto/bookmark/insert-bookmark-dto-req';
-import { InsertChoiceVoteDtoReq } from 'projects/core/src/app/dto/choice-vote/insert-choice-vote-dto-req';
-import { GetProfileSosmedByUserDtoDataRes } from 'projects/core/src/app/dto/profile-sosmed/get-profile-sosmed-by-user-dto-data-res';
-import { GetProfileByUserDtoDataRes } from 'projects/core/src/app/dto/profiles/get-profile-by-user-dto-data-res';
-import { GetByUserIdDtoDataRes } from 'projects/core/src/app/dto/thread-like/get-by-user-id-dto-data-res';
-import { InsertThreadLikeDtoReq } from 'projects/core/src/app/dto/thread-like/insert-thread-like-dto-req';
-import { GetThreadByUserDtoDataRes } from 'projects/core/src/app/dto/thread/get-thread-by-user-dto-data-res';
-import { BookmarkService } from 'projects/core/src/app/service/bookmark.service';
-import { ChoiceVoteService } from 'projects/core/src/app/service/choice-vote.service';
-import { LoadingService } from 'projects/core/src/app/service/loading.service';
-import { LoginService } from 'projects/core/src/app/service/login.service';
-import { ProfileSosmedService } from 'projects/core/src/app/service/profile-sosmed.service';
-import { ProfilesService } from 'projects/core/src/app/service/profiles.service';
-import { ThreadLikeService } from 'projects/core/src/app/service/thread-like.service';
-import { ThreadService } from 'projects/core/src/app/service/thread.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+import { firstValueFrom, Subscription } from 'rxjs'
+
+import { GetBookmarkByUserDtoDataRes } from '../../../../../../core/src/app/dto/bookmark/get-bookmark-by-user-dto-data-res'
+import { InsertBookmarkDtoReq } from '../../../../../../core/src/app/dto/bookmark/insert-bookmark-dto-req'
+import { InsertChoiceVoteDtoReq } from '../../../../../../core/src/app/dto/choice-vote/insert-choice-vote-dto-req'
+import { GetProfileSosmedByUserDtoDataRes } from '../../../../../../core/src/app/dto/profile-sosmed/get-profile-sosmed-by-user-dto-data-res'
+import { GetProfileByUserDtoDataRes } from '../../../../../../core/src/app/dto/profiles/get-profile-by-user-dto-data-res'
+import { GetByUserIdDtoDataRes } from '../../../../../../core/src/app/dto/thread-like/get-by-user-id-dto-data-res'
+import { InsertThreadLikeDtoReq } from '../../../../../../core/src/app/dto/thread-like/insert-thread-like-dto-req'
+import { GetThreadByUserDtoDataRes } from '../../../../../../core/src/app/dto/thread/get-thread-by-user-dto-data-res'
+import { BookmarkService } from '../../../../../../core/src/app/service/bookmark.service'
+import { ChoiceVoteService } from '../../../../../../core/src/app/service/choice-vote.service'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
+import { LoginService } from '../../../../../../core/src/app/service/login.service'
+import { ProfileSosmedService } from '../../../../../../core/src/app/service/profile-sosmed.service'
+import { ProfilesService } from '../../../../../../core/src/app/service/profiles.service'
+import { ThreadLikeService } from '../../../../../../core/src/app/service/thread-like.service'
+import { ThreadService } from '../../../../../../core/src/app/service/thread.service'
 
 @Component({
   selector: 'app-thread',
@@ -36,8 +37,8 @@ export class ThreadComponent implements OnInit, OnDestroy {
   insertChoiceVoteDtoReq: InsertChoiceVoteDtoReq = new InsertChoiceVoteDtoReq()
   loadingSubscription?: Subscription
 
-  value: number = 0;
-  responsiveOptions: any;
+  value: number = 0
+  responsiveOptions: any
   isLoading: boolean = false
 
   constructor(private title: Title, private router: Router,
@@ -63,7 +64,7 @@ export class ThreadComponent implements OnInit, OnDestroy {
         numVisible: 1,
         numScroll: 1
       }
-    ];
+    ]
   }
 
   ngOnInit(): void {

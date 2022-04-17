@@ -1,31 +1,32 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GetAllIndustryDtoDataRes } from 'projects/core/src/app/dto/industry/get-all-industry-dto-data-res';
-import { GetAllPositionDtoDataRes } from 'projects/core/src/app/dto/position/get-all-position-dto-data-res';
-import { GetProfileSosmedByUserDtoDataRes } from 'projects/core/src/app/dto/profile-sosmed/get-profile-sosmed-by-user-dto-data-res';
-import { InsertProfileSosmedDtoReq } from 'projects/core/src/app/dto/profile-sosmed/insert-profile-sosmed-dto-req';
-import { UpdateProfileSosmedDtoReq } from 'projects/core/src/app/dto/profile-sosmed/update-profile-sosmed-dto-req';
-import { GetProfileByUserDtoDataRes } from 'projects/core/src/app/dto/profiles/get-profile-by-user-dto-data-res';
-import { UpdateProfilesDtoReq } from 'projects/core/src/app/dto/profiles/update-profiles-dto-req';
-import { GetAllProvinceDtoDataRes } from 'projects/core/src/app/dto/province/get-all-province-dto-data-res';
-import { GetAllRegencyDtoDataRes } from 'projects/core/src/app/dto/regency/get-all-regency-dto-data-res';
-import { GetAllSocialMediaDtoDataRes } from 'projects/core/src/app/dto/social-media/get-all-social-media-dto-data-res';
-import { GetAllSubscriptionDtoDataRes } from 'projects/core/src/app/dto/subscription/get-all-subscription-dto-data-res';
-import { ChangePasswordDtoReq } from 'projects/core/src/app/dto/user/change-password-dto-req';
-import { LoginDtoRes } from 'projects/core/src/app/dto/user/login-dto-res';
-import { IndustryService } from 'projects/core/src/app/service/industry.service';
-import { LoadingService } from 'projects/core/src/app/service/loading.service';
-import { LoginService } from 'projects/core/src/app/service/login.service';
-import { PositionService } from 'projects/core/src/app/service/position.service';
-import { ProfileSosmedService } from 'projects/core/src/app/service/profile-sosmed.service';
-import { ProfilesService } from 'projects/core/src/app/service/profiles.service';
-import { ProvinceService } from 'projects/core/src/app/service/province.service';
-import { RegencyService } from 'projects/core/src/app/service/regency.service';
-import { SocialMediaService } from 'projects/core/src/app/service/social-media.service';
-import { SubscriptionService } from 'projects/core/src/app/service/subscription.service';
-import { UserService } from 'projects/core/src/app/service/user.service';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+import { Subscription } from 'rxjs'
+
+import { GetAllIndustryDtoDataRes } from '../../../../../../core/src/app/dto/industry/get-all-industry-dto-data-res'
+import { GetAllPositionDtoDataRes } from '../../../../../../core/src/app/dto/position/get-all-position-dto-data-res'
+import { GetProfileSosmedByUserDtoDataRes } from '../../../../../../core/src/app/dto/profile-sosmed/get-profile-sosmed-by-user-dto-data-res'
+import { InsertProfileSosmedDtoReq } from '../../../../../../core/src/app/dto/profile-sosmed/insert-profile-sosmed-dto-req'
+import { UpdateProfileSosmedDtoReq } from '../../../../../../core/src/app/dto/profile-sosmed/update-profile-sosmed-dto-req'
+import { GetProfileByUserDtoDataRes } from '../../../../../../core/src/app/dto/profiles/get-profile-by-user-dto-data-res'
+import { UpdateProfilesDtoReq } from '../../../../../../core/src/app/dto/profiles/update-profiles-dto-req'
+import { GetAllProvinceDtoDataRes } from '../../../../../../core/src/app/dto/province/get-all-province-dto-data-res'
+import { GetAllRegencyDtoDataRes } from '../../../../../../core/src/app/dto/regency/get-all-regency-dto-data-res'
+import { GetAllSocialMediaDtoDataRes } from '../../../../../../core/src/app/dto/social-media/get-all-social-media-dto-data-res'
+import { GetAllSubscriptionDtoDataRes } from '../../../../../../core/src/app/dto/subscription/get-all-subscription-dto-data-res'
+import { ChangePasswordDtoReq } from '../../../../../../core/src/app/dto/user/change-password-dto-req'
+import { LoginDtoRes } from '../../../../../../core/src/app/dto/user/login-dto-res'
+import { IndustryService } from '../../../../../../core/src/app/service/industry.service'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
+import { LoginService } from '../../../../../../core/src/app/service/login.service'
+import { PositionService } from '../../../../../../core/src/app/service/position.service'
+import { ProfileSosmedService } from '../../../../../../core/src/app/service/profile-sosmed.service'
+import { ProfilesService } from '../../../../../../core/src/app/service/profiles.service'
+import { ProvinceService } from '../../../../../../core/src/app/service/province.service'
+import { RegencyService } from '../../../../../../core/src/app/service/regency.service'
+import { SocialMediaService } from '../../../../../../core/src/app/service/social-media.service'
+import { SubscriptionService } from '../../../../../../core/src/app/service/subscription.service'
+import { UserService } from '../../../../../../core/src/app/service/user.service'
 
 @Component({
   selector: 'app-profile-update',
@@ -43,7 +44,8 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
   isFound: boolean = false
   getUserByEmailSubscription?: Subscription
   changePasswordSubscription?: Subscription
-  roleCode?: string | undefined = this.loginService.getData()?.data.roleCode
+  roleCode?: string
+  subscriptionDuration?: string
   isLoading: boolean = false
   uploadedFiles: any
 
@@ -86,7 +88,7 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
   }
 
   initData(): void {
-    this.loadingService.loading$?.subscribe(result =>{
+    this.loadingService.loading$?.subscribe(result => {
       this.isLoading = result
     })
 
@@ -97,17 +99,18 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
       this.updateProfile.positionId = result.data.positionId
       this.updateProfile.profileCompany = result.data.profileCompany
       this.updateProfile.profileName = result.data.profileName
+      this.updateProfile.provinceId = result.data.provinceId
       this.updateProfile.regencyId = result.data.regencyId
       this.updateProfile.isActive = result.data.isActive
       this.updateProfile.version = result.data.version
+      this.roleCode = result.data.roleCode
 
-      this.getSubscriptionByProfileSubscription = this.subscriptionService.getAll().subscribe(result => {
+      this.getSubscriptionByProfileSubscription = this.subscriptionService.getByUser(result.data.userId).subscribe(result => {
         if (result) {
-          this.subscriptions = result.data.filter(comp => comp.profileId == this.profile.id)
+          this.subscriptionDuration = result.data?.subscriptionDuration
         }
       })
     })
-
 
     this.profileSosmedSubscription = this.profileSosmedService.getByUser().subscribe(result => {
       this.profileSosmed = result.data
@@ -143,7 +146,6 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
 
   onBasicUpload(event: any) {
     this.uploadedFiles = event.currentFiles[0]
-    console.log(event.currentFiles[0])
   }
 
   provinceChange(id: string): void {
@@ -155,29 +157,30 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
   onSave(): void {
     const profileId: string | undefined = this.loginService.getData()?.data.id
     for (let sosmed of this.profileSosmed) {
-      if (sosmed.id) {
-        this.updateProfileSocmed.id = sosmed.id
-        this.updateProfileSocmed.accountName = sosmed.accountName
-        this.updateProfileSocmed.version = sosmed.version
-        this.updateProfileSocmed.isActive = sosmed.isActive
-        this.profileSosmedService.update(this.updateProfileSocmed).subscribe()
-      } else {
-        let id: string
-        this.profileService.getByUserId().subscribe(result => {
-          id = result.data.id
+      if (sosmed.accountName) {
+        if (sosmed.id) {
+          this.updateProfileSocmed.id = sosmed.id
+          this.updateProfileSocmed.accountName = sosmed.accountName
+          this.updateProfileSocmed.version = sosmed.version
+          this.updateProfileSocmed.isActive = sosmed.isActive
+          this.profileSosmedService.update(this.updateProfileSocmed).subscribe()
+        } else {
+          let id: string
+          this.profileService.getByUserId().subscribe(result => {
+            id = result.data.id
 
-          this.insertProfileSocmed.profileId = id
-          this.insertProfileSocmed.accountName = sosmed.accountName
-          this.insertProfileSocmed.socialMediaId = sosmed.socialMediaid
-          this.profileSosmedService.insert(this.insertProfileSocmed).subscribe(_ => {
-            this.router.navigateByUrl('/member/dashboard')
+            this.insertProfileSocmed.profileId = id
+            this.insertProfileSocmed.accountName = sosmed.accountName
+            this.insertProfileSocmed.socialMediaId = sosmed.socialMediaid
+            this.profileSosmedService.insert(this.insertProfileSocmed).subscribe()
           })
-        })
-
+        }
       }
     }
 
-    this.updateProfileSubscription = this.profileService.update(this.updateProfile, this.uploadedFiles).subscribe()
+    this.updateProfileSubscription = this.profileService.update(this.updateProfile, this.uploadedFiles).subscribe(_ => {
+      this.router.navigateByUrl('/member/dashboard')
+    })
   }
 
   changePassword() {
@@ -199,7 +202,7 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
     if (isValid) {
       this.changePasswordSubscription = this.userService.changePassword(this.data).subscribe(result => {
         if (result) {
-          this.initData();
+          this.initData()
         }
       })
     }

@@ -1,21 +1,24 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
-import { InsertBookmarkDtoReq } from 'projects/core/src/app/dto/bookmark/insert-bookmark-dto-req';
-import { InsertChoiceVoteDtoReq } from 'projects/core/src/app/dto/choice-vote/insert-choice-vote-dto-req';
-import { GetThreadCommentByThreadDtoDataRes } from 'projects/core/src/app/dto/thread-comment/get-thread-comment-by-thread-dto-data-res';
-import { InsertThreadCommentDtoReq } from 'projects/core/src/app/dto/thread-comment/insert-thread-comment-dto-req';
-import { InsertThreadLikeDtoReq } from 'projects/core/src/app/dto/thread-like/insert-thread-like-dto-req';
-import { GetByThreadIdDtoDataRes } from 'projects/core/src/app/dto/thread/get-by-thread-id-dto-data-res';
-import { BookmarkService } from 'projects/core/src/app/service/bookmark.service';
-import { ChoiceVoteService } from 'projects/core/src/app/service/choice-vote.service';
-import { LoadingService } from 'projects/core/src/app/service/loading.service';
-import { LoginService } from 'projects/core/src/app/service/login.service';
-import { ThreadCommentService } from 'projects/core/src/app/service/thread-comment.service';
-import { ThreadLikeService } from 'projects/core/src/app/service/thread-like.service';
-import { ThreadService } from 'projects/core/src/app/service/thread.service';
-import { first, firstValueFrom, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { firstValueFrom, Subscription } from 'rxjs'
+import { ConfirmationService } from 'primeng/api'
+
+import { InsertBookmarkDtoReq } from '../../../../../../core/src/app/dto/bookmark/insert-bookmark-dto-req'
+import { InsertChoiceVoteDtoReq } from '../../../../../../core/src/app/dto/choice-vote/insert-choice-vote-dto-req'
+import { GetThreadCommentByThreadDtoDataRes } from '../../../../../../core/src/app/dto/thread-comment/get-thread-comment-by-thread-dto-data-res'
+import { InsertThreadCommentDtoReq } from '../../../../../../core/src/app/dto/thread-comment/insert-thread-comment-dto-req'
+import { InsertThreadLikeDtoReq } from '../../../../../../core/src/app/dto/thread-like/insert-thread-like-dto-req'
+import { GetAllThreadDtoDataRes } from '../../../../../../core/src/app/dto/thread/get-all-thread-dto-data-res'
+import { GetByThreadIdDtoDataRes } from '../../../../../../core/src/app/dto/thread/get-by-thread-id-dto-data-res'
+import { BookmarkService } from '../../../../../../core/src/app/service/bookmark.service'
+import { ChoiceVoteService } from '../../../../../../core/src/app/service/choice-vote.service'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
+import { LoginService } from '../../../../../../core/src/app/service/login.service'
+import { ThreadCommentService } from '../../../../../../core/src/app/service/thread-comment.service'
+import { ThreadLikeService } from '../../../../../../core/src/app/service/thread-like.service'
+import { ThreadService } from '../../../../../../core/src/app/service/thread.service'
 
 @Component({
   selector: 'app-thread-detail',
@@ -26,6 +29,7 @@ export class ThreadDetailComponent implements OnInit, OnDestroy {
 
   threadById: GetByThreadIdDtoDataRes = new GetByThreadIdDtoDataRes()
   threadCommentsByThread: GetThreadCommentByThreadDtoDataRes[] = []
+  threadByCategory: GetAllThreadDtoDataRes[] = []
 
   insertThreadComment: InsertThreadCommentDtoReq = new InsertThreadCommentDtoReq()
   insertThreadLikeDtoReq: InsertThreadLikeDtoReq = new InsertThreadLikeDtoReq()
@@ -33,8 +37,8 @@ export class ThreadDetailComponent implements OnInit, OnDestroy {
   insertChoiceVoteDtoReq: InsertChoiceVoteDtoReq = new InsertChoiceVoteDtoReq()
   loadingSubscription?: Subscription
 
-  value: number = 0;
-  responsiveOptions: any;
+  value: number = 0
+  responsiveOptions: any
   isLogin: boolean = this.loginService.isLogin()
   isLoading: boolean = false
 
@@ -52,13 +56,16 @@ export class ThreadDetailComponent implements OnInit, OnDestroy {
       this.isLoading = result
     })
 
-    const {id} = await firstValueFrom(this.activatedRoute.params)
+    const { id } = await firstValueFrom(this.activatedRoute.params)
     this.initData(id)
   }
 
   async initData(id: string): Promise<void> {
     const resultThreadById = await firstValueFrom(this.threadService.getById(id))
     this.threadById = resultThreadById.data
+
+    const resultThreadByCategory = await firstValueFrom(this.threadService.getByCategory(resultThreadById.data.categoryId))
+    this.threadByCategory = resultThreadByCategory.data
 
     const resultThreadCommentByThreadId = await firstValueFrom(this.threadCommentService.getByThread(id))
     this.threadCommentsByThread = resultThreadCommentByThreadId.data
@@ -81,7 +88,7 @@ export class ThreadDetailComponent implements OnInit, OnDestroy {
           this.initData(this.threadById.id)
         }
       }
-    } 
+    }
     else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
@@ -90,7 +97,7 @@ export class ThreadDetailComponent implements OnInit, OnDestroy {
         accept: () => {
           this.router.navigateByUrl('/login/member')
         }
-      });
+      })
     }
   }
 
@@ -101,7 +108,7 @@ export class ThreadDetailComponent implements OnInit, OnDestroy {
       if (!isBookmarked) {
         await firstValueFrom(this.bookmarkService.insert(this.insertBookmarkDtoReq))
         this.initData(this.threadById.id)
-        
+
       } else if (isBookmarked) {
         const userId: string | undefined = this.loginService.getData()?.data.id
 
@@ -111,7 +118,7 @@ export class ThreadDetailComponent implements OnInit, OnDestroy {
           this.initData(this.threadById.id)
         }
       }
-    } 
+    }
     else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
@@ -120,7 +127,7 @@ export class ThreadDetailComponent implements OnInit, OnDestroy {
         accept: () => {
           this.router.navigateByUrl('/login/member')
         }
-      });
+      })
     }
   }
 
@@ -132,7 +139,7 @@ export class ThreadDetailComponent implements OnInit, OnDestroy {
         await firstValueFrom(this.choiceVoteService.insert(this.insertChoiceVoteDtoReq))
         this.initData(this.threadById.id)
       }
-    } 
+    }
     else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
@@ -141,17 +148,17 @@ export class ThreadDetailComponent implements OnInit, OnDestroy {
         accept: () => {
           this.router.navigateByUrl('/login/member')
         }
-      });
+      })
     }
   }
 
   async onReply(): Promise<void> {
-    if(this.isLogin){
+    if (this.isLogin) {
       this.insertThreadComment.threadId = this.threadById.id
       await firstValueFrom(this.threadCommentService.insert(this.insertThreadComment))
       this.router.navigateByUrl('/member/dashboard')
     }
-    else{
+    else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
         header: 'Confirm',
@@ -159,7 +166,7 @@ export class ThreadDetailComponent implements OnInit, OnDestroy {
         accept: () => {
           this.router.navigateByUrl('/login/member')
         }
-      });
+      })
     }
   }
 

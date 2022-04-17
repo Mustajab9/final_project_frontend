@@ -1,14 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { InsertEnrollEventDtoReq } from 'projects/core/src/app/dto/enroll-event/insert-enroll-event-dto-req';
-import { GetByEventIdDtoDataRes } from 'projects/core/src/app/dto/event/get-by-event-id-dto-data-res';
-import { GetAllPaymentMethodDtoDataRes } from 'projects/core/src/app/dto/payment-method/get-all-payment-method-dto-data-res';
-import { EnrollEventService } from 'projects/core/src/app/service/enroll-event.service';
-import { EventService } from 'projects/core/src/app/service/event.service';
-import { LoadingService } from 'projects/core/src/app/service/loading.service';
-import { PaymentMethodService } from 'projects/core/src/app/service/payment-method.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+import { firstValueFrom, Subscription } from 'rxjs'
+
+import { InsertEnrollEventDtoReq } from '../../../../../../core/src/app/dto/enroll-event/insert-enroll-event-dto-req'
+import { GetByEventIdDtoDataRes } from '../../../../../../core/src/app/dto/event/get-by-event-id-dto-data-res'
+import { GetAllPaymentMethodDtoDataRes } from '../../../../../../core/src/app/dto/payment-method/get-all-payment-method-dto-data-res'
+import { EnrollEventService } from '../../../../../../core/src/app/service/enroll-event.service'
+import { EventService } from '../../../../../../core/src/app/service/event.service'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
+import { PaymentMethodService } from '../../../../../../core/src/app/service/payment-method.service'
 
 @Component({
   selector: 'app-enroll-save',

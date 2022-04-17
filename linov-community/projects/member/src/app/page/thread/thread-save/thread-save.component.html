@@ -20,10 +20,9 @@
                     <app-label 
                         forLabel="" classLabel="fw-bold" nameLabel="Create Thread">
                     </app-label>
-                    {{thread | json}}
 
                     <form #formThread="ngForm" (ngSubmit)="onSave()">
-                        <div class="d-flex flex-column mt-3">
+                        <div class="d-flex flex-column mt-3" *ngIf="roleCode != 'R03'">
                             <app-label forLabel="premium" nameLabel="Thread Premium"></app-label>
                             <p-inputSwitch [(ngModel)]="thread.isPremium" name="premium" id="premium"></p-inputSwitch>
                         </div>

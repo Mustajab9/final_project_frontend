@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ThreadSaveComponent } from './thread-save.component';
+import { ThreadSaveComponent } from './thread-save.component'
 
 describe('ThreadSaveComponent', () => {
-  let component: ThreadSaveComponent;
-  let fixture: ComponentFixture<ThreadSaveComponent>;
+  let component: ThreadSaveComponent
+  let fixture: ComponentFixture<ThreadSaveComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ThreadSaveComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ThreadSaveComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ThreadSaveComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

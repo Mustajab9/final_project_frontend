@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
-import { GetAllThreadDtoDataRes } from 'projects/core/src/app/dto/thread/get-all-thread-dto-data-res';
-import { EventService } from 'projects/core/src/app/service/event.service';
-import { LoginService } from 'projects/core/src/app/service/login.service';
-import { ThreadService } from 'projects/core/src/app/service/thread.service';
+import { Component, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
 import { Subscription, firstValueFrom } from 'rxjs'
+
+import { GetAllEventDtoDataRes } from '../../../../../../core/src/app/dto/event/get-all-event-dto-data-res'
+import { GetAllThreadDtoDataRes } from '../../../../../../core/src/app/dto/thread/get-all-thread-dto-data-res'
+import { EventService } from '../../../../../../core/src/app/service/event.service'
+import { LoginService } from '../../../../../../core/src/app/service/login.service'
+import { ThreadService } from '../../../../../../core/src/app/service/thread.service'
 
 @Component({
   selector: 'app-article-dashboard',

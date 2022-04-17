@@ -1,15 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { GetAllCategoryDtoDataRes } from 'projects/core/src/app/dto/category/get-all-category-dto-data-res';
-import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
-import { GetAllEventDtoRes } from 'projects/core/src/app/dto/event/get-all-event-dto-res';
-import { GetEventByCategoryDtoDataRes } from 'projects/core/src/app/dto/event/get-event-by-category-dto-data-res';
-import { CategoryService } from 'projects/core/src/app/service/category.service';
-import { EventService } from 'projects/core/src/app/service/event.service';
-import { LoadingService } from 'projects/core/src/app/service/loading.service';
-import { LoginService } from 'projects/core/src/app/service/login.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+import { firstValueFrom, Subscription } from 'rxjs'
+
+import { GetAllCategoryDtoDataRes } from '../../../../../core/src/app/dto/category/get-all-category-dto-data-res'
+import { GetAllEventDtoDataRes } from '../../../../../core/src/app/dto/event/get-all-event-dto-data-res'
+import { GetAllEventDtoRes } from '../../../../../core/src/app/dto/event/get-all-event-dto-res'
+import { GetEventByCategoryDtoDataRes } from '../../../../../core/src/app/dto/event/get-event-by-category-dto-data-res'
+import { CategoryService } from '../../../../../core/src/app/service/category.service'
+import { EventService } from '../../../../../core/src/app/service/event.service'
+import { LoadingService } from '../../../../../core/src/app/service/loading.service'
+import { LoginService } from '../../../../../core/src/app/service/login.service'
 
 @Component({
   selector: 'app-course',

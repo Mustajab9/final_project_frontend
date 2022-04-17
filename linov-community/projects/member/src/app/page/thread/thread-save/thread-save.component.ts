@@ -1,16 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
-import { GetAllCategoryDtoDataRes } from 'projects/core/src/app/dto/category/get-all-category-dto-data-res';
-import { GetAllThreadTypeDtoDataRes } from 'projects/core/src/app/dto/thread-type/get-all-thread-type-dto-data-res';
-import { InsertThreadDtoReq } from 'projects/core/src/app/dto/thread/insert-thread-dto-req';
-import { CategoryService } from 'projects/core/src/app/service/category.service';
-import { LoadingService } from 'projects/core/src/app/service/loading.service';
-import { LoginService } from 'projects/core/src/app/service/login.service';
-import { ThreadTypeService } from 'projects/core/src/app/service/thread-type.service';
-import { ThreadService } from 'projects/core/src/app/service/thread.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { firstValueFrom, Subscription } from 'rxjs'
+import { ConfirmationService } from 'primeng/api'
+
+import { GetAllCategoryDtoDataRes } from '../../../../../../core/src/app/dto/category/get-all-category-dto-data-res'
+import { GetAllThreadTypeDtoDataRes } from '../../../../../../core/src/app/dto/thread-type/get-all-thread-type-dto-data-res'
+import { InsertThreadDtoReq } from '../../../../../../core/src/app/dto/thread/insert-thread-dto-req'
+import { CategoryService } from '../../../../../../core/src/app/service/category.service'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
+import { LoginService } from '../../../../../../core/src/app/service/login.service'
+import { ThreadTypeService } from '../../../../../../core/src/app/service/thread-type.service'
+import { ThreadService } from '../../../../../../core/src/app/service/thread.service'
 
 @Component({
   selector: 'app-thread-save',
@@ -19,13 +21,14 @@ import { firstValueFrom, Subscription } from 'rxjs';
 })
 export class ThreadSaveComponent implements OnInit, OnDestroy {
 
-  type!: string;
-  uploadedFiles: any[] = [];
+  type!: string
+  uploadedFiles: any[] = []
   choices: string[] = []
   choice?: string
   writeType!: string
   isLogin: boolean = this.loginService.isLogin()
   isLoading: boolean = false
+  roleCode?: string = this.loginService.getData()?.data.roleCode
 
   thread: InsertThreadDtoReq = new InsertThreadDtoReq()
   threadCategories: GetAllCategoryDtoDataRes[] = []
@@ -38,13 +41,13 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
   constructor(private title: Title, private router: Router, private loadingService: LoadingService,
     private threadService: ThreadService, private categoryService: CategoryService,
     private threadTypeService: ThreadTypeService, private loginService: LoginService,
-    private activatedRoute: ActivatedRoute, private confirmationService: ConfirmationService ) {
+    private activatedRoute: ActivatedRoute, private confirmationService: ConfirmationService) {
 
     this.title.setTitle('Create Thread')
   }
 
   async ngOnInit() {
-    const {type} = await firstValueFrom(this.activatedRoute.params)
+    const { type } = await firstValueFrom(this.activatedRoute.params)
     this.writeType = type
 
     this.initData()
@@ -74,7 +77,7 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
   }
 
   async onSave() {
-    if(this.isLogin){
+    if (this.isLogin) {
       this.thread.categoryId = []
       for (let category of this.selectedCategory) {
         this.thread.categoryId.push(category.id!)
@@ -89,7 +92,7 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
 
       await firstValueFrom(this.threadService.insert(this.thread, this.uploadedFiles))
       this.onBack()
-    } 
+    }
     else {
       this.confirmationService.confirm({
         message: 'You Must Be Login First',
@@ -98,7 +101,7 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
         accept: () => {
           this.router.navigateByUrl('/login/member')
         }
-      });
+      })
     }
   }
 
@@ -126,14 +129,24 @@ export class ThreadSaveComponent implements OnInit, OnDestroy {
   }
 
   validateSubmit(): boolean {
-    if (!this.thread.threadTitle) return false
-    if (!this.thread.threadContent) return false
-    if (this.selectedCategory.length < 1) return false
-    if (!this.selectedType.id) return false
+    if (this.writeType == 'thread') {
+      if (!this.thread.threadTitle) return false
+      if (!this.thread.threadContent) return false
+      if (this.selectedCategory.length < 1) return false
+      if (!this.selectedType.id) return false
 
-    if (this.selectedType.typeCode == 'TY01') {
-      if (!this.thread.pollingName) return false
-      if (this.choices.length < 1) return false
+      if (this.selectedType.typeCode == 'TY01') {
+        if (!this.thread.pollingName) return false
+        if (this.choices.length < 1) return false
+      }
+
+      return true
+    } else if (this.writeType == 'article') {
+      if (!this.thread.threadTitle) return false
+      if (!this.thread.threadContent) return false
+      if (!this.selectedType.id) return false
+
+      return true
     }
 
     return true

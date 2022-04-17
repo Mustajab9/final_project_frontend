@@ -1,10 +1,11 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { SubscriptionComponent } from "./subscription.component";
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+
+import { SubscriptionComponent } from "./subscription.component"
 
 const routes: Routes = [
     {
-        path: 'subscription',
+        path: 'subscription/:type',
         component: SubscriptionComponent
     }
 ]

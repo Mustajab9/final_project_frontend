@@ -1,14 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
-import { UpdateEventDtoReq } from 'projects/core/src/app/dto/event/update-event-dto-req';
-import { EventService } from 'projects/core/src/app/service/event.service';
-import { LoginService } from 'projects/core/src/app/service/login.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { firstValueFrom } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { LazyLoadEvent } from 'primeng/api'
+import { Table } from 'primeng/table'
+
+import { GetAllEventDtoDataRes } from '../../../../../../core/src/app/dto/event/get-all-event-dto-data-res'
+import { UpdateEventDtoReq } from '../../../../../../core/src/app/dto/event/update-event-dto-req'
+import { EventService } from '../../../../../../core/src/app/service/event.service'
+import { LoginService } from '../../../../../../core/src/app/service/login.service'
 
 @Component({
   selector: 'app-event-list',
@@ -34,7 +37,7 @@ export class EventListComponent {
   }
 
   async getData(startPage: number = 0, maxPage: number = this.maxPage, query?: string): Promise<void> {
-    this.loading = true;
+    this.loading = true
 
     try {
       const resultAllEvent = await firstValueFrom(this.eventService.getAll(startPage, maxPage, query))
@@ -47,7 +50,7 @@ export class EventListComponent {
   }
 
   clear(table: Table): void {
-    table.clear();
+    table.clear()
   }
 
   filter(text: any): void {

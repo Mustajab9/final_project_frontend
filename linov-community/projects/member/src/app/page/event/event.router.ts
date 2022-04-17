@@ -1,10 +1,11 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { EventListComponent } from "./event-list/event-list.component";
-import { EnrollEventComponent } from "./enroll-event/enroll-event.component";
-import { EnrollSaveComponent } from "./enroll-save/enroll-save.component";
-import { EventSaveComponent } from "./event-save/event-save.component";
-import { ParticipantComponent } from "./participant/participant.component";
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+
+import { EventListComponent } from "./event-list/event-list.component"
+import { EnrollEventComponent } from "./enroll-event/enroll-event.component"
+import { EnrollSaveComponent } from "./enroll-save/enroll-save.component"
+import { EventSaveComponent } from "./event-save/event-save.component"
+import { ParticipantComponent } from "./participant/participant.component"
 
 const routes: Routes = [
     {

@@ -1,16 +1,5 @@
 <!-- Main Content -->
 <div class="card">
-    <p-toolbar styleClass="mb-4">
-        <ng-template pTemplate="left">
-        </ng-template>
-
-        <ng-template pTemplate="right">
-            <app-button classBtn="p-button-success me-2"  typeBtn="submit"
-                        labelBtn="Add" idBtn="add" iconType="pi-plus" routerLinkBtn="/admin/price-list-member/new">
-            </app-button>
-        </ng-template>
-    </p-toolbar>
-
     <!-- Table Content -->
     <p-table #dt [value]="data" [lazy]="true" (onLazyLoad)="loadData($event)" responsiveLayout="scroll"
             [paginator]="true" [rows]="maxPage" [totalRecords]="totalRecords" [loading]="loading"
@@ -19,7 +8,7 @@
 
         <ng-template pTemplate="caption">
             <div class="d-flex align-items-center justify-content-between">
-                <h5 class="m-0">Category List</h5>
+                <h5 class="m-0">Profile List</h5>
                 <span class="p-input-icon-left">
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
                 </span>

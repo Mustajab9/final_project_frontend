@@ -11,6 +11,8 @@ export class GetThreadByCategoryDtoDataRes {
 	choiceName!: string[]
 	countVote!: number[]
 	totalVote!: number
+	totalLike!: number
+	totalComment!: number
 	profileName!: string
 	profileImage!: string
 	version!: number

@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AccessGuard } from 'projects/core/src/app/guard/access.guard';
-import { AuthGuard } from 'projects/core/src/app/guard/auth.guard';
-import { NavbarComponent } from './page/navbar/navbar.component';
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+
+import { NavbarComponent } from './page/navbar/navbar.component'
+import { AccessGuard } from '../../../core/src/app/guard/access.guard'
+import { AuthGuard } from '../../../core/src/app/guard/auth.guard'
 
 const routes: Routes = [
     {

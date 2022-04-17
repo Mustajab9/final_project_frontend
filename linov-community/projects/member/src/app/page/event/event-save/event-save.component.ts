@@ -1,18 +1,18 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { GetAllCategoryDtoDataRes } from 'projects/core/src/app/dto/category/get-all-category-dto-data-res';
-import { GetAllEventTypeDtoDataRes } from 'projects/core/src/app/dto/event-type/get-all-event-type-dto-data-res';
-import { InsertEventDtoReq } from 'projects/core/src/app/dto/event/insert-event-dto-req';
-import { CategoryService } from 'projects/core/src/app/service/category.service';
-import { EventTypeService } from 'projects/core/src/app/service/event-type.service';
-import { EventService } from 'projects/core/src/app/service/event.service';
-import { LoadingService } from 'projects/core/src/app/service/loading.service';
-import { insertEventAction } from 'projects/core/src/app/state/event/event.action';
-import { eventSelectorInsert } from 'projects/core/src/app/state/event/event.selector';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+
+import { firstValueFrom, Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+
+import { GetAllCategoryDtoDataRes } from '../../../../../../core/src/app/dto/category/get-all-category-dto-data-res'
+import { GetAllEventTypeDtoDataRes } from '../../../../../../core/src/app/dto/event-type/get-all-event-type-dto-data-res'
+import { InsertEventDtoReq } from '../../../../../../core/src/app/dto/event/insert-event-dto-req'
+import { CategoryService } from '../../../../../../core/src/app/service/category.service'
+import { EventTypeService } from '../../../../../../core/src/app/service/event-type.service'
+import { EventService } from '../../../../../../core/src/app/service/event.service'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
 
 @Component({
   selector: 'app-event-save',
@@ -54,19 +54,19 @@ export class EventSaveComponent implements OnInit, OnDestroy {
   }
 
   getDate() {
-    let dateStart = this.datePipe.transform(this.rangeDates[0], 'y-MM-dd');
-    let dateEnd = this.datePipe.transform(this.rangeDates[1], 'y-MM-dd');
+    let dateStart = this.datePipe.transform(this.rangeDates[0], 'y-MM-dd')
+    let dateEnd = this.datePipe.transform(this.rangeDates[1], 'y-MM-dd')
     this.data.eventDateStart = dateStart
     this.data.eventDateEnd = dateEnd
   }
 
   getTimeStart() {
-    let timeStart = this.datePipe.transform(this.timeStart, 'h:mm:ss');
+    let timeStart = this.datePipe.transform(this.timeStart, 'h:mm:ss')
     this.data.eventTimeStart = timeStart
   }
 
   getTimeEnd() {
-    let timeEnd = this.datePipe.transform(this.timeEnd, 'h:mm:ss');
+    let timeEnd = this.datePipe.transform(this.timeEnd, 'h:mm:ss')
     this.data.eventTimeEnd = timeEnd
   }
 

@@ -38,7 +38,10 @@ export class RegencyUpdateComponent implements OnInit, OnDestroy {
     this.activatedRouteSubscription = this.activatedRoute.params.subscribe(result => {
       const id = (result as any).id
       this.getByRegencyIdSubscription = this.store.select(regencySelectorById(id)).subscribe(result => {
+        this.data.id = result.id
         this.data.regencyName = result.regancyName
+        this.data.version = result.version
+        this.data.isActive = result.isActive
       })
     })
   }

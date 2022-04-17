@@ -1,14 +1,16 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http'
-import { AppComponent } from './app.component';
-import { AppLoginRouter } from './app.router';
-import { ComponentModule } from '../../../core/src/app/component/components.module';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { NgModule } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { BrowserModule } from '@angular/platform-browser'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
+import { StoreModule } from '@ngrx/store'
+import { EffectsModule } from '@ngrx/effects'
+
+import { AppLoginRouter } from './app.router'
+import { AppComponent } from './app.component'
+import { ComponentModule } from '../../../core/src/app/component/components.module'
 
 @NgModule({
   declarations: [

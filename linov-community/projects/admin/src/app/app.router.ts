@@ -4,7 +4,7 @@ import { RouterModule, Routes } from "@angular/router"
 import { NavfootComponent } from "./pages/navfoot/navfoot.component"
 import { NavfootModule } from "./pages/navfoot/navfoot.module"
 import { AccessGuard } from "../../../core/src/app/guard/access.guard"
-import { AuthGuard } from "projects/core/src/app/guard/auth.guard"
+import { AuthGuard } from "../../../core/src/app/guard/auth.guard"
 
 const routes: Routes = [
     {

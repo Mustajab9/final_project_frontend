@@ -36,19 +36,21 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="assets/image/undraw_profile_pic.svg" class="rounded-circle" style="width: 30px; height: 30px;">
-                        <!-- <i class="fa-solid fa-user"></i> -->
+                        <img *ngIf="profileByUser.profileImageId" src="http://localhost:8080/attachments/{{profileByUser.profileImageId}}" alt="Profile Image" style="width: 30px; height: 30px;" class="rounded-circle">
+                        <img *ngIf="!profileByUser.profileImageId" src="assets/image/undraw_profile_pic.svg" style="width: 30px; height: 30px;">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-light"
                         aria-labelledby="navbarDarkDropdownMenuLink">
                         <li>
                             <a class="d-flex flex-row align-items-center gap-2 ms-2 mb-1" routerLink="/member/thread">
-                                <img src="assets/image/undraw_profile_pic.svg" style="width: 30px; height: 30px;">
+                                <img *ngIf="profileByUser.profileImageId" src="http://localhost:8080/attachments/{{profileByUser.profileImageId}}" alt="Profile Image" style="width: 30px; height: 30px;" class="rounded-circle">
+                                <img *ngIf="!profileByUser.profileImageId" src="assets/image/undraw_profile_pic.svg" style="width: 30px; height: 30px;">
                                 <app-label classLabel="" nameLabel="{{profileByUser.profileName}}"></app-label>
                             </a>
                         </li>
 
                         <li><a class="dropdown-item" routerLink="/member/profile-update">Setting</a></li>
+                        <li *ngIf="roleCode == 'R01'"><a class="dropdown-item" routerLink="/admin/dashboard">Admin Page</a></li>
                         <li><a class="dropdown-item" (click)="onClick()">Log Out</a></li>
                     </ul>
                 </li>

@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
-import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
-import { CheckOutService } from 'projects/core/src/app/service/checkout.service';
-import { EventService } from 'projects/core/src/app/service/event.service';
-import { LoginService } from 'projects/core/src/app/service/login.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+import { firstValueFrom, Subscription } from 'rxjs'
+
+import { GetAllEventDtoDataRes } from '../../../../../../core/src/app/dto/event/get-all-event-dto-data-res'
+import { CheckOutService } from '../../../../../../core/src/app/service/checkout.service'
+import { EventService } from '../../../../../../core/src/app/service/event.service'
+import { LoginService } from '../../../../../../core/src/app/service/login.service'
 
 @Component({
   selector: 'app-cart-list',
@@ -16,7 +16,7 @@ import { firstValueFrom, Subscription } from 'rxjs';
 export class CartListComponent implements OnInit {
 
   data: GetAllEventDtoDataRes[] = []
-  selectedEvent: GetAllEventDtoDataRes[] = [];
+  selectedEvent: GetAllEventDtoDataRes[] = []
 
   userId?: string = this.loginService.getData()?.data.id
 
@@ -38,7 +38,7 @@ export class CartListComponent implements OnInit {
 
   onSubmit() {
     this.checkoutService.addCart(this.selectedEvent)
-    this.router.navigateByUrl('member/cart-checkout')
+    this.router.navigateByUrl('member/cart/checkout')
   }
 
 }

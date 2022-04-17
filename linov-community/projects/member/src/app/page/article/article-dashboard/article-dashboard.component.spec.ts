@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ArticleDashboardComponent } from './article-dashboard.component';
+import { ArticleDashboardComponent } from './article-dashboard.component'
 
 describe('ArticleDashboardComponent', () => {
-  let component: ArticleDashboardComponent;
-  let fixture: ComponentFixture<ArticleDashboardComponent>;
+  let component: ArticleDashboardComponent
+  let fixture: ComponentFixture<ArticleDashboardComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ArticleDashboardComponent ]
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ArticleDashboardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ArticleDashboardComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

@@ -1,6 +1,7 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { ProfileUpdateComponent } from "./profile-update.component";
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+
+import { ProfileUpdateComponent } from "./profile-update.component"
 
 const routes : Routes = [
     {

@@ -1,14 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
-import { InsertPaymentEventDtoReq } from 'projects/core/src/app/dto/payment-event/insert-payment-event-dto-req';
-import { GetAllPaymentMethodDtoDataRes } from 'projects/core/src/app/dto/payment-method/get-all-payment-method-dto-data-res';
-import { CheckOutService } from 'projects/core/src/app/service/checkout.service';
-import { LoadingService } from 'projects/core/src/app/service/loading.service';
-import { PaymentEventService } from 'projects/core/src/app/service/payment-event.service';
-import { PaymentMethodService } from 'projects/core/src/app/service/payment-method.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+import { firstValueFrom, Subscription } from 'rxjs'
+
+import { GetAllEventDtoDataRes } from '../../../../../../core/src/app/dto/event/get-all-event-dto-data-res'
+import { InsertPaymentEventDtoReq } from '../../../../../../core/src/app/dto/payment-event/insert-payment-event-dto-req'
+import { GetAllPaymentMethodDtoDataRes } from '../../../../../../core/src/app/dto/payment-method/get-all-payment-method-dto-data-res'
+import { CheckOutService } from '../../../../../../core/src/app/service/checkout.service'
+import { LoadingService } from '../../../../../../core/src/app/service/loading.service'
+import { PaymentEventService } from '../../../../../../core/src/app/service/payment-event.service'
+import { PaymentMethodService } from '../../../../../../core/src/app/service/payment-method.service'
 
 @Component({
   selector: 'app-cart-checkout',

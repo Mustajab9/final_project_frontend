@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 import { DeleteBySubscriptionIdDtoRes } from '../dto/subscription/delete-by-subscription-id-dto-res'
 import { GetAllSubscriptionDtoRes } from '../dto/subscription/get-all-subscription-dto-res'
 import { GetBySubscriptionIdDtoRes } from '../dto/subscription/get-by-subscription-id-dto-res'
+import { GetByUserIdDtoRes } from '../dto/subscription/get-by-user-id-dto-res'
 import { InsertSubscriptionDtoReq } from '../dto/subscription/insert-subscription-dto-req'
 import { InsertSubscriptionDtoRes } from '../dto/subscription/insert-subscription-dto-res'
 import { UpdateSubscriptionDtoReq } from '../dto/subscription/update-subscription-dto-req'
@@ -31,6 +32,10 @@ export class SubscriptionService {
 
     getById(id: string): Observable<GetBySubscriptionIdDtoRes> {
         return this.http.get<GetBySubscriptionIdDtoRes>(`http://localhost:8080/subscriptions/${id}`)
+    }
+
+    getByUser(id?: string): Observable<GetByUserIdDtoRes> {
+        return this.http.get<GetByUserIdDtoRes>(`http://localhost:8080/subscriptions/user/${id}`)
     }
 
     insert(insertReq: InsertSubscriptionDtoReq): Observable<InsertSubscriptionDtoRes> {

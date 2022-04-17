@@ -1,26 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
-import { InsertBookmarkDtoReq } from 'projects/core/src/app/dto/bookmark/insert-bookmark-dto-req';
-import { GetAllCategoryDtoDataRes } from 'projects/core/src/app/dto/category/get-all-category-dto-data-res';
-import { InsertChoiceVoteDtoReq } from 'projects/core/src/app/dto/choice-vote/insert-choice-vote-dto-req';
-import { GetAllEventDtoDataRes } from 'projects/core/src/app/dto/event/get-all-event-dto-data-res';
-import { GetAllEventDtoRes } from 'projects/core/src/app/dto/event/get-all-event-dto-res';
-import { GetProfileByUserDtoDataRes } from 'projects/core/src/app/dto/profiles/get-profile-by-user-dto-data-res';
-import { InsertThreadLikeDtoReq } from 'projects/core/src/app/dto/thread-like/insert-thread-like-dto-req';
-import { GetAllThreadDtoDataRes } from 'projects/core/src/app/dto/thread/get-all-thread-dto-data-res';
-import { GetAllThreadDtoRes } from 'projects/core/src/app/dto/thread/get-all-thread-dto-res';
-import { BookmarkService } from 'projects/core/src/app/service/bookmark.service';
-import { CategoryService } from 'projects/core/src/app/service/category.service';
-import { ChoiceVoteService } from 'projects/core/src/app/service/choice-vote.service';
-import { EventService } from 'projects/core/src/app/service/event.service';
-import { LoadingService } from 'projects/core/src/app/service/loading.service';
-import { LoginService } from 'projects/core/src/app/service/login.service';
-import { ProfilesService } from 'projects/core/src/app/service/profiles.service';
-import { ThreadLikeService } from 'projects/core/src/app/service/thread-like.service';
-import { ThreadService } from 'projects/core/src/app/service/thread.service';
-import { Subscription, firstValueFrom, first } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+import { Subscription, firstValueFrom } from 'rxjs'
+import { ConfirmationService } from 'primeng/api'
+
+import { InsertBookmarkDtoReq } from '../../../../../core/src/app/dto/bookmark/insert-bookmark-dto-req'
+import { GetAllCategoryDtoDataRes } from '../../../../../core/src/app/dto/category/get-all-category-dto-data-res'
+import { InsertChoiceVoteDtoReq } from '../../../../../core/src/app/dto/choice-vote/insert-choice-vote-dto-req'
+import { GetAllEventDtoDataRes } from '../../../../../core/src/app/dto/event/get-all-event-dto-data-res'
+import { GetAllEventDtoRes } from '../../../../../core/src/app/dto/event/get-all-event-dto-res'
+import { InsertThreadLikeDtoReq } from '../../../../../core/src/app/dto/thread-like/insert-thread-like-dto-req'
+import { GetAllThreadDtoDataRes } from '../../../../../core/src/app/dto/thread/get-all-thread-dto-data-res'
+import { GetAllThreadDtoRes } from '../../../../../core/src/app/dto/thread/get-all-thread-dto-res'
+import { BookmarkService } from '../../../../../core/src/app/service/bookmark.service'
+import { CategoryService } from '../../../../../core/src/app/service/category.service'
+import { ChoiceVoteService } from '../../../../../core/src/app/service/choice-vote.service'
+import { EventService } from '../../../../../core/src/app/service/event.service'
+import { LoadingService } from '../../../../../core/src/app/service/loading.service'
+import { LoginService } from '../../../../../core/src/app/service/login.service'
+import { ThreadLikeService } from '../../../../../core/src/app/service/thread-like.service'
+import { ThreadService } from '../../../../../core/src/app/service/thread.service'
 
 @Component({
   selector: 'app-dashboard',
@@ -48,7 +47,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   roleCode = this.loginService.getData()?.data.roleCode
 
   isLogin: boolean = this.loginService.isLogin()
-  blockedPanel: boolean = false;
+  blockedPanel: boolean = false
 
   constructor(private title: Title, private router: Router,
     private threadService: ThreadService, private threadLikeService: ThreadLikeService,
@@ -74,7 +73,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         numVisible: 1,
         numScroll: 1
       }
-    ];
+    ]
   }
 
   ngOnInit(): void {
@@ -88,10 +87,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     let resultAllThread: GetAllThreadDtoRes
     let resultAllEvent: GetAllEventDtoRes
-    if (this.isLogin) { 
+    if (this.isLogin) {
       resultAllThread = await firstValueFrom(this.threadService.getAll(this.initialPage, this.maxPage))
       resultAllEvent = await firstValueFrom(this.eventService.getAll())
-      
+
     } else {
       resultAllThread = await firstValueFrom(this.threadService.getAllNl(this.initialPage, this.maxPage))
       resultAllEvent = await firstValueFrom(this.eventService.getAllNl())
@@ -103,7 +102,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       return comp.typeCode == 'TY01' || comp.typeCode == 'TY02'
     })
 
-    this.events = resultAllEvent.data.slice(0,2)
+    this.events = resultAllEvent.data.slice(0, 2)
 
     const resultAllCategory = await firstValueFrom(this.categoryService.getAll())
     this.categories = resultAllCategory.data
@@ -115,9 +114,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   async onCategory(id: string[]) {
     let resultAllThreadByCategory: GetAllThreadDtoRes
-    if(this.isLogin){
+    if (this.isLogin) {
       resultAllThreadByCategory = await firstValueFrom(this.threadService.getByCategory(id))
-    }else{
+    } else {
       resultAllThreadByCategory = await firstValueFrom(this.threadService.getByCategoryNl(id))
     }
 
@@ -151,7 +150,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         accept: () => {
           this.router.navigateByUrl('/login/member')
         }
-      });
+      })
     }
   }
 
@@ -181,7 +180,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         accept: () => {
           this.router.navigateByUrl('/login/member')
         }
-      });
+      })
     }
   }
 
@@ -196,7 +195,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         accept: () => {
           this.router.navigateByUrl('/login/member')
         }
-      });
+      })
     }
   }
 
@@ -216,7 +215,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         accept: () => {
           this.router.navigateByUrl('/login/member')
         }
-      });
+      })
     }
   }
 

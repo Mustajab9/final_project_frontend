@@ -36,7 +36,7 @@
                         <div class="row">
                             <div class="col-6 d-flex align-items-center">
                                 <img *ngIf="!thread.profileImage" src="assets/image/undraw_profile_pic.svg" class="me-2" style="height: 35px; width: 35px;">
-                                <img *ngIf="thread.profileImage" src="http://localhost:8080/attachments/{{thread.profileImage}}" class="me-2" style="height: 35px; width: 35px;">
+                                <img *ngIf="thread.profileImage" src="http://localhost:8080/attachments/{{thread.profileImage}}" class="me-2" style="height: 35px; width: 35px;"  class="rounded-circle">
                                 <app-label class="align-self-center" nameLabel="{{thread.profileName}}"></app-label>
                             </div>
 
@@ -46,8 +46,8 @@
                             </div>
                         </div>
 
-                        <p-blockUI *ngIf="thread.isPremium && roleCode == 'R03'" [target]="pnl" [blocked]="thread.isPremium">
-                            <a routerLink="/member/subscription"><i class="pi pi-lock" style="font-size: 3rem; color: #323232;"></i></a>
+                        <p-blockUI *ngIf="thread.isPremium && roleCode == 'R03' || thread.isPremium && !isLogin" [target]="pnl" [blocked]="thread.isPremium">
+                            <a routerLink="/member/subscription/new"><i class="pi pi-lock" style="font-size: 3rem; color: #323232;"></i></a>
                         </p-blockUI>
 
                         <p-panel class="mt-4" #pnl [showHeader]="false">
@@ -58,7 +58,7 @@
                                 </p>
                             </div>
 
-                            <p-carousel *ngIf="thread.attachmentId && thread.attachmentId.length>0"
+                            <p-carousel *ngIf="thread.attachmentId && thread.attachmentId.length>0 && (!thread.isPremium && roleCode == 'R03' || !thread.isPremium && !isLogin)"
                                 [value]="thread.attachmentId" [numVisible]="1" [numScroll]="1" [circular]="false"
                                 [responsiveOptions]="responsiveOptions">
                                 <ng-template let-attachment pTemplate="item">
@@ -73,7 +73,7 @@
                                 </ng-template>
                             </p-carousel>
 
-                            <div *ngIf="thread.typeCode == 'TY01'" class="card text-color border-secondary">
+                            <div *ngIf="thread.typeCode == 'TY01' && (!thread.isPremium && roleCode == 'R03' || !thread.isPremium && !isLogin)" class="card text-color border-secondary">
                                 <div class="card-body d-flex flex-column gap-2">
                                     <app-label nameLabel="{{thread.pollingName}}"></app-label>
                                     <div *ngFor="let choice of thread.choices">
@@ -96,7 +96,7 @@
                             </div>
                         </p-panel>
 
-                        <div class="">
+                        <div *ngIf="(!thread.isPremium && roleCode == 'R03' || !thread.isPremium && !isLogin)">
                             <button pButton [loading]="this.isLoading" (click)="onLike(thread.id, thread.isLiked)" class="p-button-text">
                                 <i *ngIf="thread.isLiked == false" class="fa-regular fa-heart me-2"></i>
                                 <i *ngIf="thread.isLiked == true" class="fa-solid fa-heart me-2"></i>

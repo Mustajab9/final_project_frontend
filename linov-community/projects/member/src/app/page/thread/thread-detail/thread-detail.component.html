@@ -6,9 +6,6 @@
                     <i class="fa-solid fa-comment me-4"></i>
                     <span class="fs-5 fw-bold" style="color: #323232;">Thread & Discuss</span>
                 </div>
-                <div class="col text-end">
-                    <app-button classBtn="text-end" labelBtn="Write Thread" iconType="pi-pencil"></app-button>
-                </div>
             </div>
 
             <div class="card">
@@ -16,7 +13,7 @@
                     <div class="row">
                         <div class="col-6 d-flex align-items-center">
                             <img *ngIf="!threadById.profileImage" src="assets/image/undraw_profile_pic.svg" class="me-2" style="height: 40px; width: 40px;">
-                            <img *ngIf="threadById.profileImage" src="http://localhost:8080/attachments/{{threadById.attachmentId}}" class="me-2" style="height: 40px; width: 40px;">
+                            <img *ngIf="threadById.profileImage" src="http://localhost:8080/attachments/{{threadById.profileImage}}" class="me-2 rounded-circle" style="height: 40px; width: 40px;">
                             <app-label class="align-self-center" nameLabel="{{threadById.profileName}}"></app-label>
                         </div>
 
@@ -59,7 +56,7 @@
                     </div>
 
                     <div class="text-end">
-                        <a pButton [loading]="this.isLoading" (click)="onLike(threadById.id, threadById.isLiked)" class="me-2">
+                        <a (click)="onLike(threadById.id, threadById.isLiked)" class="btn me-2">
                             <i *ngIf="threadById.isLiked == false" class="fa-regular fa-heart"></i>
                             <i *ngIf="threadById.isLiked == true" class="fa-solid fa-heart"></i>
                             {{threadById.totalLike}}
@@ -70,7 +67,7 @@
                             {{threadById.totalComment}}
                         </a>
 
-                        <a pButton [loading]="this.isLoading" (click)="onBookmark(threadById.id, threadById.isBookmarked)" class="me-2">
+                        <a (click)="onBookmark(threadById.id, threadById.isBookmarked)" class="btn me-2">
                             <i *ngIf="threadById.isBookmarked == false" class="fa-regular fa-bookmark"></i>
                             <i *ngIf="threadById.isBookmarked == true" class="fa-solid fa-bookmark"></i>
                         </a>
@@ -107,7 +104,7 @@
                     <div class="d-flex gap-3">
                         <img *ngIf="!threadById.attachmentId" src="assets/image/undraw_profile_pic.svg" class="mb-3"
                                 style="height: 90px; width: 90px;">
-                        <img *ngIf="threadById.attachmentId" src="http://localhost:8080/attachments/{{threadById.attachmentId}}" class="align-self-top"
+                        <img *ngIf="threadById.attachmentId" src="http://localhost:8080/attachments/{{threadById.profileImage}}" class="align-self-top rounded-circle"
                             style="height: 40px; width: 40px;">
                         <app-label class="align-self-center" nameLabel="{{threadById.profileName}}"></app-label>
                     </div>
@@ -119,25 +116,27 @@
             </div>
         </div>
 
-        <div class="col-sm-3">
+        <!-- <div class="col-sm-3">
             <div class="my-4">
                 <i class="fa-solid fa-link me-3"></i>
                 <span class="fs-5 fw-bold" style="color: #323232;">Related Threads</span>
             </div>
 
             <div class="card">
-                <div class="card-body">
-                    <app-label classLabel="p-2 bg-light rounded-pill text-end" nameLabel="Category"></app-label>
+                <div class="card-body mb-3" *ngFor="let thread of threadByCategory;">
+                    <div class="col-6 text-end">
+                        <app-label *ngFor="let category of thread.categoryName" classLabel="p-2 bg-light rounded-pill text-end" nameLabel="{{thread.categoryName}}"></app-label>
+                    </div>
                     <div class="mt-4">
-                        <h6 class="fw-bold">Thread Title</h6>
+                        <h6 class="fw-bold">{{thread.threadTitle}}</h6>
                     </div>
 
                     <div class="mt-4">
-                        <i class="fa-regular fa-heart me-4"><span> 100</span></i>
-                        <i class="fa-regular fa-message"><span> 100</span></i>
+                        <i class="fa-regular fa-heart me-4"><span>{{thread.totalLike}}</span></i>
+                        <i class="fa-regular fa-message"><span> {{thread.totalComment}}</span></i>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>

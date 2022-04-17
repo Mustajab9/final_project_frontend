@@ -1,14 +1,16 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { CourseRouter } from "./course.router";
-import { ComponentModule } from "projects/core/src/app/component/components.module";
-import { ButtonModule } from "primeng/button";
-import { TabViewModule } from 'primeng/tabview';
-import { ChartModule } from 'primeng/chart';
-import { ListboxModule } from 'primeng/listbox';
-import { ToolbarModule } from "primeng/toolbar";
-import { CourseComponent } from "./course.component";
+import { CommonModule } from "@angular/common"
+import { NgModule } from "@angular/core"
+import { FormsModule } from "@angular/forms"
+
+import { ButtonModule } from "primeng/button"
+import { ChartModule } from 'primeng/chart'
+import { ListboxModule } from 'primeng/listbox'
+import { TabViewModule } from 'primeng/tabview'
+import { ToolbarModule } from "primeng/toolbar"
+
+import { CourseRouter } from "./course.router"
+import { CourseComponent } from "./course.component"
+import { ComponentModule } from "../../../../../core/src/app/component/components.module"
 
 @NgModule({
     declarations: [
