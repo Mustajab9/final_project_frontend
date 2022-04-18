@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
-import { GetProfileSosmedBySosialMediaAndUserDtoDataRes } from 'projects/core/src/app/dto/profile-sosmed/get-profile-sosmed-by-sosial-media-and-user-dto-data-res'
 import { Subscription } from 'rxjs'
 
 import { GetAllIndustryDtoDataRes } from '../../../../../../core/src/app/dto/industry/get-all-industry-dto-data-res'
@@ -52,7 +51,6 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
 
   subscriptions: GetAllSubscriptionDtoDataRes[] = []
   profileSosmed: GetProfileSosmedByUserDtoDataRes[] = []
-  profileSosmedByUser: GetProfileSosmedBySosialMediaAndUserDtoDataRes = new GetProfileSosmedBySosialMediaAndUserDtoDataRes()
   provinces: GetAllProvinceDtoDataRes[] = []
   regencies: GetAllRegencyDtoDataRes[] = []
   industries: GetAllIndustryDtoDataRes[] = []
@@ -144,10 +142,6 @@ export class ProfileUpdateComponent implements OnInit, OnDestroy {
         this.data.version = result.data?.version
       }
     })
-
-    // this.profileSosmedService.getBySosmedAndUser(id).subscribe(result => {
-    //   this.profileSosmedByUser = result.data
-    // })
   }
 
   onBasicUpload(event: any) {

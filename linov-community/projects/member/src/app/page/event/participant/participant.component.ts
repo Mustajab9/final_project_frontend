@@ -53,6 +53,7 @@ export class ParticipantComponent implements OnInit, OnDestroy {
     const resultById = await firstValueFrom(this.eventService.getById(id))
     if (resultById) {
       this.eventData = resultById.data
+      this.eventData.id = id
     }
   }
 

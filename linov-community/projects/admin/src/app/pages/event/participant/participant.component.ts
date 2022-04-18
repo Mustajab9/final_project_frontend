@@ -46,8 +46,8 @@ export class ParticipantComponent implements OnInit {
 
     const resultEventById = await firstValueFrom(this.eventService.getById(id))
     if (resultEventById) {
-      this.eventData.id = id
       this.eventData = resultEventById.data
+      this.eventData.id = id
     }
   }
 
