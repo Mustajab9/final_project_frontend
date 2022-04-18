@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { Router } from '@angular/router'
+import { GetAllThreadDtoRes } from 'projects/core/src/app/dto/thread/get-all-thread-dto-res'
 import { Subscription, firstValueFrom } from 'rxjs'
 
 import { GetAllEventDtoDataRes } from '../../../../../../core/src/app/dto/event/get-all-event-dto-data-res'
@@ -19,6 +20,8 @@ export class ArticleDashboardComponent implements OnInit {
   articles: GetAllThreadDtoDataRes[] = []
   events: GetAllEventDtoDataRes[] = []
   isLogin: boolean = this.loginService.isLogin()
+  initialPage: number = 0
+  maxPage: number = 10
 
   constructor(private title: Title, private router: Router,
     private threadService: ThreadService, private loginService: LoginService,
@@ -54,5 +57,18 @@ export class ArticleDashboardComponent implements OnInit {
 
   showText(index: number): void {
     this.articles[index].isReadMore = !this.articles[index].isReadMore
+  }
+
+  async onScroll(): Promise<void> {
+    let resultAllArticle: GetAllThreadDtoRes
+    if (this.isLogin) {
+      this.initialPage = this.initialPage + 10
+      resultAllArticle = await firstValueFrom(this.threadService.getAll(this.initialPage, this.maxPage))
+    } else {
+      this.initialPage = this.initialPage + 10
+      resultAllArticle = await firstValueFrom(this.threadService.getAllNl(this.initialPage, this.maxPage))
+    }
+
+    this.articles = [...this.articles, ...resultAllArticle.data.filter(comp => comp.typeCode == 'TY01' || comp.typeCode == 'TY02')]
   }
 }
